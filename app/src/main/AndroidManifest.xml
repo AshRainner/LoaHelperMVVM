@@ -27,6 +27,8 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
+        <activity android:name=".RaidActivity"></activity>
+        <activity android:name=".RaidDetailActivity"></activity>
     </application>
 
 </manifest>

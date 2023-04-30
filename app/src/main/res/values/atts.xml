@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="HomeButtonViewAttr">
+        <attr name = "buttonText" format="reference|string"/>
+        <attr name = "buttonImageSrc" format="reference|integer"/>
+    </declare-styleable>
+    <declare-styleable name="RaidButtonViewAttr">
+        <attr name = "raidButtonText" format="reference|string"/>
+        <attr name = "raidButtonImageSrc" format="reference|integer"/>
+    </declare-styleable>
+</resources>

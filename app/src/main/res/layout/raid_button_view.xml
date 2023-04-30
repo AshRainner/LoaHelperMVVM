@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:id="@+id/raid_button_layout"
+    android:orientation="vertical">
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/raid_meterial_card"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="15dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <ImageView
+                android:id="@+id/raid_button_image"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_gravity="center"
+                android:src="@drawable/valtan"
+                android:scaleType="fitXY"></ImageView>
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <Button
+        android:layout_below="@id/raid_meterial_card"
+        android:id="@+id/raid_button"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:background="#00ff0000"
+        android:layout_gravity="center"
+        android:text="발탄"
+        android:textColor="@color/black"
+        android:textSize="9pt"
+        android:textStyle="bold">
+    </Button>
+</RelativeLayout>

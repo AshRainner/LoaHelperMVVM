@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/home_button_layout">
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/home_meterial_card"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:cardBackgroundColor="#B1B1B1"
+        app:cardCornerRadius="15dp">
+
+        <ImageView
+            android:id="@+id/home_button_image"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center|left"
+            android:layout_marginLeft="5dp"
+            android:src="@drawable/raid_icon"></ImageView>
+
+            <Button
+                android:id="@+id/home_button"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:background="#00ff0000"
+                android:gravity="center|left"
+                android:paddingLeft="55dp"
+                android:text="레이드\n컨닝페이퍼"
+                android:textColor="@color/black"
+                android:textSize="9pt"
+                android:textStyle="bold"></Button>
+    </com.google.android.material.card.MaterialCardView>
+</LinearLayout>
