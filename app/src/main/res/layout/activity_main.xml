@@ -78,4 +78,13 @@
                 app:buttonImageSrc="@drawable/mokoko_icon">
             </com.lostark.customview.HomeButtonView>
         </GridLayout>
+    <Button
+        android:id="@+id/apiTestButton"
+        android:text="테스트"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"></Button>
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/event_image_slider"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"></androidx.viewpager2.widget.ViewPager2>
 </LinearLayout>
