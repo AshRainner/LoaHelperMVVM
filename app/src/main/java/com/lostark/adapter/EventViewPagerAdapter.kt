@@ -2,7 +2,6 @@ package com.lostark.adapter
 
 import android.content.Intent
 import android.net.Uri
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,7 +12,6 @@ import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.lostark.dto.EventDTO
 import com.lostark.loahelper.R
-import com.lostark.loahelper.RaidActivity
 
 class EventViewPagerAdapter(val eventList: MutableList<EventDTO>, val viewPager2: ViewPager2) :
     RecyclerView.Adapter<EventViewPagerAdapter.ViewHolder>() {

@@ -16,3 +16,14 @@ data class EventDTO(
     @SerializedName("RewardDate")
     val rewardDate: String//date-time default: null
 )
+
+data class NoticeDTO(
+    @SerializedName("Title")
+    val title: String,
+    @SerializedName("Date")
+    val date: String,
+    @SerializedName("Link")
+    val link: String,
+    @SerializedName("Type")
+    val type: String
+)
