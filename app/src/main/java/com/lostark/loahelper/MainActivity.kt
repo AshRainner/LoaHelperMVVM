@@ -25,15 +25,13 @@ class MainActivity : AppCompatActivity() {
         var craftButton = findViewById<HomeButtonView>(R.id.home_craft_button)
         var dailyButton = findViewById<HomeButtonView>(R.id.home_daily_button)
         var engravingButton = findViewById<HomeButtonView>(R.id.home_engraving_button)
-        var upadateButton = findViewById<HomeButtonView>(R.id.home_update_button)
+        var noticeButton = findViewById<HomeButtonView>(R.id.home_notice_button)
         var mokokoButton = findViewById<HomeButtonView>(R.id.home_mokoko_button)
         var testButton = findViewById<Button>(R.id.apiTestButton)
         val call = LoaRetrofitObj.getRetrofitService().getEvent(ACCEPT,KEY)
         call.enqueue(object : retrofit2.Callback<MutableList<EventDTO>>{
             override fun onResponse(call: Call<MutableList<EventDTO>>, response: Response<MutableList<EventDTO>>) {
-                Log.d(response.body().toString(),"F")
                 if(response.isSuccessful){
-                    Log.d(response.body().toString(),"ASDF")
                     val eventList: MutableList<EventDTO> = response.body()!!
 
                     eventList?.forEach{//엘비스 연산 list가 null이 아니면 forEach실행 null일시 뒤에 있는 log.d실행
@@ -47,31 +45,9 @@ class MainActivity : AppCompatActivity() {
                 Log.d("오류",t.toString())
             }
         })
-
-        /*testButton.setOnClickListener(View.OnClickListener {
-            Log.d("눌림","눌림")
-            val call = LoaRetrofitObj.getRetrofitService().getEvent(ACCEPT,KEY)
-            call.enqueue(object : retrofit2.Callback<List<EventDTO>>{
-                override fun onResponse(call: Call<List<EventDTO>>, response: Response<List<EventDTO>>) {
-                    Log.d(response.body().toString(),"F")
-                    if(response.isSuccessful){
-                        Log.d(response.body().toString(),"ASDF")
-                        val eventList: List<EventDTO>? = response.body()
-                        var linkList: MutableList<String> = mutableListOf()
-                        eventList?.forEach{//엘비스 연산 list가 null이 아니면 forEach실행 null일시 뒤에 있는 log.d실행
-                            Log.d("타이틀 : ", it.title)
-                            linkList.add(it.thumbnail)
-                        } ?: Log.d("이벤트 없음","진행중인 이벤트 없음")
-                    }
-                }
-
-                override fun onFailure(call: Call<List<EventDTO>>, t: Throwable) {
-                    Log.d("오류",t.toString())
-                }
-            })
-        })*/
-
         raidButton.ClickEvent(Intent(this,RaidActivity::class.java))
+        noticeButton.ClickEvent(Intent(this,NoticeActivity::class.java))
+
     }
 
 }

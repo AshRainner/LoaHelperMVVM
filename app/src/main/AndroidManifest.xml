@@ -33,6 +33,7 @@
         </activity>
         <activity android:name=".RaidActivity"></activity>
         <activity android:name=".RaidDetailActivity"></activity>
+        <activity android:name=".NoticeActivity"></activity>
 
     </application>
 

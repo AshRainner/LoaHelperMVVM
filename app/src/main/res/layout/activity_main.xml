@@ -48,7 +48,7 @@
                 app:buttonImageSrc="@drawable/engraving_icon">
             </com.lostark.customview.HomeButtonView>
             <com.lostark.customview.HomeButtonView
-                android:id="@+id/home_update_button"
+                android:id="@+id/home_notice_button"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_rowWeight="1"
