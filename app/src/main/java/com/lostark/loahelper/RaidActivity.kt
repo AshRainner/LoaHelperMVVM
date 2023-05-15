@@ -12,7 +12,6 @@ import android.view.Menu
 import android.view.MenuItem
 import com.lostark.customview.HomeButtonView
 import com.lostark.customview.RaidButtonView
-import com.lostark.loahelper.databinding.ActivityMainBinding
 
 class RaidActivity : AppCompatActivity() {
 
