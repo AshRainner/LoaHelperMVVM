@@ -1,14 +1,15 @@
 package com.lostark.api
 
-import com.lostark.dto.CharactersDTO
-import com.lostark.dto.EventDTO
-import com.lostark.dto.NoticeDTO
+import com.lostark.dto.*
 import retrofit2.Call;
+import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.Header
+import retrofit2.http.POST
 import retrofit2.http.Path
 
 interface LostArkAPI {
+
     @GET("/news/events")
     fun getEvent(
         @Header("accept") accept: String,
@@ -27,4 +28,12 @@ interface LostArkAPI {
         @Header("authorization") key: String,
         @Path("characterName") characterName: String
     ):Call<MutableList<CharactersDTO>>
+
+    @POST("/markets/items")
+    fun getItemsInfo(
+        @Header("accept") accept: String,
+        @Header("authorization") key: String,
+        @Header("Content-Type") contentType: String,
+        @Body marketsBody: MarketsBody
+    ):Call<MutableList<MarketsList>>
 }

@@ -8,4 +8,8 @@
         <attr name = "raidButtonText" format="reference|string"/>
         <attr name = "raidButtonImageSrc" format="reference|integer"/>
     </declare-styleable>
+    <declare-styleable name="DailyItemViewAttr">
+        <attr name = "itemImageSrc" format="reference|integer"/>
+        <attr name = "itemPriceText" format="reference|integer"/>
+    </declare-styleable>
 </resources>

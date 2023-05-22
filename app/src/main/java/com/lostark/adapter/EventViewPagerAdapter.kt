@@ -10,10 +10,11 @@ import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
+import com.lostark.database.table.LoaEvents
 import com.lostark.dto.EventDTO
 import com.lostark.loahelper.R
 
-class EventViewPagerAdapter(val eventList: MutableList<EventDTO>, val viewPager2: ViewPager2) :
+class EventViewPagerAdapter(val eventList: MutableList<LoaEvents>, val viewPager2: ViewPager2) :
     RecyclerView.Adapter<EventViewPagerAdapter.ViewHolder>() {
 
         class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
@@ -26,7 +27,7 @@ class EventViewPagerAdapter(val eventList: MutableList<EventDTO>, val viewPager2
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        Glide.with(holder.itemView).load(eventList.get(position).thumbnail).into(holder.imageView)
+        Glide.with(holder.itemView).load(eventList.get(position).thumbnailUrl).into(holder.imageView)
         holder.imageView.setOnClickListener(View.OnClickListener {
             var intent = Intent(Intent.ACTION_VIEW, Uri.parse(eventList.get(position).link))
             startActivity(it.context,intent,null)

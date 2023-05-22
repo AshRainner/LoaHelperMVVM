@@ -17,7 +17,7 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".MainActivity"
+            android:name=".StartActivity"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.LoaHelper.NoActionBar">
@@ -31,9 +31,11 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
+        <activity android:name=".MainActivity"></activity>
         <activity android:name=".RaidActivity"></activity>
         <activity android:name=".RaidDetailActivity"></activity>
         <activity android:name=".NoticeActivity"></activity>
+        <activity android:name=".DailyActivity"/>
 
     </application>
 

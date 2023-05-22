@@ -1,17 +1,24 @@
 package com.lostark.loahelper
 
+import android.app.Activity
 import android.content.Intent
+import android.os.Build
+import android.os.Build.VERSION.SDK_INT
 import android.os.Bundle
+import android.os.Parcelable
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import android.widget.Button
+import androidx.annotation.RequiresApi
 import androidx.viewpager2.widget.ViewPager2
 import com.lostark.adapter.EventViewPagerAdapter
 import com.lostark.api.LoaRetrofitObj
 import com.lostark.customview.HomeButtonView
+import com.lostark.database.table.LoaEvents
 import com.lostark.dto.EventDTO
 import retrofit2.Call
 import retrofit2.Response
+import java.io.Serializable
 
 class MainActivity : AppCompatActivity() {
     val ACCEPT = "application/json"
@@ -19,8 +26,11 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        var eventPager = findViewById<ViewPager2>(R.id.event_image_slider)
 
+        var eventList =  intent.parcelableArrayList<LoaEvents>("EventList")?.toMutableList()
+        var eventPager = findViewById<ViewPager2>(R.id.event_image_slider)
+        var eventAdapter = EventViewPagerAdapter(eventList!! ,eventPager)
+        eventPager.adapter = eventAdapter
         var raidButton = findViewById<HomeButtonView>(R.id.home_raid_button)
         var craftButton = findViewById<HomeButtonView>(R.id.home_craft_button)
         var dailyButton = findViewById<HomeButtonView>(R.id.home_daily_button)
@@ -28,26 +38,21 @@ class MainActivity : AppCompatActivity() {
         var noticeButton = findViewById<HomeButtonView>(R.id.home_notice_button)
         var mokokoButton = findViewById<HomeButtonView>(R.id.home_mokoko_button)
         var testButton = findViewById<Button>(R.id.apiTestButton)
-        val call = LoaRetrofitObj.getRetrofitService().getEvent(ACCEPT,KEY)
-        call.enqueue(object : retrofit2.Callback<MutableList<EventDTO>>{
-            override fun onResponse(call: Call<MutableList<EventDTO>>, response: Response<MutableList<EventDTO>>) {
-                if(response.isSuccessful){
-                    val eventList: MutableList<EventDTO> = response.body()!!
 
-                    eventList?.forEach{//엘비스 연산 list가 null이 아니면 forEach실행 null일시 뒤에 있는 log.d실행
-                        Log.d("타이틀 : ", it.title)
-                    } ?: Log.d("이벤트 없음","진행중인 이벤트 없음")
-                    eventPager.adapter = EventViewPagerAdapter(eventList,eventPager)
-                }
-            }
-
-            override fun onFailure(call: Call<MutableList<EventDTO>>, t: Throwable) {
-                Log.d("오류",t.toString())
-            }
-        })
         raidButton.ClickEvent(Intent(this,RaidActivity::class.java))
         noticeButton.ClickEvent(Intent(this,NoticeActivity::class.java))
-
+        dailyButton.ClickEvent(Intent(this,DailyActivity::class.java).putExtra("asdf","asdf"))
     }
+    /*fun <T : Serializable?> getSerializable(activity: Activity, name: String, clazz: Class<T>): ArrayList<T>
+    {
+        return if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU)
+            activity.intent.getSerializableExtra(name, clazz)!!
+        else
+            activity.intent.getSerializableExtra(name) as T
+    }*/
 
+    inline fun <reified T : Parcelable> Intent.parcelableArrayList(key: String): ArrayList<T>? = when {
+        SDK_INT >= 33 -> getParcelableArrayListExtra(key, T::class.java)
+        else -> @Suppress("DEPRECATION") getParcelableArrayListExtra(key)
+    }
 }
