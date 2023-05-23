@@ -14,11 +14,13 @@ import androidx.viewpager2.widget.ViewPager2
 import com.lostark.adapter.EventViewPagerAdapter
 import com.lostark.api.LoaRetrofitObj
 import com.lostark.customview.HomeButtonView
+import com.lostark.database.table.Items
 import com.lostark.database.table.LoaEvents
 import com.lostark.dto.EventDTO
 import retrofit2.Call
 import retrofit2.Response
 import java.io.Serializable
+import kotlin.reflect.typeOf
 
 class MainActivity : AppCompatActivity() {
     val ACCEPT = "application/json"
@@ -27,21 +29,29 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        var eventList =  intent.parcelableArrayList<LoaEvents>("EventList")?.toMutableList()
-        var eventPager = findViewById<ViewPager2>(R.id.event_image_slider)
-        var eventAdapter = EventViewPagerAdapter(eventList!! ,eventPager)
+        val eventList =  intent.parcelableArrayList<LoaEvents>("EventList")
+        val eventPager = findViewById<ViewPager2>(R.id.event_image_slider)
+        val eventAdapter = EventViewPagerAdapter(eventList!! ,eventPager)
         eventPager.adapter = eventAdapter
-        var raidButton = findViewById<HomeButtonView>(R.id.home_raid_button)
-        var craftButton = findViewById<HomeButtonView>(R.id.home_craft_button)
-        var dailyButton = findViewById<HomeButtonView>(R.id.home_daily_button)
-        var engravingButton = findViewById<HomeButtonView>(R.id.home_engraving_button)
-        var noticeButton = findViewById<HomeButtonView>(R.id.home_notice_button)
-        var mokokoButton = findViewById<HomeButtonView>(R.id.home_mokoko_button)
-        var testButton = findViewById<Button>(R.id.apiTestButton)
+
+        val stoneList = intent.parcelableArrayList<Items>("StoneList")
+        val destructionList = intent.parcelableArrayList<Items>("Destruction")
+
+        val raidButton = findViewById<HomeButtonView>(R.id.home_raid_button)
+        val craftButton = findViewById<HomeButtonView>(R.id.home_craft_button)
+        val dailyButton = findViewById<HomeButtonView>(R.id.home_daily_button)
+        val engravingButton = findViewById<HomeButtonView>(R.id.home_engraving_button)
+        val noticeButton = findViewById<HomeButtonView>(R.id.home_notice_button)
+        val mokokoButton = findViewById<HomeButtonView>(R.id.home_mokoko_button)
+        val testButton = findViewById<Button>(R.id.apiTestButton)
 
         raidButton.ClickEvent(Intent(this,RaidActivity::class.java))
+
         noticeButton.ClickEvent(Intent(this,NoticeActivity::class.java))
-        dailyButton.ClickEvent(Intent(this,DailyActivity::class.java).putExtra("asdf","asdf"))
+
+        dailyButton.ClickEvent(Intent(this,DailyActivity::class.java)
+            .putExtra("StoneList",stoneList)
+            .putExtra("Destruction",destructionList))
     }
     /*fun <T : Serializable?> getSerializable(activity: Activity, name: String, clazz: Class<T>): ArrayList<T>
     {

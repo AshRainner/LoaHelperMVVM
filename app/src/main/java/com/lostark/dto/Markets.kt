@@ -10,9 +10,9 @@ data class MarketsBody(
     @SerializedName("CharacterClass")
     val characterClass:String,
     @SerializedName("ItemTier")
-    val itemTier:Int,
+    val itemTier:Int?,
     @SerializedName("ItemGrade")
-    val itemGrade:String,//아이템 희귀도
+    val itemGrade: String?,//아이템 희귀도
     @SerializedName("ItemName")
     val searchItemName:String,//서치할 아이템 이름
     @SerializedName("PageNo")

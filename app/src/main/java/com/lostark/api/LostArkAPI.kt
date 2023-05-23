@@ -35,5 +35,5 @@ interface LostArkAPI {
         @Header("authorization") key: String,
         @Header("Content-Type") contentType: String,
         @Body marketsBody: MarketsBody
-    ):Call<MutableList<MarketsList>>
+    ):Call<MarketsList>
 }

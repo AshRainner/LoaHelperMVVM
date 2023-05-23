@@ -11,7 +11,7 @@ import android.widget.*
 import com.bumptech.glide.Glide
 import com.lostark.loahelper.R
 
-class DailyItemView : RelativeLayout {
+class DailyGuardianView : RelativeLayout {
     private lateinit var layout : RelativeLayout
     private lateinit var priceEditText : EditText
     private lateinit var imageView : ImageView
@@ -26,18 +26,18 @@ class DailyItemView : RelativeLayout {
     }
 
     private fun init(context: Context?){
-        val view = LayoutInflater.from(context).inflate(R.layout.daily_item_view,this,false)
+        val view = LayoutInflater.from(context).inflate(R.layout.daily_guardian_view,this,false)
         addView(view)
-        layout = findViewById(R.id.daily_item_layout)
-        priceEditText = findViewById(R.id.daily_item_price_edit)
-        imageView = findViewById(R.id.daily_item_image)
-        meterialCard = findViewById(R.id.daily_item_card)
+        layout = findViewById(R.id.daily_guardian_layout)
+        priceEditText = findViewById(R.id.daily_guardian_price_edit)
+        imageView = findViewById(R.id.daily_guardian_image)
+        meterialCard = findViewById(R.id.daily_guardian_card)
     }
 
     private fun getAttrs(attrs: AttributeSet?){
-        val typedArray = context.obtainStyledAttributes(attrs,R.styleable.DailyItemViewAttr)
-        priceEditText.setText(typedArray.getText(R.styleable.DailyItemViewAttr_itemPriceText))
-        imageView.setImageResource(typedArray.getResourceId(R.styleable.DailyItemViewAttr_itemImageSrc,R.drawable.raid_icon))
+        val typedArray = context.obtainStyledAttributes(attrs,R.styleable.DailyGuardianViewAttr)
+        priceEditText.setText(typedArray.getText(R.styleable.DailyGuardianViewAttr_guardianPriceText))
+        imageView.setImageResource(typedArray.getResourceId(R.styleable.DailyGuardianViewAttr_guardianImageSrc,R.drawable.raid_icon))
         typedArray.recycle()
     }
     public fun setPrice(price:Double){
@@ -45,8 +45,5 @@ class DailyItemView : RelativeLayout {
     }
     public fun setImage(imageUrl:String){
         Glide.with(this).load(imageUrl).into(imageView)
-    }
-    public fun getEditText():EditText{
-        return priceEditText
     }
 }
