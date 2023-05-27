@@ -6,22 +6,20 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
-import com.lostark.database.dao.EventsDAO
-import com.lostark.database.dao.ItemsDAO
-import com.lostark.database.dao.KeyDAO
-import com.lostark.database.dao.UpdateDAO
+import com.lostark.database.dao.*
 import com.lostark.database.table.*
 
 @Database(
-    entities = [Key::class, LoaEvents::class,Items::class, UpdateT::class],
-    version = 4,
+    entities = [Key::class, LoaEvents::class,Items::class, UpdateT::class,Notice::class],
+    version = 5,
     exportSchema = false
 )
 abstract class AppDatabase : RoomDatabase() {
     abstract fun keyDao(): KeyDAO
     abstract fun eventsDao(): EventsDAO
-    abstract fun ItemsDAO(): ItemsDAO
-    abstract fun UpdateDAO(): UpdateDAO
+    abstract fun itemsDAO(): ItemsDAO
+    abstract fun updateDAO(): UpdateDAO
+    abstract fun noticeDAO(): NoticeDAO
     companion object{
         private var instance: AppDatabase? = null
 

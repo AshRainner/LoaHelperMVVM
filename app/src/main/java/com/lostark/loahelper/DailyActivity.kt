@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.os.Parcelable
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.KeyEvent
 import android.view.KeyEvent.KEYCODE_ENTER
 import android.view.MotionEvent
@@ -39,12 +40,12 @@ class DailyActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.daily_activity)
-        val itemGrid = findViewById<GridLayout>(R.id.daily_item_grid)
-        val guardianGrid = findViewById<GridLayout>(R.id.daily_guardian_grid)
-        val stoneList = intent.parcelableArrayList<Items>("StoneList")!!
-        val destructionList = intent.parcelableArrayList<Items>("Destruction")!!
 
-        val imm = this.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        val guardianGrid = findViewById<GridLayout>(R.id.daily_guardian_grid)
+        val itemGrid = findViewById<GridLayout>(R.id.daily_item_grid)
+        val stoneList = intent.parcelableArrayList<Items>("StoneList")
+        stoneList?.forEach { Log.d(it.name, "onCreate: ") }
+        val destructionList = intent.parcelableArrayList<Items>("Destruction")
 
         val textWatcher = object :TextWatcher{
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {

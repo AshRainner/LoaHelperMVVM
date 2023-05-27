@@ -18,9 +18,12 @@ class RaidActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.raid_activity)
-        var valtanButton = findViewById<RaidButtonView>(R.id.valtan_button)
-        var biackissButton = findViewById<RaidButtonView>(R.id.biackiss_button)
-        valtanButton.ClickEvent(Intent(this,RaidDetailActivity::class.java))
+        val valtanButton = findViewById<RaidButtonView>(R.id.valtan_button)
+        val biackissButton = findViewById<RaidButtonView>(R.id.biackiss_button)
+        val koukusatonButton = findViewById<RaidButtonView>(R.id.koukusaton_button)
+        valtanButton.ClickEvent(Intent(this,RaidDetailActivity::class.java).putExtra("RaidName","valtan"))
+        biackissButton.ClickEvent(Intent(this,RaidDetailActivity::class.java).putExtra("RaidName","biackiss"))
+        koukusatonButton.ClickEvent(Intent(this,RaidDetailActivity::class.java).putExtra("RaidName","koukusaton"))
     }
 
 }

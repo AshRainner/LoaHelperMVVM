@@ -12,85 +12,96 @@
         android:src="@drawable/test_banner"></ImageView>
 
     <ScrollView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center">
 
         <GridLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="10dp"
-            android:columnCount="2">
+            android:columnCount="1">
 
-            <com.lostark.customview.RaidButtonView
-                android:id="@+id/valtan_button"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_rowWeight="1"
-                android:layout_columnWeight="1"
-                android:layout_margin="5dp"
-                app:raidButtonImageSrc="@drawable/valtan"
-                app:raidButtonText="발탄"></com.lostark.customview.RaidButtonView>
+                android:layout_height="wrap_content">
+                <com.lostark.customview.RaidButtonView
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:layout_weight="1"
+                    android:id="@+id/valtan_button"
+                    android:layout_margin="5dp"
+                    app:raidButtonImageSrc="@drawable/valtan"
+                    app:raidButtonText="발탄"></com.lostark.customview.RaidButtonView>
 
-            <com.lostark.customview.RaidButtonView
-                android:id="@+id/biackiss_button"
+                <com.lostark.customview.RaidButtonView
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:id="@+id/biackiss_button"
+                    android:layout_weight="1"
+                    android:layout_margin="5dp"
+                    app:raidButtonImageSrc="@drawable/biackiss"
+                    app:raidButtonText="비아키스"></com.lostark.customview.RaidButtonView>
+            </LinearLayout>
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_rowWeight="1"
-                android:layout_columnWeight="1"
-                android:layout_margin="5dp"
-                app:raidButtonImageSrc="@drawable/biackiss"
-                app:raidButtonText="비아키스"></com.lostark.customview.RaidButtonView>
+                android:layout_height="wrap_content">
+                <com.lostark.customview.RaidButtonView
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:id="@+id/koukusaton_button"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:layout_margin="5dp"
+                    app:raidButtonImageSrc="@drawable/koukusaton"
+                    app:raidButtonText="쿠크세이튼"></com.lostark.customview.RaidButtonView>
 
-            <com.lostark.customview.RaidButtonView
-                android:id="@+id/koukusaton_button"
+                <com.lostark.customview.RaidButtonView
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:layout_weight="1"
+                    android:id="@+id/abrelshud_button"
+                    android:layout_gravity="center"
+                    android:layout_margin="5dp"
+                    app:raidButtonImageSrc="@drawable/abrelshud"
+                    app:raidButtonText="아브렐슈드"></com.lostark.customview.RaidButtonView>
+            </LinearLayout>
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_rowWeight="1"
-                android:layout_columnWeight="1"
-                android:layout_margin="5dp"
-                app:raidButtonImageSrc="@drawable/koukusaton"
-                app:raidButtonText="쿠크세이튼"></com.lostark.customview.RaidButtonView>
+                android:layout_height="wrap_content">
+                <com.lostark.customview.RaidButtonView
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:layout_weight="1"
+                    android:id="@+id/illiakan_button"
+                    android:layout_gravity="center"
+                    android:layout_margin="5dp"
+                    app:raidButtonImageSrc="@drawable/illiakan"
+                    app:raidButtonText="쿠크세이튼"></com.lostark.customview.RaidButtonView>
 
-            <com.lostark.customview.RaidButtonView
-                android:id="@+id/abrelshud_button"
+                <com.lostark.customview.RaidButtonView
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:layout_weight="1"
+                    android:id="@+id/kayangel_button"
+                    android:layout_gravity="center"
+                    android:layout_margin="5dp"
+                    app:raidButtonImageSrc="@drawable/kayangel"
+                    app:raidButtonText="카양겔"></com.lostark.customview.RaidButtonView>
+            </LinearLayout>
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_rowWeight="1"
-                android:layout_columnWeight="1"
-                android:layout_margin="5dp"
-                app:raidButtonImageSrc="@drawable/abrelshud"
-                app:raidButtonText="아브렐슈드"></com.lostark.customview.RaidButtonView>
-
-            <com.lostark.customview.RaidButtonView
-                android:id="@+id/illiakan_button"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_rowWeight="1"
-                android:layout_columnWeight="1"
-                android:layout_margin="5dp"
-                app:raidButtonImageSrc="@drawable/illiakan"
-                app:raidButtonText="쿠크세이튼"></com.lostark.customview.RaidButtonView>
-
-            <com.lostark.customview.RaidButtonView
-                android:id="@+id/kayangel_button"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_rowWeight="1"
-                android:layout_columnWeight="1"
-                android:layout_margin="5dp"
-                app:raidButtonImageSrc="@drawable/kayangel"
-                app:raidButtonText="카양겔"></com.lostark.customview.RaidButtonView>
-
-            <com.lostark.customview.RaidButtonView
-                android:id="@+id/ivorytower_button"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_rowWeight="1"
-                android:layout_columnWeight="1"
-                android:layout_margin="5dp"
-                app:raidButtonImageSrc="@drawable/ivorytower"
-                app:raidButtonText="상아탑"></com.lostark.customview.RaidButtonView>
+                android:layout_height="wrap_content">
+                <com.lostark.customview.RaidButtonView
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:layout_weight="1"
+                    android:id="@+id/ivorytower_button"
+                    android:layout_gravity="center"
+                    android:layout_margin="5dp"
+                    app:raidButtonImageSrc="@drawable/ivorytower"
+                    app:raidButtonText="상아탑"></com.lostark.customview.RaidButtonView>
+            </LinearLayout>
         </GridLayout>
     </ScrollView>
 </LinearLayout>

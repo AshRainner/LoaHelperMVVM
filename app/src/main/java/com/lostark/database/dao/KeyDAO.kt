@@ -14,4 +14,7 @@ interface KeyDAO {
 
     @Delete
     fun deleteKey(key: Key)
+
+    @Query("DELETE FROM Key")
+    fun deleteAllKey()
 }

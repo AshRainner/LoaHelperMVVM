@@ -8,10 +8,8 @@ import com.lostark.api.LoaRetrofitObj
 import com.lostark.database.AppDatabase
 import com.lostark.database.dao.EventsDAO
 import com.lostark.database.dao.ItemsDAO
-import com.lostark.database.table.Items
-import com.lostark.database.table.LoaEvents
-import com.lostark.database.table.Key
-import com.lostark.database.table.UpdateT
+import com.lostark.database.dao.NoticeDAO
+import com.lostark.database.table.*
 import com.lostark.dto.MarketsBody
 import java.text.SimpleDateFormat
 import java.util.*
@@ -30,42 +28,46 @@ class StartActivity() : AppCompatActivity() {
         val intent = Intent(this@StartActivity, MainActivity::class.java)
         val db = AppDatabase.getInstance(applicationContext)!!
 
-
         if (db.keyDao().getKey() != null) {//키가 비어 있지 않다면
             val key = db.keyDao().getKey()
 
             val time = LoaTimeCheck()
 
-            val recentTimeList = db.UpdateDAO().getRecentUpdate()!!
-            //db.UpdateDAO().deleteUpdate(UpdateT("2023-05-22T10"))
+            val recentTimeList = db.updateDAO().getRecentUpdate()!!
             if (recentTimeList.isNotEmpty()) {
                 val recentTime = recentTimeList.get(0).recentUpdate
                 if (compareToDate(time, recentTime)) {
                     db.eventsDao().deleteAllEvents()
                     Thread {
                         Log.d("쓰레드 : ","1234")
-                        intent.putExtra(
-                            "EventList",
-                            insertEvents(db.eventsDao(), key)
-                        )
-                        intent.putExtra(
-                            "StoneList",
-                            insertStoneItems(db.ItemsDAO(), key)
-                        )
-                        intent.putExtra(
-                            "Destruction",
-                            insertDestructionStone(db.ItemsDAO(),key)
-                        )
+                        intent.putExtra("EventList", insertEvents(db.eventsDao(), key))
+                        intent.putExtra("StoneList", insertStoneItems(db.itemsDAO(), key))
+                        intent.putExtra("Destruction", insertDestructionStone(db.itemsDAO(),key))
+                        intent.putExtra("NoticeList", insertNotice(db.noticeDAO(),key))
+                        intent.putExtra("Key",key)
                         startActivity(intent)
                         finish()
                     }.start()
                 }
             } else {
-                db.UpdateDAO().insertUpdate(UpdateT(time.split('T')[0]))
+                Log.d("여기옴", "time 넣기")
+                db.updateDAO().insertUpdate(UpdateT(time.split('T')[0]))
             }
         } else {
+            Log.d("여기옴", "첫 else")
             db.keyDao().insertKey(Key(KEY))
         }
+    }
+
+    private fun insertNotice(noticeDao:NoticeDAO,key:String):ArrayList<Notice>{
+        val call = LoaRetrofitObj.getRetrofitService().getNotice(ACCEPT, key)
+        val noticeList = call.execute().body()!!
+        val returnNoticeList:MutableList<Notice> = mutableListOf()
+        noticeList.forEach{
+            var notice = Notice(it.link,it.title,it.date,it.type)
+            noticeDao.insertNotice(notice)
+        }
+        return ArrayList(noticeDao.getNoticeList())
     }
 
     private fun insertStoneItems(itemsDao: ItemsDAO, key: String): ArrayList<Items>?{
@@ -73,27 +75,21 @@ class StartActivity() : AppCompatActivity() {
         //stoneBody == 돌파석 검색용 바디
         val call = LoaRetrofitObj.getRetrofitService().getItemsInfo(ACCEPT,key,CONTENTTYPE,stoneBody)
         val marketsList = call.execute().body()!!
-        val stoneList:MutableList<Items> = mutableListOf()
-        Log.d("들어옴", "insertStoneItems: ")
         marketsList.items?.forEach {
             var item = Items(it.id, it.name, it.iconUrl, it.yDayAvgPrice)
             itemsDao.insertItems(item)
-            stoneList.add(item)
         }
-        return ArrayList(stoneList.sortedBy { it.id })
+        return ArrayList(itemsDao.getStoneList().sortedBy { it.id })
     }
 
     private fun insertDestructionStone(itemsDao: ItemsDAO, key: String): ArrayList<Items>?{
         var destructionBody = MarketsBody("GRADE",50000,"버서커",3,null,"파괴석 결정",0,"ASC")
         var call = LoaRetrofitObj.getRetrofitService().getItemsInfo(ACCEPT,key,CONTENTTYPE,destructionBody)
         var marketsList = call.execute().body()!!
-        val destructionList:MutableList<Items> = mutableListOf()
 
         marketsList.items?.forEach{
-            Log.d(it.name, "insertDestructionStone: ")
             var item = Items(it.id,it.name,it.iconUrl,it.yDayAvgPrice)
             itemsDao.insertItems(item)
-            destructionList.add(item)
         }
         destructionBody = MarketsBody("GRADE",50000,"버서커",3,null,"파괴강석",0,"ASC")
         call = LoaRetrofitObj.getRetrofitService().getItemsInfo(ACCEPT,key,CONTENTTYPE,destructionBody)
@@ -102,10 +98,8 @@ class StartActivity() : AppCompatActivity() {
         marketsList.items?.forEach {
             var item = Items(it.id,it.name,it.iconUrl,it.yDayAvgPrice)
             itemsDao.insertItems(item)
-            destructionList.add(item)
         }
-
-        return ArrayList(destructionList.sortedBy { it.id })
+        return ArrayList(itemsDao.getDestructionList().sortedBy { it.id })
     }
 
 

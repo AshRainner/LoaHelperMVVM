@@ -8,7 +8,13 @@ import com.lostark.database.table.Items
 interface ItemsDAO {
 
     @Query("SELECT * FROM Items")
-    fun getEventList(): List<Items>
+    fun getItemList(): List<Items>
+
+    @Query("SELECT * FROM Items WHERE Name like '%돌파석%'")
+    fun getStoneList(): List<Items>
+
+    @Query("SELECT * FROM Items WHERE Name like '%파괴%'")
+    fun getDestructionList(): List<Items>
 
     @Query("DELETE FROM Items")
     fun deleteAllItems()
