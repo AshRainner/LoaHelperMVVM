@@ -77,7 +77,6 @@ class MainActivity : AppCompatActivity() {
         val engravingButton = findViewById<HomeButtonView>(R.id.home_engraving_button)
         val noticeButton = findViewById<HomeButtonView>(R.id.home_notice_button)
         val mokokoButton = findViewById<HomeButtonView>(R.id.home_mokoko_button)
-        val testButton = findViewById<Button>(R.id.apiTestButton)
 
         raidButton.ClickEvent(Intent(this,RaidActivity::class.java))
 
