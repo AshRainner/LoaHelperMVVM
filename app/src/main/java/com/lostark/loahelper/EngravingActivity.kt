@@ -28,13 +28,12 @@ class EngravingActivity : AppCompatActivity() {
     }
 
     fun spinnerSet(){
-        val engraving_one_spinner = findViewById<SearchableSpinner>(R.id.engraving_spinner_one)
+        /*val engraving_one_spinner = findViewById<SearchableSpinner>(R.id.engraving_spinner_one)
         val engraving_two_spinner = findViewById<SearchableSpinner>(R.id.engraving_spinner_two)
 
         val engraving = resources.getStringArray(R.array.engraving)
         val spinnerAdapter =
             ArrayAdapter<String>(this, R.layout.engraving_spinner_item, engraving)
-        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         engraving_one_spinner.adapter=spinnerAdapter
         engraving_two_spinner.adapter=spinnerAdapter
@@ -45,7 +44,7 @@ class EngravingActivity : AppCompatActivity() {
             if(testEdittext.text.toString().equals("원")) {
                 engraving_one_spinner.setSelection(spinnerAdapter.getPosition("원한"))
             }
-        }
+        }*/
     }
 
 }

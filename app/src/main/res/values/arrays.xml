@@ -7,7 +7,15 @@
         <item>상점</item>
         <item>이벤트</item>
     </string-array>
+    <string-array name="engraving_minus">
+        <item>감소 각인</item>
+        <item>공격속도 감소</item>
+        <item>공격력 감소</item>
+        <item>방어력 감소</item>
+        <item>이동속도 감소</item>
+    </string-array>
     <string-array name="engraving">
+        <item>각인</item>
         <item>각성</item>
         <item>강령술</item>
         <item>강화 방패</item>

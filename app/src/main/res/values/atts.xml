@@ -19,4 +19,8 @@
     <declare-styleable name="SearchableSpinner">
         <attr name="hintText" format="string"/>
     </declare-styleable>
+    <declare-styleable name="AccessoryViewAttr">
+        <attr name = "accessoryImageSrc" format="reference|integer" />
+        <attr name = "imageBackground" format="reference|integer"/>
+    </declare-styleable>
 </resources>
