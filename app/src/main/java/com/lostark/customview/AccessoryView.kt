@@ -40,12 +40,12 @@ class AccessoryView : LinearLayout, SpinnerChangedCallback {
             findViewById(R.id.engraving_spinner_two_plus),
             findViewById(R.id.engraving_spinner_three_minus)
         )
-        val plusValue = arrayOf("", "+1", "+2", "+3", "+4", "+5", "+6", "+7", "+8", "+9", "+10")
+        val plusValue = arrayOf("0", "+1", "+2", "+3", "+4", "+5", "+6", "+7", "+8", "+9", "+10")
         val plusSpinnerAdapter = ArrayAdapter(context!!, R.layout.engraving_spinner_item, plusValue)
         plusSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         engravingPlusMinusSpinner.forEach { it.adapter = plusSpinnerAdapter }
 
-        val minusValue = arrayOf("", "-1", "-2", "-3", "-4")
+        val minusValue = arrayOf("0", "-1", "-2", "-3", "-4")
         val minusSpinnerAdapter =
             ArrayAdapter(context!!, R.layout.engraving_spinner_item, minusValue)
         minusSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
@@ -66,7 +66,7 @@ class AccessoryView : LinearLayout, SpinnerChangedCallback {
 
         imageView = findViewById(R.id.accessory_image)
 
-        engravingSpinner.forEachIndexed() {index, it->
+        engravingSpinner.forEach {
             it.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(
                     parent: AdapterView<*>?,
@@ -74,9 +74,7 @@ class AccessoryView : LinearLayout, SpinnerChangedCallback {
                     position: Int,
                     id: Long
                 ) {
-                    val name = parent?.getItemAtPosition(position).toString()//자신의 값
-                    val value = engravingPlusMinusSpinner[index].selectedItem.toString()
-                    spinnerChangedCallback?.onEngravingSpinnerChanged(name,value)
+                    spinnerChangedCallback?.onEngravingSpinnerChanged()
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>?) {
@@ -84,7 +82,7 @@ class AccessoryView : LinearLayout, SpinnerChangedCallback {
                 }
             }
         }
-        engravingPlusMinusSpinner.forEachIndexed() {index, it->
+        engravingPlusMinusSpinner.forEach {
             it.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(
                     parent: AdapterView<*>?,
@@ -92,9 +90,7 @@ class AccessoryView : LinearLayout, SpinnerChangedCallback {
                     position: Int,
                     id: Long
                 ) {
-                    val name = engravingSpinner[index].selectedItem.toString()
-                    val value = parent?.getItemAtPosition(position).toString()
-                    spinnerChangedCallback?.onPlusMinusSpinnerChanged(name,value)
+                    spinnerChangedCallback?.onEngravingSpinnerChanged()
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>?) {
@@ -104,6 +100,11 @@ class AccessoryView : LinearLayout, SpinnerChangedCallback {
         }
 
     }
+
+    fun getEngravingSpinner() = engravingSpinner
+
+    fun getEngravingPlusMinusSpinner() = engravingPlusMinusSpinner
+
 
     @SuppressLint("ResourceAsColor")
     private fun getAttrs(attrs: AttributeSet?) {
@@ -127,11 +128,7 @@ class AccessoryView : LinearLayout, SpinnerChangedCallback {
         spinnerChangedCallback = callback
     }
 
-    override fun onEngravingSpinnerChanged(name: String, value: String) {
-        TODO("Not yet implemented")
-    }
-
-    override fun onPlusMinusSpinnerChanged(name: String, value: String) {
+    override fun onEngravingSpinnerChanged() {
         TODO("Not yet implemented")
     }
 

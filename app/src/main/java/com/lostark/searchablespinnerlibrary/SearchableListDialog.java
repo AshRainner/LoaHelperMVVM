@@ -9,6 +9,7 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -105,6 +106,33 @@ public class SearchableListDialog extends DialogFragment implements
         final AlertDialog dialog = alertDialog.create();
         dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams
                 .SOFT_INPUT_STATE_HIDDEN);
+
+        dialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
+            @Override
+            public boolean onKey(DialogInterface dialogInterface, int keyCode, KeyEvent event) {
+                if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_UP) {
+                    // 뒤로가기 버튼을 눌렀을 때의 동작을 여기에 작성
+                    dialog.dismiss(); // 다이얼로그 닫기
+                    return true; // 이벤트 처리 완료
+                }
+                return false; // 이벤트 처리하지 않음
+            }
+        });
+        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+            @Override
+            public void onShow(DialogInterface dialogInterface) {
+                // 아이템 클릭 시 EditText 포커스 해제
+                _listViewItems.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        _searchableItem.onSearchableItemClicked(listAdapter.getItem(position), position);
+                        dialog.getWindow().getDecorView().clearFocus();
+                        dialog.dismiss();
+                    }
+                });
+            }
+        });
+
         return dialog;
     }
 

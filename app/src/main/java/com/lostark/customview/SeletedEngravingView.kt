@@ -19,40 +19,54 @@ import com.lostark.searchablespinnerlibrary.SearchableSpinner
 
 class SeletedEngravingView : LinearLayout {
 
-    lateinit var imageInLayout:LinearLayout
+    lateinit var imageInLayout: LinearLayout
     lateinit var engravingText: TextView
-    lateinit var circleImageView:Array<ImageView>
-    constructor(context: Context?) : super(context){
+    lateinit var circleImageView: Array<ImageView>
+
+    constructor(context: Context?) : super(context) {
         init(context)
     }
-    constructor(context: Context?, attrs: AttributeSet?) : super(context,attrs){
+
+    constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs) {
         init(context)
         getAttrs(attrs)
     }
 
-    private fun init(context: Context?){
-        val view = LayoutInflater.from(context).inflate(R.layout.selected_engraving_view,this,false)
+    private fun init(context: Context?) {
+        val view =
+            LayoutInflater.from(context).inflate(R.layout.selected_engraving_view, this, false)
         addView(view)
         imageInLayout = findViewById(R.id.selected_engraving_layout)
         engravingText = findViewById(R.id.selected_engraving_text)
 
-        circleImageView = Array(imageInLayout.childCount){index->
+        circleImageView = Array(imageInLayout.childCount) { index ->
             imageInLayout.getChildAt(index) as ImageView
         }
 
     }
 
     @SuppressLint("ResourceAsColor")
-    private fun getAttrs(attrs: AttributeSet?){
+    private fun getAttrs(attrs: AttributeSet?) {
     }
 
-    public fun setImage(count:Int){
+    fun setImage(count: Int) {
         circleImageView.forEach { it.setImageResource(R.drawable.non_seleted_circle_shpae) }
-        var max:Int = if(count>15)
-            15
-        else
-            count
-        for(i in 0..max-1)
-            circleImageView[i].setImageResource(R.drawable.seleted_circle_shpae)
+        if (count >= 0) {
+            var max: Int = if (count > 15)
+                15
+            else
+                count
+            for (i in 0..max - 1)
+                circleImageView[i].setImageResource(R.drawable.seleted_circle_shpae)
+        }
+        else{
+            var absoluteCount = count*-1
+            var max: Int = if (absoluteCount > 15)
+                15
+            else
+                absoluteCount
+            for (i in 0..max - 1)
+                circleImageView[i].setImageResource(R.drawable.minus_seleted_circle_shpae)
+        }
     }
 }

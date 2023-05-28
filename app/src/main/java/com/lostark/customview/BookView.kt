@@ -56,9 +56,7 @@ class BookView : LinearLayout, SpinnerChangedCallback{
                 position: Int,
                 id: Long
             ) {
-                val name = engravingSpinner.selectedItem.toString()
-                val value = engravingPlusSpinner.selectedItem.toString()
-                spinnerChangedCallback?.onPlusMinusSpinnerChanged(name,value)
+                spinnerChangedCallback?.onEngravingSpinnerChanged()
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {
@@ -73,9 +71,7 @@ class BookView : LinearLayout, SpinnerChangedCallback{
                 position: Int,
                 id: Long
             ) {
-                val name = engravingSpinner.selectedItem.toString()
-                val value = engravingPlusSpinner.selectedItem.toString()
-                spinnerChangedCallback?.onPlusMinusSpinnerChanged(name,value)
+                spinnerChangedCallback?.onEngravingSpinnerChanged()
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {
@@ -86,6 +82,10 @@ class BookView : LinearLayout, SpinnerChangedCallback{
 
     }
 
+    fun getEngavingSpinner() = engravingSpinner
+
+    fun getEngravingPlusSpinner() = engravingPlusSpinner
+
     fun setSpinnerChangedCallback(callback: SpinnerChangedCallback) {
         spinnerChangedCallback = callback
     }
@@ -94,11 +94,8 @@ class BookView : LinearLayout, SpinnerChangedCallback{
     private fun getAttrs(attrs: AttributeSet?){
     }
 
-    override fun onEngravingSpinnerChanged(name: String, value: String) {
+    override fun onEngravingSpinnerChanged() {
         TODO("Not yet implemented")
     }
 
-    override fun onPlusMinusSpinnerChanged(name: String, value: String) {
-        TODO("Not yet implemented")
-    }
 }
