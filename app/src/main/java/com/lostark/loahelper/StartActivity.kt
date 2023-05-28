@@ -39,7 +39,7 @@ class StartActivity() : AppCompatActivity() {
                 if (compareToDate(time, recentTime)) {
                     db.eventsDao().deleteAllEvents()
                     Thread {
-                        Log.d("쓰레드 : ","1234")
+                        insertCraftItem(db.itemsDAO(),key)
                         intent.putExtra("EventList", insertEvents(db.eventsDao(), key))
                         intent.putExtra("StoneList", insertStoneItems(db.itemsDAO(), key))
                         intent.putExtra("Destruction", insertDestructionStone(db.itemsDAO(),key))
@@ -59,6 +59,24 @@ class StartActivity() : AppCompatActivity() {
         }
     }
 
+    private fun insertCraftItem(itemsDao: ItemsDAO,key:String):kotlin.collections.ArrayList<CraftItems>{
+        //배틀아이템 60000
+        var pageNo=1
+        itemsDao.deleteAllCraftItems()
+        do {
+            val itemBody = MarketsBody("GRADE", 60000, null, null, null, null, pageNo, "ASC")
+            val call =
+                LoaRetrofitObj.getRetrofitService().getItemsInfo(ACCEPT, key, CONTENTTYPE, itemBody)
+            var itemList = call.execute().body()!!
+            itemList.items?.forEach{
+                var item = CraftItems(it.id,it.name,it.iconUrl,it.bundleCount,it.yDayAvgPrice)
+                itemsDao.insertCraftItems(item)
+            }
+            pageNo++
+        }while(itemList.totalCount>itemList.pageNo*itemList.pageSize)
+        return ArrayList(itemsDao.getCraftItemList())
+    }
+
     private fun insertNotice(noticeDao:NoticeDAO,key:String):ArrayList<Notice>{
         val call = LoaRetrofitObj.getRetrofitService().getNotice(ACCEPT, key)
         val noticeList = call.execute().body()!!
@@ -70,8 +88,8 @@ class StartActivity() : AppCompatActivity() {
         return ArrayList(noticeDao.getNoticeList())
     }
 
-    private fun insertStoneItems(itemsDao: ItemsDAO, key: String): ArrayList<Items>?{
-        val stoneBody = MarketsBody("GRADE",50000,"버서커",3,"희귀"," 명예의 돌파석",0,"ASC")
+    private fun insertStoneItems(itemsDao: ItemsDAO, key: String): ArrayList<Items>{
+        val stoneBody = MarketsBody("GRADE",50000,null,3,"희귀"," 명예의 돌파석",0,"ASC")
         //stoneBody == 돌파석 검색용 바디
         val call = LoaRetrofitObj.getRetrofitService().getItemsInfo(ACCEPT,key,CONTENTTYPE,stoneBody)
         val marketsList = call.execute().body()!!
@@ -79,11 +97,11 @@ class StartActivity() : AppCompatActivity() {
             var item = Items(it.id, it.name, it.iconUrl, it.yDayAvgPrice)
             itemsDao.insertItems(item)
         }
-        return ArrayList(itemsDao.getStoneList().sortedBy { it.id })
+        return ArrayList(itemsDao.getSelectItemList("돌파석").sortedBy { it.id })
     }
 
-    private fun insertDestructionStone(itemsDao: ItemsDAO, key: String): ArrayList<Items>?{
-        var destructionBody = MarketsBody("GRADE",50000,"버서커",3,null,"파괴석 결정",0,"ASC")
+    private fun insertDestructionStone(itemsDao: ItemsDAO, key: String): ArrayList<Items>{
+        var destructionBody = MarketsBody("GRADE",50000,null,3,null,"파괴석 결정",0,"ASC")
         var call = LoaRetrofitObj.getRetrofitService().getItemsInfo(ACCEPT,key,CONTENTTYPE,destructionBody)
         var marketsList = call.execute().body()!!
 
@@ -91,7 +109,7 @@ class StartActivity() : AppCompatActivity() {
             var item = Items(it.id,it.name,it.iconUrl,it.yDayAvgPrice)
             itemsDao.insertItems(item)
         }
-        destructionBody = MarketsBody("GRADE",50000,"버서커",3,null,"파괴강석",0,"ASC")
+        destructionBody = MarketsBody("GRADE",50000,null,3,null,"파괴강석",0,"ASC")
         call = LoaRetrofitObj.getRetrofitService().getItemsInfo(ACCEPT,key,CONTENTTYPE,destructionBody)
         marketsList = call.execute().body()!!
 
@@ -99,10 +117,8 @@ class StartActivity() : AppCompatActivity() {
             var item = Items(it.id,it.name,it.iconUrl,it.yDayAvgPrice)
             itemsDao.insertItems(item)
         }
-        return ArrayList(itemsDao.getDestructionList().sortedBy { it.id })
+        return ArrayList(itemsDao.getSelectItemList("파괴").sortedBy { it.id })
     }
-
-
 
     private fun insertEvents(eventsDao: EventsDAO, key: String): ArrayList<LoaEvents> {
         val call = LoaRetrofitObj.getRetrofitService().getEvent(ACCEPT, key)

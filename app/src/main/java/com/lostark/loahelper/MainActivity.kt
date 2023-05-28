@@ -86,6 +86,7 @@ class MainActivity : AppCompatActivity() {
         dailyButton.ClickEvent(Intent(this,DailyActivity::class.java)
             .putExtra("StoneList",stoneList)
             .putExtra("Destruction",destructionList))
+        engravingButton.ClickEvent(Intent(this,EngravingActivity::class.java))
     }
 
     private fun eventSet(){

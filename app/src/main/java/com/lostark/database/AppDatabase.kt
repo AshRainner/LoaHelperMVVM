@@ -10,8 +10,8 @@ import com.lostark.database.dao.*
 import com.lostark.database.table.*
 
 @Database(
-    entities = [Key::class, LoaEvents::class,Items::class, UpdateT::class,Notice::class],
-    version = 5,
+    entities = [Key::class, LoaEvents::class,Items::class, UpdateT::class,Notice::class,CraftItems::class,LifeItems::class],
+    version = 7,
     exportSchema = false
 )
 abstract class AppDatabase : RoomDatabase() {

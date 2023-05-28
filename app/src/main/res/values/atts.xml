@@ -16,4 +16,7 @@
         <attr name = "guardianImageSrc" format="reference|integer"/>
         <attr name = "guardianPriceText" format="reference|integer"/>
     </declare-styleable>
+    <declare-styleable name="SearchableSpinner">
+        <attr name="hintText" format="string"/>
+    </declare-styleable>
 </resources>
