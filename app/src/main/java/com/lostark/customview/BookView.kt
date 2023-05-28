@@ -8,19 +8,17 @@ import android.util.AttributeSet
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
-import android.widget.ArrayAdapter
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.Spinner
-import android.widget.TextView
+import android.widget.*
+import com.lostark.callbackinterface.SpinnerChangedCallback
 import com.lostark.loahelper.R
 import com.lostark.searchablespinnerlibrary.SearchableSpinner
 
-class BookView : LinearLayout {
+class BookView : LinearLayout, SpinnerChangedCallback{
     private lateinit var imageView : ImageView
     private lateinit var engravingSpinner:SearchableSpinner
     private lateinit var engravingPlusSpinner:Spinner
+
+    private var spinnerChangedCallback: SpinnerChangedCallback? = null
 
     constructor(context: Context?) : super(context){
         init(context)
@@ -50,9 +48,57 @@ class BookView : LinearLayout {
         engravingSpinner.adapter = engravingSpinnerAdapter
 
         imageView = findViewById(R.id.book_image)
+
+        engravingSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                val name = engravingSpinner.selectedItem.toString()
+                val value = engravingPlusSpinner.selectedItem.toString()
+                spinnerChangedCallback?.onPlusMinusSpinnerChanged(name,value)
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+                // 선택된 항목이 없을 경우 처리, 필요에 따라 구현합니다.
+            }
+        }
+
+        engravingPlusSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                val name = engravingSpinner.selectedItem.toString()
+                val value = engravingPlusSpinner.selectedItem.toString()
+                spinnerChangedCallback?.onPlusMinusSpinnerChanged(name,value)
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+                // 선택된 항목이 없을 경우 처리, 필요에 따라 구현합니다.
+            }
+        }
+
+
+    }
+
+    fun setSpinnerChangedCallback(callback: SpinnerChangedCallback) {
+        spinnerChangedCallback = callback
     }
 
     @SuppressLint("ResourceAsColor")
     private fun getAttrs(attrs: AttributeSet?){
+    }
+
+    override fun onEngravingSpinnerChanged(name: String, value: String) {
+        TODO("Not yet implemented")
+    }
+
+    override fun onPlusMinusSpinnerChanged(name: String, value: String) {
+        TODO("Not yet implemented")
     }
 }

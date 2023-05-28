@@ -2,55 +2,54 @@ package com.lostark.customview
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.content.Intent
-import android.content.res.TypedArray
 import android.util.AttributeSet
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
-import android.widget.ArrayAdapter
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.Spinner
-import android.widget.TextView
+import android.widget.*
+import com.lostark.callbackinterface.SpinnerChangedCallback
 import com.lostark.loahelper.R
 import com.lostark.searchablespinnerlibrary.SearchableSpinner
 
-class AccessoryView : LinearLayout {
-    private lateinit var imageView : ImageView
-    private lateinit var engravingSpinner:Array<SearchableSpinner>
-    private lateinit var engravingPlusMinusSpinner:Array<Spinner>
+class AccessoryView : LinearLayout, SpinnerChangedCallback {
+    private lateinit var imageView: ImageView
+    private lateinit var engravingSpinner: Array<SearchableSpinner>
+    private lateinit var engravingPlusMinusSpinner: Array<Spinner>
 
-    constructor(context: Context?) : super(context){
+    private var spinnerChangedCallback: SpinnerChangedCallback? = null
+
+    constructor(context: Context?) : super(context) {
         init(context)
     }
-    constructor(context: Context?, attrs: AttributeSet?) : super(context,attrs){
+
+    constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs) {
         init(context)
         getAttrs(attrs)
     }
 
-    private fun init(context: Context?){
-        val view = LayoutInflater.from(context).inflate(R.layout.engraving_accessory_view,this,false)
+    private fun init(context: Context?) {
+        val view =
+            LayoutInflater.from(context).inflate(R.layout.engraving_accessory_view, this, false)
         addView(view)
         engravingSpinner = arrayOf(
             findViewById(R.id.engraving_spinner_one),
             findViewById(R.id.engraving_spinner_two),
-            findViewById(R.id.engraving_spinner_three))
-        engravingPlusMinusSpinner= arrayOf(
+            findViewById(R.id.engraving_spinner_three)
+        )
+        engravingPlusMinusSpinner = arrayOf(
             findViewById(R.id.engraving_spinner_one_plus),
             findViewById(R.id.engraving_spinner_two_plus),
             findViewById(R.id.engraving_spinner_three_minus)
         )
-        val plusValue = arrayOf("","+1", "+2", "+3", "+4", "+5", "+6", "+7", "+8", "+9", "+10")
+        val plusValue = arrayOf("", "+1", "+2", "+3", "+4", "+5", "+6", "+7", "+8", "+9", "+10")
         val plusSpinnerAdapter = ArrayAdapter(context!!, R.layout.engraving_spinner_item, plusValue)
         plusSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        engravingPlusMinusSpinner.forEach {it.adapter=plusSpinnerAdapter}
+        engravingPlusMinusSpinner.forEach { it.adapter = plusSpinnerAdapter }
 
-        val minusValue = arrayOf("","-1","-2","-3","-4")
-        val minusSpinnerAdapter = ArrayAdapter(context!!, R.layout.engraving_spinner_item, minusValue)
+        val minusValue = arrayOf("", "-1", "-2", "-3", "-4")
+        val minusSpinnerAdapter =
+            ArrayAdapter(context!!, R.layout.engraving_spinner_item, minusValue)
         minusSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        engravingPlusMinusSpinner[2].adapter=minusSpinnerAdapter
+        engravingPlusMinusSpinner[2].adapter = minusSpinnerAdapter
 
         val engraving = resources.getStringArray(R.array.engraving)
         val engravingSpinnerAdapter =
@@ -59,20 +58,81 @@ class AccessoryView : LinearLayout {
 
         val minusEngraving = resources.getStringArray(R.array.engraving_minus)
         val minusEngravingSpinnerAdapter =
-            ArrayAdapter(context!!,R.layout.engraving_spinner_item,minusEngraving)
+            ArrayAdapter(context!!, R.layout.engraving_spinner_item, minusEngraving)
         minusEngravingSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
 
-        engravingSpinner.forEach { it.adapter=engravingSpinnerAdapter }
-        engravingSpinner[2].adapter=minusEngravingSpinnerAdapter
+        engravingSpinner.forEach { it.adapter = engravingSpinnerAdapter }
+        engravingSpinner[2].adapter = minusEngravingSpinnerAdapter
 
         imageView = findViewById(R.id.accessory_image)
+
+        engravingSpinner.forEachIndexed() {index, it->
+            it.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    view: View?,
+                    position: Int,
+                    id: Long
+                ) {
+                    val name = parent?.getItemAtPosition(position).toString()//자신의 값
+                    val value = engravingPlusMinusSpinner[index].selectedItem.toString()
+                    spinnerChangedCallback?.onEngravingSpinnerChanged(name,value)
+                }
+
+                override fun onNothingSelected(parent: AdapterView<*>?) {
+                    // 선택된 항목이 없을 경우 처리, 필요에 따라 구현합니다.
+                }
+            }
+        }
+        engravingPlusMinusSpinner.forEachIndexed() {index, it->
+            it.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    view: View?,
+                    position: Int,
+                    id: Long
+                ) {
+                    val name = engravingSpinner[index].selectedItem.toString()
+                    val value = parent?.getItemAtPosition(position).toString()
+                    spinnerChangedCallback?.onPlusMinusSpinnerChanged(name,value)
+                }
+
+                override fun onNothingSelected(parent: AdapterView<*>?) {
+                    // 선택된 항목이 없을 경우 처리, 필요에 따라 구현합니다.
+                }
+            }
+        }
+
     }
 
     @SuppressLint("ResourceAsColor")
-    private fun getAttrs(attrs: AttributeSet?){
-        val typedArray = context.obtainStyledAttributes(attrs,R.styleable.AccessoryViewAttr)
-        imageView.setImageResource(typedArray.getResourceId(R.styleable.AccessoryViewAttr_accessoryImageSrc,R.drawable.necklace))
-        imageView.setBackgroundResource(typedArray.getResourceId(R.styleable.AccessoryViewAttr_imageBackground,R.drawable.ancient_background))
+    private fun getAttrs(attrs: AttributeSet?) {
+        val typedArray = context.obtainStyledAttributes(attrs, R.styleable.AccessoryViewAttr)
+        imageView.setImageResource(
+            typedArray.getResourceId(
+                R.styleable.AccessoryViewAttr_accessoryImageSrc,
+                R.drawable.necklace
+            )
+        )
+        imageView.setBackgroundResource(
+            typedArray.getResourceId(
+                R.styleable.AccessoryViewAttr_imageBackground,
+                R.drawable.ancient_background
+            )
+        )
         typedArray.recycle()
     }
+
+    fun setSpinnerChangedCallback(callback: SpinnerChangedCallback) {
+        spinnerChangedCallback = callback
+    }
+
+    override fun onEngravingSpinnerChanged(name: String, value: String) {
+        TODO("Not yet implemented")
+    }
+
+    override fun onPlusMinusSpinnerChanged(name: String, value: String) {
+        TODO("Not yet implemented")
+    }
+
 }
