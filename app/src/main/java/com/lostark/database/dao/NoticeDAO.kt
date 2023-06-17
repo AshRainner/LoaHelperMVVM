@@ -10,7 +10,7 @@ import com.lostark.database.table.Notice
 @Dao
 interface NoticeDAO {
 
-    @Query("SELECT * FROM Notice")
+    @Query("SELECT * FROM Notice ORDER BY UploadDate DESC")
     fun getNoticeList(): List<Notice>
 
     @Query("DELETE FROM Notice")

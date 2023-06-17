@@ -33,6 +33,10 @@
                     android:src="@drawable/catalog"></ImageButton>
             </RelativeLayout>
         </LinearLayout>
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/x_shape"></ImageView>
         <GridLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -88,13 +92,13 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
                 <com.lostark.customview.HomeButtonView
-                    android:id="@+id/home_craft_button"
+                    android:id="@+id/char_search_button"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_margin="5dp"
                     android:layout_weight="1"
                     app:buttonImageSrc="@drawable/craft_icon"
-                    app:buttonText="제작\n효율표"></com.lostark.customview.HomeButtonView>
+                    app:buttonText="캐릭터 검색"></com.lostark.customview.HomeButtonView>
 
                 <com.lostark.customview.HomeButtonView
                     android:id="@+id/home_mokoko_button"
@@ -110,7 +114,7 @@
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/event_image_slider"
             android:layout_width="match_parent"
-            android:layout_height="250dp"></androidx.viewpager2.widget.ViewPager2>
+            android:layout_height="match_parent"></androidx.viewpager2.widget.ViewPager2>
     </LinearLayout>
     <include
         android:id="@+id/drawer_view"

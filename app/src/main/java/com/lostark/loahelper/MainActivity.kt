@@ -72,7 +72,7 @@ class MainActivity : AppCompatActivity() {
         val noticeList = intent.parcelableArrayList<Notice>("NoticeList")
 
         val raidButton = findViewById<HomeButtonView>(R.id.home_raid_button)
-        val craftButton = findViewById<HomeButtonView>(R.id.home_craft_button)
+        val searchButton = findViewById<HomeButtonView>(R.id.char_search_button)
         val dailyButton = findViewById<HomeButtonView>(R.id.home_daily_button)
         val engravingButton = findViewById<HomeButtonView>(R.id.home_engraving_button)
         val noticeButton = findViewById<HomeButtonView>(R.id.home_notice_button)
@@ -87,6 +87,7 @@ class MainActivity : AppCompatActivity() {
             .putExtra("StoneList",stoneList)
             .putExtra("Destruction",destructionList))
         engravingButton.ClickEvent(Intent(this,EngravingActivity::class.java))
+        searchButton.ClickEvent(Intent(this,SearchActivity::class.java))
     }
 
     private fun eventSet(){

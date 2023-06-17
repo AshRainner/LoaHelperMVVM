@@ -10,6 +10,9 @@ interface UpdateDAO {
     @Query("SELECT * FROM UpdateLog")
     fun getRecentUpdate(): List<UpdateT>
 
+    @Query("DELETE FROM UpdateLog")
+    fun deleteUpdateAll()
+
     @Insert
     fun insertUpdate(update: UpdateT)
 

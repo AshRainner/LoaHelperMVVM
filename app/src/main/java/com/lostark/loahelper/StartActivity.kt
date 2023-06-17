@@ -37,6 +37,8 @@ class StartActivity() : AppCompatActivity() {
             if (recentTimeList.isNotEmpty()) {
                 val recentTime = recentTimeList.get(0).recentUpdate
                 if (compareToDate(time, recentTime)) {
+                    Log.d("time : ", time)
+                    Log.d("recentTime : ", recentTime)
                     db.eventsDao().deleteAllEvents()
                     Thread {
                         insertCraftItem(db.itemsDAO(),key)
@@ -45,16 +47,18 @@ class StartActivity() : AppCompatActivity() {
                         intent.putExtra("Destruction", insertDestructionStone(db.itemsDAO(),key))
                         intent.putExtra("NoticeList", insertNotice(db.noticeDAO(),key))
                         intent.putExtra("Key",key)
+                        db.updateDAO().deleteUpdateAll()
+                        db.updateDAO().insertUpdate(UpdateT(time.split('T')[0]))
                         startActivity(intent)
                         finish()
                     }.start()
                 }
             } else {
-                Log.d("여기옴", "time 넣기")
+                //키가 입력되어 있고 첫 실행일 시 업데이트 시간을 넣어줘야함
                 db.updateDAO().insertUpdate(UpdateT(time.split('T')[0]))
             }
         } else {
-            Log.d("여기옴", "첫 else")
+            //처음에 key가 없을 시 사용자에게 입력 받아야함 나중에 구현
             db.keyDao().insertKey(Key(KEY))
         }
     }
@@ -153,6 +157,7 @@ class StartActivity() : AppCompatActivity() {
         cal.time = Date()
         if (sdf.format(cal.time).toString().split('T')[1].toInt() < 10)
             cal.add(Calendar.DATE, -1)
+        Log.d("LoaTimeCheck", cal.time.toString())
         return sdf.format(cal.time)
     }
 

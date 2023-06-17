@@ -11,5 +11,4 @@ object LoaRetrofitObj {
     fun getRetrofitService(): LostArkAPI{
         return getRetrofit().create(LostArkAPI::class.java)
     }
-
 }
