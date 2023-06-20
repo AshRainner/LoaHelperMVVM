@@ -10,7 +10,7 @@ import com.lostark.database.dao.EventsDAO
 import com.lostark.database.dao.ItemsDAO
 import com.lostark.database.dao.NoticeDAO
 import com.lostark.database.table.*
-import com.lostark.dto.MarketsBody
+import com.lostark.dto.markets.MarketsBody
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
@@ -63,7 +63,7 @@ class StartActivity() : AppCompatActivity() {
         }
     }
 
-    private fun insertCraftItem(itemsDao: ItemsDAO,key:String):kotlin.collections.ArrayList<CraftItems>{
+    private fun insertCraftItem(itemsDao: ItemsDAO,key:String):ArrayList<CraftItems>{
         //배틀아이템 60000
         var pageNo=1
         itemsDao.deleteAllCraftItems()
@@ -84,7 +84,6 @@ class StartActivity() : AppCompatActivity() {
     private fun insertNotice(noticeDao:NoticeDAO,key:String):ArrayList<Notice>{
         val call = LoaRetrofitObj.getRetrofitService().getNotice(ACCEPT, key)
         val noticeList = call.execute().body()!!
-        val returnNoticeList:MutableList<Notice> = mutableListOf()
         noticeList.forEach{
             var notice = Notice(it.link,it.title,it.date,it.type)
             noticeDao.insertNotice(notice)

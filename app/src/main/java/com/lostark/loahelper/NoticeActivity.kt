@@ -19,7 +19,6 @@ import androidx.appcompat.app.AppCompatActivity
 import com.lostark.adapter.NoticeListAdapter
 import com.lostark.api.LoaRetrofitObj
 import com.lostark.database.table.Notice
-import com.lostark.dto.NoticeDTO
 import retrofit2.Call
 import retrofit2.Response
 

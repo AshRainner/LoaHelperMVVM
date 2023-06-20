@@ -6,7 +6,6 @@ import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.TextView
 import com.lostark.database.table.Notice
-import com.lostark.dto.NoticeDTO
 import com.lostark.loahelper.R
 import retrofit2.Callback
 

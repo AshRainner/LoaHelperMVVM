@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.lostark.database.table.LoaEvents
-import com.lostark.dto.EventDTO
 import com.lostark.loahelper.R
 
 class EventViewPagerAdapter(val eventList: MutableList<LoaEvents>, val viewPager2: ViewPager2) :
