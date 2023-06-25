@@ -2,6 +2,7 @@ package com.lostark.dto.characters
 
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 data class Stat(
     @SerializedName("Tooltip")
@@ -10,4 +11,4 @@ data class Stat(
     val type: String,
     @SerializedName("Value")
     val value: String
-)
+): Serializable

@@ -13,6 +13,7 @@ import android.widget.EditText
 import android.widget.ListView
 import android.widget.Spinner
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.get
 import com.lostark.adapter.RecentNameListAdapter
 import com.lostark.api.LoaRetrofitObj
 import com.lostark.callbackinterface.RecentDeleteButtonClick
@@ -65,6 +66,7 @@ class SearchActivity : AppCompatActivity(), RecentDeleteButtonClick {
                         db.recentCharInfoDAO().insertCharInfo(recentInfo)
                         getRecentInfo()
                         recentNameListAdapter.updateList(recentNameList)
+                        startActivity(Intent(Intent(this,SearchDetailActivity::class.java)).putExtra("charInfo",result))
                     }
                     else{
                         Log.d("없음", "널임: ")
@@ -85,7 +87,6 @@ class SearchActivity : AppCompatActivity(), RecentDeleteButtonClick {
                 result = response.body()
                 callback(result)
             }
-
             override fun onFailure(call: Call<Characters>, t: Throwable) {
                 result = null
                 callback(null)
@@ -102,6 +103,27 @@ class SearchActivity : AppCompatActivity(), RecentDeleteButtonClick {
         recentCharNameListView.adapter = recentNameListAdapter
         recentCharNameListView.setOnItemClickListener { adapterView, view, position, id ->
             Log.d("아이템 클릭됨 : ", "${adapterView.getItemAtPosition(position)} ")
+            searchInfo(recentNameList.get(position).charName) { result ->
+                if(result!=null) {
+                    val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH:mm:ss")
+                    val time = LocalDateTime.now().format(formatter)
+                    val recentInfo = RecentCharInfo(
+                        result.armoryProfile.characterName,
+                        result.armoryProfile.serverName,
+                        result.armoryProfile.itemMaxLevel,
+                        result.armoryProfile.characterClassName,
+                        time
+                    )
+                    Log.d("들어옴", "setSerchEditText: ")
+                    db.recentCharInfoDAO().insertCharInfo(recentInfo)
+                    getRecentInfo()
+                    recentNameListAdapter.updateList(recentNameList)
+                    startActivity(Intent(Intent(this,SearchDetailActivity::class.java)).putExtra("charInfo",result))
+                }
+                else{
+                    Log.d("없음", "널임: ")
+                }
+            }
         }
     }
 

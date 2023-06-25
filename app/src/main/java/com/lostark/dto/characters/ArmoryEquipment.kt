@@ -2,6 +2,7 @@ package com.lostark.dto.characters
 
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 data class ArmoryEquipment(
     @SerializedName("Grade")
@@ -14,4 +15,4 @@ data class ArmoryEquipment(
     val tooltip: String,
     @SerializedName("Type")
     val type: String
-)
+): Serializable

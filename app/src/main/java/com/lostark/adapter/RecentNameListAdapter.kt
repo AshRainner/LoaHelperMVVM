@@ -1,6 +1,5 @@
 package com.lostark.adapter
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,7 +20,7 @@ class RecentNameListAdapter(var recentCharInfo: MutableList<RecentCharInfo>): Ba
     override fun getItemId(position: Int): Long = 0L
 
     override fun getView(position: Int, convertView: View?, viewGroup: ViewGroup?): View {
-        val view = LayoutInflater.from(viewGroup?.context).inflate(R.layout.recent_char_name_item,null)
+        val view = LayoutInflater.from(viewGroup?.context).inflate(R.layout.char_search_recent_char_name_item,null)
         val serverName = view.findViewById<TextView>(R.id.server_name)
         val charName = view.findViewById<TextView>(R.id.recent_char_name)
         val levelClass = view.findViewById<TextView>(R.id.recent_char_level_class)

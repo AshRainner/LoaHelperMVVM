@@ -2,6 +2,7 @@ package com.lostark.dto.characters
 
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 data class Gem(
     @SerializedName("Grade")
@@ -16,4 +17,4 @@ data class Gem(
     val slot: Int,
     @SerializedName("Tooltip")
     val tooltip: String
-)
+): Serializable

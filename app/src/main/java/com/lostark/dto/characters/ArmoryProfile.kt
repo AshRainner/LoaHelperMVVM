@@ -2,6 +2,7 @@ package com.lostark.dto.characters
 
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 data class ArmoryProfile(
     @SerializedName("CharacterClassName")
@@ -40,4 +41,4 @@ data class ArmoryProfile(
     val townName: String,
     @SerializedName("UsingSkillPoint")
     val usingSkillPoint: Int
-)
+): Serializable

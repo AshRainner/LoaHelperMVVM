@@ -15,7 +15,6 @@ import com.lostark.adapter.EventViewPagerAdapter
 import com.lostark.adapter.RaidViewPagerAdapter
 import com.lostark.customview.HomeButtonView
 import com.lostark.customview.RaidButtonView
-import com.lostark.loahelper.databinding.ActivityMainBinding
 
 class RaidDetailActivity : AppCompatActivity() {
 

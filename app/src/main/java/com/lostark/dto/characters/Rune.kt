@@ -2,6 +2,7 @@ package com.lostark.dto.characters
 
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 data class Rune(
     @SerializedName("Grade")
@@ -12,4 +13,4 @@ data class Rune(
     val name: String,
     @SerializedName("Tooltip")
     val tooltip: String
-)
+): Serializable

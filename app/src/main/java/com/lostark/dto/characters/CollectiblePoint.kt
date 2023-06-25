@@ -2,6 +2,7 @@ package com.lostark.dto.characters
 
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 data class CollectiblePoint(
     @SerializedName("MaxPoint")
@@ -10,4 +11,4 @@ data class CollectiblePoint(
     val point: Int,
     @SerializedName("PointName")
     val pointName: String
-)
+): Serializable

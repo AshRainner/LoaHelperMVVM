@@ -2,6 +2,7 @@ package com.lostark.dto.characters
 
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 data class Engraving(
     @SerializedName("Icon")
@@ -12,4 +13,4 @@ data class Engraving(
     val slot: Int,
     @SerializedName("Tooltip")
     val tooltip: String
-)
+): Serializable

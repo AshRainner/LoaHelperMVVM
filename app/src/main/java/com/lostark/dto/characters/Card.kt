@@ -2,6 +2,7 @@ package com.lostark.dto.characters
 
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 data class Card(
     @SerializedName("AwakeCount")
@@ -18,4 +19,4 @@ data class Card(
     val slot: Int,
     @SerializedName("Tooltip")
     val tooltip: String
-)
+): Serializable

@@ -2,15 +2,12 @@ package com.lostark.customview
 
 import android.content.Context
 import android.content.Intent
-import android.content.res.TypedArray
 import android.util.AttributeSet
 import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.LinearLayout
-import android.widget.TextView
 import com.lostark.loahelper.R
 
 class HomeButtonView : LinearLayout {
@@ -28,7 +25,7 @@ class HomeButtonView : LinearLayout {
     }
 
     private fun init(context: Context?){
-        val view = LayoutInflater.from(context).inflate(R.layout.home_button_view,this,false)
+        val view = LayoutInflater.from(context).inflate(R.layout.main_button_view,this,false)
         addView(view)
         layout = findViewById(R.id.home_button_layout)
         textButton = findViewById(R.id.home_button)

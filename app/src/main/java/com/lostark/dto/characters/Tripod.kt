@@ -2,6 +2,7 @@ package com.lostark.dto.characters
 
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 data class Tripod(
     @SerializedName("Icon")
@@ -18,4 +19,4 @@ data class Tripod(
     val tier: Int,
     @SerializedName("Tooltip")
     val tooltip: String
-)
+): Serializable

@@ -19,7 +19,6 @@ import com.lostark.database.table.Items
 import com.lostark.database.table.Key
 import com.lostark.database.table.LoaEvents
 import com.lostark.database.table.Notice
-import kotlin.reflect.typeOf
 
 class MainActivity : AppCompatActivity() {
     private val updateLink = "https://naver.com"
@@ -27,7 +26,8 @@ class MainActivity : AppCompatActivity() {
     val KEY = "bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsIng1dCI6IktYMk40TkRDSTJ5NTA5NWpjTWk5TllqY2lyZyIsImtpZCI6IktYMk40TkRDSTJ5NTA5NWpjTWk5TllqY2lyZyJ9.eyJpc3MiOiJodHRwczovL2x1ZHkuZ2FtZS5vbnN0b3ZlLmNvbSIsImF1ZCI6Imh0dHBzOi8vbHVkeS5nYW1lLm9uc3RvdmUuY29tL3Jlc291cmNlcyIsImNsaWVudF9pZCI6IjEwMDAwMDAwMDAyNDU2NzMifQ.qNrlF-N2QB6yKCpOmTnW_oD68xJX9wRw_kOtDQkifCYWam9rXq_-2BoCXqi6PFCd7gpqUo-q53e7N_xr7f7bsVDde7yfJJPH_l6gghWDckYyMZp9v7J4eSZvJ7gRkAgxpCpfst26MqDaoTIz1Ptkk76HSG-_sCZ4TaatnivprG4qbR5i57k11qX7lcnzZ1WEzvLyVn59V3BAc2mFAOMpl2xAByoihVZUH5beZRV8l8EULVPvIZqjtH9IToWtI7a4IdFZwIsPzGSFWRtxlz1MUn-JQHSXUN4yICeSTrVuGypiAHHNTSAXLMcYqJs7maPTWoZDmG4KQCEndMxJIqt6Yg"
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.main_activity)
+        overridePendingTransition(0, 0)
         drawerSet()
         buttonSet()
         eventSet()
@@ -78,7 +78,9 @@ class MainActivity : AppCompatActivity() {
         val noticeButton = findViewById<HomeButtonView>(R.id.home_notice_button)
         val mokokoButton = findViewById<HomeButtonView>(R.id.home_mokoko_button)
 
-        raidButton.ClickEvent(Intent(this,RaidActivity::class.java))
+        raidButton.ClickEvent(Intent(this,RaidActivity::class.java).apply {
+            flags = Intent.FLAG_ACTIVITY_NO_ANIMATION
+        })
 
         noticeButton.ClickEvent(Intent(this,NoticeActivity::class.java)
             .putExtra("NoticeList",noticeList))
@@ -86,7 +88,9 @@ class MainActivity : AppCompatActivity() {
         dailyButton.ClickEvent(Intent(this,DailyActivity::class.java)
             .putExtra("StoneList",stoneList)
             .putExtra("Destruction",destructionList))
+
         engravingButton.ClickEvent(Intent(this,EngravingActivity::class.java))
+
         searchButton.ClickEvent(Intent(this,SearchActivity::class.java))
     }
 

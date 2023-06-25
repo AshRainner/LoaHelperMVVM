@@ -33,10 +33,6 @@
                     android:src="@drawable/catalog"></ImageButton>
             </RelativeLayout>
         </LinearLayout>
-        <ImageView
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:src="@drawable/x_shape"></ImageView>
         <GridLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

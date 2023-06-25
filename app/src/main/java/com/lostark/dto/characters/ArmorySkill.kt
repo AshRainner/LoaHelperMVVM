@@ -2,6 +2,7 @@ package com.lostark.dto.characters
 
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 data class ArmorySkill(
     @SerializedName("Icon")
@@ -20,4 +21,4 @@ data class ArmorySkill(
     val tripods: List<Tripod>,
     @SerializedName("Type")
     val type: String
-)
+): Serializable

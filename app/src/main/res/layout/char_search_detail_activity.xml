@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:id="@+id/search_detail_scroll_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#15181d">
+
+                <ImageView
+                    android:id="@+id/search_detail_char_img"
+                    android:layout_width="match_parent"
+                    android:layout_height="225dp"
+                    android:background="#15181d"
+                    android:scaleType="fitEnd"
+                    android:src="@drawable/test_charimage"></ImageView>
+
+                <ImageView
+                    android:id="@+id/search_detail_char_gra"
+                    android:layout_width="match_parent"
+                    android:layout_height="225dp"
+                    android:background="@drawable/test_gra"></ImageView>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="10dp">
+
+                    <TextView
+                        android:id="@+id/search_detail_server_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="니나브"
+                        android:textColor="@color/white"
+                        android:textSize="8pt"></TextView>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:id="@+id/search_detail_char_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="란코"
+                            android:textColor="@color/white"
+                            android:textSize="12pt"></TextView>
+
+                        <ImageView
+                            android:id="@+id/search_detail_char_class"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:src="@drawable/class_gunslinger"></ImageView>
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/search_detail_char_item_level"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="아이템 : 1,620.83"
+                        android:textColor="@color/white"></TextView>
+
+                    <TextView
+                        android:id="@+id/search_detail_char_level"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="전투 : Lv.60"
+                        android:textColor="@color/white"></TextView>
+
+                    <TextView
+                        android:id="@+id/search_detail_expedition_level"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="원정대 : Lv.230"
+                        android:textColor="@color/white"></TextView>
+
+                    <TextView
+                        android:id="@+id/search_detail_char_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="칭호 : 저주받은 꽃순이"
+                        android:textColor="@color/white"></TextView>
+
+                    <TextView
+                        android:id="@+id/search_detail_char_guild"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="길드 : 코니어린이집"
+                        android:textColor="@color/white"></TextView>
+
+                    <TextView
+                        android:id="@+id/search_detail_char_pvp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="PVP : 18급"
+                        android:textColor="@color/white"></TextView>
+
+                    <TextView
+                        android:id="@+id/search_detail_territory"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="영지 : Lv.52 란란"
+                        android:textColor="@color/white"></TextView>
+                </LinearLayout>
+            </RelativeLayout>
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/search_detail_tab"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:tabMode="scrollable">
+                <com.google.android.material.tabs.TabItem
+                    android:id="@+id/search_detail_tab_ability"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="능력치" />
+                <com.google.android.material.tabs.TabItem
+                    android:id="@+id/search_detail_tab_skill"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="스킬" />
+                <com.google.android.material.tabs.TabItem
+                    android:id="@+id/search_detail_tab_avatar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="아바타" />
+                <com.google.android.material.tabs.TabItem
+                    android:id="@+id/search_detail_tab_collectible"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="수집형 포이트" />
+                <com.google.android.material.tabs.TabItem
+                    android:id="@+id/search_detail_tab_charters"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="보유 캐릭터" />
+            </com.google.android.material.tabs.TabLayout>
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/search_detail_view_pager"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            </androidx.viewpager2.widget.ViewPager2>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

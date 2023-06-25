@@ -2,6 +2,7 @@ package com.lostark.dto.characters
 
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 data class EffectXX(
     @SerializedName("Description")
@@ -14,4 +15,4 @@ data class EffectXX(
     val name: String,
     @SerializedName("Tooltip")
     val tooltip: String
-)
+): Serializable

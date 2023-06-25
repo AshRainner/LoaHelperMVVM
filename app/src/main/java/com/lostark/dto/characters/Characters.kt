@@ -2,6 +2,7 @@ package com.lostark.dto.characters
 
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 data class Characters(
     @SerializedName("ArmoryAvatars")
@@ -22,4 +23,4 @@ data class Characters(
     val collectibles: List<Collectible>,
     @SerializedName("ColosseumInfo")
     val colosseumInfo: ColosseumInfo
-)
+) : Serializable

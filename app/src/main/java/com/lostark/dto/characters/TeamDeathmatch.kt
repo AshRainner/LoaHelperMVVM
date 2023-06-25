@@ -2,6 +2,7 @@ package com.lostark.dto.characters
 
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 data class TeamDeathmatch(
     @SerializedName("AceCount")
@@ -18,4 +19,4 @@ data class TeamDeathmatch(
     val tieCount: Int,
     @SerializedName("VictoryCount")
     val victoryCount: Int
-)
+): Serializable

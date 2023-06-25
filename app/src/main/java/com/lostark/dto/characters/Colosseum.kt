@@ -2,6 +2,7 @@ package com.lostark.dto.characters
 
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 data class Colosseum(
     @SerializedName("CoOpBattle")
@@ -16,4 +17,4 @@ data class Colosseum(
     val teamDeathmatch: TeamDeathmatch,
     @SerializedName("TeamElimination")
     val teamElimination: Any
-)
+): Serializable
