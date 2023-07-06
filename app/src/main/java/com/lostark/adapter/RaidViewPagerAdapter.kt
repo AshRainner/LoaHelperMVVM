@@ -28,7 +28,6 @@ class RaidViewPagerAdapter(val raidDrawableList: MutableList<Int>, val viewPager
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.imageView.setImageResource(raidDrawableList[position])
-        Log.d("ASDF", "onBindViewHolder: ")
     }
 
     override fun getItemCount(): Int = raidDrawableList.size

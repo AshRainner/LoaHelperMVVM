@@ -1,6 +1,7 @@
 package com.lostark.api
 
-import com.lostark.dto.characters.*
+import com.lostark.dto.armorys.*
+import com.lostark.dto.characters.Characters
 import com.lostark.dto.news.*
 import com.lostark.dto.markets.*
 import retrofit2.Call;
@@ -25,11 +26,11 @@ interface LostArkAPI {
     ):Call<MutableList<NoticeItem>>
 
     @GET("/armories/characters/{characterName}")
-    fun getCharacters(
+    fun getArmories(
         @Header("accept") accept: String,
         @Header("authorization") key: String,
         @Path("characterName") characterName: String
-    ):Call<Characters>
+    ):Call<Armories>
 
     @POST("/markets/items")
     fun getItemsInfo(
@@ -38,4 +39,11 @@ interface LostArkAPI {
         @Header("Content-Type") contentType: String,
         @Body marketsBody: MarketsBody
     ):Call<MarketsList>
+
+    @GET("/characters/{characterName}/siblings")
+    fun getCharacters(
+        @Header("accept") accept: String,
+        @Header("authorization") key: String,
+        @Path("characterName") characterName: String
+    ):Call<Characters>
 }

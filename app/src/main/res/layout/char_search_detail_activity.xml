@@ -142,7 +142,7 @@
                     android:id="@+id/search_detail_tab_collectible"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="수집형 포이트" />
+                    android:text="수집형 포인트" />
                 <com.google.android.material.tabs.TabItem
                     android:id="@+id/search_detail_tab_charters"
                     android:layout_width="wrap_content"

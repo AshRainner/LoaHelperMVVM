@@ -1,52 +1,27 @@
 package com.lostark.loahelper
 
-import android.content.Context
 import android.content.Intent
-import android.content.res.Resources
 import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.GradientDrawable
-import android.media.Image
 import android.os.Build
 import android.os.Bundle
-import android.os.Parcelable
-import android.util.Log
-import android.util.Xml
-import android.view.KeyEvent
-import android.view.KeyEvent.KEYCODE_ENTER
-import android.view.ViewGroup
-import android.view.inputmethod.InputMethodManager
-import android.widget.EditText
 import android.widget.ImageView
-import android.widget.ListView
-import android.widget.RelativeLayout
-import android.widget.ScrollView
-import android.widget.Spinner
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
-import com.lostark.adapter.RecentNameListAdapter
-import com.lostark.api.LoaRetrofitObj
-import com.lostark.callbackinterface.RecentDeleteButtonClick
-import com.lostark.database.AppDatabase
-import com.lostark.database.table.Notice
-import com.lostark.database.table.RecentCharInfo
-import com.lostark.dto.characters.Characters
-import org.xmlpull.v1.XmlPullParser
-import org.xmlpull.v1.XmlPullParserFactory
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import java.io.ByteArrayInputStream
+import com.google.gson.GsonBuilder
+import com.lostark.adapter.CharSearchViewPagerAdapter
+import com.lostark.adapter.ValueDataAdapter
+import com.lostark.dto.armorys.Armories
+import com.lostark.dto.armorys.armortooltip.Tooltip
+import com.lostark.dto.armorys.armortooltip.ValueData
 import java.io.Serializable
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
 import java.util.*
-import kotlin.math.exp
 
 class SearchDetailActivity : AppCompatActivity() {
     /*
@@ -80,16 +55,33 @@ class SearchDetailActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.char_search_detail_activity)
-        val charInfo = intent.getSerializable("charInfo") as Characters?
+        val charInfo = intent.getSerializable("charInfo") as Armories?
         val itemLevel = charInfo!!.armoryProfile.itemMaxLevel.replace(",","").toFloat().toInt()
         val charImgUrl = charInfo.armoryProfile.characterImage
 
         charGradationSet(itemLevel)
         charImageSet(charImgUrl)
         charInfoSet(charInfo)
+        setFragment(charInfo)
+        testGson(charInfo)
+    }
+    fun testGson(charInfo:Armories){
+        val gson = GsonBuilder()
+            .registerTypeAdapter(ValueData::class.java, ValueDataAdapter())
+            .create()
+
+        val jsonString = "{\n\"Elements\":\n"+charInfo.armoryEquipment.get(1).tooltip+"\n}"
+        val tooltip = gson.fromJson(jsonString, Tooltip::class.java)
+        tooltip.elements.forEach { (key, value) ->
+            println("Element: $key")
+            println("Type: ${value.type}")
+            println("Value: ${value.value}")
+            println()
+        }
+
     }
 
-    fun charInfoSet(charInfo:Characters){
+    fun charInfoSet(charInfo:Armories){
         val serverName = findViewById<TextView>(R.id.search_detail_server_name)
         val charName = findViewById<TextView>(R.id.search_detail_char_name)
         val itemLevel = findViewById<TextView>(R.id.search_detail_char_item_level)
@@ -142,32 +134,51 @@ class SearchDetailActivity : AppCompatActivity() {
     }
 
 
-    fun charImageSet(charImgUrl:String) {
+    fun charImageSet(charImgUrl:String?) {
         val charImage = findViewById<ImageView>(R.id.search_detail_char_img)
         /*Glide.with(this)
             .load(charImgUrl)
             .into(charImage)*/
-        Log.d(
+        /*Log.d(
             "charImage.layoutParams : ",
             "width : {${charImage.layoutParams.width}} height : {${charImage.layoutParams.height}}"
-        )
+        )*/
+        charImgUrl?.let {
+            Glide.with(this)
+                .asBitmap()
+                .load(charImgUrl)
+                .into(object : CustomTarget<Bitmap>() {
+                    override fun onResourceReady(
+                        resource: Bitmap,
+                        transition: Transition<in Bitmap>?
+                    ) {
+                        // 이미지를 설정
+                        val x = 25
+                        val y = 50 // 원하는 부분의 y 좌표
+                        val croppedBitmap = Bitmap.createBitmap(
+                            resource,
+                            x,
+                            y,
+                            resource.width - 200,
+                            resource.height - 350
+                        )
+                        charImage.setImageBitmap(croppedBitmap)
+                    }
 
-        Glide.with(this)
-            .asBitmap()
-            .load(charImgUrl)
-            .into(object : CustomTarget<Bitmap>() {
-                override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
-                    // 이미지를 설정
-                    val x = 25
-                    val y = 50 // 원하는 부분의 y 좌표
-                    val croppedBitmap = Bitmap.createBitmap(resource, x, y, resource.width-200, resource.height-350)
-                    charImage.setImageBitmap(croppedBitmap)
-                }
+                    override fun onLoadCleared(placeholder: Drawable?) {
+                        // Do nothing
+                    }
+                })
+        }?:{
 
-                override fun onLoadCleared(placeholder: Drawable?) {
-                    // Do nothing
-                }
-            })
+        }
+    }
+    fun setFragment(charInfo: Armories){
+        val viewPager = findViewById<ViewPager2>(R.id.search_detail_view_pager)
+        val abilityFragment = AbilityFragment(charInfo)
+        val viewPagerAdapter = CharSearchViewPagerAdapter(this)
+        viewPagerAdapter.addFragment(abilityFragment)
+        viewPager.adapter=viewPagerAdapter
     }
 
     fun charGradationSet(level:Int) {

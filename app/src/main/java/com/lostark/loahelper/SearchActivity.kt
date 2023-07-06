@@ -13,13 +13,13 @@ import android.widget.EditText
 import android.widget.ListView
 import android.widget.Spinner
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.get
 import com.lostark.adapter.RecentNameListAdapter
 import com.lostark.api.LoaRetrofitObj
 import com.lostark.callbackinterface.RecentDeleteButtonClick
 import com.lostark.database.AppDatabase
 import com.lostark.database.table.Notice
 import com.lostark.database.table.RecentCharInfo
+import com.lostark.dto.armorys.Armories
 import com.lostark.dto.characters.Characters
 import retrofit2.Call
 import retrofit2.Callback
@@ -51,10 +51,17 @@ class SearchActivity : AppCompatActivity(), RecentDeleteButtonClick {
         val charSearchEdit = findViewById<EditText>(R.id.char_search_name)
         charSearchEdit.setOnKeyListener { view, i, keyEvent ->
             if (keyEvent.action == KeyEvent.ACTION_DOWN && i == KEYCODE_ENTER) {
+                var serverName=""
+                exceptionSearch(charSearchEdit.text.toString()){
+                        serverName = it?.find {
+                            it.characterName.uppercase() == charSearchEdit.text.toString().uppercase()
+                        }?.serverName.toString()
+                    }
                 searchInfo(charSearchEdit.text.toString()) { result ->
                     if(result!=null) {
                         val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH:mm:ss")
                         val time = LocalDateTime.now().format(formatter)
+                        result.armoryProfile.serverName = serverName
                         val recentInfo = RecentCharInfo(
                             result.armoryProfile.characterName,
                             result.armoryProfile.serverName,
@@ -62,7 +69,6 @@ class SearchActivity : AppCompatActivity(), RecentDeleteButtonClick {
                             result.armoryProfile.characterClassName,
                             time
                         )
-                        Log.d("들어옴", "setSerchEditText: ")
                         db.recentCharInfoDAO().insertCharInfo(recentInfo)
                         getRecentInfo()
                         recentNameListAdapter.updateList(recentNameList)
@@ -77,17 +83,31 @@ class SearchActivity : AppCompatActivity(), RecentDeleteButtonClick {
             false
         }
     }
-
-    private fun searchInfo(name: String, callback: (Characters?) -> Unit){
-        var result:Characters? = null
+    private fun exceptionSearch(name: String, callback: (Characters?) -> Unit){//서치 인포에서 서치를 했는데 유령 계정이라 서버이름이 ""인 경우 수행하는 서치
+        var result:Characters?=null
         val key = db.keyDao().getKey()
-        val call = LoaRetrofitObj.getRetrofitService().getCharacters(ACCEPT, key, name)
+        val call = LoaRetrofitObj.getRetrofitService().getCharacters(ACCEPT,key,name)
         call.enqueue(object : Callback<Characters>{
             override fun onResponse(call: Call<Characters>, response: Response<Characters>) {
                 result = response.body()
                 callback(result)
             }
             override fun onFailure(call: Call<Characters>, t: Throwable) {
+                result = null
+                callback(null)
+            }
+        })
+    }
+    private fun searchInfo(name: String, callback: (Armories?) -> Unit){
+        var result:Armories? = null
+        val key = db.keyDao().getKey()
+        val call = LoaRetrofitObj.getRetrofitService().getArmories(ACCEPT, key, name)
+        call.enqueue(object : Callback<Armories>{
+            override fun onResponse(call: Call<Armories>, response: Response<Armories>) {
+                result = response.body()
+                callback(result)
+            }
+            override fun onFailure(call: Call<Armories>, t: Throwable) {
                 result = null
                 callback(null)
             }
@@ -102,11 +122,18 @@ class SearchActivity : AppCompatActivity(), RecentDeleteButtonClick {
         recentNameListAdapter.setRecentDeleteButtonClickListener(this)
         recentCharNameListView.adapter = recentNameListAdapter
         recentCharNameListView.setOnItemClickListener { adapterView, view, position, id ->
-            Log.d("아이템 클릭됨 : ", "${adapterView.getItemAtPosition(position)} ")
+            //og.d("아이템 클릭됨 : ", "${adapterView.getItemAtPosition(position)} ")
+            var serverName=""
+            exceptionSearch(recentNameList.get(position).charName){
+                serverName = it?.find {
+                    it.characterName.uppercase() == recentNameList.get(position).charName.uppercase()
+                }?.serverName.toString()
+            }
             searchInfo(recentNameList.get(position).charName) { result ->
                 if(result!=null) {
                     val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH:mm:ss")
                     val time = LocalDateTime.now().format(formatter)
+                    result.armoryProfile.serverName = serverName
                     val recentInfo = RecentCharInfo(
                         result.armoryProfile.characterName,
                         result.armoryProfile.serverName,
@@ -114,7 +141,6 @@ class SearchActivity : AppCompatActivity(), RecentDeleteButtonClick {
                         result.armoryProfile.characterClassName,
                         time
                     )
-                    Log.d("들어옴", "setSerchEditText: ")
                     db.recentCharInfoDAO().insertCharInfo(recentInfo)
                     getRecentInfo()
                     recentNameListAdapter.updateList(recentNameList)
@@ -125,23 +151,6 @@ class SearchActivity : AppCompatActivity(), RecentDeleteButtonClick {
                 }
             }
         }
-    }
-
-    fun search(noticeList:ArrayList<Notice>,noticeListCopy:ArrayList<Notice>,spinner: Spinner,noticeSearch:EditText){
-        noticeList.clear()
-        noticeListCopy.forEach {
-            if (spinner.selectedItem.toString().equals("전체")) {
-                if (it.title.contains(noticeSearch.text))
-                    noticeList.add(it)
-            }
-            else
-                if (it.title.contains(noticeSearch.text) && it.type == spinner.selectedItem.toString())
-                    noticeList.add(it)
-        }
-
-        val imm: InputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        imm.hideSoftInputFromWindow(currentFocus?.windowToken,0)
-
     }
 
     inline fun <reified T : Parcelable> Intent.parcelableArrayList(key: String): ArrayList<T>? = when {
