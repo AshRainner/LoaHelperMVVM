@@ -3,10 +3,7 @@ package com.lostark.adapter
 import com.google.gson.JsonDeserializationContext
 import com.google.gson.JsonDeserializer
 import com.google.gson.JsonElement
-import com.lostark.dto.armorys.armortooltip.IndentStringGroupData
-import com.lostark.dto.armorys.armortooltip.ItemPartData
-import com.lostark.dto.armorys.armortooltip.ItemTitleData
-import com.lostark.dto.armorys.armortooltip.ValueData
+import com.lostark.dto.armorys.tooltips.*
 import java.lang.reflect.Type
 
 class ValueDataAdapter : JsonDeserializer<ValueData<*>> {
@@ -41,6 +38,13 @@ class ValueDataAdapter : JsonDeserializer<ValueData<*>> {
                     IndentStringGroupData::class.java
                 )
                 indentStringGroupData
+            }
+            "EngraveSkillTitle"->{
+                val engraveSkillTitle = context?.deserialize<EngraveSkillTitleData>(
+                    jsonObject.get("value"),
+                    EngraveSkillTitleData::class.java
+                )
+                engraveSkillTitle
             }
             else->{
                 jsonObject.get("value").asString

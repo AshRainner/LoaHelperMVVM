@@ -1,4 +1,4 @@
-package com.lostark.dto.armorys.armortooltip
+package com.lostark.dto.armorys.tooltips
 
 import com.google.gson.annotations.SerializedName
 

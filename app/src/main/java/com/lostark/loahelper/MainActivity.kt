@@ -5,10 +5,12 @@ import android.net.Uri
 import android.os.Build.VERSION.SDK_INT
 import android.os.Bundle
 import android.os.Parcelable
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
+import android.widget.LinearLayout
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.viewpager2.widget.ViewPager2
@@ -36,6 +38,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun drawerSet(){
         val mainActivity = findViewById<DrawerLayout>(R.id.main_activity)
+        val overlayView = findViewById<LinearLayout>(R.id.drawer_view)
         val drawerButton = findViewById<ImageButton>(R.id.drawer_button)
 
         mainActivity.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
@@ -44,6 +47,10 @@ class MainActivity : AppCompatActivity() {
             mainActivity.openDrawer(GravityCompat.END)
         }
         drawerLayoutButtonSet()
+
+        overlayView.setOnTouchListener{ _,event-> //터치이벤트 가로채서 뒤에 있는 버튼들 안눌리게
+            true
+        }
 
     }
     private fun drawerLayoutButtonSet(){

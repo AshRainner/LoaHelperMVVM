@@ -69,6 +69,28 @@
                     </TextView>
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
+            <TextView
+                android:visibility="gone"
+                android:id="@+id/char_search_detail_ability_stone_plus_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="7pt"
+                android:text="7 · 7 · "
+                android:textAlignment="center"
+                android:textColor="#000000"
+                android:textStyle="bold">
+            </TextView>
+            <TextView
+                android:visibility="gone"
+                android:id="@+id/char_search_detail_ability_stone_minus_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="7pt"
+                android:text="2"
+                android:textAlignment="center"
+                android:textColor="#ff0044"
+                android:textStyle="bold">
+            </TextView>
         </LinearLayout>
     </LinearLayout>
 

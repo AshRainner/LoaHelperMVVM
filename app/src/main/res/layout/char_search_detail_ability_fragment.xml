@@ -3,14 +3,19 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="#f2f2f2f2">
     <LinearLayout
+        android:layout_marginTop="20dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="#ffffff">
         <LinearLayout
+            android:layout_weight="1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:layout_marginLeft="10dp">
             <com.lostark.customview.CharSearchArmorView
                 android:id="@+id/char_search_detail_ability_hat"
                 android:layout_width="wrap_content"
@@ -41,11 +46,29 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
             </com.lostark.customview.CharSearchArmorView>
+            <LinearLayout
+                android:layout_marginTop="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <com.lostark.customview.CharSearchEngravingBookView
+                    android:id="@+id/char_search_detail_ability_engraving1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                </com.lostark.customview.CharSearchEngravingBookView>
+                <com.lostark.customview.CharSearchEngravingBookView
+                    android:layout_marginLeft="10dp"
+                    android:id="@+id/char_search_detail_ability_engraving2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                </com.lostark.customview.CharSearchEngravingBookView>
+            </LinearLayout>
         </LinearLayout>
         <LinearLayout
+            android:layout_weight="1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:layout_marginLeft="10dp">
             <com.lostark.customview.CharSearchAccessoryView
                 android:id="@+id/char_search_detail_ability_necklace"
                 android:layout_width="wrap_content"
@@ -73,6 +96,11 @@
             </com.lostark.customview.CharSearchAccessoryView>
             <com.lostark.customview.CharSearchAccessoryView
                 android:id="@+id/char_search_detail_ability_bracelet"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+            </com.lostark.customview.CharSearchAccessoryView>
+            <com.lostark.customview.CharSearchAccessoryView
+                android:id="@+id/char_search_detail_ability_stone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
             </com.lostark.customview.CharSearchAccessoryView>

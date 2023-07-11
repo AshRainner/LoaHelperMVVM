@@ -10,14 +10,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:cardCornerRadius="5dp"
-        app:cardBackgroundColor="#ff00dd">
+        app:cardBackgroundColor="#dedfe0">
         <ImageView
             android:id="@+id/armor_image"
             android:layout_marginLeft="5dp"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:src="@drawable/test_armor"
-            android:background="@drawable/ancient_background">
+            android:background="#dedfe0">
         </ImageView>
     </com.google.android.material.card.MaterialCardView>
     <LinearLayout
@@ -32,8 +31,7 @@
             android:layout_height="wrap_content"
             android:textColor="#d9ae43"
             android:textStyle="bold"
-            android:textSize="6pt"
-            android:text="+18 전이된 몽환의 악몽 모자">
+            android:textSize="6pt">
         </TextView>
         <LinearLayout
             android:layout_width="wrap_content"
@@ -46,23 +44,23 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
                     <TextView
+                        android:visibility="gone"
                         android:id="@+id/armor_quality"
                         android:layout_width="40dp"
                         android:layout_height="wrap_content"
                         android:background="#ff00dd"
                         android:textSize="7pt"
-                        android:text="100"
                         android:textAlignment="center"
                         android:textColor="#ffffff"
                         android:textStyle="bold">
                     </TextView>
                     <TextView
+                        android:visibility="gone"
                         android:id="@+id/armor_set_level"
                         android:layout_width="40dp"
                         android:layout_height="wrap_content"
                         android:background="#e2e2e2"
                         android:textSize="7pt"
-                        android:text="Lv.3"
                         android:textAlignment="center"
                         android:textColor="#000000"
                         android:textStyle="bold">
@@ -74,7 +72,6 @@
                 android:layout_marginLeft="5dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="민첩 2 · 회심 5"
                 android:textSize="5pt"
                 android:textColor="#000000"
                 android:textAlignment="center"

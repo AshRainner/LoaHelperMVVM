@@ -7,6 +7,7 @@ import android.graphics.drawable.Drawable
 import android.graphics.drawable.GradientDrawable
 import android.os.Build
 import android.os.Bundle
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -14,12 +15,14 @@ import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
+import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.gson.GsonBuilder
 import com.lostark.adapter.CharSearchViewPagerAdapter
 import com.lostark.adapter.ValueDataAdapter
 import com.lostark.dto.armorys.Armories
-import com.lostark.dto.armorys.armortooltip.Tooltip
-import com.lostark.dto.armorys.armortooltip.ValueData
+import com.lostark.dto.armorys.tooltips.Tooltip
+import com.lostark.dto.armorys.tooltips.ValueData
 import java.io.Serializable
 import java.util.*
 
@@ -63,7 +66,7 @@ class SearchDetailActivity : AppCompatActivity() {
         charImageSet(charImgUrl)
         charInfoSet(charInfo)
         setFragment(charInfo)
-        testGson(charInfo)
+        //testGson(charInfo)
     }
     fun testGson(charInfo:Armories){
         val gson = GsonBuilder()
@@ -201,6 +204,21 @@ class SearchDetailActivity : AppCompatActivity() {
         drawable.orientation = GradientDrawable.Orientation.LEFT_RIGHT
         return drawable
     }
+
+    fun openArmorDialog(){
+        val armorDialog = BottomSheetDialog(this)
+        val armorDialogView = layoutInflater.inflate(R.layout.char_search_detail_armor_dialog,null)
+        val armorDialogOkButton = armorDialogView.findViewById<Button>(R.id.char_search_detail_armor_dialog_button)
+        armorDialog.setContentView(armorDialogView)
+        armorDialog.behavior.state = BottomSheetBehavior.STATE_EXPANDED // 나올 때 전체 크기많큼 다 나오기
+        armorDialog.behavior.isHideable = false //밑으로 드래그해서 끄는거 막기
+        armorDialog.behavior.isDraggable=false //드래그 막기
+        armorDialog.show()
+        armorDialogOkButton.setOnClickListener{
+            armorDialog.dismiss()
+        }
+    }
+
     inline fun <reified T : Serializable> Intent.getSerializable(key: String): T? = when {
         Build.VERSION.SDK_INT >= 33 -> getSerializableExtra(key, T::class.java)
         else -> @Suppress("DEPRECATION") getSerializableExtra(key) as T

@@ -3,7 +3,6 @@ package com.lostark.customview
 import android.content.Context
 import android.graphics.Color
 import android.util.AttributeSet
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.ImageView
@@ -12,10 +11,10 @@ import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.google.android.material.card.MaterialCardView
 import com.lostark.dto.armorys.ArmoryEquipment
-import com.lostark.dto.armorys.armortooltip.IndentStringGroupData
-import com.lostark.dto.armorys.armortooltip.ItemPartData
-import com.lostark.dto.armorys.armortooltip.ItemTitleData
-import com.lostark.dto.armorys.armortooltip.Tooltip
+import com.lostark.dto.armorys.tooltips.IndentStringGroupData
+import com.lostark.dto.armorys.tooltips.ItemPartData
+import com.lostark.dto.armorys.tooltips.ItemTitleData
+import com.lostark.dto.armorys.tooltips.Tooltip
 import com.lostark.loahelper.R
 
 class CharSearchAccessoryView : LinearLayout {
@@ -50,6 +49,8 @@ class CharSearchAccessoryView : LinearLayout {
     lateinit var accessoryName: TextView
     lateinit var accessoryQuality: TextView
     lateinit var accessoryAbility: TextView
+    lateinit var stonePlusText: TextView
+    lateinit var stoneMinusText: TextView
 
     constructor(context: Context?) : super(context) {
         init(context)
@@ -62,7 +63,8 @@ class CharSearchAccessoryView : LinearLayout {
 
     private fun init(context: Context?) {
         val view =
-            LayoutInflater.from(context).inflate(R.layout.char_search_detail_ability_accessory_view, this, false)
+            LayoutInflater.from(context)
+                .inflate(R.layout.char_search_detail_ability_accessory_view, this, false)
         addView(view)
 
 
@@ -71,16 +73,16 @@ class CharSearchAccessoryView : LinearLayout {
         accessoryName = findViewById(R.id.char_search_detail_accessory_name)
         accessoryQuality = findViewById(R.id.char_search_detail_accessory_quality)
         accessoryAbility = findViewById(R.id.char_search_detail_accessory_ability)
+        stonePlusText = findViewById(R.id.char_search_detail_ability_stone_plus_text)
+        stoneMinusText = findViewById(R.id.char_search_detail_ability_stone_minus_text)
 
     }
+
     private fun getAttrs(attrs: AttributeSet?) {
 
     }
-    fun setAccessoryImageText(armory:ArmoryEquipment,tooltip: Tooltip){
-        Glide.with(this)
-            .load(armory.icon)
-            .into(accessoryImage)
-        when(armory.grade) {//이미지 백그라운드
+    fun setImageBackground(grade : String){
+        when(grade) {//이미지 백그라운드
             "고대" -> {
                 accessoryImage.setBackgroundResource(R.drawable.ancient_background)
                 accessoryName.setTextColor(Color.parseColor("#d9ae43"))
@@ -108,47 +110,92 @@ class CharSearchAccessoryView : LinearLayout {
                 accessoryName.setTextColor(Color.parseColor("#8FDB32"))
             }
         }
-        val itemTitleKeys = tooltip.elements.filter { it.value.type=="ItemTitle"}.keys.toList()
+    }
+
+    fun setAccessoryImageText(armory: ArmoryEquipment, tooltip: Tooltip) {
+        Glide.with(this)
+            .load(armory.icon)
+            .into(accessoryImage)
+        setImageBackground(armory.grade)
+
+
+        val itemTitleKeys = tooltip.elements.filter { it.value.type == "ItemTitle" }.keys.toList()
 
         val itemTitleData = tooltip.elements.get(itemTitleKeys.get(0))?.value as ItemTitleData
-        accessoryName.text = armory.type
-        accessoryQuality.text = itemTitleData.qualityValue.toString()
-        accessoryAbility.visibility=View.VISIBLE
-        accessoryQuality.visibility=View.VISIBLE
 
-        val itemPartBoxKeys = tooltip.elements.filter { it.value.type=="ItemPartBox"}.keys.toList()
+        var check = false //어빌 스톤인지 체크
+        if (itemTitleData.leftStr0.contains("스톤"))
+            check = true
 
-        for(key in itemPartBoxKeys){
-            val itemPartBoxData = tooltip.elements.get(key)?.value as ItemPartData
-            var pattern = "(치명|특화|신속|제압|인내|숙련)".toRegex()
-            if(itemPartBoxData.element1.contains(pattern)){
-                if (armory.type=="목걸이"||armory.type=="팔찌"){
-                    pattern = "(치명|특화|신속|제압|인내|숙련)\\s\\+(\\d+)+".toRegex()
-                    var ability1:String=""
-                    var abilityStat=0
-                    var ability2:String=""
-                    var seq=true
-                    pattern.findAll(itemPartBoxData.element1).forEach {
-                        val number = it.groupValues[2].toInt()
-                        if (ability1=="") {
-                            ability1=it.groupValues[1]
-                            abilityStat=number
+        if (check) {
+            var pattern = "[A-Z]+".toRegex()
+            val stoneLevle = pattern.find(armory.name)
+            accessoryName.text = "스톤"
+            stoneLevle?.let {
+                accessoryName.text="스톤 "+stoneLevle.value
+            }
+
+
+            val indentStringGroup =
+                tooltip.elements.filter { it.value.type == "IndentStringGroup" }.keys.toList()
+            pattern = "\\d".toRegex()
+            for (key in indentStringGroup){
+                val indentStringGroupData = tooltip.elements.get(key)?.value as IndentStringGroupData
+
+                val plusOne = pattern.find(indentStringGroupData.element0.contentStr.Element_000.contentStr)?.value
+
+                val plusTwo = pattern.find(indentStringGroupData.element0.contentStr.Element_001.contentStr)?.value
+
+                val minusOne = pattern.find(indentStringGroupData.element0.contentStr.Element_002.contentStr)?.value
+                stonePlusText.text = plusOne+" · "+plusTwo+" · "
+                stoneMinusText.text = minusOne
+
+                stonePlusText.visibility=View.VISIBLE
+                stoneMinusText.visibility=View.VISIBLE
+            }
+
+
+        } else {
+            accessoryName.text = armory.type
+            accessoryQuality.text = itemTitleData.qualityValue.toString()
+            accessoryAbility.visibility = View.VISIBLE
+            accessoryQuality.visibility = View.VISIBLE
+
+            val itemPartBoxKeys =
+                tooltip.elements.filter { it.value.type == "ItemPartBox" }.keys.toList()
+
+            for (key in itemPartBoxKeys) {
+                val itemPartBoxData = tooltip.elements.get(key)?.value as ItemPartData
+                var pattern = "(치명|특화|신속|제압|인내|숙련)".toRegex()
+                if (itemPartBoxData.element1.contains(pattern)) {
+                    if (armory.type == "목걸이" || armory.type == "팔찌") {
+                        pattern = "(치명|특화|신속|제압|인내|숙련)\\s\\+(\\d+)+".toRegex()
+                        var ability1: String = ""
+                        var abilityStat = 0
+                        var ability2: String = ""
+                        var seq = true
+                        pattern.findAll(itemPartBoxData.element1).forEach {
+                            val number = it.groupValues[2].toInt()
+                            if (ability1 == "") {
+                                ability1 = it.groupValues[1]
+                                abilityStat = number
+                            } else {
+                                ability2 = it.groupValues[1]
+                                if (number > abilityStat)
+                                    seq = false
+                            }
                         }
-                        else{
-                            ability2=it.groupValues[1]
-                            if(number>abilityStat)
-                                seq=false
-                        }
+                        if (seq)
+                            accessoryAbility.text =
+                                ability1.substring(0, 1) + ability2.substring(0, 1)
+                        else
+                            accessoryAbility.text =
+                                ability2.substring(0, 1) + ability1.substring(0, 1)
+                        if (armory.type == "팔찌")
+                            accessoryQuality.visibility = View.GONE
+                    } else {
+                        accessoryAbility.text = pattern.find(itemPartBoxData.element1)?.value
                     }
-                    if(seq)
-                        accessoryAbility.text = ability1.substring(0,1)+ability2.substring(0,1)
-                    else
-                        accessoryAbility.text = ability2.substring(0,1)+ability1.substring(0,1)
-                    if(armory.type=="팔찌")
-                        accessoryQuality.visibility=View.GONE
-                }
-                else{
-                    accessoryAbility.text = pattern.find(itemPartBoxData.element1)?.value
                 }
             }
         }

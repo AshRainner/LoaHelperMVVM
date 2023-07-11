@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/char_search_detail_layout"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <ScrollView
+    <com.amar.library.ui.StickyScrollView
         android:id="@+id/search_detail_scroll_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        app:stickyHeader="@+id/search_detail_tab">
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -155,5 +157,8 @@
                 android:layout_height="wrap_content">
             </androidx.viewpager2.widget.ViewPager2>
         </LinearLayout>
-    </ScrollView>
-</LinearLayout>
+    </com.amar.library.ui.StickyScrollView>
+    <include
+        android:id="@+id/char_search_detail_drawer"
+        layout="@layout/char_search_detail_drawer"></include>
+</androidx.drawerlayout.widget.DrawerLayout>

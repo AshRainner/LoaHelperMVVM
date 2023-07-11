@@ -3,7 +3,6 @@ package com.lostark.customview
 import android.content.Context
 import android.graphics.Color
 import android.util.AttributeSet
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.ImageView
@@ -12,10 +11,10 @@ import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.google.android.material.card.MaterialCardView
 import com.lostark.dto.armorys.ArmoryEquipment
-import com.lostark.dto.armorys.armortooltip.IndentStringGroupData
-import com.lostark.dto.armorys.armortooltip.ItemPartData
-import com.lostark.dto.armorys.armortooltip.ItemTitleData
-import com.lostark.dto.armorys.armortooltip.Tooltip
+import com.lostark.dto.armorys.tooltips.IndentStringGroupData
+import com.lostark.dto.armorys.tooltips.ItemPartData
+import com.lostark.dto.armorys.tooltips.ItemTitleData
+import com.lostark.dto.armorys.tooltips.Tooltip
 import com.lostark.loahelper.R
 
 class CharSearchArmorView : LinearLayout {
@@ -80,11 +79,8 @@ class CharSearchArmorView : LinearLayout {
     private fun getAttrs(attrs: AttributeSet?) {
 
     }
-    fun setArmorImageText(armory:ArmoryEquipment,tooltip: Tooltip){
-        Glide.with(this)
-            .load(armory.icon)
-            .into(armorImage)
-        when(armory.grade) {//이미지 백그라운드
+    fun setImageBackground(grade : String){
+        when(grade) {//이미지 백그라운드
             "고대" -> {
                 armorImage.setBackgroundResource(R.drawable.ancient_background)
                 armorName.setTextColor(Color.parseColor("#d9ae43"))
@@ -112,6 +108,13 @@ class CharSearchArmorView : LinearLayout {
                 armorName.setTextColor(Color.parseColor("#8FDB32"))
             }
         }
+    }
+    fun setArmorImageText(armory:ArmoryEquipment,tooltip: Tooltip){
+        Glide.with(this)
+            .load(armory.icon)
+            .into(armorImage)
+        setImageBackground(armory.grade)
+
         val itemTitleKeys = tooltip.elements.filter { it.value.type=="ItemTitle"}.keys.toList()
 
         val itemTitleData = tooltip.elements.get(itemTitleKeys.get(0))?.value as ItemTitleData
@@ -121,29 +124,33 @@ class CharSearchArmorView : LinearLayout {
         else
             armorQuality.text ="0"
 
+        armorQuality.visibility=View.VISIBLE
+
+
+
         val itemPartBoxKeys = tooltip.elements.filter { it.value.type=="ItemPartBox"}.keys.toList()
 
-        var check=true // 세트레벨이 존재하는지 체크
+        var check=false // 세트레벨이 존재하는지 체크
 
         for (key in itemPartBoxKeys){
             val itemPartData = tooltip.elements.get(key)?.value as ItemPartData
             if (itemPartData.element0.contains("세트 효과 레벨")){
-                check=false
+                check=true
                 val pattern = "Lv\\.\\d".toRegex()
                 armorSetLevel.text = pattern.find(itemPartData.element1)?.value
                 break
             }
         }
         if(check)
-            armorSetLevel.visibility= View.GONE
+            armorSetLevel.visibility= View.VISIBLE
 
-        check=true // 엘릭서가 있는지 체크
+        check=false // 엘릭서가 있는지 체크
 
         val elixirKeys = tooltip.elements.filter { it.value.type=="IndentStringGroup"}.keys.toList()
         for (key in elixirKeys){
             val indentStringGroupData = tooltip.elements.get(key)?.value as IndentStringGroupData
             if (indentStringGroupData?.element0?.topStr?.contains("엘릭서") == true){
-                check=false
+                check=true
                 var pattern = "(아군 강화|아이덴티티 획득|추가 피해|치명타 피해) Lv\\.\\d|(마법 방어력|물리 방어력|받는 피해 감소|최대 생명력) Lv\\.\\d|(각성기 피해|보스 피해|보호막 강화|회복강화) Lv\\.\\d|(민첩|힘|지능|공격력|마나|무기 공격력|무력화|물약 중독|방랑자|생명의 축복|자원의 축복|탈출의 달인|폭발물 달인|회피의 달인) Lv\\.\\d|(강맹|달인|선각자|선봉대|신념|진군|칼날 방패|행운|회심).{6}Lv\\.\\d".toRegex()
                 var elixirStr1 = indentStringGroupData.element0.contentStr.Element_000?.contentStr
                 var elixirStr2 = indentStringGroupData.element0.contentStr.Element_001?.contentStr
@@ -185,7 +192,8 @@ class CharSearchArmorView : LinearLayout {
             }
         }
         if (check)
-            armorElixir.visibility=View.GONE
+            armorElixir.visibility=View.VISIBLE
+
 
     }
 }
