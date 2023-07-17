@@ -2,174 +2,25 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/draw_view_main"
+    android:id="@+id/drawer_view_main"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_gravity="end"
     android:orientation="vertical"
     style="@style/AppBottomSheetDialogTheme">
-
-    <TextView
-        android:id="@+id/char_search_detail_drawer_armor_name"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="10dp"
-        android:gravity="center"
-        android:text="+18 전이된 몽환의 악몽 모자"
-        android:textColor="@color/black"
-        android:textSize="9pt"
-        android:textStyle="bold"></TextView>
-
     <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <include
+            android:id="@+id/armor_drawer"
+            layout="@layout/char_search_detail_armor_dialog">
+        </include>
+    </LinearLayout>
+    <Button
+        android:id="@+id/char_search_detail_drawer_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="15dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginRight="15dp"
-        android:orientation="vertical">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <com.google.android.material.card.MaterialCardView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:cardCornerRadius="10dp">
-
-                <ImageView
-                    android:id="@+id/char_search_detail_accessory_image"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:background="@drawable/ancient_background"
-                    android:src="@drawable/test_armor"></ImageView>
-            </com.google.android.material.card.MaterialCardView>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="10dp"
-                android:orientation="vertical">
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="고대 머리 방어구  | 1615 | 티어 3"
-                        android:textStyle="bold"
-                        android:textColor="@color/black"
-                        android:textSize="6pt"></TextView>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1">
-
-                    <TextView
-                        android:id="@+id/char_search_detail_drawer_item_quality"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="94"
-                        android:textSize="7pt"
-                        android:textColor="@color/black"
-                        android:textStyle="bold"></TextView>
-
-                    <ProgressBar
-                        android:id="@+id/char_search_detail_drawer_item_quality_progress"
-                        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-                        android:layout_width="200dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginLeft="10dp"
-                        android:max="100"
-                        android:progress="94"
-                        android:progressTint="#ff0000"
-                        android:scaleY="3"></ProgressBar>
-                </LinearLayout>
-            </LinearLayout>
-        </LinearLayout>
-        <TextView
-            android:layout_marginTop="10dp"
-            android:id="@+id/char_search_detail_drawer_armor_stats"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textStyle="bold"
-            android:textColor="@color/black"
-            android:text="물리 방어력 +5346\n마법 방어력 +5940\n민첩 +34244\n체력 +4982">
-        </TextView>
-        <View
-            android:layout_marginTop="10dp"
-            android:layout_width="wrap_content"
-            android:layout_height="3px"
-            android:background="#f2f2f2">
-        </View>
-        <TextView
-            android:id="@+id/char_search_detail_drawer_armor_stats2"
-            android:layout_marginTop="10dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/black"
-            android:textStyle="bold"
-            android:text="생명 활성력 +1238">
-        </TextView>
-        <View
-            android:layout_marginTop="10dp"
-            android:layout_width="wrap_content"
-            android:layout_height="3px"
-            android:background="#f2f2f2">
-        </View>
-        <TextView
-            android:layout_marginTop="10dp"
-            android:id="@+id/char_search_detail_drawer_elixir_1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/black"
-            android:textStyle="bold"
-            android:text="민첩 Lv.2\n민첩 +1782">
-        </TextView>
-        <TextView
-            android:layout_marginTop="10dp"
-            android:id="@+id/char_search_detail_drawer_elixir_2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/black"
-            android:textStyle="bold"
-            android:text="회심 (질서) Lv.5\n공격력 +1.44%\n물리 방어력 +3000\n'회심 (혼돈)' 효과와 함께 활성화 시, '회심' 연성 추가 효과 발동">
-        </TextView>
-        <TextView
-            android:layout_marginTop="10dp"
-            android:id="@+id/char_search_detail_drawer_elixir_3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/black"
-            android:textStyle="bold"
-            android:text="회심 (1단계)\n1단계 : 지혜의 엘릭서 레벨 합 35\n공격이 치명타로 적중 시 적에게 주는 피해가 6% 추가로 증가한다.">
-        </TextView>
-        <View
-            android:layout_marginTop="10dp"
-            android:layout_width="wrap_content"
-            android:layout_height="3px"
-            android:background="#f2f2f2">
-        </View>
-        <TextView
-            android:layout_marginTop="10dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/black"
-            android:text="악몽 Lv.3"
-            android:textStyle="bold">
-        </TextView>
-        <Button
-            android:id="@+id/char_search_detail_drawer_button"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="확인">
-        </Button>
-    </LinearLayout>
-
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:text="확인"></Button>
 </LinearLayout>

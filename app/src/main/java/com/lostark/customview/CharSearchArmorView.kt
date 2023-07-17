@@ -11,10 +11,7 @@ import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.google.android.material.card.MaterialCardView
 import com.lostark.dto.armorys.ArmoryEquipment
-import com.lostark.dto.armorys.tooltips.IndentStringGroupData
-import com.lostark.dto.armorys.tooltips.ItemPartData
-import com.lostark.dto.armorys.tooltips.ItemTitleData
-import com.lostark.dto.armorys.tooltips.Tooltip
+import com.lostark.dto.armorys.tooltips.*
 import com.lostark.loahelper.R
 
 class CharSearchArmorView : LinearLayout {
@@ -51,6 +48,18 @@ class CharSearchArmorView : LinearLayout {
     lateinit var armorSetLevel: TextView
     lateinit var armorElixir: TextView
     lateinit var armorElixirSpecial: TextView
+
+    var itemDetail: String = ""
+    var itemDetailType: String = ""
+    var imageUrl: String?=null
+    var grade: String? = null //등급
+    var qualityValue: Int = -1 // 품질
+    var defaultEffect:String?=null //기본효과
+    var additionalEffect:String?=null //추가효과
+    var elixirData : ContenStrData? = null
+    var elixirSpecialDetailString: String? = null
+    var setLevel:String?=null
+
     var elixirSpecialString:String?=null
     var elixirLevel = 0
 
@@ -113,16 +122,28 @@ class CharSearchArmorView : LinearLayout {
         Glide.with(this)
             .load(armory.icon)
             .into(armorImage)
+        imageUrl = armory.icon
+        grade = armory.grade
         setImageBackground(armory.grade)
 
         val itemTitleKeys = tooltip.elements.filter { it.value.type=="ItemTitle"}.keys.toList()
 
         val itemTitleData = tooltip.elements.get(itemTitleKeys.get(0))?.value as ItemTitleData
         armorName.text = armory.name
-        if (itemTitleData.qualityValue!=-1)
+        if (itemTitleData.qualityValue!=-1) {
+            qualityValue = itemTitleData.qualityValue
             armorQuality.text = itemTitleData.qualityValue.toString()
-        else
-            armorQuality.text ="0"
+            itemDetailType = itemTitleData.leftStr0
+            val pattern = "\\d+|티어 \\d".toRegex()
+            pattern.findAll(itemTitleData.leftStr2).forEach {
+                itemDetail+=" | "+it.value
+            }
+
+        }
+        else {
+            qualityValue = 0
+            armorQuality.text = "0"
+        }
 
         armorQuality.visibility=View.VISIBLE
 
@@ -137,8 +158,14 @@ class CharSearchArmorView : LinearLayout {
             if (itemPartData.element0.contains("세트 효과 레벨")){
                 check=true
                 val pattern = "Lv\\.\\d".toRegex()
+                setLevel = itemPartData.element1
                 armorSetLevel.text = pattern.find(itemPartData.element1)?.value
-                break
+            }
+            else if (itemPartData.element0.contains("기본 효과")){
+                defaultEffect = itemPartData.element1
+            }
+            else if (itemPartData.element0.contains("추가 효과")){
+                additionalEffect = itemPartData.element1
             }
         }
         if(check)
@@ -150,6 +177,7 @@ class CharSearchArmorView : LinearLayout {
         for (key in elixirKeys){
             val indentStringGroupData = tooltip.elements.get(key)?.value as IndentStringGroupData
             if (indentStringGroupData?.element0?.topStr?.contains("엘릭서") == true){
+                elixirData = indentStringGroupData.element0.contentStr
                 check=true
                 var pattern = "(아군 강화|아이덴티티 획득|추가 피해|치명타 피해) Lv\\.\\d|(마법 방어력|물리 방어력|받는 피해 감소|최대 생명력) Lv\\.\\d|(각성기 피해|보스 피해|보호막 강화|회복강화) Lv\\.\\d|(민첩|힘|지능|공격력|마나|무기 공격력|무력화|물약 중독|방랑자|생명의 축복|자원의 축복|탈출의 달인|폭발물 달인|회피의 달인) Lv\\.\\d|(강맹|달인|선각자|선봉대|신념|진군|칼날 방패|행운|회심).{6}Lv\\.\\d".toRegex()
                 var elixirStr1 = indentStringGroupData.element0.contentStr.Element_000?.contentStr
@@ -184,11 +212,25 @@ class CharSearchArmorView : LinearLayout {
                 }
             }
             else if (indentStringGroupData?.element0?.topStr?.contains("연성 추가 효과")==true){
-                val pattern = "(강맹|달인|선각자|선봉대|신념|진군|칼날 방패|행운|회심)\\s\\([12]단계\\)".toRegex()
-                elixirSpecialString = pattern.find(indentStringGroupData.element0.topStr)?.value?.replace("(","")?.replace(")","")
+                elixirSpecialDetailString
+                var pattern = "(강맹|달인|선각자|선봉대|신념|진군|칼날 방패|행운|회심)\\s\\([12]단계\\)".toRegex()
+
+                val elixirName = pattern.find(indentStringGroupData.element0.topStr)?.value
+                elixirSpecialString = elixirName?.replace("(","")?.replace(")","")
+
                 elixirSpecialString = asDict.keys.fold(elixirSpecialString) { acc, key ->
                     acc?.replace(key, asDict[key] ?: "")
                 }
+                pattern = "\\d".toRegex()
+                val elixirSetLevel = elixirSpecialString?.let { pattern.find(it) }?.value?.toInt()
+                elixirSetLevel?.let {
+                    elixirSpecialDetailString = elixirName+"\n"
+                    when(it){
+                        1->elixirSpecialDetailString += indentStringGroupData.element0.contentStr.Element_000.contentStr
+                        2->elixirSpecialDetailString += indentStringGroupData.element0.contentStr.Element_001.contentStr
+                    }
+                }
+
             }
         }
         if (check)

@@ -164,8 +164,24 @@ class AbilityFragment(private val charInfo:Armories) : Fragment() {
                 weaponView.armorElixirSpecial.visibility = View.VISIBLE
             }
         }
+        val elixirSpecialDetailString:String? = hatView.elixirSpecialDetailString
         hatView.setOnClickListener{
-            (activity as SearchDetailActivity).openArmorDialog()
+            (activity as SearchDetailActivity).openDialog(hatView,elixirSpecialDetailString)
+        }
+        shoulderView.setOnClickListener{
+            (activity as SearchDetailActivity).openDialog(shoulderView,elixirSpecialDetailString)
+        }
+        topView.setOnClickListener{
+            (activity as SearchDetailActivity).openDialog(topView,elixirSpecialDetailString)
+        }
+        bottomView.setOnClickListener{
+            (activity as SearchDetailActivity).openDialog(bottomView,elixirSpecialDetailString)
+        }
+        glovesView.setOnClickListener{
+            (activity as SearchDetailActivity).openDialog(glovesView,elixirSpecialDetailString)
+        }
+        weaponView.setOnClickListener{
+            (activity as SearchDetailActivity).openDialog(weaponView,null)
         }
     }
 

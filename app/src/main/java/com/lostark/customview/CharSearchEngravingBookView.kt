@@ -8,6 +8,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.lostark.dto.armorys.Engraving
+import com.lostark.dto.armorys.tooltips.EngraveSkillTitleData
 import com.lostark.dto.armorys.tooltips.Tooltip
 import com.lostark.loahelper.R
 
@@ -46,7 +47,8 @@ class CharSearchEngravingBookView : LinearLayout {
             .into(engravingImage)
 
         engravingName.text = tooltip.elements.get("Element_000")?.value.toString()
-        //engravingPoint.text = tooltip.elements.get("Element_001")?.value
+        val data = tooltip.elements.get("Element_001")?.value as EngraveSkillTitleData
+        engravingPoint.text = data.leftText.replace("각인","")
 
     }
 }
