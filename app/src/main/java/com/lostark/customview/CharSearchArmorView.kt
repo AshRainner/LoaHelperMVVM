@@ -20,7 +20,6 @@ class CharSearchArmorView : LinearLayout {
         "무기 공격력" to "무공",
         "무력화" to "무력화",
         "물약 중독" to "물중",
-        "포" to "포격 강화||포식자",
         "생명의 축복" to "생축",
         "자원의 축복" to "자축",
         "탈출의 달인" to "탈달",
@@ -52,7 +51,6 @@ class CharSearchArmorView : LinearLayout {
     var itemDetail: String = ""
     var itemDetailType: String = ""
     var imageUrl: String?=null
-    var grade: String? = null //등급
     var qualityValue: Int = -1 // 품질
     var defaultEffect:String?=null //기본효과
     var additionalEffect:String?=null //추가효과
@@ -69,7 +67,6 @@ class CharSearchArmorView : LinearLayout {
 
     constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs) {
         init(context)
-        getAttrs(attrs)
     }
 
     private fun init(context: Context?) {
@@ -83,9 +80,6 @@ class CharSearchArmorView : LinearLayout {
         armorElixir = findViewById(R.id.armor_elixir)
         armorCardView = findViewById(R.id.armor_card_view)
         armorElixirSpecial = findViewById(R.id.armor_elixir_special)
-
-    }
-    private fun getAttrs(attrs: AttributeSet?) {
 
     }
     fun setImageBackground(grade : String){
@@ -123,7 +117,6 @@ class CharSearchArmorView : LinearLayout {
             .load(armory.icon)
             .into(armorImage)
         imageUrl = armory.icon
-        grade = armory.grade
         setImageBackground(armory.grade)
 
         val itemTitleKeys = tooltip.elements.filter { it.value.type=="ItemTitle"}.keys.toList()
@@ -187,10 +180,10 @@ class CharSearchArmorView : LinearLayout {
                 elixirStr2 = elixirStr2?.let { pattern.find(it)?.value.toString() }
 
                 if (elixirStr1 != null) {
-                    elixirStr1 = elixirStr1.replace("Lv.","").replace(" (질서) ","").replace(" (혼돈) "," ")
+                    elixirStr1 = elixirStr1.replace("Lv.","").replace(" (질서) "," ").replace(" (혼돈) "," ")
                 }
                 if (elixirStr2 != null) {
-                    elixirStr2 = elixirStr2.replace("Lv.","").replace(" (질서) ","").replace(" (혼돈) "," ")
+                    elixirStr2 = elixirStr2.replace("Lv.","").replace(" (질서) "," ").replace(" (혼돈) "," ")
                 }
 
                 elixirStr1 = asDict.keys.fold(elixirStr1) { acc, key ->
@@ -227,7 +220,7 @@ class CharSearchArmorView : LinearLayout {
                     elixirSpecialDetailString = elixirName+"\n"
                     when(it){
                         1->elixirSpecialDetailString += indentStringGroupData.element0.contentStr.Element_000.contentStr
-                        2->elixirSpecialDetailString += indentStringGroupData.element0.contentStr.Element_001.contentStr
+                        2->elixirSpecialDetailString += indentStringGroupData.element0.contentStr.Element_000.contentStr+indentStringGroupData.element0.contentStr.Element_001.contentStr
                     }
                 }
 

@@ -19,7 +19,7 @@ import com.lostark.dto.armorys.tooltips.Tooltip
 import com.lostark.dto.armorys.tooltips.ValueData
 
 
-class AbilityFragment(private val charInfo:Armories) : Fragment() {
+class AbilityFragment(private val charInfo:Armories,) : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -39,7 +39,6 @@ class AbilityFragment(private val charInfo:Armories) : Fragment() {
         val engraving2View = view.findViewById<CharSearchEngravingBookView>(R.id.char_search_detail_ability_engraving2)
 
         var check = true
-
 
         charInfo.armoryEngraving?.engravings?.forEach{
             if(check){
@@ -106,8 +105,15 @@ class AbilityFragment(private val charInfo:Armories) : Fragment() {
         val braceletView = view.findViewById<CharSearchAccessoryView>(R.id.char_search_detail_ability_bracelet)
         setEquipmentImageText(braceletView,"팔찌")
 
-        val stonetView = view.findViewById<CharSearchAccessoryView>(R.id.char_search_detail_ability_stone)
-        setEquipmentImageText(stonetView,"어빌리티 스톤")
+        val stoneView = view.findViewById<CharSearchAccessoryView>(R.id.char_search_detail_ability_stone)
+        setEquipmentImageText(stoneView,"어빌리티 스톤")
+
+        val accessoryViewList = listOf(necklaceView,earring1View,earring2View,ring1View,ring2View,stoneView,braceletView)
+        accessoryViewList.forEach{
+            it.setOnClickListener{
+                (activity as SearchDetailActivity).openDialog(it,"")
+            }
+        }
 
     }
 
@@ -165,23 +171,12 @@ class AbilityFragment(private val charInfo:Armories) : Fragment() {
             }
         }
         val elixirSpecialDetailString:String? = hatView.elixirSpecialDetailString
-        hatView.setOnClickListener{
-            (activity as SearchDetailActivity).openDialog(hatView,elixirSpecialDetailString)
-        }
-        shoulderView.setOnClickListener{
-            (activity as SearchDetailActivity).openDialog(shoulderView,elixirSpecialDetailString)
-        }
-        topView.setOnClickListener{
-            (activity as SearchDetailActivity).openDialog(topView,elixirSpecialDetailString)
-        }
-        bottomView.setOnClickListener{
-            (activity as SearchDetailActivity).openDialog(bottomView,elixirSpecialDetailString)
-        }
-        glovesView.setOnClickListener{
-            (activity as SearchDetailActivity).openDialog(glovesView,elixirSpecialDetailString)
-        }
-        weaponView.setOnClickListener{
-            (activity as SearchDetailActivity).openDialog(weaponView,null)
+
+        val armoryViewList = listOf(hatView,shoulderView,topView,bottomView,glovesView,weaponView)
+        armoryViewList.forEach{
+            it.setOnClickListener{
+                (activity as SearchDetailActivity).openDialog(it,elixirSpecialDetailString)
+            }
         }
     }
 
@@ -271,7 +266,6 @@ class AbilityFragment(private val charInfo:Armories) : Fragment() {
             }?.replace(pattern2,"\n")?.replace(pattern, "")
         }
         val jsonString = "{\n\"Elements\":\n${tooltips.joinToString(separator = ",\n")}\n}"
-        println(jsonString)
         return gson.fromJson(jsonString, Tooltip::class.java)
     }
 

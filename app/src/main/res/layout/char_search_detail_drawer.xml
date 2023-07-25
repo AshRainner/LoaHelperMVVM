@@ -10,10 +10,17 @@
     style="@style/AppBottomSheetDialogTheme">
     <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
         <include
+            android:visibility="gone"
             android:id="@+id/armor_drawer"
             layout="@layout/char_search_detail_armor_dialog">
+        </include>
+        <include
+            android:visibility="gone"
+            android:id="@+id/accessory_drawer"
+            layout="@layout/char_search_detail_accessory_dialog">
         </include>
     </LinearLayout>
     <Button

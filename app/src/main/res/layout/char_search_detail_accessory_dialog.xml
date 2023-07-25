@@ -2,18 +2,18 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/draw_view_main"
+    style="@style/AppBottomSheetDialogTheme"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    style="@style/AppBottomSheetDialogTheme">
+    android:orientation="vertical">
 
     <TextView
-        android:id="@+id/char_search_detail_drawer_armor_name"
+        android:id="@+id/char_search_detail_drawer_accessory_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:gravity="center"
-        android:text="+18 전이된 몽환의 악몽 모자"
+        android:text="참혹한 파멸의 목걸이"
         android:textColor="@color/black"
         android:textSize="9pt"
         android:textStyle="bold"></TextView>
@@ -36,11 +36,11 @@
                 app:cardCornerRadius="10dp">
 
                 <ImageView
-                    android:id="@+id/char_search_detail_drawer_armor_image"
+                    android:id="@+id/char_search_detail_drawer_accessory_image"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:background="@drawable/ancient_background"
-                    android:src="@drawable/test_armor"></ImageView>
+                    android:src="@drawable/necklace"></ImageView>
             </com.google.android.material.card.MaterialCardView>
 
             <LinearLayout
@@ -53,19 +53,21 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1">
+
                     <TextView
-                        android:id="@+id/char_search_detail_drawer_armor_detail_type"
+                        android:id="@+id/char_search_detail_drawer_accessory_detail_type"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="고대 머리 방어구"
                         android:textColor="@color/black"
                         android:textSize="6pt"
                         android:textStyle="bold"></TextView>
+
                     <TextView
-                        android:id="@+id/char_search_detail_drawer_armor_detail"
+                        android:id="@+id/char_search_detail_drawer_accessory_tier"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text=" | 1615 | 티어 3"
+                        android:text=" | 티어 3"
                         android:textColor="@color/black"
                         android:textSize="6pt"
                         android:textStyle="bold"></TextView>
@@ -77,7 +79,7 @@
                     android:layout_weight="1">
 
                     <TextView
-                        android:id="@+id/char_search_detail_drawer_armor_quality"
+                        android:id="@+id/char_search_detail_drawer_accessory_quality"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -85,48 +87,74 @@
                         android:textColor="@color/black"
                         android:textSize="7pt"
                         android:textStyle="bold"></TextView>
+
                     <com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar
-                        android:id="@+id/char_search_detail_drawer_armor_quality_progress"
+                        android:id="@+id/char_search_detail_drawer_accessory_quality_progress"
                         android:layout_width="200dp"
                         android:layout_height="15dp"
                         android:layout_gravity="center"
                         android:layout_marginLeft="10dp"
+                        android:visibility="visible"
                         app:rcBackgroundColor="#0A000000"
-                        app:rcProgress="40"
                         app:rcMax="100"
+                        app:rcProgress="40"
                         app:rcProgressColor="#ff0000"
-                        app:rcRadius="3dp">
-                    </com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar>
+                        app:rcRadius="3dp"></com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar>
+
+                    <TextView
+                        android:id="@+id/char_search_detail_drawer_ability_stone_plus_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="7 · 7 · "
+                        android:textAlignment="center"
+                        android:textColor="#000000"
+                        android:textSize="7pt"
+                        android:textStyle="bold"
+                        android:visibility="gone"></TextView>
+
+                    <TextView
+                        android:id="@+id/char_search_detail_drawer_ability_stone_minus_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="2"
+                        android:textAlignment="center"
+                        android:textColor="#ff0044"
+                        android:textSize="7pt"
+                        android:textStyle="bold"
+                        android:visibility="gone"></TextView>
+
+                    <TextView
+                        android:id="@+id/char_search_detail_drawer_bracelet_stat"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="치명 · 특화 · 망치 · 열정"
+                        android:textAlignment="center"
+                        android:textColor="#000000"
+                        android:textSize="7pt"
+                        android:textStyle="bold"
+                        android:visibility="gone"></TextView>
+
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/char_search_detail_drawer_armor_default_effect"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="물리 방어력 +5346\n마법 방어력 +5940\n민첩 +34244\n체력 +4982"
-            android:lineSpacingExtra="5dp"
-            android:textColor="@color/black"
-            android:textStyle="bold"></TextView>
-
-        <View
-            android:layout_width="wrap_content"
-            android:layout_height="3px"
-            android:layout_marginTop="10dp"
-            android:background="#f2f2f2"></View>
         <LinearLayout
-            android:id="@+id/char_search_detail_drawer_armor_additional_effect_layout"
+            android:visibility="visible"
+            android:id="@+id/char_search_detail_non_bracelet_layout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+
             <TextView
-                android:id="@+id/char_search_detail_drawer_armor_additional_effect"
+                android:id="@+id/char_search_detail_drawer_accessory_default_effect"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="생명 활성력 +1238"
+                android:lineSpacingExtra="5dp"
+                android:text="민첩 +12546\n체력 +3308"
                 android:textColor="@color/black"
                 android:textStyle="bold"></TextView>
 
@@ -135,58 +163,44 @@
                 android:layout_height="3px"
                 android:layout_marginTop="10dp"
                 android:background="#f2f2f2"></View>
-        </LinearLayout>
 
+            <TextView
+                android:id="@+id/char_search_detail_drawer_accessory_additional_effect"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:lineSpacingExtra="5dp"
+                android:text="치명 +498\n신속 +500"
+                android:textColor="@color/black"
+                android:textStyle="bold"></TextView>
+
+            <TextView
+                android:id="@+id/char_search_detail_drawer_accessory_plus_engraving"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:lineSpacingExtra="5dp"
+                android:text="예리한 둔기 +5\n원한 +3"
+                android:textColor="@color/black"
+                android:textStyle="bold"></TextView>
+
+            <TextView
+                android:id="@+id/char_search_detail_drawer_accessory_minus_engraving"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="이동속도 감소 +2"
+                android:textColor="#ff2200"
+                android:textStyle="bold"></TextView>
+        </LinearLayout>
         <LinearLayout
-            android:id="@+id/char_search_detail_drawer_armor_elixir_layout"
+            android:visibility="gone"
+            android:id="@+id/char_search_detail_bracelet_layout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-            <TextView
-                android:id="@+id/char_search_detail_drawer_elixir_1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:text="민첩 Lv.2\n민첩 +1782"
-                android:textColor="@color/black"
-                android:lineSpacingExtra="3dp"
-                android:textStyle="bold"></TextView>
-
-            <TextView
-                android:id="@+id/char_search_detail_drawer_elixir_2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:text="회심 (질서) Lv.5\n공격력 +1.44%\n물리 방어력 +3000\n'회심 (혼돈)' 효과와 함께 활성화 시, '회심' 연성 추가 효과 발동"
-                android:textColor="@color/black"
-                android:lineSpacingExtra="3dp"
-                android:textStyle="bold"></TextView>
-
-            <TextView
-                android:id="@+id/char_search_detail_drawer_elixir_3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:text="회심 (1단계)\n1단계 : 지혜의 엘릭서 레벨 합 35\n공격이 치명타로 적중 시 적에게 주는 피해가 6% 추가로 증가한다."
-                android:textColor="@color/black"
-                android:lineSpacingExtra="3dp"
-                android:textStyle="bold"></TextView>
-
-            <View
-                android:layout_width="wrap_content"
-                android:layout_height="3px"
-                android:layout_marginTop="10dp"
-                android:background="#f2f2f2"></View>
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/char_search_detail_drawer_set_level"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="악몽 Lv.3"
-            android:textColor="@color/black"
-            android:textStyle="bold"></TextView>
 
     </LinearLayout>
 </LinearLayout>
