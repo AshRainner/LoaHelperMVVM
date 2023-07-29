@@ -22,6 +22,16 @@
             android:id="@+id/accessory_drawer"
             layout="@layout/char_search_detail_accessory_dialog">
         </include>
+        <include
+            android:visibility="gone"
+            android:id="@+id/engraving_drawer"
+            layout="@layout/char_search_detail_engraving_dialog">
+        </include>
+        <include
+            android:visibility="gone"
+            android:id="@+id/gem_drawer"
+            layout="@layout/char_search_detail_gem_dialog">
+        </include>
     </LinearLayout>
     <Button
         android:id="@+id/char_search_detail_drawer_button"

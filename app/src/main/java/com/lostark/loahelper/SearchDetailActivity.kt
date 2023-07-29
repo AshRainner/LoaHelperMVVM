@@ -16,6 +16,7 @@ import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.core.view.get
 import androidx.viewpager2.widget.ViewPager2
 import com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar
 import com.bumptech.glide.Glide
@@ -28,9 +29,12 @@ import com.lostark.adapter.CharSearchViewPagerAdapter
 import com.lostark.adapter.ValueDataAdapter
 import com.lostark.customview.CharSearchAccessoryView
 import com.lostark.customview.CharSearchArmorView
+import com.lostark.customview.CharSearchEngravingBookView
+import com.lostark.customview.CharSearchGemView
 import com.lostark.dto.armorys.Armories
 import com.lostark.dto.armorys.tooltips.Tooltip
 import com.lostark.dto.armorys.tooltips.ValueData
+import org.w3c.dom.Text
 import java.io.Serializable
 import java.util.*
 import kotlin.collections.ArrayList
@@ -274,6 +278,101 @@ class SearchDetailActivity : AppCompatActivity() {
         }
     }
 
+    fun setEngrvingDialog(view: CharSearchEngravingBookView, engravingLayout: LinearLayout) {
+        val engravingName =
+            engravingLayout.findViewById<TextView>(R.id.char_search_detail_drawer_engraving_name)
+        engravingName.text = view.engravingName.text
+        val engravingImage =
+            engravingLayout.findViewById<ImageView>(R.id.char_search_detail_drawer_engraving_image)
+        Glide.with(this).load(view.imageUrl).into(engravingImage)
+        val engravingPoint =
+            engravingLayout.findViewById<TextView>(R.id.char_search_detail_drawer_engraving_point)
+        engravingPoint.text = view.engravingPoint.text
+        val engravingDetailLayout =
+            engravingLayout.findViewById<LinearLayout>(R.id.char_search_detail_engraving_detail_layout)
+        view.engravingStringList.forEach {
+            val engravingLevelView = TextView(this)
+            engravingLevelView.layoutParams = LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.WRAP_CONTENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT
+            )
+            engravingLevelView.setPadding(0, 2, 0, 0)
+            engravingLevelView.setTextColor(ContextCompat.getColor(this, R.color.black))
+            engravingLevelView.setLineSpacing(0f, 5f)
+            engravingLevelView.setTextSize(TypedValue.COMPLEX_UNIT_PT, 6f)
+            engravingLevelView.setTypeface(null, Typeface.BOLD)
+            engravingLevelView.setLineSpacing(
+                0f,
+                TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 5f, resources.displayMetrics)
+            )//5dp로 설정
+            engravingDetailLayout.addView(engravingLevelView)
+            val splitString = it.split(" - ")
+            engravingLevelView.text = splitString.get(0)
+            val engravingDetailTextView = TextView(this)
+            engravingDetailTextView.layoutParams = LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.WRAP_CONTENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT
+            )
+            engravingDetailTextView.text = splitString.get(1)
+            engravingDetailTextView.setTextSize(TypedValue.COMPLEX_UNIT_PT, 6f)
+            engravingDetailTextView.setTextColor(Color.parseColor("#808080"))
+            engravingDetailLayout.addView(engravingDetailTextView)
+        }
+    }
+
+    fun setGemDialog(view: CharSearchGemView, gemLayout: LinearLayout) {
+        val gemName =
+            gemLayout.findViewById<TextView>(R.id.char_search_detail_drawer_gem_name)
+        gemName.text = view.gemName
+        val gemImage =
+            gemLayout.findViewById<ImageView>(R.id.char_search_detail_drawer_gem_image)
+        Glide.with(this).load(view.imageUrl).into(gemImage)
+        val gemTier =
+            gemLayout.findViewById<TextView>(R.id.char_search_detail_drawer_gem_tier)
+        gemTier.text = view.gemTier
+
+        val gemGrade = gemLayout.findViewById<TextView>(R.id.char_search_detail_drawer_gem_grade)
+        gemGrade.text = view.gemGrade
+        when {
+            view.gemGrade.contains("고대") -> {
+                gemImage.setBackgroundResource(R.drawable.ancient_background)
+                gemGrade.setTextColor(Color.parseColor("#d9ae43"))
+            }
+
+            view.gemGrade.contains("유물") ->{
+                gemImage.setBackgroundResource(R.drawable.relic_background)
+                gemGrade.setTextColor(Color.parseColor("#E45B0A"))
+            }
+
+
+            view.gemGrade.contains("전설") ->{
+                gemImage.setBackgroundResource(R.drawable.legend_background)
+                gemGrade.setTextColor(Color.parseColor("#E08808"))
+            }
+
+
+            view.gemGrade.contains("영웅") -> {
+                gemImage.setBackgroundResource(R.drawable.hero_background)
+                gemGrade.setTextColor(Color.parseColor("#A41ED4"))
+            }
+
+
+            view.gemGrade.contains("희귀") -> {
+                gemImage.setBackgroundResource(R.drawable.rare_background)
+                gemGrade.setTextColor(Color.parseColor("#268AD3"))
+            }
+
+            view.gemGrade.contains("고급") -> {
+                gemImage.setBackgroundResource(R.drawable.advanced_background)
+                gemGrade.setTextColor(Color.parseColor("#8FDB32"))
+            }
+        }
+
+
+        val gemDetail = gemLayout.findViewById<TextView>(R.id.char_search_detail_drawer_gem_detail)
+        gemDetail.text = view.gemDetail
+    }
+
     fun setAccessoryDialog(view: CharSearchAccessoryView, accessoryLayout: LinearLayout) {
         val powerChar = listOf("버서커", "디스트로이어", "워로드", "홀리나이트", "슬레이어")
         val intChar = listOf("아르카나", "서머너", "바드", "소서리스", "도화가", "기상술사")
@@ -330,50 +429,64 @@ class SearchDetailActivity : AppCompatActivity() {
             accessoryQualityProgressBar.setProgress(view.accessoryQuality.text.toString().toInt())
             accessoryQualityProgressBar.setProgressColor((view.accessoryQuality.background as ColorDrawable).color)
             accessoryDefaultEffect.text = primaryStats + view.defaultEffect
-
-
         }
 
         if (view.type == "팔찌") {
-            accessoryQuality.visibility=View.GONE
-            accessoryQualityProgressBar.visibility=View.GONE
-            val braceletLayout = accessoryLayout.findViewById<LinearLayout>(R.id.char_search_detail_bracelet_layout)
-            braceletLayout.visibility=View.VISIBLE
-            val nonBraceletLayout = accessoryLayout.findViewById<LinearLayout>(R.id.char_search_detail_non_bracelet_layout)
-            nonBraceletLayout.visibility=View.GONE
-            val braceletStat = accessoryLayout.findViewById<TextView>(R.id.char_search_detail_drawer_bracelet_stat)
+            accessoryQuality.visibility = View.GONE
+            accessoryQualityProgressBar.visibility = View.GONE
+            val braceletLayout =
+                accessoryLayout.findViewById<LinearLayout>(R.id.char_search_detail_bracelet_layout)
+            braceletLayout.visibility = View.VISIBLE
+            val nonBraceletLayout =
+                accessoryLayout.findViewById<LinearLayout>(R.id.char_search_detail_non_bracelet_layout)
+            nonBraceletLayout.visibility = View.GONE
+            val braceletStat =
+                accessoryLayout.findViewById<TextView>(R.id.char_search_detail_drawer_bracelet_stat)
             braceletStat.visibility = View.VISIBLE
             braceletStat.text = view.braceletAbilityString
 
-            view.braceletAbilityList.forEach{
+            view.braceletAbilityList.forEach {
                 val abilityTextView = TextView(this)
-                abilityTextView.layoutParams=LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,LinearLayout.LayoutParams.WRAP_CONTENT)
-                abilityTextView.setPadding(0,10,0,0)
+                abilityTextView.layoutParams = LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.WRAP_CONTENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT
+                )
+                abilityTextView.setPadding(0, 5, 0, 0)
                 abilityTextView.setTextColor(ContextCompat.getColor(this, R.color.black))
                 abilityTextView.setLineSpacing(0f, 5f)
                 abilityTextView.setTextSize(TypedValue.COMPLEX_UNIT_PT, 8f)
                 abilityTextView.setTypeface(null, Typeface.BOLD)
-                abilityTextView.setLineSpacing(0f, TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 5f, resources.displayMetrics))//5dp로 설정
+                abilityTextView.setLineSpacing(
+                    0f,
+                    TypedValue.applyDimension(
+                        TypedValue.COMPLEX_UNIT_DIP,
+                        5f,
+                        resources.displayMetrics
+                    )
+                )//5dp로 설정
                 braceletLayout.addView(abilityTextView)
                 println(it)
-                if(it.contains("]")){
-                    val splitString = it.split("]")
-                    abilityTextView.text=splitString.get(0).replace("[","").replace("]","")
+                if (it.contains("] ")) {
+                    val splitString = it.split("] ")
+                    abilityTextView.text = splitString.get(0).replace("[", "").replace("] ", "")
                     val abilityDetailTextView = TextView(this)
-                    abilityDetailTextView.layoutParams=LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,LinearLayout.LayoutParams.WRAP_CONTENT)
-                    abilityDetailTextView.text=splitString.get(1)
+                    abilityDetailTextView.layoutParams = LinearLayout.LayoutParams(
+                        LinearLayout.LayoutParams.WRAP_CONTENT,
+                        LinearLayout.LayoutParams.WRAP_CONTENT
+                    )
+                    abilityDetailTextView.text = splitString.get(1)
                     abilityDetailTextView.setTextSize(TypedValue.COMPLEX_UNIT_PT, 6f)
                     abilityDetailTextView.setTextColor(ContextCompat.getColor(this, R.color.black))
                     braceletLayout.addView(abilityDetailTextView)
-                }
-                else{
-                    abilityTextView.text=it
+                } else {
+                    abilityTextView.text = it
                 }
             }
         } else {
             val accessoryAdditionalEffect =
                 accessoryLayout.findViewById<TextView>(R.id.char_search_detail_drawer_accessory_additional_effect)
-            accessoryAdditionalEffect.text = view.additionalEffect
+            view.additionalEffect?.let { accessoryAdditionalEffect.text = it }
+                ?: run { accessoryAdditionalEffect.visibility = View.GONE }
 
             val accessoryPlusEngraving =
                 accessoryLayout.findViewById<TextView>(R.id.char_search_detail_drawer_accessory_plus_engraving)
@@ -404,6 +517,16 @@ class SearchDetailActivity : AppCompatActivity() {
                 val accessoryLayout = dialogView.findViewById<LinearLayout>(R.id.accessory_drawer)
                 accessoryLayout.visibility = View.VISIBLE
                 setAccessoryDialog(view, accessoryLayout)
+            }
+            is CharSearchEngravingBookView -> {
+                val engravingLayout = dialogView.findViewById<LinearLayout>(R.id.engraving_drawer)
+                engravingLayout.visibility = View.VISIBLE
+                setEngrvingDialog(view, engravingLayout)
+            }
+            is CharSearchGemView -> {
+                val gemLayout = dialogView.findViewById<LinearLayout>(R.id.gem_drawer)
+                gemLayout.visibility = View.VISIBLE
+                setGemDialog(view, gemLayout)
             }
         }
         dialogOkButton.setOnClickListener {

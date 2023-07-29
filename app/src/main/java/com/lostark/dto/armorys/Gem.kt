@@ -2,6 +2,7 @@ package com.lostark.dto.armorys
 
 
 import com.google.gson.annotations.SerializedName
+import com.lostark.dto.armorys.tooltips.Tooltip
 import java.io.Serializable
 
 data class Gem(

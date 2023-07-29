@@ -227,11 +227,10 @@ class CharSearchAccessoryView : LinearLayout {
 
                 if(armory.type == "팔찌"){
                     pattern = "(체력|힘|민첩|지능|치명|신속|특화|제압|인내|숙련|최대 생명력|최대 마나|물리 방어력|무기 공격력|마법 방어력|전투 중 생명력 회복량)\\s\\+|\\[(오뚝이|돌진|강타|타격|마나회수|속궁|투자|반전|멸시|무시|전투 중 생명력 회복량|회생|긴급수혈|응급처치|앵콜|쐐기|망치|순환|열정|냉정|비수|약점 노출|깨달음|응원|수확|보상|무기 공격력|우월|습격|정밀|상처약화|분개|기습|결투|적립)\\]".toRegex()
-                    braceletAbilityString = pattern.findAll(itemPartBoxData.element1).map { it.value }.toList().joinToString(" · ").replace("[","").replace("]","").replace(" +","")
-                    pattern = "(체력|힘|민첩|지능|치명|신속|특화|제압|인내|숙련|최대 생명력|최대 마나|물리 방어력|무기 공격력|마법 방어력|전투 중 생명력 회복량)\\s\\+\\d+|\\[(오뚝이|돌진|강타|타격|마나회수|속궁|투자|반전|멸시|무시|전투 중 생명력 회복량|회생|긴급수혈|응급처치|앵콜|쐐기|망치|순환|열정|냉정|비수|약점 노출|깨달음|응원|수확|보상|무기 공격력|우월|습격|정밀|상처약화|분개|기습|결투|적립)\\](.*)".toRegex()
-                    braceletAbilityList = pattern.findAll(itemPartBoxData.element1).map { it.value }.toList()
-                    pattern = "\\[순환\\].*".toRegex()
-                    println(pattern.find(itemPartBoxData.element1)?.value)
+                    braceletAbilityString = pattern.findAll(itemPartBoxData.element1.replace("\n"," ")).map { it.value }.toList().joinToString(" · ").replace("[","").replace("]","").replace(" +","")
+                    //pattern = "(체력|힘|민첩|지능|치명|신속|특화|제압|인내|숙련|최대 생명력|최대 마나|물리 방어력|무기 공격력|마법 방어력|전투 중 생명력 회복량)\\s\\+\\d+|\\[(오뚝이|돌진|강타|타격|마나회수|속궁|투자|반전|멸시|무시|전투 중 생명력 회복량|회생|긴급수혈|응급처치|앵콜|쐐기|망치|순환|열정|냉정|비수|약점 노출|깨달음|응원|수확|보상|무기 공격력|우월|습격|정밀|상처약화|분개|기습|결투|적립)](\\s.*)?".toRegex()
+                    pattern = "(체력|힘|민첩|지능|치명|신속|특화|제압|인내|숙련|최대 생명력|최대 마나|물리 방어력|무기 공격력|마법 방어력|전투 중 생명력 회복량)\\s?\\+\\d+|\\[(오뚝이|돌진|강타|타격|마나회수|속궁|투자|반전|멸시|무시|전투 중 생명력 회복량|회생|긴급수혈|응급처치|앵콜|쐐기|망치|순환|열정|냉정|비수|약점 노출|깨달음|응원|수확|보상|무기 공격력|우월|습격|정밀|상처약화|분개|기습|결투|적립)\\].*?\\)".toRegex()
+                    braceletAbilityList = pattern.findAll(itemPartBoxData.element1.replace("\n"," ")).map { it.value }.toList()
                 }
 
 

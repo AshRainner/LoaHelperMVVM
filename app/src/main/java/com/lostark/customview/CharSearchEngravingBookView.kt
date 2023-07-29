@@ -9,6 +9,7 @@ import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.lostark.dto.armorys.Engraving
 import com.lostark.dto.armorys.tooltips.EngraveSkillTitleData
+import com.lostark.dto.armorys.tooltips.ItemPartData
 import com.lostark.dto.armorys.tooltips.Tooltip
 import com.lostark.loahelper.R
 
@@ -18,6 +19,9 @@ class CharSearchEngravingBookView : LinearLayout {
     lateinit var engravingImage: ImageView
     lateinit var engravingName: TextView
     lateinit var engravingPoint: TextView
+
+    lateinit var engravingStringList:List<String>
+    lateinit var imageUrl:String
 
     constructor(context: Context?) : super(context) {
         init(context)
@@ -45,10 +49,17 @@ class CharSearchEngravingBookView : LinearLayout {
             .load(engraving.icon)
             .circleCrop()
             .into(engravingImage)
+        imageUrl = engraving.icon
 
         engravingName.text = tooltip.elements.get("Element_000")?.value.toString()
         val data = tooltip.elements.get("Element_001")?.value as EngraveSkillTitleData
-        engravingPoint.text = data.leftText.replace("각인","")
+        engravingPoint.text = data.leftText.replace("각인 ","")
 
+        var pattern = "레벨 \\d+[^레벨].*".toRegex(RegexOption.MULTILINE)
+        engravingStringList =  pattern.findAll((tooltip.elements.get("Element_003")?.value as ItemPartData).element1).map { it.value }.toList()
+        println(engravingStringList)
+        pattern.findAll((tooltip.elements.get("Element_003")?.value as ItemPartData).element1).forEach {
+            println(it.value)
+        }
     }
 }
