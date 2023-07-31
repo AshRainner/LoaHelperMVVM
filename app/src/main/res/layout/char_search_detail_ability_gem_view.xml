@@ -18,5 +18,24 @@
             android:layout_height="30dp"
             android:background="#dedfe0">
         </ImageView>
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_gravity="right|bottom"
+            android:backgroundTint="#dedfe0"
+            app:strokeColor="#dedfe0"
+            app:cardElevation="0dp">
+            <TextView
+                android:visibility="gone"
+                android:id="@+id/char_search_detail_gem_level"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="10"
+                android:textColor="#ff7f00"
+                android:textSize="5pt"
+                android:textStyle="bold"
+                android:layout_gravity="center">
+            </TextView>
+        </com.google.android.material.card.MaterialCardView>
     </com.google.android.material.card.MaterialCardView>
 </LinearLayout>

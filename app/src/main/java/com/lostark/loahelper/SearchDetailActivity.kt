@@ -402,6 +402,7 @@ class SearchDetailActivity : AppCompatActivity() {
         accessoryType.text = view.itemType
         accessoryType.setTextColor(view.accessoryName.currentTextColor)
         accessoryTier.text = view.itemTier
+        println(accessoryTier.text)
         val accessoryQuality =
             accessoryLayout.findViewById<TextView>(R.id.char_search_detail_drawer_accessory_quality)
         val accessoryQualityProgressBar =
@@ -431,24 +432,25 @@ class SearchDetailActivity : AppCompatActivity() {
             accessoryDefaultEffect.text = primaryStats + view.defaultEffect
         }
 
+
         if (view.type == "팔찌") {
             accessoryQuality.visibility = View.GONE
             accessoryQualityProgressBar.visibility = View.GONE
-            val braceletLayout =
-                accessoryLayout.findViewById<LinearLayout>(R.id.char_search_detail_bracelet_layout)
-            braceletLayout.visibility = View.VISIBLE
+
             val nonBraceletLayout =
                 accessoryLayout.findViewById<LinearLayout>(R.id.char_search_detail_non_bracelet_layout)
-            nonBraceletLayout.visibility = View.GONE
+            val braceletLayout =
+                accessoryLayout.findViewById<LinearLayout>(R.id.char_search_detail_bracelet_layout)
             val braceletStat =
                 accessoryLayout.findViewById<TextView>(R.id.char_search_detail_drawer_bracelet_stat)
-            braceletStat.visibility = View.VISIBLE
             braceletStat.text = view.braceletAbilityString
+            braceletStat.visibility = View.VISIBLE
+            nonBraceletLayout.visibility=View.GONE
 
             view.braceletAbilityList.forEach {
                 val abilityTextView = TextView(this)
                 abilityTextView.layoutParams = LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.WRAP_CONTENT,
+                    LinearLayout.LayoutParams.MATCH_PARENT,
                     LinearLayout.LayoutParams.WRAP_CONTENT
                 )
                 abilityTextView.setPadding(0, 5, 0, 0)
@@ -465,13 +467,12 @@ class SearchDetailActivity : AppCompatActivity() {
                     )
                 )//5dp로 설정
                 braceletLayout.addView(abilityTextView)
-                println(it)
                 if (it.contains("] ")) {
                     val splitString = it.split("] ")
                     abilityTextView.text = splitString.get(0).replace("[", "").replace("] ", "")
                     val abilityDetailTextView = TextView(this)
                     abilityDetailTextView.layoutParams = LinearLayout.LayoutParams(
-                        LinearLayout.LayoutParams.WRAP_CONTENT,
+                        LinearLayout.LayoutParams.MATCH_PARENT,
                         LinearLayout.LayoutParams.WRAP_CONTENT
                     )
                     abilityDetailTextView.text = splitString.get(1)

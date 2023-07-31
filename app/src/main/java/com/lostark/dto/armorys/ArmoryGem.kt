@@ -6,7 +6,7 @@ import java.io.Serializable
 
 data class ArmoryGem(
     @SerializedName("Effects")
-    val effects: List<EffectXX>,
+    val effects: List<Effect>,
     @SerializedName("Gems")
     val gems: List<Gem>
 ): Serializable

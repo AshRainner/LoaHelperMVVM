@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/draw_view_main"
+    android:id="@+id/accessory_dialog_view_main"
     style="@style/AppBottomSheetDialogTheme"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -12,6 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
+        android:layout_gravity="center"
         android:gravity="center"
         android:text="참혹한 파멸의 목걸이"
         android:textColor="@color/black"
@@ -50,7 +51,7 @@
                 android:orientation="vertical">
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1">
 
@@ -127,11 +128,10 @@
 
                     <TextView
                         android:id="@+id/char_search_detail_drawer_bracelet_stat"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:text="치명 · 특화 · 망치 · 열정"
-                        android:textAlignment="center"
                         android:textColor="#000000"
                         android:textSize="7pt"
                         android:textStyle="bold"
@@ -140,6 +140,7 @@
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>
+
 
         <LinearLayout
             android:visibility="visible"
@@ -150,7 +151,7 @@
 
             <TextView
                 android:id="@+id/char_search_detail_drawer_accessory_default_effect"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:lineSpacingExtra="5dp"
@@ -166,7 +167,7 @@
 
             <TextView
                 android:id="@+id/char_search_detail_drawer_accessory_additional_effect"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:lineSpacingExtra="5dp"
@@ -176,7 +177,7 @@
 
             <TextView
                 android:id="@+id/char_search_detail_drawer_accessory_plus_engraving"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:lineSpacingExtra="5dp"
@@ -186,7 +187,7 @@
 
             <TextView
                 android:id="@+id/char_search_detail_drawer_accessory_minus_engraving"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:text="이동속도 감소 +2"
@@ -194,11 +195,14 @@
                 android:textStyle="bold"></TextView>
         </LinearLayout>
         <LinearLayout
-            android:visibility="gone"
+            android:visibility="visible"
             android:id="@+id/char_search_detail_bracelet_layout"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"></View>
         </LinearLayout>
 
 

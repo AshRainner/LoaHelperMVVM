@@ -16,6 +16,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
+            android:layout_marginBottom="15dp"
             android:layout_weight="1"
             android:orientation="vertical">
 
@@ -124,58 +125,411 @@
             <com.lostark.customview.CharSearchGemView
                 android:id="@+id/gem_1"
                 android:layout_weight="1"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"></com.lostark.customview.CharSearchGemView>
             <com.lostark.customview.CharSearchGemView
                 android:id="@+id/gem_2"
                 android:layout_weight="1"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"></com.lostark.customview.CharSearchGemView>
             <com.lostark.customview.CharSearchGemView
                 android:id="@+id/gem_3"
                 android:layout_weight="1"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"></com.lostark.customview.CharSearchGemView>
             <com.lostark.customview.CharSearchGemView
                 android:id="@+id/gem_4"
                 android:layout_weight="1"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"></com.lostark.customview.CharSearchGemView>
             <com.lostark.customview.CharSearchGemView
                 android:id="@+id/gem_5"
                 android:layout_weight="1"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"></com.lostark.customview.CharSearchGemView>
             <com.lostark.customview.CharSearchGemView
                 android:id="@+id/gem_6"
                 android:layout_weight="1"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"></com.lostark.customview.CharSearchGemView>
             <com.lostark.customview.CharSearchGemView
                 android:id="@+id/gem_7"
                 android:layout_weight="1"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"></com.lostark.customview.CharSearchGemView>
             <com.lostark.customview.CharSearchGemView
                 android:id="@+id/gem_8"
                 android:layout_weight="1"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"></com.lostark.customview.CharSearchGemView>
             <com.lostark.customview.CharSearchGemView
                 android:id="@+id/gem_9"
                 android:layout_weight="1"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"></com.lostark.customview.CharSearchGemView>
             <com.lostark.customview.CharSearchGemView
                 android:id="@+id/gem_10"
                 android:layout_weight="1"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"></com.lostark.customview.CharSearchGemView>
             <com.lostark.customview.CharSearchGemView
                 android:id="@+id/gem_11"
                 android:layout_weight="1"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"></com.lostark.customview.CharSearchGemView>
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:weightSum="2"
+        android:background="#ffffff">
+
+        <LinearLayout
+            android:layout_marginTop="10dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginBottom="15dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <GridLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:columnCount="2">
+                    <TextView
+                        android:text="공격력"
+                        android:textSize="8pt">
+                    </TextView>
+                    <TextView
+                        android:id="@+id/char_search_detail_char_power"
+                        android:layout_gravity="right"
+                        android:text="56,616"
+                        android:textColor="#494949"
+                        android:textStyle="bold"
+                        android:textSize="8pt">
+                    </TextView>
+                    <TextView
+                        android:text="ㄴ기본"
+                        android:layout_marginLeft="5dp"
+                        android:textSize="7pt">
+                    </TextView>
+                    <TextView
+                        android:id="@+id/char_search_detail_char_default_power"
+                        android:layout_gravity="right"
+                        android:text="55,958"
+                        android:textColor="#494949"
+                        android:textStyle="bold"
+                        android:textSize="7pt">
+                    </TextView>
+                    <TextView
+                        android:text="ㄴ효과"
+                        android:layout_marginLeft="5dp"
+                        android:textSize="7pt">
+                    </TextView>
+                    <TextView
+                        android:id="@+id/char_search_detail_char_add_power"
+                        android:layout_gravity="right"
+                        android:text="55,958"
+                        android:textColor="#494949"
+                        android:textStyle="bold"
+                        android:textSize="7pt">
+                    </TextView>
+                    <TextView
+                        android:layout_marginTop="10dp"
+                        android:text="최대 생명력"
+                        android:textSize="8pt">
+                    </TextView>
+                    <TextView
+                        android:layout_marginTop="10dp"
+                        android:id="@+id/char_search_detail_char_life"
+                        android:layout_gravity="right"
+                        android:text="218,211"
+                        android:textColor="#494949"
+                        android:textStyle="bold"
+                        android:textSize="8pt">
+                    </TextView>
+                </GridLayout>
+                <!--
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="공격력"
+                        android:textSize="8pt">
+                    </TextView>
+                    <TextView
+                        android:id="@+id/char_search_detail_char_power"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="56,616"
+                        android:textStyle="bold"
+                        android:textColor="#696969"
+                        android:textSize="8pt"
+                        android:gravity="right">
+                    </TextView>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="ㄴ기본"
+                        android:layout_marginLeft="5dp"
+                        android:textSize="7pt">
+                    </TextView>
+                    <TextView
+                        android:id="@+id/char_search_detail_char_default_power"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="55,958"
+                        android:textStyle="bold"
+                        android:textColor="#696969"
+                        android:textSize="7pt"
+                        android:gravity="right">
+                    </TextView>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="ㄴ효과"
+                        android:layout_marginLeft="5dp"
+                        android:textSize="7pt">
+                    </TextView>
+                    <TextView
+                        android:id="@+id/char_search_detail_char_add_power"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="658"
+                        android:textStyle="bold"
+                        android:textColor="#696969"
+                        android:textSize="7pt"
+                        android:gravity="right">
+                    </TextView>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="최대 생명력"
+                        android:layout_marginLeft="5dp"
+                        android:textSize="8pt">
+                    </TextView>
+                    <TextView
+                        android:id="@+id/char_search_detail_char_life"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="218,211"
+                        android:textSize="8pt"
+                        android:textStyle="bold"
+                        android:textColor="#696969"
+                        android:gravity="right">
+                    </TextView>
+                </LinearLayout>-->
+                <View
+                    android:layout_width="wrap_content"
+                    android:layout_height="3px"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="15dp"
+                    android:background="#D3D3D3"></View>
+                <GridLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:columnCount="3">
+                    <LinearLayout
+                        android:layout_columnWeight="1">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="치명"
+                            android:textSize="8pt">
+                        </TextView>
+                        <TextView
+                            android:textColor="#494949"
+                            android:textStyle="bold"
+                            android:id="@+id/char_search_detail_critical_ability"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="right"
+                            android:text="641"
+                            android:textSize="8pt">
+                        </TextView>
+                    </LinearLayout>
+                    <View
+                        android:layout_columnWeight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp">
+                    </View>
+                    <LinearLayout
+
+                        android:layout_columnWeight="1">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="특화"
+                            android:textSize="8pt">
+                        </TextView>
+                        <TextView
+                            android:id="@+id/char_search_detail_specialty_ability"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="right"
+                            android:textColor="#494949"
+                            android:textStyle="bold"
+                            android:text="1808"
+                            android:textSize="8pt">
+                        </TextView>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_marginTop="10dp"
+                        android:layout_columnWeight="1">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="제압"
+                            android:textSize="8pt">
+                        </TextView>
+                        <TextView
+                            android:id="@+id/char_search_detail_subdue_ability"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="right"
+                            android:textColor="#494949"
+                            android:textStyle="bold"
+                            android:text="70"
+                            android:textSize="8pt">
+                        </TextView>
+                    </LinearLayout>
+                    <View
+                        android:layout_columnWeight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp">
+                    </View>
+                    <LinearLayout
+                        android:layout_marginTop="10dp"
+                        android:layout_columnWeight="1">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="신속"
+                            android:textSize="8pt">
+                        </TextView>
+                        <TextView
+                            android:id="@+id/char_search_detail_fast_ability"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="right"
+                            android:textColor="#494949"
+                            android:textStyle="bold"
+                            android:text="63"
+                            android:textSize="8pt">
+                        </TextView>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_marginTop="10dp"
+                        android:layout_columnWeight="1">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="인내"
+                            android:textSize="8pt">
+                        </TextView>
+                        <TextView
+                            android:id="@+id/char_search_detail_patience_ability"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="right"
+                            android:textColor="#494949"
+                            android:textStyle="bold"
+                            android:text="70"
+                            android:textSize="8pt">
+                        </TextView>
+                    </LinearLayout>
+                    <View
+                        android:layout_columnWeight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp">
+                    </View>
+                    <LinearLayout
+                        android:layout_marginTop="10dp"
+                        android:layout_columnWeight="1">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="숙련"
+                            android:textSize="8pt">
+                        </TextView>
+                        <TextView
+                            android:id="@+id/char_search_detail_proficiency_ability"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="right"
+                            android:textColor="#494949"
+                            android:textStyle="bold"
+                            android:text="63"
+                            android:textSize="8pt">
+                        </TextView>
+                    </LinearLayout>
+
+
+                </GridLayout>
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/char_search_detail_ability_bottom_engraving"
+            android:layout_marginTop="10dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+            <com.lostark.customview.CharSearchEngravingBottomView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+            </com.lostark.customview.CharSearchEngravingBottomView>
+            <com.lostark.customview.CharSearchEngravingBottomView
+                android:layout_marginTop="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+            </com.lostark.customview.CharSearchEngravingBottomView>
+            <com.lostark.customview.CharSearchEngravingBottomView
+                android:layout_marginTop="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+            </com.lostark.customview.CharSearchEngravingBottomView>
+            <com.lostark.customview.CharSearchEngravingBottomView
+                android:layout_marginTop="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+            </com.lostark.customview.CharSearchEngravingBottomView>
+            <com.lostark.customview.CharSearchEngravingBottomView
+                android:layout_marginTop="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+            </com.lostark.customview.CharSearchEngravingBottomView>
+            <com.lostark.customview.CharSearchEngravingBottomView
+                android:layout_marginTop="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+        </com.lostark.customview.CharSearchEngravingBottomView>
+
         </LinearLayout>
     </LinearLayout>
 

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+    <ImageView
+        android:id="@+id/char_search_detail_bottom_engraving_image"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:src="@drawable/engraving_icon"></ImageView>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_marginLeft="15dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Lv."
+                    android:textColor="#808080"
+                    android:textSize="6pt"
+                    android:textStyle="bold"
+                    android:layout_gravity="bottom"></TextView>
+
+                <TextView
+                    android:id="@+id/char_search_detail_bottom_engraving_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="3 원한"
+                    android:textColor="#000000"
+                    android:textSize="8pt"
+                    android:textStyle="bold"></TextView>
+        </LinearLayout>
+</LinearLayout>

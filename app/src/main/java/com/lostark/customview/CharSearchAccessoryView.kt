@@ -238,7 +238,7 @@ class CharSearchAccessoryView : LinearLayout {
                     pattern = "(치명|특화|신속|제압|인내|숙련)\\s\\+(\\d+)+".toRegex()
                     var ability1: String = ""
                     var abilityStat = 0
-                    var ability2: String = ""
+                    var ability2: String = " "
                     var seq = true
                     pattern.findAll(itemPartBoxData.element1).forEach {
                         val number = it.groupValues[2].toInt()

@@ -19,6 +19,8 @@ class CharSearchGemView : LinearLayout {
 
     lateinit var gemCardView: MaterialCardView
     lateinit var gemImage: ImageView
+    lateinit var gemLevel: TextView
+
     lateinit var gemName: String
     lateinit var gemTier: String
     var gemDetail: String? = null
@@ -40,6 +42,7 @@ class CharSearchGemView : LinearLayout {
         addView(view)
         gemImage = findViewById(R.id.char_search_detail_gem_image)
         gemCardView = findViewById(R.id.char_search_detail_gem_card_view)
+        gemLevel = findViewById(R.id.char_search_detail_gem_level)
 
     }
     fun setImageBackground(grade : String){
@@ -82,6 +85,8 @@ class CharSearchGemView : LinearLayout {
             val itemPartBoxData = tooltip.elements.get(key)?.value as ItemPartData
             gemDetail = pattern.find(itemPartBoxData.element1)?.value?.replace("] ","[")?.replace(" 피해","] 피해")?.replace(" 재사용","] 재사용")
         }
+        gemLevel.visibility=View.VISIBLE
+        gemLevel.text = gem.level.toString()
 
     }
 }

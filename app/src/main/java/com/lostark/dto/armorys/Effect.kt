@@ -10,5 +10,15 @@ data class Effect(
     @SerializedName("Index")
     val index: Int,
     @SerializedName("Items")
-    val items: List<Item>
+    val items: List<Item>,
+    @SerializedName("Description")
+    val description: String,
+    @SerializedName("GemSlot")
+    val gemSlot: Int,
+    @SerializedName("Icon")
+    val icon: String,
+    @SerializedName("Name")
+    val name: String,
+    @SerializedName("Tooltip")
+    val tooltip: String
 ): Serializable

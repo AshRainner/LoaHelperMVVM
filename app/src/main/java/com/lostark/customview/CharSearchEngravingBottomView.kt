@@ -13,14 +13,13 @@ import com.lostark.dto.armorys.tooltips.ItemPartData
 import com.lostark.dto.armorys.tooltips.Tooltip
 import com.lostark.loahelper.R
 
-class CharSearchEngravingBookView : LinearLayout {
+class CharSearchEngravingBottomView : LinearLayout {
 
 
     lateinit var engravingImage: ImageView
     lateinit var engravingName: TextView
-    lateinit var engravingPoint: TextView
 
-    lateinit var engravingStringList:List<String>
+    lateinit var engravingString:String
     lateinit var imageUrl:String
 
     constructor(context: Context?) : super(context) {
@@ -34,10 +33,9 @@ class CharSearchEngravingBookView : LinearLayout {
 
     private fun init(context: Context?) {
         val view =
-            LayoutInflater.from(context).inflate(R.layout.char_search_detail_ability_engraving_book_view, this, false)
-        engravingImage = view.findViewById(R.id.char_search_detail_engraving_image)
-        engravingName = view.findViewById(R.id.char_search_detail_engraving_name)
-        engravingPoint = view.findViewById(R.id.char_search_detail_engraving_point)
+            LayoutInflater.from(context).inflate(R.layout.char_search_detail_ability_engraving_view, this, false)
+        engravingImage = view.findViewById(R.id.char_search_detail_bottom_engraving_image)
+        engravingName = view.findViewById(R.id.char_search_detail_bottom_engraving_name)
         addView(view)
 
     }
@@ -52,14 +50,5 @@ class CharSearchEngravingBookView : LinearLayout {
         imageUrl = engraving.icon
 
         engravingName.text = tooltip.elements.get("Element_000")?.value.toString()
-        val data = tooltip.elements.get("Element_001")?.value as EngraveSkillTitleData
-        engravingPoint.text = data.leftText.replace("각인 ","")
-
-        var pattern = "레벨 \\d+[^레벨].*".toRegex(RegexOption.MULTILINE)
-        engravingStringList =  pattern.findAll((tooltip.elements.get("Element_003")?.value as ItemPartData).element1).map { it.value }.toList()
-        /*println(engravingStringList)
-        pattern.findAll((tooltip.elements.get("Element_003")?.value as ItemPartData).element1).forEach {
-            println(it.value)
-        }*/
     }
 }
