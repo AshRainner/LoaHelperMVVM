@@ -51,6 +51,7 @@ class CharSearchEngravingBottomView : LinearLayout {
         engravingString = description
 
         engravingName.text = level+" "+name
+        println("이름 : "+name)
         if(name.contains("감소"))
             engravingName.setTextColor(Color.parseColor("#FF0044"))
     }

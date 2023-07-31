@@ -145,7 +145,6 @@ class AbilityFragment(private val charInfo: Armories) : Fragment() {
             val level = pattern.find(it.name)?.value
             pattern = "Lv.\\s\\d+".toRegex()
             val imageUrl = engravingImageDict[it.name.replace(pattern,"").replace(" ","")]?:"https://cdn-lostark.game.onstove.com/efui_iconatlas/achieve/achieve_07_22.png"
-
             bottomEngravingView.setEngravingImageText(it.name.replace(pattern,""),it.description,level!!,imageUrl)
             bottomEngravingLayout.addView(bottomEngravingView)
         }

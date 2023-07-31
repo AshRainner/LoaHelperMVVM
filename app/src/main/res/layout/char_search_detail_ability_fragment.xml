@@ -195,7 +195,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:background="#ffffff"
         android:weightSum="2">
 
@@ -271,6 +271,7 @@
                         android:textSize="8pt"
                         android:textStyle="bold"></TextView>
                 </GridLayout>
+
                 <View
                     android:layout_width="wrap_content"
                     android:layout_height="3px"
@@ -428,19 +429,24 @@
 
         </LinearLayout>
 
-        <ScrollView
-            android:layout_marginLeft="20dp"
+        <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:layout_marginLeft="20dp"
+            android:layout_marginBottom="10dp">
 
-            <LinearLayout
-                android:id="@+id/char_search_detail_ability_bottom_engraving_layout"
+            <androidx.core.widget.NestedScrollView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-            </LinearLayout>
-        </ScrollView>
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:id="@+id/char_search_detail_ability_bottom_engraving_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"></LinearLayout>
+            </androidx.core.widget.NestedScrollView>
+        </LinearLayout>
     </LinearLayout>
 
 </LinearLayout>
