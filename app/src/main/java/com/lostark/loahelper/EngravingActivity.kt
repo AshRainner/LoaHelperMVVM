@@ -229,10 +229,6 @@ class EngravingActivity : AppCompatActivity(), SpinnerChangedCallback {
         }
     }
 
-    fun changedSeletedOval(name: String, value: String) {
-
-    }
-
     fun filterName(engravingName: String): Boolean {
         engravingNameList = mutableListOf()
         if (engravingName != null) {

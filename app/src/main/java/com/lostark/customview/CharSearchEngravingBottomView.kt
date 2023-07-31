@@ -1,6 +1,7 @@
 package com.lostark.customview
 
 import android.content.Context
+import android.graphics.Color
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.ImageView
@@ -20,7 +21,6 @@ class CharSearchEngravingBottomView : LinearLayout {
     lateinit var engravingName: TextView
 
     lateinit var engravingString:String
-    lateinit var imageUrl:String
 
     constructor(context: Context?) : super(context) {
         init(context)
@@ -42,13 +42,16 @@ class CharSearchEngravingBottomView : LinearLayout {
     private fun getAttrs(attrs: AttributeSet?) {
 
     }
-    fun setEngravingImageText(engraving:Engraving,tooltip: Tooltip){
+    fun setEngravingImageText(name:String,description: String,level:String,imageUrl:String){
         Glide.with(this)
-            .load(engraving.icon)
+            .load(imageUrl)
             .circleCrop()
             .into(engravingImage)
-        imageUrl = engraving.icon
 
-        engravingName.text = tooltip.elements.get("Element_000")?.value.toString()
+        engravingString = description
+
+        engravingName.text = level+" "+name
+        if(name.contains("감소"))
+            engravingName.setTextColor(Color.parseColor("#FF0044"))
     }
 }

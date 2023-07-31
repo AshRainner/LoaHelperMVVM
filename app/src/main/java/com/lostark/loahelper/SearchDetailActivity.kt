@@ -19,6 +19,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.get
 import androidx.viewpager2.widget.ViewPager2
 import com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar
+import com.amar.library.ui.StickyScrollView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
@@ -42,6 +43,7 @@ import kotlin.collections.ArrayList
 class SearchDetailActivity : AppCompatActivity() {
 
     lateinit var charInfo: Armories
+    lateinit var mainScrollView:StickyScrollView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,11 +51,15 @@ class SearchDetailActivity : AppCompatActivity() {
         charInfo = (intent.getSerializable("charInfo") as Armories?)!!
         val itemLevel = charInfo.armoryProfile.itemMaxLevel.replace(",", "").toFloat().toInt()
         val charImgUrl = charInfo.armoryProfile.characterImage
+        mainScrollView = findViewById(R.id.search_detail_scroll_view)
 
         charGradationSet(itemLevel)
         charImageSet(charImgUrl)
         charInfoSet()
         setFragment()
+        mainScrollView.post{
+            mainScrollView.scrollTo(0,0)
+        }
     }
 
     fun charInfoSet() {

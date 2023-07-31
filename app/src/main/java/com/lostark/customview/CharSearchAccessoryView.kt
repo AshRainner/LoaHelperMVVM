@@ -61,8 +61,8 @@ class CharSearchAccessoryView : LinearLayout {
     var minusEngravingString: String? = null
 
 
-    var braceletAbilityString:String =""
-    lateinit var braceletAbilityList:List<String>
+    var braceletAbilityString: String = ""
+    lateinit var braceletAbilityList: List<String>
 
     var type = "악세"
 
@@ -204,16 +204,25 @@ class CharSearchAccessoryView : LinearLayout {
 
                 if (indentStringGroupData.element0.topStr.contains("무작위 각인 효과")) {
                     val contenStrData = indentStringGroupData.element0.contentStr
-                    val plusEngravingOne =
-                        contenStrData.Element_000.contentStr.replace("[", "").replace("]", "")
-                            .replace("활성도", "")
-                    val plusEngravingTwo =
-                        contenStrData.Element_001.contentStr.replace("[", "").replace("]", "")
-                            .replace("활성도", "")
+                    var plusEngravingOne = ""
+                    contenStrData.Element_000?.let {
+                        plusEngravingOne =
+                            it.contentStr.replace("[", "").replace("]", "")
+                                .replace("활성도", "")
+                    }
+                    var plusEngravingTwo = ""
+                    contenStrData.Element_001?.let {
+                        plusEngravingTwo =
+                            it.contentStr.replace("[", "").replace("]", "")
+                                .replace("활성도", "")
+                    }
                     plusEngravingString = plusEngravingOne + plusEngravingTwo.replace("\n", "")
-                    minusEngravingString =
-                        contenStrData.Element_002.contentStr.replace("[", "").replace("]", "")
-                            .replace("활성도", "")
+                    contenStrData.Element_002?.let {
+                        minusEngravingString =
+                            it.contentStr.replace("[", "").replace("]", "")
+                                .replace("활성도", "")
+                    }
+
                 }
             }
         }
@@ -225,12 +234,19 @@ class CharSearchAccessoryView : LinearLayout {
             var pattern = "(치명|특화|신속|제압|인내|숙련)".toRegex()
             if (itemPartBoxData.element1.contains(pattern)) {
 
-                if(armory.type == "팔찌"){
-                    pattern = "(체력|힘|민첩|지능|치명|신속|특화|제압|인내|숙련|최대 생명력|최대 마나|물리 방어력|무기 공격력|마법 방어력|전투 중 생명력 회복량)\\s\\+|\\[(오뚝이|돌진|강타|타격|마나회수|속궁|투자|반전|멸시|무시|전투 중 생명력 회복량|회생|긴급수혈|응급처치|앵콜|쐐기|망치|순환|열정|냉정|비수|약점 노출|깨달음|응원|수확|보상|무기 공격력|우월|습격|정밀|상처약화|분개|기습|결투|적립)\\]".toRegex()
-                    braceletAbilityString = pattern.findAll(itemPartBoxData.element1.replace("\n"," ")).map { it.value }.toList().joinToString(" · ").replace("[","").replace("]","").replace(" +","")
+                if (armory.type == "팔찌") {
+                    pattern =
+                        "(체력|힘|민첩|지능|치명|신속|특화|제압|인내|숙련|최대 생명력|최대 마나|물리 방어력|무기 공격력|마법 방어력|전투 중 생명력 회복량)\\s\\+|\\[(오뚝이|돌진|강타|타격|마나회수|속궁|투자|반전|멸시|무시|전투 중 생명력 회복량|회생|긴급수혈|응급처치|앵콜|쐐기|망치|순환|열정|냉정|비수|약점 노출|깨달음|응원|수확|보상|무기 공격력|우월|습격|정밀|상처약화|분개|기습|결투|적립)\\]".toRegex()
+                    braceletAbilityString =
+                        pattern.findAll(itemPartBoxData.element1.replace("\n", " "))
+                            .map { it.value }.toList().joinToString(" · ").replace("[", "")
+                            .replace("]", "").replace(" +", "")
                     //pattern = "(체력|힘|민첩|지능|치명|신속|특화|제압|인내|숙련|최대 생명력|최대 마나|물리 방어력|무기 공격력|마법 방어력|전투 중 생명력 회복량)\\s\\+\\d+|\\[(오뚝이|돌진|강타|타격|마나회수|속궁|투자|반전|멸시|무시|전투 중 생명력 회복량|회생|긴급수혈|응급처치|앵콜|쐐기|망치|순환|열정|냉정|비수|약점 노출|깨달음|응원|수확|보상|무기 공격력|우월|습격|정밀|상처약화|분개|기습|결투|적립)](\\s.*)?".toRegex()
-                    pattern = "(체력|힘|민첩|지능|치명|신속|특화|제압|인내|숙련|최대 생명력|최대 마나|물리 방어력|무기 공격력|마법 방어력|전투 중 생명력 회복량)\\s?\\+\\d+|\\[(오뚝이|돌진|강타|타격|마나회수|속궁|투자|반전|멸시|무시|전투 중 생명력 회복량|회생|긴급수혈|응급처치|앵콜|쐐기|망치|순환|열정|냉정|비수|약점 노출|깨달음|응원|수확|보상|무기 공격력|우월|습격|정밀|상처약화|분개|기습|결투|적립)\\].*?\\)".toRegex()
-                    braceletAbilityList = pattern.findAll(itemPartBoxData.element1.replace("\n"," ")).map { it.value }.toList()
+                    pattern =
+                        "(체력|힘|민첩|지능|치명|신속|특화|제압|인내|숙련|최대 생명력|최대 마나|물리 방어력|무기 공격력|마법 방어력|전투 중 생명력 회복량)\\s?\\+\\d+|\\[(오뚝이|돌진|강타|타격|마나회수|속궁|투자|반전|멸시|무시|전투 중 생명력 회복량|회생|긴급수혈|응급처치|앵콜|쐐기|망치|순환|열정|냉정|비수|약점 노출|깨달음|응원|수확|보상|무기 공격력|우월|습격|정밀|상처약화|분개|기습|결투|적립)\\].*?\\)".toRegex()
+                    braceletAbilityList =
+                        pattern.findAll(itemPartBoxData.element1.replace("\n", " "))
+                            .map { it.value }.toList()
                 }
 
 

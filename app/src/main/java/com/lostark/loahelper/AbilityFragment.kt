@@ -5,15 +5,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.findFragment
 import com.google.gson.GsonBuilder
 import com.lostark.adapter.ValueDataAdapter
-import com.lostark.customview.CharSearchAccessoryView
-import com.lostark.customview.CharSearchArmorView
-import com.lostark.customview.CharSearchEngravingBookView
-import com.lostark.customview.CharSearchGemView
+import com.lostark.customview.*
 import com.lostark.dto.armorys.*
 import com.lostark.dto.armorys.tooltips.Tooltip
 import com.lostark.dto.armorys.tooltips.ValueData
@@ -23,95 +22,102 @@ import java.util.*
 
 class AbilityFragment(private val charInfo: Armories) : Fragment() {
     val engravingImageDict = mutableMapOf(
-        "황후의 은총" to "https://cdn-lostark.game.onstove.com/efui_iconatlas/buff/buff_1.png",
-        "고독한 기사" to "https://cdn-lostark.game.onstove.com/efui_iconatlas/buff/buff_13.png",
-        "전투 태세" to "https://cdn-lostark.game.onstove.com/efui_iconatlas/buff/buff_19.png",
-        "넘치는 교감" to "https://cdn-lostark.game.onstove.com/efui_iconatlas/buff/buff_21.png",
-        "중력 수련" to "https://cdn-lostark.game.onstove.com/efui_iconatlas/buff/buff_42.png",
-        "중갑 착용" to "https://cdn-lostark.game.onstove.com/efui_iconatlas/buff/buff_46.png",
-        "마나의 흐름" to "https://cdn-lostark.game.onstove.com/efui_iconatlas/buff/buff_63.png",
-        "정기 흡수" to "https://cdn-lostark.game.onstove.com/efui_iconatlas/buff/buff_65.png",
+        "황후의은총" to "https://cdn-lostark.game.onstove.com/efui_iconatlas/buff/buff_1.png",
+        "탈출의명수" to "https://cdn-lostark.game.onstove.com/efui_iconatlas/buff/buff_10.png",
+        "고독한기사" to "https://cdn-lostark.game.onstove.com/efui_iconatlas/buff/buff_13.png",
+        "구슬동자" to "https://cdn-lostark.game.onstove.com/efui_iconatlas/buff/buff_18.png",
+        "전투태세" to "https://cdn-lostark.game.onstove.com/efui_iconatlas/buff/buff_19.png",
+        "넘치는교감" to "https://cdn-lostark.game.onstove.com/efui_iconatlas/buff/buff_21.png",
+        "강령술" to "https://cdn-lostark.game.onstove.com/efui_iconatlas/buff/buff_29.png",
+        "중력수련" to "https://cdn-lostark.game.onstove.com/efui_iconatlas/buff/buff_42.png",
+        "굳은의지" to "https://cdn-lostark.game.onstove.com/efui_iconatlas/buff/buff_44.png",
+        "중갑착용" to "https://cdn-lostark.game.onstove.com/efui_iconatlas/buff/buff_46.png",
+        "마나의흐름" to "https://cdn-lostark.game.onstove.com/efui_iconatlas/buff/buff_63.png",
+        "정기흡수" to "https://cdn-lostark.game.onstove.com/efui_iconatlas/buff/buff_65.png",
         "불굴" to "https://cdn-lostark.game.onstove.com/efui_iconatlas/buff/buff_66.png",
         "원한" to "https://cdn-lostark.game.onstove.com/efui_iconatlas/buff/buff_71.png",
-        "에테르 포식자" to "https://cdn-lostark.game.onstove.com/efui_iconatlas/buff/buff_74.png",
-        "두번째 동료" to "https://cdn-lostark.game.onstove.com/efui_iconatlas/buff/buff_77.png",
-        "상급 소환사" to "https://cdn-lostark.game.onstove.com/efui_iconatlas/buff/buff_78.png",
-        "분쇄의 주먹" to "https://cdn-lostark.game.onstove.com/efui_iconatlas/buff/buff_83.png",
-        "실드 관통"  to "https://cdn-lostark.game.onstove.com/efui_iconatlas/buff/buff_89.png",
-        "부러진 뼈" to "https://cdn-lostark.game.onstove.com/efui_iconatlas/buff/buff_94.png",
-        "안정된 상태" to "https://cdn-lostark.game.onstove.com/efui_iconatlas/buff/buff_105.png",
+        "에테르포식자" to "https://cdn-lostark.game.onstove.com/efui_iconatlas/buff/buff_74.png",
+        "두번째동료" to "https://cdn-lostark.game.onstove.com/efui_iconatlas/buff/buff_77.png",
+        "상급소환사" to "https://cdn-lostark.game.onstove.com/efui_iconatlas/buff/buff_78.png",
+        "분쇄의주먹" to "https://cdn-lostark.game.onstove.com/efui_iconatlas/buff/buff_83.png",
+        "실드관통"  to "https://cdn-lostark.game.onstove.com/efui_iconatlas/buff/buff_89.png",
+        "부러진뼈" to "https://cdn-lostark.game.onstove.com/efui_iconatlas/buff/buff_94.png",
+        "안정된상태" to "https://cdn-lostark.game.onstove.com/efui_iconatlas/buff/buff_105.png",
         "각성" to "https://cdn-lostark.game.onstove.com/efui_iconatlas/buff/buff_113.png",
-        "폭발물 전문가" to "https://cdn-lostark.game.onstove.com/efui_iconatlas/buff/buff_121.png",
-        "최대 마나 증가" to "https://cdn-lostark.game.onstove.com/efui_iconatlas/buff/buff_122.png",
-        "절실한 구원" to "https://cdn-lostark.game.onstove.com/efui_iconatlas/buff/buff_135.png",
+        "폭발물전문가" to "https://cdn-lostark.game.onstove.com/efui_iconatlas/buff/buff_121.png",
+        "최대마나증가" to "https://cdn-lostark.game.onstove.com/efui_iconatlas/buff/buff_122.png",
+        "절실한구원" to "https://cdn-lostark.game.onstove.com/efui_iconatlas/buff/buff_135.png",
         "승부사" to "https://cdn-lostark.game.onstove.com/efui_iconatlas/buff/buff_136.png",
-        "광전사의 비기" to "https://cdn-lostark.game.onstove.com/efui_iconatlas/buff/buff_138.png",
-        "달인의 저력" to "https://cdn-lostark.game.onstove.com/efui_iconatlas/buff/buff_147.png",
-        "기습의 대가" to "https://cdn-lostark.game.onstove.com/efui_iconatlas/buff/buff_148.png",
-        "위기 모면" to "https://cdn-lostark.game.onstove.com/efui_iconatlas/buff/buff_162.png",
-        "마나 효율 증가" to "https://cdn-lostark.game.onstove.com/efui_iconatlas/buff/buff_166.png",
-        "급소 타격" to "https://cdn-lostark.game.onstove.com/efui_iconatlas/buff/buff_168.png",
-        "바리게이트" to "https://cdn-lostark.game.onstove.com/efui_iconatlas/buff/buff_170.png",
-        "화력 강화" to "https://cdn-lostark.game.onstove.com/efui_iconatlas/buff/buff_171.png",
+        "광전사의비기" to "https://cdn-lostark.game.onstove.com/efui_iconatlas/buff/buff_138.png",
+        "달인의저력" to "https://cdn-lostark.game.onstove.com/efui_iconatlas/buff/buff_147.png",
+        "기습의대가" to "https://cdn-lostark.game.onstove.com/efui_iconatlas/buff/buff_148.png",
+        "위기모면" to "https://cdn-lostark.game.onstove.com/efui_iconatlas/buff/buff_162.png",
+        "마나효율증가" to "https://cdn-lostark.game.onstove.com/efui_iconatlas/buff/buff_166.png",
+        "급소타격" to "https://cdn-lostark.game.onstove.com/efui_iconatlas/buff/buff_168.png",
+        "바리케이드" to "https://cdn-lostark.game.onstove.com/efui_iconatlas/buff/buff_170.png",
+        "화력강화" to "https://cdn-lostark.game.onstove.com/efui_iconatlas/buff/buff_171.png",
         "광기" to "https://cdn-lostark.game.onstove.com/efui_iconatlas/buff/buff_173.png",
-        "충격 단련" to "https://cdn-lostark.game.onstove.com/efui_iconatlas/buff/buff_177.png",
-        "번개의 분노" to "https://cdn-lostark.game.onstove.com/efui_iconatlas/buff/buff_191.png",
-        "돌격 대장" to "https://cdn-lostark.game.onstove.com/efui_iconatlas/buff/buff_210.png",
-        "진실된 용맹" to "https://cdn-lostark.game.onstove.com/efui_iconatlas/buff/buff_220.png",
-        "여신의 가호" to "https://cdn-lostark.game.onstove.com/efui_iconatlas/buff/buff_229.png",
+        "충격단련" to "https://cdn-lostark.game.onstove.com/efui_iconatlas/buff/buff_177.png",
+        "번개의분노" to "https://cdn-lostark.game.onstove.com/efui_iconatlas/buff/buff_191.png",
+        "돌격대장" to "https://cdn-lostark.game.onstove.com/efui_iconatlas/buff/buff_210.png",
+        "진실된용맹" to "https://cdn-lostark.game.onstove.com/efui_iconatlas/buff/buff_220.png",
+        "여신의가호" to "https://cdn-lostark.game.onstove.com/efui_iconatlas/buff/buff_229.png",
         "세맥타통" to "https://cdn-lostark.game.onstove.com/efui_iconatlas/buff/buff_235.png",
-        "황제의 칙령" to "https://cdn-lostark.game.onstove.com/efui_iconatlas/buff/buff_236.png",
-        "저주받은 인형" to "https://cdn-lostark.game.onstove.com/efui_iconatlas/buff/buff_237.png",
-        "오의 강화" to "https://cdn-lostark.game.onstove.com/efui_iconatlas/buff/buff_238.png",
-        "강화 방패" to "https://cdn-lostark.game.onstove.com/efui_iconatlas/buff/buff_239.png",
-        "죽음의 습격" to "https://cdn-lostark.game.onstove.com/efui_iconatlas/buff/buff_245.png",
-
+        "황제의칙령" to "https://cdn-lostark.game.onstove.com/efui_iconatlas/buff/buff_236.png",
+        "저주받은인형" to "https://cdn-lostark.game.onstove.com/efui_iconatlas/buff/buff_237.png",
+        "오의강화" to "https://cdn-lostark.game.onstove.com/efui_iconatlas/buff/buff_238.png",
+        "강화방패" to "https://cdn-lostark.game.onstove.com/efui_iconatlas/buff/buff_239.png",
+        "죽음의습격" to "https://cdn-lostark.game.onstove.com/efui_iconatlas/buff/buff_245.png",
         "초심" to "https://cdn-lostark.game.onstove.com/efui_iconatlas/ability/ability_25.png",
-        "역전 지체" to "https://cdn-lostark.game.onstove.com/efui_iconatlas/ability/ability_45.png",
+        "역천지체" to "https://cdn-lostark.game.onstove.com/efui_iconatlas/ability/ability_45.png",
         "절정" to "https://cdn-lostark.game.onstove.com/EFUI_IconAtlas/Ability/Ability_207.png",
         "절제" to "https://cdn-lostark.game.onstove.com/EFUI_IconAtlas/Ability/Ability_208.png",
-        "잔재된 기운" to "https://cdn-lostark.game.onstove.com/EFUI_IconAtlas/Ability/Ability_209.png",
+        "잔재된기운" to "https://cdn-lostark.game.onstove.com/EFUI_IconAtlas/Ability/Ability_209.png",
         "버스트" to "https://cdn-lostark.game.onstove.com/EFUI_IconAtlas/Ability/Ability_210.png",
-        "완벽한 억제" to "https://cdn-lostark.game.onstove.com/EFUI_IconAtlas/Ability/Ability_211.png",
-        "멈출 수 없는 충동" to "https://cdn-lostark.game.onstove.com/EFUI_IconAtlas/Ability/Ability_212.png",
+        "완벽한억제" to "https://cdn-lostark.game.onstove.com/EFUI_IconAtlas/Ability/Ability_211.png",
+        "멈출수없는충동" to "https://cdn-lostark.game.onstove.com/EFUI_IconAtlas/Ability/Ability_212.png",
         "심판자" to "https://cdn-lostark.game.onstove.com/EFUI_IconAtlas/Ability/Ability_214.png",
-        "축복의 오라" to "https://cdn-lostark.game.onstove.com/EFUI_IconAtlas/Ability/Ability_215.png",
-        "아르데타인의 기술" to "https://cdn-lostark.game.onstove.com/EFUI_IconAtlas/Ability/Ability_216.png",
-        "진화의 유산" to "https://cdn-lostark.game.onstove.com/EFUI_IconAtlas/Ability/Ability_217.png",
-        "공격력 감소" to "https://cdn-lostark.game.onstove.com/EFUI_IconAtlas/Ability/Ability_218.png",
-        "방어력 감소" to "https://cdn-lostark.game.onstove.com/EFUI_IconAtlas/Ability/Ability_219.png",
-        "공격속도 감소" to "https://cdn-lostark.game.onstove.com/EFUI_IconAtlas/Ability/Ability_220.png",
-        "이동속도 감소" to "https://cdn-lostark.game.onstove.com/EFUI_IconAtlas/Ability/Ability_221.png",
+        "축복의오라" to "https://cdn-lostark.game.onstove.com/EFUI_IconAtlas/Ability/Ability_215.png",
+        "아르데타인의기술" to "https://cdn-lostark.game.onstove.com/EFUI_IconAtlas/Ability/Ability_216.png",
+        "진화의유산" to "https://cdn-lostark.game.onstove.com/EFUI_IconAtlas/Ability/Ability_217.png",
+        "공격력감소" to "https://cdn-lostark.game.onstove.com/EFUI_IconAtlas/Ability/Ability_218.png",
+        "방어력감소" to "https://cdn-lostark.game.onstove.com/EFUI_IconAtlas/Ability/Ability_219.png",
+        "공격속도감소" to "https://cdn-lostark.game.onstove.com/EFUI_IconAtlas/Ability/Ability_220.png",
+        "이동속도감소" to "https://cdn-lostark.game.onstove.com/EFUI_IconAtlas/Ability/Ability_221.png",
         "갈증" to "https://cdn-lostark.game.onstove.com/EFUI_IconAtlas/Ability/Ability_222.png",
-        "달의 소리" to "https://cdn-lostark.game.onstove.com/EFUI_IconAtlas/Ability/Ability_223.png",
-        "결투의 대가" to "https://cdn-lostark.game.onstove.com/EFUI_IconAtlas/Ability/Ability_224.png",
+        "달의소리" to "https://cdn-lostark.game.onstove.com/EFUI_IconAtlas/Ability/Ability_223.png",
+        "결투의대가" to "https://cdn-lostark.game.onstove.com/EFUI_IconAtlas/Ability/Ability_224.png",
         "피스메이커" to "https://cdn-lostark.game.onstove.com/EFUI_IconAtlas/Ability/Ability_225.png",
-        "사냥의 시간" to "https://cdn-lostark.game.onstove.com/EFUI_IconAtlas/Ability/Ability_228.png",
-        "오의 난무" to "https://cdn-lostark.game.onstove.com/EFUI_IconAtlas/Ability/Ability_229.png",
+        "사냥의시간" to "https://cdn-lostark.game.onstove.com/EFUI_IconAtlas/Ability/Ability_228.png",
+        "오의난무" to "https://cdn-lostark.game.onstove.com/EFUI_IconAtlas/Ability/Ability_229.png",
         "일격필살" to "https://cdn-lostark.game.onstove.com/EFUI_IconAtlas/Ability/Ability_230.png",
         "질량증가" to "https://cdn-lostark.game.onstove.com/EFUI_IconAtlas/Ability/Ability_231.png",
         "추진력" to "https://cdn-lostark.game.onstove.com/EFUI_IconAtlas/Ability/Ability_232.png",
-        "타격의 대가" to "https://cdn-lostark.game.onstove.com/efui_iconatlas/ability/ability_233.png",
-        "시선 집중" to "https://cdn-lostark.game.onstove.com/efui_iconatlas/ability/ability_234.png",
+        "타격의대가" to "https://cdn-lostark.game.onstove.com/efui_iconatlas/ability/ability_233.png",
+        "시선집중" to "https://cdn-lostark.game.onstove.com/efui_iconatlas/ability/ability_234.png",
         "아드레날린" to "https://cdn-lostark.game.onstove.com/efui_iconatlas/ability/ability_235.png",
         "속전속결" to "https://cdn-lostark.game.onstove.com/efui_iconatlas/ability/ability_236.png",
+        "전문의" to "https://cdn-lostark.game.onstove.com/efui_iconatlas/ability/ability_237.png",
         "긴급구조" to "https://cdn-lostark.game.onstove.com/efui_iconatlas/ability/ability_238.png",
-        "정밀 단도" to "https://cdn-lostark.game.onstove.com/efui_iconatlas/ability/ability_239.png",
+        "정밀단도" to "https://cdn-lostark.game.onstove.com/efui_iconatlas/ability/ability_239.png",
         "점화" to "https://cdn-lostark.game.onstove.com/EFUI_IconAtlas/Ability/Ability_240.png",
         "환류" to "https://cdn-lostark.game.onstove.com/EFUI_IconAtlas/Ability/Ability_241.png",
-        "강화 무기" to "https://cdn-lostark.game.onstove.com/EFUI_IconAtlas/Ability/Ability_242.png",
+        "강화무기" to "https://cdn-lostark.game.onstove.com/EFUI_IconAtlas/Ability/Ability_242.png",
         "회귀" to "https://cdn-lostark.game.onstove.com/EFUI_IconAtlas/Ability/Ability_248.png",
         "만개" to "https://cdn-lostark.game.onstove.com/EFUI_IconAtlas/Ability/Ability_249.png",
         "질풍노도" to "https://cdn-lostark.game.onstove.com/EFUI_IconAtlas/Ability/Ability_258.png",
         "이슬비" to "https://cdn-lostark.game.onstove.com/EFUI_IconAtlas/Ability/Ability_259.png",
         "포식자" to "https://cdn-lostark.game.onstove.com/EFUI_IconAtlas/Ability/Ability_260.png",
         "처단자" to "https://cdn-lostark.game.onstove.com/EFUI_IconAtlas/Ability/Ability_261.png",
-        "만월의 집행자" to "https://cdn-lostark.game.onstove.com/EFUI_IconAtlas/Ability/Ability_263.png",
-        "그믐의 경계" to "https://cdn-lostark.game.onstove.com/EFUI_IconAtlas/Ability/Ability_264.png"
-
-
-
-    )
+        "만월의집행자" to "https://cdn-lostark.game.onstove.com/EFUI_IconAtlas/Ability/Ability_263.png",
+        "그믐의경계" to "https://cdn-lostark.game.onstove.com/EFUI_IconAtlas/Ability/Ability_264.png",
+        "예리한둔기" to "https://cdn-lostark.game.onstove.com/efui_iconatlas/achieve/achieve_03_40.png",
+        "약자무시" to "https://cdn-lostark.game.onstove.com/efui_iconatlas/achieve/achieve_04_30.png",
+        "슈퍼차지" to "https://cdn-lostark.game.onstove.com/efui_iconatlas/achieve/achieve_06_14.png",
+        "선수필승" to "https://cdn-lostark.game.onstove.com/efui_iconatlas/achieve/achieve_08_62.png",
+        "핸드거너" to "https://cdn-lostark.game.onstove.com/efui_iconatlas/buff/buff_600.png",
+        "포격강화" to "https://cdn-lostark.game.onstove.com/efui_iconatlas/gl_skill/gl_skill_01_26.png",
+        "극의:체술" to "https://cdn-lostark.game.onstove.com/efui_iconatlas/achieve/achieve_07_22.png")
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -125,7 +131,24 @@ class AbilityFragment(private val charInfo: Armories) : Fragment() {
         setEngraving(view)
         setGem(view)
         setBottomStatus(view)
+        setBottomEngraving(view)
         return view
+    }
+
+    fun setBottomEngraving(view:View){
+        val bottomEngravingLayout = view.findViewById<LinearLayout>(R.id.char_search_detail_ability_bottom_engraving_layout)
+
+        val engravingList=(activity as SearchDetailActivity).charInfo.armoryEngraving.effects
+        engravingList.forEach {
+            val bottomEngravingView = CharSearchEngravingBottomView(view.context)
+            var pattern = "\\d+".toRegex()
+            val level = pattern.find(it.name)?.value
+            pattern = "Lv.\\s\\d+".toRegex()
+            val imageUrl = engravingImageDict[it.name.replace(pattern,"").replace(" ","")]?:"https://cdn-lostark.game.onstove.com/efui_iconatlas/achieve/achieve_07_22.png"
+
+            bottomEngravingView.setEngravingImageText(it.name.replace(pattern,""),it.description,level!!,imageUrl)
+            bottomEngravingLayout.addView(bottomEngravingView)
+        }
     }
 
     fun setBottomStatus(view: View){
@@ -197,9 +220,9 @@ class AbilityFragment(private val charInfo: Armories) : Fragment() {
             gem11View
         )
 
-        val sortedGemList = charInfo.armoryGem.gems.sortedWith(compareByDescending<Gem> { it.level }.thenBy { it.name })
+        val sortedGemList = charInfo.armoryGem?.gems?.sortedWith(compareByDescending<Gem> { it.level }.thenBy { it.name })
 
-        sortedGemList.forEachIndexed { index, gem ->
+        sortedGemList?.forEachIndexed { index, gem ->
             toolTipDeserialization(gem)?.let {
                 gemViewList.get(index).setGemImageText(gem, it)
                 gemViewList.get(index).setOnClickListener {
