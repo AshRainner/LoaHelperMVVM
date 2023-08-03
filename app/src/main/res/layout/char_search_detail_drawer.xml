@@ -32,6 +32,11 @@
             android:id="@+id/gem_drawer"
             layout="@layout/char_search_detail_gem_dialog">
         </include>
+        <include
+            android:visibility="gone"
+            android:id="@+id/card_drawer"
+            layout="@layout/char_search_detail_card_dialog">
+        </include>
     </LinearLayout>
     <Button
         android:id="@+id/char_search_detail_drawer_button"

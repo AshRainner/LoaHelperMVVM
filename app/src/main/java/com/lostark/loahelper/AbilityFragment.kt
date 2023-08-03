@@ -155,9 +155,9 @@ class AbilityFragment(private val charInfo: Armories) : Fragment() {
         charInfo.armoryCard.cards.forEachIndexed{index,card->
             toolTipDeserialization(card)?.let {
                 cardViewList.get(index).setCardImageText(card,it)
-                /*cardViewList.get(index).setOnClickListener {
+                cardViewList.get(index).setOnClickListener {
                     (activity as SearchDetailActivity).openDialog(it, "")
-                }*/
+                }
             }
         }
 

@@ -465,37 +465,37 @@
                 android:id="@+id/card_1"
                 android:layout_weight="1"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content">
+                android:layout_height="87dp">
             </com.lostark.customview.CharSearchCardView>
             <com.lostark.customview.CharSearchCardView
                 android:id="@+id/card_2"
                 android:layout_weight="1"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content">
+                android:layout_height="87dp">
             </com.lostark.customview.CharSearchCardView>
             <com.lostark.customview.CharSearchCardView
                 android:id="@+id/card_3"
                 android:layout_weight="1"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content">
+                android:layout_height="87dp">
             </com.lostark.customview.CharSearchCardView>
             <com.lostark.customview.CharSearchCardView
                 android:id="@+id/card_4"
                 android:layout_weight="1"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content">
+                android:layout_height="87dp">
             </com.lostark.customview.CharSearchCardView>
             <com.lostark.customview.CharSearchCardView
                 android:id="@+id/card_5"
                 android:layout_weight="1"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content">
+                android:layout_height="87dp">
             </com.lostark.customview.CharSearchCardView>
             <com.lostark.customview.CharSearchCardView
                 android:id="@+id/card_6"
                 android:layout_weight="1"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content">
+                android:layout_height="87dp">
             </com.lostark.customview.CharSearchCardView>
         </LinearLayout>
     </LinearLayout>

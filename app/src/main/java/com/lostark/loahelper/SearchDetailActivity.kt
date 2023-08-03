@@ -281,6 +281,15 @@ class SearchDetailActivity : AppCompatActivity() {
         }
     }
 
+    fun setCardDialog(view:CharSearchCardView, cardLayout: LinearLayout){
+        val cardName = cardLayout.findViewById<TextView>(R.id.char_search_detail_drawer_card_name)
+        val cardDescription = cardLayout.findViewById<TextView>(R.id.char_search_detail_drawer_card_description)
+        val cardView = cardLayout.findViewById<CharSearchCardView>(R.id.char_search_detail_drawer_card_view)
+        cardView.setCardImageText(view.card)
+        cardName.text=view.cardNameView.text
+        cardDescription.text=view.cardDescription
+    }
+
     fun setBottomEngravingDialog(view:CharSearchEngravingBottomView, engravingLayout: LinearLayout){
         val engravingName =
             engravingLayout.findViewById<TextView>(R.id.char_search_detail_drawer_engraving_name)
@@ -561,6 +570,11 @@ class SearchDetailActivity : AppCompatActivity() {
                 val engravingLayout = dialogView.findViewById<LinearLayout>(R.id.engraving_drawer)
                 engravingLayout.visibility=View.VISIBLE
                 setBottomEngravingDialog(view,engravingLayout)
+            }
+            is CharSearchCardView->{
+                val cardLayout = dialogView.findViewById<LinearLayout>(R.id.card_drawer)
+                cardLayout.visibility=View.VISIBLE
+                setCardDialog(view,cardLayout)
             }
         }
         dialogOkButton.setOnClickListener {

@@ -3,8 +3,10 @@ package com.lostark.customview
 import android.content.Context
 import android.graphics.Color
 import android.util.AttributeSet
+import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -24,8 +26,8 @@ class CharSearchCardView : LinearLayout {
     lateinit var cardNameGra: ImageView
     lateinit var cardNameView: TextView
 
-    lateinit var cardName: String
-    lateinit var cardDescription: String
+    lateinit var card: Card
+    lateinit var cardDescription:String
     lateinit var imageUrl:String
 
     constructor(context: Context?) : super(context) {
@@ -78,6 +80,30 @@ class CharSearchCardView : LinearLayout {
         cardNameView.text = card.name
         if(card.awakeCount != 0)
             cardLevel.text = card.awakeCount.toString()
+
+        this.card = card
+
+        cardDescription = tooltip.elements.get("Element_002")?.value as String
+
+    }
+    fun setCardImageText(card: Card){
+        Glide.with(this)
+            .load(card.icon)
+            .into(cardImage)
+        println("카드 이미지 : "+card.icon)
+        imageUrl = card.icon
+        setImageBackground(card.grade)
+        if(card.awakeCount != 0) {
+            cardLevel.text = card.awakeCount.toString()
+            cardLevel.setTextSize(TypedValue.COMPLEX_UNIT_PT,12f)
+            val params = cardLevel.layoutParams as ViewGroup.MarginLayoutParams
+            val leftMargin = TypedValue.applyDimension(
+                TypedValue.COMPLEX_UNIT_DIP, 68f, resources.displayMetrics
+            ).toInt()
+            params.leftMargin = leftMargin
+            cardLevel.layoutParams = params
+        }
+
 
     }
 }
