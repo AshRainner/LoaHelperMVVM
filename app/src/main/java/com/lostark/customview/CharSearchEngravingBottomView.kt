@@ -21,6 +21,9 @@ class CharSearchEngravingBottomView : LinearLayout {
     lateinit var engravingName: TextView
 
     lateinit var engravingString:String
+    lateinit var engravingDrawerName:String
+
+    lateinit var imageUrl: String
 
     constructor(context: Context?) : super(context) {
         init(context)
@@ -47,10 +50,13 @@ class CharSearchEngravingBottomView : LinearLayout {
             .load(imageUrl)
             .circleCrop()
             .into(engravingImage)
+        this.imageUrl = imageUrl
 
         engravingString = description
 
         engravingName.text = level+" "+name
+
+        engravingDrawerName =name+" Lv."+level
         println("이름 : "+name)
         if(name.contains("감소"))
             engravingName.setTextColor(Color.parseColor("#FF0044"))

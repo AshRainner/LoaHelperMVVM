@@ -28,10 +28,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.gson.GsonBuilder
 import com.lostark.adapter.CharSearchViewPagerAdapter
 import com.lostark.adapter.ValueDataAdapter
-import com.lostark.customview.CharSearchAccessoryView
-import com.lostark.customview.CharSearchArmorView
-import com.lostark.customview.CharSearchEngravingBookView
-import com.lostark.customview.CharSearchGemView
+import com.lostark.customview.*
 import com.lostark.dto.armorys.Armories
 import com.lostark.dto.armorys.tooltips.Tooltip
 import com.lostark.dto.armorys.tooltips.ValueData
@@ -284,6 +281,31 @@ class SearchDetailActivity : AppCompatActivity() {
         }
     }
 
+    fun setBottomEngravingDialog(view:CharSearchEngravingBottomView, engravingLayout: LinearLayout){
+        val engravingName =
+            engravingLayout.findViewById<TextView>(R.id.char_search_detail_drawer_engraving_name)
+        engravingName.text = view.engravingDrawerName
+        val engravingImage =
+            engravingLayout.findViewById<ImageView>(R.id.char_search_detail_drawer_engraving_image)
+        Glide.with(this).load(view.imageUrl).into(engravingImage)
+        val engravingPoint =
+            engravingLayout.findViewById<TextView>(R.id.char_search_detail_drawer_engraving_point)
+        engravingPoint.visibility=View.GONE
+        val engravingDetailLayout =
+            engravingLayout.findViewById<LinearLayout>(R.id.char_search_detail_engraving_detail_layout)
+
+        val engravingDetailTextView = TextView(this)
+        engravingDetailTextView.layoutParams = LinearLayout.LayoutParams(
+            LinearLayout.LayoutParams.WRAP_CONTENT,
+            LinearLayout.LayoutParams.WRAP_CONTENT
+        )
+        engravingDetailTextView.text = view.engravingString
+        engravingDetailTextView.setTextSize(TypedValue.COMPLEX_UNIT_PT, 6f)
+        engravingDetailTextView.setTextColor(Color.parseColor("#808080"))
+        engravingDetailLayout.addView(engravingDetailTextView)
+
+    }
+
     fun setEngrvingDialog(view: CharSearchEngravingBookView, engravingLayout: LinearLayout) {
         val engravingName =
             engravingLayout.findViewById<TextView>(R.id.char_search_detail_drawer_engraving_name)
@@ -534,6 +556,11 @@ class SearchDetailActivity : AppCompatActivity() {
                 val gemLayout = dialogView.findViewById<LinearLayout>(R.id.gem_drawer)
                 gemLayout.visibility = View.VISIBLE
                 setGemDialog(view, gemLayout)
+            }
+            is CharSearchEngravingBottomView->{
+                val engravingLayout = dialogView.findViewById<LinearLayout>(R.id.engraving_drawer)
+                engravingLayout.visibility=View.VISIBLE
+                setBottomEngravingDialog(view,engravingLayout)
             }
         }
         dialogOkButton.setOnClickListener {

@@ -46,6 +46,13 @@ class ValueDataAdapter : JsonDeserializer<ValueData<*>> {
                 )
                 engraveSkillTitle
             }
+            "Card"->{
+                val card = context?.deserialize<CardData>(
+                    jsonObject.get("value"),
+                    CardData::class.java
+                )
+                card
+            }
             else->{
                 jsonObject.get("value").asString
             }

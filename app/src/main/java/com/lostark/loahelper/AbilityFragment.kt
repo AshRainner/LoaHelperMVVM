@@ -132,7 +132,35 @@ class AbilityFragment(private val charInfo: Armories) : Fragment() {
         setGem(view)
         setBottomStatus(view)
         setBottomEngraving(view)
+        setCard(view)
         return view
+    }
+
+    fun setCard(view:View){
+        val card1View = view.findViewById<CharSearchCardView>(R.id.card_1)
+        val card2View = view.findViewById<CharSearchCardView>(R.id.card_2)
+        val card3View = view.findViewById<CharSearchCardView>(R.id.card_3)
+        val card4View = view.findViewById<CharSearchCardView>(R.id.card_4)
+        val card5View = view.findViewById<CharSearchCardView>(R.id.card_5)
+        val card6View = view.findViewById<CharSearchCardView>(R.id.card_6)
+
+        val cardViewList = listOf(
+            card1View,
+            card2View,
+            card3View,
+            card4View,
+            card5View,
+            card6View
+        )
+        charInfo.armoryCard.cards.forEachIndexed{index,card->
+            toolTipDeserialization(card)?.let {
+                cardViewList.get(index).setCardImageText(card,it)
+                /*cardViewList.get(index).setOnClickListener {
+                    (activity as SearchDetailActivity).openDialog(it, "")
+                }*/
+            }
+        }
+
     }
 
     fun setBottomEngraving(view:View){
@@ -147,6 +175,9 @@ class AbilityFragment(private val charInfo: Armories) : Fragment() {
             val imageUrl = engravingImageDict[it.name.replace(pattern,"").replace(" ","")]?:"https://cdn-lostark.game.onstove.com/efui_iconatlas/achieve/achieve_07_22.png"
             bottomEngravingView.setEngravingImageText(it.name.replace(pattern,""),it.description,level!!,imageUrl)
             bottomEngravingLayout.addView(bottomEngravingView)
+            bottomEngravingView.setOnClickListener {
+                (activity as SearchDetailActivity).openDialog(it, "")
+            }
         }
     }
 
@@ -502,9 +533,8 @@ class AbilityFragment(private val charInfo: Armories) : Fragment() {
             when (item) {
                 is ArmoryEquipment -> item.tooltip
                 is Engraving -> item.tooltip
-                is Gem -> {
-                    item.tooltip
-                }
+                is Gem -> item.tooltip
+                is Card -> item.tooltip
                 else -> return null
             }?.replace(pattern2, "\n")?.replace(pattern, "")
         }

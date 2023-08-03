@@ -62,7 +62,6 @@
 
             </LinearLayout>
         </LinearLayout>
-
         <LinearLayout
             android:id="@+id/char_search_detail_engraving_detail_layout"
             android:layout_width="wrap_content"
