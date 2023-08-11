@@ -3,6 +3,7 @@ package com.lostark.customview
 import android.content.Context
 import android.graphics.Color
 import android.util.AttributeSet
+import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.ImageView
@@ -20,6 +21,7 @@ class CharSearchGemView : LinearLayout {
     lateinit var gemCardView: MaterialCardView
     lateinit var gemImage: ImageView
     lateinit var gemLevel: TextView
+    lateinit var defaultGemView: ImageView
 
     lateinit var gemName: String
     lateinit var gemTier: String
@@ -43,7 +45,13 @@ class CharSearchGemView : LinearLayout {
         gemImage = findViewById(R.id.char_search_detail_gem_image)
         gemCardView = findViewById(R.id.char_search_detail_gem_card_view)
         gemLevel = findViewById(R.id.char_search_detail_gem_level)
+        defaultGemView = findViewById(R.id.char_search_detail_gem_image_default)
 
+
+    }
+
+    fun goneDefaultGem(){
+        defaultGemView.visibility = View.GONE
     }
     fun setImageBackground(grade : String){
         when(grade) {//이미지 백그라운드
@@ -70,6 +78,7 @@ class CharSearchGemView : LinearLayout {
         }
     }
     fun setGemImageText(gem: Gem, tooltip: Tooltip){
+        defaultGemView.visibility=View.GONE
         Glide.with(this)
             .load(gem.icon)
             .into(gemImage)
@@ -87,6 +96,23 @@ class CharSearchGemView : LinearLayout {
         }
         gemLevel.visibility=View.VISIBLE
         gemLevel.text = gem.level.toString()
+
+    }
+    fun setSkillGemImageText(gem: Gem, tooltip: Tooltip){
+        setGemImageText(gem,tooltip)
+        Glide.with(this)
+            .load(gem.icon)
+            .circleCrop()
+            .into(gemImage)
+        val cornerRadiusDp = 20f // 변경하려는 코너 반지름 값 (dp)
+        val cornerRadiusPx = (cornerRadiusDp * resources.displayMetrics.density).toInt()
+
+        gemCardView.radius = cornerRadiusPx.toFloat()
+        val textSizeInPt = 15f // 변경하려는 텍스트 크기 값 (pt)
+        val scaledDensity = resources.displayMetrics.scaledDensity
+        val textSizeInPx = (textSizeInPt * scaledDensity)
+
+        gemLevel.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSizeInPx)
 
     }
 }

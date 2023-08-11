@@ -22,6 +22,14 @@ class CharSearchViewPagerAdapter(fragmentActivity:FragmentActivity) : FragmentSt
 
     override fun createFragment(position: Int): Fragment = fragments.get(position)
 
+    fun getDesiredHeight(position: Int): Int {
+        val layoutParams = fragments[position].view?.layoutParams
+        layoutParams?.let {
+            println("여기에 들어왔습니다 히히")
+            return it.height
+        }
+        return ViewGroup.LayoutParams.WRAP_CONTENT
+    }
     fun addFragment(fragment:Fragment){
         fragments.add(fragment)
     }

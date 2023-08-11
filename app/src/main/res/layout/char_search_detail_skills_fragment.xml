@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#f2f2f2"
+    android:orientation="vertical">
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp"
+        app:cardCornerRadius="7dp">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="스킬포인트 "
+                android:textStyle="bold"
+                android:bufferType="spannable"
+                android:textSize="6pt"
+                android:textColor="@color/black">
+            </TextView>
+            <TextView
+                android:id="@+id/char_search_detail_skills_point"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginRight="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0 / 0"
+                android:textStyle="bold"
+                android:bufferType="spannable"
+                android:textSize="6pt"
+                android:textColor="#a653ec">
+            </TextView>
+        </LinearLayout>
+
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="#ffffff"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp">
+            <TextView
+                android:id="@+id/char_search_detail_skill_max_tripod"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="5렙 트포 0개"
+                android:textStyle="bold"
+                android:bufferType="spannable"
+                android:textColor="@color/black">
+            </TextView>
+            <TextView
+                android:id="@+id/char_search_detail_skill_counter"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="카운터 0개"
+                android:textStyle="bold"
+                android:bufferType="spannable"
+                android:textColor="@color/black">
+            </TextView>
+            <TextView
+                android:id="@+id/char_search_detail_skill_powerless"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="무력화 0개"
+                android:textStyle="bold"
+                android:bufferType="spannable"
+                android:textColor="@color/black">
+            </TextView>
+            <TextView
+                android:id="@+id/char_search_detail_skill_destroy"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="부위 파괴 0개"
+                android:textStyle="bold"
+                android:bufferType="spannable"
+                android:textColor="@color/black">
+            </TextView>
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:id="@+id/char_search_detail_skill_main_layout"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#f2f2f2">
+    </LinearLayout>
+</LinearLayout>

@@ -1,41 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="horizontal"
     android:gravity="center">
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/char_search_detail_gem_card_view"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_weight="1"
         app:cardCornerRadius="5dp"
         app:cardBackgroundColor="#dedfe0"
         android:layout_gravity="center">
         <ImageView
             android:id="@+id/char_search_detail_gem_image"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#dedfe0">
+        </ImageView>
+        <ImageView
+            android:visibility="visible"
+            android:id="@+id/char_search_detail_gem_image_default"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:background="#dedfe0">
         </ImageView>
-        <com.google.android.material.card.MaterialCardView
-            android:layout_width="15dp"
-            android:layout_height="15dp"
-            android:layout_gravity="right|bottom"
-            android:backgroundTint="#dedfe0"
-            app:strokeColor="#dedfe0"
-            app:cardElevation="0dp">
-            <TextView
-                android:visibility="gone"
-                android:id="@+id/char_search_detail_gem_level"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="10"
-                android:textColor="#ff7f00"
-                android:textSize="5pt"
-                android:textStyle="bold"
-                android:layout_gravity="center">
-            </TextView>
-        </com.google.android.material.card.MaterialCardView>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+            </LinearLayout>
+            <LinearLayout
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
+                    <com.google.android.material.card.MaterialCardView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="right|bottom"
+                        android:backgroundTint="#dedfe0"
+                        app:strokeColor="#dedfe0"
+                        app:cardElevation="0dp">
+                        <TextView
+                            android:visibility="gone"
+                            android:id="@+id/char_search_detail_gem_level"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="10"
+                            android:textColor="#ff7f00"
+                            android:textSize="5pt"
+                            android:textStyle="bold"
+                            android:layout_gravity="center">
+                        </TextView>
+                    </com.google.android.material.card.MaterialCardView>
+                </LinearLayout>
+            </LinearLayout>
+
+        </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
 </LinearLayout>

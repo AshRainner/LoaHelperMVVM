@@ -25,6 +25,8 @@ import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.android.material.tabs.TabLayout
+import com.google.android.material.tabs.TabLayoutMediator
 import com.google.gson.GsonBuilder
 import com.lostark.adapter.CharSearchViewPagerAdapter
 import com.lostark.adapter.ValueDataAdapter
@@ -154,11 +156,37 @@ class SearchDetailActivity : AppCompatActivity() {
     }
 
     fun setFragment() {
-        val viewPager = findViewById<ViewPager2>(R.id.search_detail_view_pager)
+        val tabLayout = findViewById<TabLayout>(R.id.search_detail_tab)
+
         val abilityFragment = AbilityFragment(charInfo)
-        val viewPagerAdapter = CharSearchViewPagerAdapter(this)
-        viewPagerAdapter.addFragment(abilityFragment)
-        viewPager.adapter = viewPagerAdapter
+        val skillsFragment = SkillFragment(charInfo)
+        val fragmentManager = supportFragmentManager
+
+        fragmentManager.beginTransaction().replace(R.id.search_detail_fragment_container,abilityFragment).commit()
+
+        tabLayout.addTab(tabLayout.newTab().setText("능력치"))
+        tabLayout.addTab(tabLayout.newTab().setText("스킬"))
+
+        tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+            override fun onTabSelected(tab: TabLayout.Tab?) {
+                val selectedFragment = when (tab?.position) {
+                    0 -> abilityFragment
+                    1 -> skillsFragment
+                    else -> null
+                }
+
+                selectedFragment?.let {
+                    fragmentManager.beginTransaction()
+                        .replace(R.id.search_detail_fragment_container, it)
+                        .commit()
+                }
+            }
+            override fun onTabUnselected(tab: TabLayout.Tab?) {}
+            override fun onTabReselected(tab: TabLayout.Tab?) {}
+        })
+
+
+
     }
 
     fun charGradationSet(level: Int) {

@@ -126,69 +126,80 @@
 
             <com.lostark.customview.CharSearchGemView
                 android:id="@+id/gem_1"
+                android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"></com.lostark.customview.CharSearchGemView>
+                android:layout_marginRight="5dp"
+                android:layout_gravity="center"></com.lostark.customview.CharSearchGemView>
 
             <com.lostark.customview.CharSearchGemView
                 android:id="@+id/gem_2"
+                android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"></com.lostark.customview.CharSearchGemView>
+                android:layout_marginRight="5dp"></com.lostark.customview.CharSearchGemView>
 
             <com.lostark.customview.CharSearchGemView
                 android:id="@+id/gem_3"
+                android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"></com.lostark.customview.CharSearchGemView>
+                android:layout_marginRight="5dp"></com.lostark.customview.CharSearchGemView>
 
             <com.lostark.customview.CharSearchGemView
                 android:id="@+id/gem_4"
+                android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"></com.lostark.customview.CharSearchGemView>
+                android:layout_marginRight="5dp"></com.lostark.customview.CharSearchGemView>
 
             <com.lostark.customview.CharSearchGemView
                 android:id="@+id/gem_5"
+                android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"></com.lostark.customview.CharSearchGemView>
+                android:layout_marginRight="5dp"></com.lostark.customview.CharSearchGemView>
 
             <com.lostark.customview.CharSearchGemView
                 android:id="@+id/gem_6"
+                android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"></com.lostark.customview.CharSearchGemView>
+                android:layout_marginRight="5dp"></com.lostark.customview.CharSearchGemView>
 
             <com.lostark.customview.CharSearchGemView
                 android:id="@+id/gem_7"
+                android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"></com.lostark.customview.CharSearchGemView>
+                android:layout_marginRight="5dp"></com.lostark.customview.CharSearchGemView>
 
             <com.lostark.customview.CharSearchGemView
                 android:id="@+id/gem_8"
+                android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"></com.lostark.customview.CharSearchGemView>
+                android:layout_marginRight="5dp"></com.lostark.customview.CharSearchGemView>
 
             <com.lostark.customview.CharSearchGemView
                 android:id="@+id/gem_9"
+                android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"></com.lostark.customview.CharSearchGemView>
+                android:layout_marginRight="5dp"></com.lostark.customview.CharSearchGemView>
 
             <com.lostark.customview.CharSearchGemView
                 android:id="@+id/gem_10"
+                android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"></com.lostark.customview.CharSearchGemView>
+                android:layout_marginRight="5dp"></com.lostark.customview.CharSearchGemView>
 
             <com.lostark.customview.CharSearchGemView
                 android:id="@+id/gem_11"
+                android:layout_weight="1"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"></com.lostark.customview.CharSearchGemView>
+                android:layout_height="wrap_content"></com.lostark.customview.CharSearchGemView>
         </LinearLayout>
     </LinearLayout>
 
@@ -226,7 +237,7 @@
                     <TextView
                         android:id="@+id/char_search_detail_char_power"
                         android:layout_gravity="right"
-                        android:text="56,616"
+                        android:text="0"
                         android:textColor="#494949"
                         android:textSize="8pt"
                         android:textStyle="bold"></TextView>
@@ -239,7 +250,7 @@
                     <TextView
                         android:id="@+id/char_search_detail_char_default_power"
                         android:layout_gravity="right"
-                        android:text="55,958"
+                        android:text="0"
                         android:textColor="#494949"
                         android:textSize="7pt"
                         android:textStyle="bold"></TextView>
@@ -252,7 +263,7 @@
                     <TextView
                         android:id="@+id/char_search_detail_char_add_power"
                         android:layout_gravity="right"
-                        android:text="55,958"
+                        android:text="0"
                         android:textColor="#494949"
                         android:textSize="7pt"
                         android:textStyle="bold"></TextView>
@@ -266,7 +277,7 @@
                         android:id="@+id/char_search_detail_char_life"
                         android:layout_gravity="right"
                         android:layout_marginTop="10dp"
-                        android:text="218,211"
+                        android:text="0"
                         android:textColor="#494949"
                         android:textSize="8pt"
                         android:textStyle="bold"></TextView>
@@ -297,7 +308,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="right"
-                            android:text="641"
+                            android:text="0"
                             android:textColor="#494949"
                             android:textSize="8pt"
                             android:textStyle="bold"></TextView>
@@ -323,7 +334,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="right"
-                            android:text="1808"
+                            android:text="0"
                             android:textColor="#494949"
                             android:textSize="8pt"
                             android:textStyle="bold"></TextView>
@@ -344,7 +355,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="right"
-                            android:text="70"
+                            android:text="0"
                             android:textColor="#494949"
                             android:textSize="8pt"
                             android:textStyle="bold"></TextView>
@@ -370,7 +381,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="right"
-                            android:text="63"
+                            android:text="0"
                             android:textColor="#494949"
                             android:textSize="8pt"
                             android:textStyle="bold"></TextView>
@@ -391,7 +402,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="right"
-                            android:text="70"
+                            android:text="0"
                             android:textColor="#494949"
                             android:textSize="8pt"
                             android:textStyle="bold"></TextView>
@@ -417,7 +428,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="right"
-                            android:text="63"
+                            android:text="0"
                             android:textColor="#494949"
                             android:textSize="8pt"
                             android:textStyle="bold"></TextView>
@@ -453,7 +464,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:background="#ffffff">
+        android:background="#ffffff"
+        android:layout_marginBottom="20dp"
+        android:id="@+id/char_search_detail_ability_card_layout"
+        android:orientation="vertical">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

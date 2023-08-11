@@ -4,7 +4,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="#f2f2f2">
 
     <com.amar.library.ui.StickyScrollView
         android:id="@+id/search_detail_scroll_view"
@@ -125,37 +126,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:tabMode="scrollable">
-                <com.google.android.material.tabs.TabItem
-                    android:id="@+id/search_detail_tab_ability"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="능력치" />
-                <com.google.android.material.tabs.TabItem
-                    android:id="@+id/search_detail_tab_skill"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="스킬" />
-                <com.google.android.material.tabs.TabItem
-                    android:id="@+id/search_detail_tab_avatar"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="아바타" />
-                <com.google.android.material.tabs.TabItem
-                    android:id="@+id/search_detail_tab_collectible"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="수집형 포인트" />
-                <com.google.android.material.tabs.TabItem
-                    android:id="@+id/search_detail_tab_charters"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="보유 캐릭터" />
             </com.google.android.material.tabs.TabLayout>
-            <androidx.viewpager2.widget.ViewPager2
-                android:id="@+id/search_detail_view_pager"
+            <FrameLayout
+                android:id="@+id/search_detail_fragment_container"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
-            </androidx.viewpager2.widget.ViewPager2>
+                android:layout_height="wrap_content">
+            </FrameLayout>
         </LinearLayout>
     </com.amar.library.ui.StickyScrollView>
     <include
