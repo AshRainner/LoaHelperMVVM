@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName
 
 data class IndentStringGroupData(
     @SerializedName("Element_000")
-    val element0: IndentStringGroupElementData,
+    val element0: IndentStringElementData,
     @SerializedName("Element_001")
-    val element1: IndentStringGroupElementData
+    val element1: IndentStringElementData
 )

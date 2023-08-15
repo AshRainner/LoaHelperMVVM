@@ -54,7 +54,7 @@ class CharSearchArmorView : LinearLayout {
     var qualityValue: Int = -1 // 품질
     var defaultEffect:String?=null //기본효과
     var additionalEffect:String?=null //추가효과
-    var elixirData : ContenStrData? = null
+    var elixirData : ContentStrData? = null
     var elixirSpecialDetailString: String? = null
     var setLevel:String?=null
 
@@ -170,11 +170,11 @@ class CharSearchArmorView : LinearLayout {
         for (key in elixirKeys){
             val indentStringGroupData = tooltip.elements.get(key)?.value as IndentStringGroupData
             if (indentStringGroupData?.element0?.topStr?.contains("엘릭서") == true){
-                elixirData = indentStringGroupData.element0.contentStr
+                elixirData = indentStringGroupData.element0.contentStrData
                 check=true
                 var pattern = "(아군 강화|아이덴티티 획득|추가 피해|치명타 피해) Lv\\.\\d|(마법 방어력|물리 방어력|받는 피해 감소|최대 생명력) Lv\\.\\d|(각성기 피해|보스 피해|보호막 강화|회복강화) Lv\\.\\d|(민첩|힘|지능|공격력|마나|무기 공격력|무력화|물약 중독|방랑자|생명의 축복|자원의 축복|탈출의 달인|폭발물 달인|회피의 달인) Lv\\.\\d|(강맹|달인|선각자|선봉대|신념|진군|칼날 방패|행운|회심).{6}Lv\\.\\d".toRegex()
-                var elixirStr1 = indentStringGroupData.element0.contentStr.Element_000?.contentStr
-                var elixirStr2 = indentStringGroupData.element0.contentStr.Element_001?.contentStr
+                var elixirStr1 = indentStringGroupData.element0.contentStrData.element0?.contentStr
+                var elixirStr2 = indentStringGroupData.element0.contentStrData.element1?.contentStr
 
                 elixirStr1 = elixirStr1?.let { pattern.find(it)?.value.toString() }
                 elixirStr2 = elixirStr2?.let { pattern.find(it)?.value.toString() }
@@ -219,8 +219,8 @@ class CharSearchArmorView : LinearLayout {
                 elixirSetLevel?.let {
                     elixirSpecialDetailString = elixirName+"\n"
                     when(it){
-                        1->elixirSpecialDetailString += indentStringGroupData.element0.contentStr.Element_000.contentStr
-                        2->elixirSpecialDetailString += indentStringGroupData.element0.contentStr.Element_000.contentStr+indentStringGroupData.element0.contentStr.Element_001.contentStr
+                        1->elixirSpecialDetailString += indentStringGroupData.element0.contentStrData.element0.contentStr
+                        2->elixirSpecialDetailString += indentStringGroupData.element0.contentStrData.element0.contentStr+indentStringGroupData.element0.contentStrData.element1.contentStr
                     }
                 }
 

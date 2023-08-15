@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="#ffffff"
+    android:orientation="horizontal">
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        app:cardCornerRadius="20dp">
+
+        <ImageView
+            android:id="@+id/char_search_detail_skill_rune_image"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="#dedfe0"></ImageView>
+    </com.google.android.material.card.MaterialCardView>
+
+    <TextView
+        android:layout_marginLeft="5dp"
+        android:layout_gravity="center"
+        android:id="@+id/char_search_detail_skill_rune_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="질풍"
+        android:textColor="@color/black"
+        android:textSize="8pt"
+        android:textStyle="bold"
+        android:visibility="invisible"></TextView>
+</LinearLayout>

@@ -1,8 +1,6 @@
 package com.lostark.loahelper
 
-import android.annotation.SuppressLint
 import android.content.Intent
-import android.content.res.ColorStateList
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.graphics.Typeface
@@ -16,8 +14,6 @@ import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import androidx.core.view.get
-import androidx.viewpager2.widget.ViewPager2
 import com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar
 import com.amar.library.ui.StickyScrollView
 import com.bumptech.glide.Glide
@@ -26,18 +22,10 @@ import com.bumptech.glide.request.transition.Transition
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.tabs.TabLayout
-import com.google.android.material.tabs.TabLayoutMediator
-import com.google.gson.GsonBuilder
-import com.lostark.adapter.CharSearchViewPagerAdapter
-import com.lostark.adapter.ValueDataAdapter
 import com.lostark.customview.*
 import com.lostark.dto.armorys.Armories
-import com.lostark.dto.armorys.tooltips.Tooltip
-import com.lostark.dto.armorys.tooltips.ValueData
-import org.w3c.dom.Text
 import java.io.Serializable
 import java.util.*
-import kotlin.collections.ArrayList
 
 class SearchDetailActivity : AppCompatActivity() {
 
@@ -282,12 +270,12 @@ class SearchDetailActivity : AppCompatActivity() {
 
         view.elixirData?.let {
             val pattern = "\\[(.*)\\]\\s".toRegex()
-            armorElixir1.text = pattern.replace(it.Element_000?.contentStr!!, "")
+            armorElixir1.text = pattern.replace(it.element0?.contentStr!!, "")
 
-            if (it.Element_001 == null) {
+            if (it.element1 == null) {
                 armorElixir2.visibility = View.GONE
             } else {
-                armorElixir2.text = pattern.replace(it.Element_001?.contentStr!!, "")
+                armorElixir2.text = pattern.replace(it.element1?.contentStr!!, "")
             }
         } ?: run {
             elixirLayout.visibility = View.GONE
@@ -340,6 +328,30 @@ class SearchDetailActivity : AppCompatActivity() {
         engravingDetailTextView.setTextSize(TypedValue.COMPLEX_UNIT_PT, 6f)
         engravingDetailTextView.setTextColor(Color.parseColor("#808080"))
         engravingDetailLayout.addView(engravingDetailTextView)
+
+    }
+
+    fun setSkillDialog(view:CharSearchSkillLayoutView, skillLayout:LinearLayout){
+        val skillName = skillLayout.findViewById<TextView>(R.id.char_search_detail_drawer_skill_name)
+        val skillImage = skillLayout.findViewById<ImageView>(R.id.char_search_detail_drawer_skill_image)
+        val skillType = skillLayout.findViewById<TextView>(R.id.char_search_detail_drawer_skill_type)
+        val skillStance = skillLayout.findViewById<TextView>(R.id.char_search_detail_drawer_skill_stance)
+        val skillCool = skillLayout.findViewById<TextView>(R.id.char_search_detail_drawer_skill_cool)
+        val skillEffectLayout = skillLayout.findViewById<LinearLayout>(R.id.char_search_detail_drawer_skill_effect_layout)
+        val skillEffect = skillLayout.findViewById<TextView>(R.id.char_search_detail_drawer_skill_effect_text)
+        val skillDetail = skillLayout.findViewById<TextView>(R.id.char_search_detail_drawer_skill_detail)
+
+        skillName.text = view.skillName.text
+        Glide.with(this).load(view.imageUrl).into(skillImage)
+
+        skillType.text = view.skillType
+        skillStance.text = view.skillStance
+        skillCool.text = view.skillCool
+        if(view.skillEffect!=""){
+            skillEffect.text=view.skillEffect
+            skillEffectLayout.visibility=View.VISIBLE
+        }
+        skillDetail.text=view.skillDescription
 
     }
 
@@ -436,6 +448,67 @@ class SearchDetailActivity : AppCompatActivity() {
 
         val gemDetail = gemLayout.findViewById<TextView>(R.id.char_search_detail_drawer_gem_detail)
         gemDetail.text = view.gemDetail
+    }
+    fun setRuneDialog(view: CharSearchRuneView, runeLayout: LinearLayout) {
+        val runeName =
+            runeLayout.findViewById<TextView>(R.id.char_search_detail_drawer_rune_name)
+        runeName.text = view.runeName
+        val runeImage =
+            runeLayout.findViewById<ImageView>(R.id.char_search_detail_drawer_rune_image)
+        Glide.with(this).load(view.imageUrl).into(runeImage)
+        val runeGrade = runeLayout.findViewById<TextView>(R.id.char_search_detail_drawer_rune_grade)
+        runeGrade.text = view.runeGrade
+        when {
+            view.runeGrade.contains("고대") -> {
+                runeImage.setBackgroundResource(R.drawable.ancient_background)
+                runeGrade.setTextColor(Color.parseColor("#d9ae43"))
+            }
+
+            view.runeGrade.contains("유물") ->{
+                runeImage.setBackgroundResource(R.drawable.relic_background)
+                runeGrade.setTextColor(Color.parseColor("#E45B0A"))
+            }
+
+
+            view.runeGrade.contains("전설") ->{
+                runeImage.setBackgroundResource(R.drawable.legend_background)
+                runeGrade.setTextColor(Color.parseColor("#E08808"))
+            }
+
+
+            view.runeGrade.contains("영웅") -> {
+                runeImage.setBackgroundResource(R.drawable.hero_background)
+                runeGrade.setTextColor(Color.parseColor("#A41ED4"))
+            }
+
+
+            view.runeGrade.contains("희귀") -> {
+                runeImage.setBackgroundResource(R.drawable.rare_background)
+                runeGrade.setTextColor(Color.parseColor("#268AD3"))
+            }
+
+            view.runeGrade.contains("고급") -> {
+                runeImage.setBackgroundResource(R.drawable.advanced_background)
+                runeGrade.setTextColor(Color.parseColor("#8FDB32"))
+            }
+        }
+
+        val runeDetail = runeLayout.findViewById<TextView>(R.id.char_search_detail_drawer_rune_detail)
+        runeDetail.text = view.runeDescription
+    }
+
+    fun setTripodDialog(view: CharSearchTripodView, tripodLayout: LinearLayout) {
+        val tripodName =
+            tripodLayout.findViewById<TextView>(R.id.char_search_detail_drawer_tripod_name)
+        tripodName.text = view.tripodName.text
+        val tripodImage =
+            tripodLayout.findViewById<ImageView>(R.id.char_search_detail_drawer_tripod_image)
+        Glide.with(this).load(view.imageUrl).into(tripodImage)
+        val tripodLevel = tripodLayout.findViewById<TextView>(R.id.char_search_detail_drawer_tripod_level)
+        tripodLevel.text = view.tripodDialogLevel
+
+        val tripodDetail = tripodLayout.findViewById<TextView>(R.id.char_search_detail_drawer_tripod_detail)
+        tripodDetail.text = view.tripodDescription
     }
 
     fun setAccessoryDialog(view: CharSearchAccessoryView, accessoryLayout: LinearLayout) {
@@ -565,7 +638,7 @@ class SearchDetailActivity : AppCompatActivity() {
 
     }
 
-    fun openDialog(view: Any, elixirSpecialDetailString: String?) {
+    fun openDialog(view: Any, additionString: String?) {
         val dialog = BottomSheetDialog(this)
         val dialogView = layoutInflater.inflate(R.layout.char_search_detail_drawer, null)
         val dialogOkButton = dialogView.findViewById<Button>(R.id.char_search_detail_drawer_button)
@@ -577,7 +650,7 @@ class SearchDetailActivity : AppCompatActivity() {
             is CharSearchArmorView -> {
                 val armorLayout = dialogView.findViewById<LinearLayout>(R.id.armor_drawer)
                 armorLayout.visibility = View.VISIBLE
-                setArmorDialog(view, armorLayout, elixirSpecialDetailString)
+                setArmorDialog(view, armorLayout, additionString)//여기서는 엘릭서 35각 40각 효과 이름
             }
             is CharSearchAccessoryView -> {
                 val accessoryLayout = dialogView.findViewById<LinearLayout>(R.id.accessory_drawer)
@@ -603,6 +676,21 @@ class SearchDetailActivity : AppCompatActivity() {
                 val cardLayout = dialogView.findViewById<LinearLayout>(R.id.card_drawer)
                 cardLayout.visibility=View.VISIBLE
                 setCardDialog(view,cardLayout)
+            }
+            is CharSearchRuneView->{
+                val runeLayout = dialogView.findViewById<LinearLayout>(R.id.rune_drawer)
+                runeLayout.visibility = View.VISIBLE
+                setRuneDialog(view,runeLayout)
+            }
+            is CharSearchSkillLayoutView->{
+                val skillLayout = dialogView.findViewById<LinearLayout>(R.id.skill_drawer)
+                skillLayout.visibility = View.VISIBLE
+                setSkillDialog(view,skillLayout)
+            }
+            is CharSearchTripodView->{
+                val tripodLayout = dialogView.findViewById<LinearLayout>(R.id.tripod_drawer)
+                tripodLayout.visibility = View.VISIBLE
+                setTripodDialog(view,tripodLayout)
             }
         }
         dialogOkButton.setOnClickListener {

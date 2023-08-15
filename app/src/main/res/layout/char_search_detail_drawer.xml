@@ -37,6 +37,21 @@
             android:id="@+id/card_drawer"
             layout="@layout/char_search_detail_card_dialog">
         </include>
+        <include
+            android:visibility="gone"
+            android:id="@+id/rune_drawer"
+            layout="@layout/char_search_detail_rune_dialog">
+        </include>
+        <include
+            android:visibility="gone"
+            android:id="@+id/skill_drawer"
+            layout="@layout/char_search_detail_skill_dialog">
+        </include>
+        <include
+            android:visibility="gone"
+            android:id="@+id/tripod_drawer"
+            layout="@layout/char_search_detail_tripod_dialog">
+        </include>
     </LinearLayout>
     <Button
         android:id="@+id/char_search_detail_drawer_button"

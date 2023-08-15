@@ -44,6 +44,27 @@ class SkillFragment(private val charInfo: Armories) : Fragment() {
         skillPoint.text = charInfo.armoryProfile.usingSkillPoint.toString()+" / "+charInfo.armoryProfile.totalSkillPoint.toString()
     }
 
+    fun findSkillAbility(findText:String,skillList:List<ArmorySkill>?, textView:TextView){
+        var max = 0
+        if(findText=="5렙 트포"){
+            skillList?.forEach {
+                max+=it.tripods.filter { it.isSelected&&it.level==5 }.size
+            }
+        }
+        else{
+            skillList?.forEach {
+                if(it.tooltip.contains(findText)) max+=1
+            }
+        }
+        textView.text=findText+" "+max.toString()+"개"
+        var spannableString = SpannableString(textView.text.toString())
+        val start = textView.text.toString().indexOf(max.toString()+"개")
+        val end = start+(max.toString()+"개").length
+        spannableString.setSpan(ForegroundColorSpan(Color.parseColor("#a653ec")),start,end,
+            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+        textView.text = spannableString
+    }
+
     fun setSkills(view:View){
         val skillLayout = view.findViewById<LinearLayout>(R.id.char_search_detail_skill_main_layout)
 
@@ -68,62 +89,16 @@ class SkillFragment(private val charInfo: Armories) : Fragment() {
         }
 
         val maxTripodText = view.findViewById<TextView>(R.id.char_search_detail_skill_max_tripod)
-        var max = 0
-        useSkillList?.forEach {
-            max+=it.tripods.filter { it.isSelected&&it.level==5 }.size
-        }
-        maxTripodText.text="5렙 트포 "+max.toString()+"개"
-        var spannableString = SpannableString(maxTripodText.text.toString())
-        var start = maxTripodText.text.toString().indexOf(max.toString()+"개")
-        var end = start+(max.toString()+"개").length
-        spannableString.setSpan(ForegroundColorSpan(Color.parseColor("#a653ec")),start,end,
-            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-        maxTripodText.text = spannableString
+        findSkillAbility("5렙 트포",useSkillList,maxTripodText)
 
         val counterSkillText = view.findViewById<TextView>(R.id.char_search_detail_skill_counter)
-
-        max=0
-        useSkillList?.forEach {
-            if(it.tooltip.contains("카운터")) max+=1
-        }
-
-        counterSkillText.text="카운터 "+max.toString()+"개"
-        spannableString = SpannableString(counterSkillText.text.toString())
-        start = counterSkillText.text.toString().indexOf(max.toString()+"개")
-        end = start+(max.toString()+"개").length
-        spannableString.setSpan(ForegroundColorSpan(Color.parseColor("#a653ec")),start,end,
-            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-        counterSkillText.text = spannableString
+        findSkillAbility("카운터",useSkillList,counterSkillText)
 
         val powerlessText = view.findViewById<TextView>(R.id.char_search_detail_skill_powerless)
-
-        max=0
-        useSkillList?.forEach {
-            if(it.tooltip.contains("무력화")) max+=1
-        }
-
-        powerlessText.text="무력화 "+max.toString()+"개"
-        spannableString = SpannableString(powerlessText.text.toString())
-        start = powerlessText.text.toString().indexOf(max.toString()+"개")
-        end = start+(max.toString()+"개").length
-        spannableString.setSpan(ForegroundColorSpan(Color.parseColor("#a653ec")),start,end,
-            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-        powerlessText.text = spannableString
+        findSkillAbility("무력화",useSkillList,powerlessText)
 
         val destroyText = view.findViewById<TextView>(R.id.char_search_detail_skill_destroy)
-
-        max=0
-        useSkillList?.forEach {
-            if(it.tooltip.contains("부위 파괴")) max+=1
-        }
-
-        destroyText.text="부위 파괴 "+max.toString()+"개"
-        spannableString = SpannableString(destroyText.text.toString())
-        start = destroyText.text.toString().indexOf(max.toString()+"개")
-        end = start+(max.toString()+"개").length
-        spannableString.setSpan(ForegroundColorSpan(Color.parseColor("#a653ec")),start,end,
-            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-        destroyText.text = spannableString
+        findSkillAbility("부위 파괴",useSkillList,destroyText)
 
     }
 

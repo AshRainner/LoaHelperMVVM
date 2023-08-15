@@ -53,6 +53,20 @@ class ValueDataAdapter : JsonDeserializer<ValueData<*>> {
                 )
                 card
             }
+            "CommonSkillTitle"->{
+                val commonSkillTitle = context?.deserialize<CommonSkillTitleData>(
+                    jsonObject.get("value"),
+                    CommonSkillTitleData::class.java
+                )
+                commonSkillTitle
+            }
+            "TripodSkillCustom"->{
+                val TripodSkillCustom = context?.deserialize<TripodSkillCustomData>(
+                    jsonObject.get("value"),
+                    TripodSkillCustomData::class.java
+                )
+                TripodSkillCustom
+            }
             else->{
                 jsonObject.get("value").asString
             }

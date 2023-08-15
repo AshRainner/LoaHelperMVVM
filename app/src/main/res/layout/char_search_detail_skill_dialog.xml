@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/accessory_dialog_view_main"
+    style="@style/AppBottomSheetDialogTheme"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/char_search_detail_drawer_skill_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:text="절멸의 탄환"
+        android:textColor="@color/black"
+        android:textSize="9pt"
+        android:textStyle="bold"></TextView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="15dp"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="10dp">
+
+                <ImageView
+                    android:id="@+id/char_search_detail_drawer_skill_image"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:src="@drawable/test_skill"></ImageView>
+            </com.google.android.material.card.MaterialCardView>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                    <TextView
+                        android:id="@+id/char_search_detail_drawer_skill_type"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="콤보"
+                        android:textColor="@color/black"
+                        android:textSize="6pt"
+                        android:textStyle="bold"></TextView>
+
+                    <TextView
+                        android:id="@+id/char_search_detail_drawer_skill_stance"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=" | 샷건 스탠스"
+                        android:textColor="@color/black"
+                        android:textSize="6pt"
+                        android:textStyle="bold"></TextView>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                    <TextView
+                        android:id="@+id/char_search_detail_drawer_skill_cool"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="재사용 대기시간 30초"
+                        android:textColor="@color/black"
+                        android:textSize="7pt"
+                        android:textStyle="bold"></TextView>
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/char_search_detail_drawer_skill_mp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:lineSpacingExtra="5dp"
+                android:text="마나 518"
+                android:textColor="@color/black"
+                android:textStyle="bold"></TextView>
+
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="3px"
+                android:layout_marginTop="10dp"
+                android:background="#f2f2f2"></View>
+
+            <LinearLayout
+                android:visibility="gone"
+                android:id="@+id/char_search_detail_drawer_skill_effect_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/char_search_detail_drawer_skill_effect_text"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:lineSpacingExtra="5dp"
+                    android:textColor="#A41ED4"
+                    android:textStyle="bold"
+                    android:text="부위파괴 : 레벨 1\n무력화 : 하\n공격 타입 : 백어택\n슈퍼아머 : 경직면역">
+                </TextView>
+                <View
+                    android:layout_width="wrap_content"
+                    android:layout_height="3px"
+                    android:background="#f2f2f2"></View>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/char_search_detail_drawer_skill_detail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="샷건을 2회 사격하여 424,870, 424,870의 피해를 준다. 이후 콤보 입력 시 총을 한 바퀴 돌리며 장전한 후 마무리 사격을 가하여 849,683의 피해를 준다."
+                android:textColor="@color/black"
+                android:textStyle="bold"></TextView>
+        </LinearLayout>
+
+
+    </LinearLayout>
+</LinearLayout>

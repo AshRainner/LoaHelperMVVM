@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="#ffffff"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            app:cardCornerRadius="8dp">
+
+            <ImageView
+                android:id="@+id/char_search_detail_skill_image"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="#dedfe0"
+                android:src="@drawable/test_skill"></ImageView>
+        </com.google.android.material.card.MaterialCardView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="10dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/char_search_detail_skill_level"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="12레벨"
+                android:textColor="#D0B134"></TextView>
+
+            <TextView
+                android:id="@+id/char_search_detail_skill_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="절멸의 탄환"
+                android:textColor="@color/black"
+                android:textSize="8pt"
+                android:textStyle="bold"></TextView>
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

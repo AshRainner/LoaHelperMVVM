@@ -155,30 +155,30 @@ class CharSearchAccessoryView : LinearLayout {
                     tooltip.elements.get(key)?.value as IndentStringGroupData
 
                 val plusEngravingOne =
-                    indentStringGroupData.element0.contentStr.Element_000.contentStr.replace(
+                    indentStringGroupData.element0.contentStrData.element0.contentStr.replace(
                         "[",
                         ""
                     ).replace("]", "").replace("활성도", "")
                 val plusOne =
-                    pattern.find(indentStringGroupData.element0.contentStr.Element_000.contentStr)?.value
+                    pattern.find(indentStringGroupData.element0.contentStrData.element0.contentStr)?.value
 
                 val plusEngravingTwo =
-                    indentStringGroupData.element0.contentStr.Element_001.contentStr.replace(
+                    indentStringGroupData.element0.contentStrData.element1.contentStr.replace(
                         "[",
                         ""
                     ).replace("]", "").replace("활성도", "")
                 val plusTwo =
-                    pattern.find(indentStringGroupData.element0.contentStr.Element_001.contentStr)?.value
+                    pattern.find(indentStringGroupData.element0.contentStrData.element1.contentStr)?.value
 
                 plusEngravingString = plusEngravingOne + plusEngravingTwo.replace("\n", "")
 
                 minusEngravingString =
-                    indentStringGroupData.element0.contentStr.Element_002.contentStr.replace(
+                    indentStringGroupData.element0.contentStrData.element2.contentStr.replace(
                         "[",
                         ""
                     ).replace("]", "").replace("활성도", "")
                 val minusOne =
-                    pattern.find(indentStringGroupData.element0.contentStr.Element_002.contentStr)?.value
+                    pattern.find(indentStringGroupData.element0.contentStrData.element2.contentStr)?.value
                 stonePlusText.text = plusOne + " · " + plusTwo + " · "
                 stoneMinusText.text = minusOne
 
@@ -203,21 +203,21 @@ class CharSearchAccessoryView : LinearLayout {
                     tooltip.elements.get(key)?.value as IndentStringGroupData
 
                 if (indentStringGroupData.element0.topStr.contains("무작위 각인 효과")) {
-                    val contenStrData = indentStringGroupData.element0.contentStr
+                    val contenStrData = indentStringGroupData.element0.contentStrData
                     var plusEngravingOne = ""
-                    contenStrData.Element_000?.let {
+                    contenStrData.element0?.let {
                         plusEngravingOne =
                             it.contentStr.replace("[", "").replace("]", "")
                                 .replace("활성도", "")
                     }
                     var plusEngravingTwo = ""
-                    contenStrData.Element_001?.let {
+                    contenStrData.element1?.let {
                         plusEngravingTwo =
                             it.contentStr.replace("[", "").replace("]", "")
                                 .replace("활성도", "")
                     }
                     plusEngravingString = plusEngravingOne + plusEngravingTwo.replace("\n", "")
-                    contenStrData.Element_002?.let {
+                    contenStrData.element2?.let {
                         minusEngravingString =
                             it.contentStr.replace("[", "").replace("]", "")
                                 .replace("활성도", "")

@@ -1,12 +1,13 @@
 package com.lostark.dto.armorys.tooltips
 
+
 import com.google.gson.annotations.SerializedName
 
-data class ContenStrData(
+data class TripodSkillCustomData(
     @SerializedName("Element_000")
-    val Element_000: ContenStrElementData,
+    val element0: ElementData,
     @SerializedName("Element_001")
-    val Element_001: ContenStrElementData,
+    val element1: ElementData,
     @SerializedName("Element_002")
-    val Element_002: ContenStrElementData
+    val element2: ElementData
 )

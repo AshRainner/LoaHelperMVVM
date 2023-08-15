@@ -2,9 +2,9 @@ package com.lostark.dto.armorys.tooltips
 
 import com.google.gson.annotations.SerializedName
 
-data class IndentStringGroupElementData(
+data class IndentStringElementData(
     @SerializedName("contentStr")
-    val contentStr:ContenStrData,
+    val contentStrData:ContentStrData,
     @SerializedName("topStr")
     val topStr:String
 )

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:tools="http://schemas.android.com/tools"
     android:background="#ffffff"
     android:orientation="vertical">
 
@@ -12,160 +12,98 @@
         android:layout_height="wrap_content">
 
         <LinearLayout
-            android:layout_weight="1"
             android:layout_width="0dp"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
 
-            <LinearLayout
+            <com.lostark.customview.CharSearchSkillLayoutView
                 android:id="@+id/char_search_detail_skill_layout"
-                android:layout_weight="1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <com.google.android.material.card.MaterialCardView
-                    android:layout_margin="10dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:cardCornerRadius="8dp">
-                    <ImageView
-                        android:id="@+id/char_search_detail_skill_image"
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:background="#dedfe0"
-                        android:src="@drawable/test_skill"></ImageView>
-                </com.google.android.material.card.MaterialCardView>
-                <LinearLayout
-                    android:layout_marginTop="10dp"
-                    android:layout_weight="1"
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:orientation="vertical">
-                    <TextView
-                        android:id="@+id/char_search_detail_skill_level"
-                        android:layout_weight="1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="12레벨"
-                        android:textColor="#D0B134">
-                    </TextView>
-                    <TextView
-                        android:id="@+id/char_search_detail_skill_name"
-                        android:layout_weight="1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="절멸의 탄환"
-                        android:textSize="8pt"
-                        android:textColor="@color/black"
-                        android:textStyle="bold">
-                    </TextView>
-                </LinearLayout>
-
-            </LinearLayout>
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"></com.lostark.customview.CharSearchSkillLayoutView>
 
         </LinearLayout>
+
         <LinearLayout
-            android:layout_weight="1"
             android:layout_width="0dp"
-            android:layout_height="match_parent">
-            <FrameLayout
-                android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <com.lostark.customview.CharSearchRuneView
+                android:id="@+id/char_search_detail_skill_rune_view"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_weight="1"></com.lostark.customview.CharSearchRuneView>
+
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
                 <com.google.android.material.card.MaterialCardView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="10dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
                     app:cardCornerRadius="20dp">
-                    <ImageView
-                        android:id="@+id/char_search_detail_skill_rune_image"
+
+                    <com.lostark.customview.CharSearchGemView
+                        android:id="@+id/char_search_detail_skill_gem_1"
                         android:layout_width="40dp"
                         android:layout_height="40dp"
-                        android:background="#dedfe0"></ImageView>
+                        android:background="#dedfe0"></com.lostark.customview.CharSearchGemView>
                 </com.google.android.material.card.MaterialCardView>
             </FrameLayout>
-            <LinearLayout
-                android:layout_weight="1"
+
+            <FrameLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center">
-                <TextView
-                    android:visibility="invisible"
-                    android:id="@+id/char_search_detail_skill_rune_name"
+
+                android:layout_weight="1">
+
+                <com.google.android.material.card.MaterialCardView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="8pt"
-                    android:text="질풍"
-                    android:textStyle="bold"
-                    android:textColor="@color/black">
-                </TextView>
-            </LinearLayout>
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    app:cardCornerRadius="20dp">
 
-            <FrameLayout
-                android:layout_weight="1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-            <com.google.android.material.card.MaterialCardView
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:cardCornerRadius="20dp">
-                <com.lostark.customview.CharSearchGemView
-                    android:id="@+id/char_search_detail_skill_gem_1"
-                    android:background="#dedfe0"
-                    android:layout_height="40dp"
-                    android:layout_width="40dp">
-                </com.lostark.customview.CharSearchGemView>
-            </com.google.android.material.card.MaterialCardView>
-            </FrameLayout>
-            <FrameLayout
-                android:layout_weight="1"
-                android:layout_width="wrap_content"
-
-                android:layout_height="wrap_content">
-            <com.google.android.material.card.MaterialCardView
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:cardCornerRadius="20dp">
-                <com.lostark.customview.CharSearchGemView
-                    android:id="@+id/char_search_detail_skill_gem_2"
-                    android:background="#dedfe0"
-                    android:layout_height="40dp"
-                    android:layout_width="40dp">
-                </com.lostark.customview.CharSearchGemView>
-            </com.google.android.material.card.MaterialCardView>
+                    <com.lostark.customview.CharSearchGemView
+                        android:id="@+id/char_search_detail_skill_gem_2"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:background="#dedfe0"></com.lostark.customview.CharSearchGemView>
+                </com.google.android.material.card.MaterialCardView>
             </FrameLayout>
         </LinearLayout>
     </LinearLayout>
+
     <LinearLayout
         android:id="@+id/char_search_detail_skill_tripod_layout"
-        android:visibility="gone"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:visibility="gone">
+
         <com.lostark.customview.CharSearchTripodView
-            android:layout_marginLeft="10dp"
-            android:visibility="invisible"
             android:id="@+id/char_search_detail_skill_tripod_1"
-            android:layout_weight="1"
             android:layout_width="0dp"
-            android:layout_height="wrap_content">
-        </com.lostark.customview.CharSearchTripodView>
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_weight="1"
+            android:visibility="invisible"></com.lostark.customview.CharSearchTripodView>
+
         <com.lostark.customview.CharSearchTripodView
-            android:visibility="invisible"
             android:id="@+id/char_search_detail_skill_tripod_2"
-            android:layout_weight="1"
             android:layout_width="0dp"
-            android:layout_height="wrap_content">
-        </com.lostark.customview.CharSearchTripodView>
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:visibility="invisible"></com.lostark.customview.CharSearchTripodView>
+
         <com.lostark.customview.CharSearchTripodView
-            android:layout_marginRight="10dp"
-            android:visibility="invisible"
             android:id="@+id/char_search_detail_skill_tripod_3"
-            android:layout_weight="1"
             android:layout_width="0dp"
-            android:layout_height="wrap_content">
-        </com.lostark.customview.CharSearchTripodView>
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:layout_weight="1"
+            android:visibility="invisible"></com.lostark.customview.CharSearchTripodView>
     </LinearLayout>
 </LinearLayout>

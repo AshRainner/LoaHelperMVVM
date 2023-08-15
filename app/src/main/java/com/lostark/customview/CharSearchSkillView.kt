@@ -1,37 +1,27 @@
 package com.lostark.customview
 
 import android.content.Context
-import android.graphics.Color
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
-import android.widget.ImageView
 import android.widget.LinearLayout
-import android.widget.TextView
-import com.bumptech.glide.Glide
-import com.google.android.material.card.MaterialCardView
 import com.google.gson.GsonBuilder
 import com.lostark.adapter.ValueDataAdapter
 import com.lostark.dto.armorys.*
 import com.lostark.dto.armorys.tooltips.*
 import com.lostark.loahelper.R
+import com.lostark.loahelper.SearchDetailActivity
 
 class CharSearchSkillView : LinearLayout {
 
-    lateinit var skillLayout: LinearLayout
-    lateinit var skillImage: ImageView
-    lateinit var skillName: TextView
-    lateinit var skillLevel: TextView
-    lateinit var runeImage: ImageView
-    lateinit var runeName: TextView
+    lateinit var skillLayout: CharSearchSkillLayoutView
+    lateinit var runeView: CharSearchRuneView
     lateinit var gemImage1: CharSearchGemView
     lateinit var gemImage2: CharSearchGemView
     lateinit var tripodLayout: LinearLayout
     lateinit var tripodView1 :CharSearchTripodView
     lateinit var tripodView2 :CharSearchTripodView
     lateinit var tripodView3 :CharSearchTripodView
-
-    lateinit var skillDescription: String
 
     lateinit var imageUrl:String
 
@@ -48,11 +38,7 @@ class CharSearchSkillView : LinearLayout {
             LayoutInflater.from(context).inflate(R.layout.char_search_detail_skill_view, this, false)
         addView(view)
         skillLayout = view.findViewById(R.id.char_search_detail_skill_layout)
-        skillImage = view.findViewById(R.id.char_search_detail_skill_image)
-        skillName = view.findViewById(R.id.char_search_detail_skill_name)
-        skillLevel = view.findViewById(R.id.char_search_detail_skill_level)
-        runeImage = view.findViewById(R.id.char_search_detail_skill_rune_image)
-        runeName = view.findViewById(R.id.char_search_detail_skill_rune_name)
+        runeView = view.findViewById(R.id.char_search_detail_skill_rune_view)
         gemImage1 = view.findViewById(R.id.char_search_detail_skill_gem_1)
         gemImage2 = view.findViewById(R.id.char_search_detail_skill_gem_2)
         tripodLayout = view.findViewById(R.id.char_search_detail_skill_tripod_layout)
@@ -64,26 +50,51 @@ class CharSearchSkillView : LinearLayout {
 
 
     }
-    fun setRuneImageBackground(grade : String){//룬, 보석
-        when(grade) {//이미지 백그라운드
-            "전설" -> runeImage.setBackgroundResource(R.drawable.legend_background)
-            "영웅" -> runeImage.setBackgroundResource(R.drawable.hero_background)
-            "희귀" -> runeImage.setBackgroundResource(R.drawable.rare_background)
-            "고급" -> runeImage.setBackgroundResource(R.drawable.advanced_background)
+    fun setDialog(view:Any){
+        when (view){
+            is CharSearchGemView->{
+                view.setOnClickListener {
+                    (context as SearchDetailActivity).openDialog(it, "")
+                }
+            }
+            is CharSearchRuneView->{
+                view.setOnClickListener{
+                    (context as SearchDetailActivity).openDialog(it, "")
+                }
+            }
+            is CharSearchSkillLayoutView ->{
+                view.setOnClickListener {
+                    (context as SearchDetailActivity).openDialog(it, "")
+                }
+            }
+            is CharSearchTripodView ->{
+                view.setOnClickListener{
+                    (context as SearchDetailActivity).openDialog(it, "")
+                }
+            }
         }
     }
 
     fun setGem(gemList:List<Gem>){
-        val useGemList=gemList.filter { it.tooltip.contains(skillName.text) }.sortedByDescending { it.name }
+        val useGemList=gemList.filter { it.tooltip.contains(skillLayout.skillName.text) }.sortedBy { it.name }
 
         val gemImageList = listOf(gemImage1,gemImage2)
         useGemList.forEachIndexed { index, gem->
-            gemImageList.getOrNull(index)?.setSkillGemImageText(gem,toolTipDeserialization(gem))
+            if(useGemList.size==1&&gem.name.contains("홍염")){
+                gemImage2.setSkillGemImageText(gem, toolTipDeserialization(gem))
+            }
+            else {
+                gemImageList.getOrNull(index)
+                    ?.setSkillGemImageText(gem, toolTipDeserialization(gem))
+            }
         }
+        setDialog(gemImage1)
+        setDialog(gemImage2)
 
     }
 
     fun toolTipDeserialization(vararg items: Any?): Tooltip {
+
         val gson = GsonBuilder()
             .registerTypeAdapter(ValueData::class.java, ValueDataAdapter())
             .create()
@@ -95,6 +106,8 @@ class CharSearchSkillView : LinearLayout {
                 is Engraving -> item.tooltip
                 is Gem -> item.tooltip
                 is Card -> item.tooltip
+                is Rune -> item.tooltip
+                is ArmorySkill -> item.tooltip
                 else -> ""
             }?.replace(pattern2, "\n")?.replace(pattern, "")
         }
@@ -103,19 +116,12 @@ class CharSearchSkillView : LinearLayout {
     }
 
     fun setImageText(skill: ArmorySkill){
-        Glide.with(this)
-            .load(skill.icon)
-            .into(skillImage)
-        imageUrl = skill.icon
-        skillName.text = skill.name
-        skillLevel.text = skill.level.toString()+"레벨"
+        skillLayout.setImageText(skill,toolTipDeserialization(skill))
+        setDialog(skillLayout)
+
         skill.rune?.let {
-            Glide.with(this)
-                .load(it.icon)
-                .into(runeImage)
-            setRuneImageBackground(it.grade)
-            runeName.text = it.name
-            runeName.visibility=View.VISIBLE
+            runeView.setRuneImageText(it,toolTipDeserialization(it))
+            setDialog(runeView)
         }
         val useTripod = skill.tripods.filter { it.isSelected }
 
@@ -126,8 +132,9 @@ class CharSearchSkillView : LinearLayout {
             useTripod.sortedBy { it.tier }.forEachIndexed { index,tripod->
                 val tripodView = tripodList.get(index)
                 tripodView.setDiamondBackground(tripod.tier,tripod.slot)
-                tripodView.setTripodImageText(tripod)
+                tripodView.setTripodImageText(tripod,index,toolTipDeserialization(skill))
                 tripodView.visibility=View.VISIBLE
+                setDialog(tripodView)
             }
         }
     }
