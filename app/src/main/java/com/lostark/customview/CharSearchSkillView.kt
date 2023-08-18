@@ -19,11 +19,11 @@ class CharSearchSkillView : LinearLayout {
     lateinit var gemImage1: CharSearchGemView
     lateinit var gemImage2: CharSearchGemView
     lateinit var tripodLayout: LinearLayout
-    lateinit var tripodView1 :CharSearchTripodView
-    lateinit var tripodView2 :CharSearchTripodView
-    lateinit var tripodView3 :CharSearchTripodView
+    lateinit var tripodView1: CharSearchTripodView
+    lateinit var tripodView2: CharSearchTripodView
+    lateinit var tripodView3: CharSearchTripodView
 
-    lateinit var imageUrl:String
+    lateinit var imageUrl: String
 
     constructor(context: Context?) : super(context) {
         init(context)
@@ -35,7 +35,8 @@ class CharSearchSkillView : LinearLayout {
 
     private fun init(context: Context?) {
         val view =
-            LayoutInflater.from(context).inflate(R.layout.char_search_detail_skill_view, this, false)
+            LayoutInflater.from(context)
+                .inflate(R.layout.char_search_detail_skill_view, this, false)
         addView(view)
         skillLayout = view.findViewById(R.id.char_search_detail_skill_layout)
         runeView = view.findViewById(R.id.char_search_detail_skill_rune_view)
@@ -50,46 +51,47 @@ class CharSearchSkillView : LinearLayout {
 
 
     }
-    fun setDialog(view:Any){
-        when (view){
-            is CharSearchGemView->{
+
+    fun setDialog(view: Any) {
+        when (view) {
+            is CharSearchGemView -> {
                 view.setOnClickListener {
                     (context as SearchDetailActivity).openDialog(it, "")
                 }
             }
-            is CharSearchRuneView->{
-                view.setOnClickListener{
-                    (context as SearchDetailActivity).openDialog(it, "")
-                }
-            }
-            is CharSearchSkillLayoutView ->{
+            is CharSearchRuneView -> {
                 view.setOnClickListener {
                     (context as SearchDetailActivity).openDialog(it, "")
                 }
             }
-            is CharSearchTripodView ->{
-                view.setOnClickListener{
+            is CharSearchSkillLayoutView -> {
+                view.setOnClickListener {
+                    (context as SearchDetailActivity).openDialog(it, "")
+                }
+            }
+            is CharSearchTripodView -> {
+                view.setOnClickListener {
                     (context as SearchDetailActivity).openDialog(it, "")
                 }
             }
         }
     }
 
-    fun setGem(gemList:List<Gem>){
-        val useGemList=gemList.filter { it.tooltip.contains(skillLayout.skillName.text) }.sortedBy { it.name }
+    fun setGem(gemList: List<Gem>) {
+        val useGemList =
+            gemList.filter { it.tooltip.contains(skillLayout.skillName.text) }.sortedBy { it.name }.sortedByDescending { it.level }
 
-        val gemImageList = listOf(gemImage1,gemImage2)
-        useGemList.forEachIndexed { index, gem->
-            if(useGemList.size==1&&gem.name.contains("홍염")){
+        val gemImageList = listOf(gemImage1, gemImage2)
+        useGemList.forEachIndexed { index, gem ->
+            if (useGemList.size == 1 && gem.name.contains("홍염")) {
                 gemImage2.setSkillGemImageText(gem, toolTipDeserialization(gem))
-            }
-            else {
+            } else {
                 gemImageList.getOrNull(index)
                     ?.setSkillGemImageText(gem, toolTipDeserialization(gem))
             }
         }
-        setDialog(gemImage1)
-        setDialog(gemImage2)
+        gemImage1.gemDetail?.let { setDialog(gemImage1) }
+        gemImage2.gemDetail?.let { setDialog(gemImage2) }
 
     }
 
@@ -115,25 +117,25 @@ class CharSearchSkillView : LinearLayout {
         return gson.fromJson(jsonString, Tooltip::class.java)
     }
 
-    fun setImageText(skill: ArmorySkill){
-        skillLayout.setImageText(skill,toolTipDeserialization(skill))
+    fun setImageText(skill: ArmorySkill) {
+        skillLayout.setImageText(skill, toolTipDeserialization(skill))
         setDialog(skillLayout)
 
         skill.rune?.let {
-            runeView.setRuneImageText(it,toolTipDeserialization(it))
+            runeView.setRuneImageText(it, toolTipDeserialization(it))
             setDialog(runeView)
         }
         val useTripod = skill.tripods.filter { it.isSelected }
 
-        if(useTripod!=null){
-            if(useTripod.size!=0)
-                tripodLayout.visibility=View.VISIBLE
-            val tripodList = listOf(tripodView1,tripodView2,tripodView3)
-            useTripod.sortedBy { it.tier }.forEachIndexed { index,tripod->
+        if (useTripod != null) {
+            if (useTripod.size != 0)
+                tripodLayout.visibility = View.VISIBLE
+            val tripodList = listOf(tripodView1, tripodView2, tripodView3)
+            useTripod.sortedBy { it.tier }.forEachIndexed { index, tripod ->
                 val tripodView = tripodList.get(index)
-                tripodView.setDiamondBackground(tripod.tier,tripod.slot)
-                tripodView.setTripodImageText(tripod,index,toolTipDeserialization(skill))
-                tripodView.visibility=View.VISIBLE
+                tripodView.setDiamondBackground(tripod.tier, tripod.slot)
+                tripodView.setTripodImageText(tripod, index, toolTipDeserialization(skill))
+                tripodView.visibility = View.VISIBLE
                 setDialog(tripodView)
             }
         }
