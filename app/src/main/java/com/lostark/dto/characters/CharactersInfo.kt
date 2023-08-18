@@ -2,6 +2,7 @@ package com.lostark.dto.characters
 
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 data class CharactersInfo(
     @SerializedName("CharacterClassName")
@@ -16,4 +17,4 @@ data class CharactersInfo(
     val itemMaxLevel: String,
     @SerializedName("ServerName")
     val serverName: String
-)
+): Serializable

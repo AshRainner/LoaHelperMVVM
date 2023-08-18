@@ -22,32 +22,44 @@ import com.bumptech.glide.request.transition.Transition
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.tabs.TabLayout
+import com.lostark.api.LoaRetrofitObj
 import com.lostark.customview.*
+import com.lostark.database.AppDatabase
 import com.lostark.dto.armorys.Armories
+import com.lostark.dto.characters.Characters
+import com.lostark.dto.characters.CharactersInfo
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.io.Serializable
 import java.util.*
+import kotlin.collections.ArrayList
 
 class SearchDetailActivity : AppCompatActivity() {
-
+    val ACCEPT = "application/json"
+    lateinit var db: AppDatabase
     lateinit var charInfo: Armories
-    lateinit var mainScrollView:StickyScrollView
+    lateinit var characters: ArrayList<CharactersInfo>
+    lateinit var mainScrollView: StickyScrollView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.char_search_detail_activity)
+        db = AppDatabase.getInstance(applicationContext)!!
         charInfo = (intent.getSerializable("charInfo") as Armories?)!!
+        characters = (intent.getSerializable("characters") as? ArrayList<CharactersInfo>?)!!
         val itemLevel = charInfo.armoryProfile.itemMaxLevel.replace(",", "").toFloat().toInt()
         val charImgUrl = charInfo.armoryProfile.characterImage
         mainScrollView = findViewById(R.id.search_detail_scroll_view)
-
         charGradationSet(itemLevel)
         charImageSet(charImgUrl)
         charInfoSet()
         setFragment()
-        mainScrollView.post{
-            mainScrollView.scrollTo(0,0)
+        mainScrollView.post {
+            mainScrollView.scrollTo(0, 0)
         }
     }
+
 
     fun charInfoSet() {
         val serverName = findViewById<TextView>(R.id.search_detail_server_name)
@@ -148,18 +160,22 @@ class SearchDetailActivity : AppCompatActivity() {
 
         val abilityFragment = AbilityFragment(charInfo)
         val skillsFragment = SkillFragment(charInfo)
+        val characterFragment = CharactersFragment(characters)
         val fragmentManager = supportFragmentManager
 
-        fragmentManager.beginTransaction().replace(R.id.search_detail_fragment_container,abilityFragment).commit()
+        fragmentManager.beginTransaction()
+            .replace(R.id.search_detail_fragment_container, abilityFragment).commit()
 
         tabLayout.addTab(tabLayout.newTab().setText("능력치"))
         tabLayout.addTab(tabLayout.newTab().setText("스킬"))
+        tabLayout.addTab(tabLayout.newTab().setText("보유 캐릭터"))
 
         tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 val selectedFragment = when (tab?.position) {
                     0 -> abilityFragment
                     1 -> skillsFragment
+                    2 -> characterFragment
                     else -> null
                 }
 
@@ -169,10 +185,10 @@ class SearchDetailActivity : AppCompatActivity() {
                         .commit()
                 }
             }
+
             override fun onTabUnselected(tab: TabLayout.Tab?) {}
             override fun onTabReselected(tab: TabLayout.Tab?) {}
         })
-
 
 
     }
@@ -297,16 +313,21 @@ class SearchDetailActivity : AppCompatActivity() {
         }
     }
 
-    fun setCardDialog(view:CharSearchCardView, cardLayout: LinearLayout){
+    fun setCardDialog(view: CharSearchCardView, cardLayout: LinearLayout) {
         val cardName = cardLayout.findViewById<TextView>(R.id.char_search_detail_drawer_card_name)
-        val cardDescription = cardLayout.findViewById<TextView>(R.id.char_search_detail_drawer_card_description)
-        val cardView = cardLayout.findViewById<CharSearchCardView>(R.id.char_search_detail_drawer_card_view)
+        val cardDescription =
+            cardLayout.findViewById<TextView>(R.id.char_search_detail_drawer_card_description)
+        val cardView =
+            cardLayout.findViewById<CharSearchCardView>(R.id.char_search_detail_drawer_card_view)
         cardView.setCardImageText(view.card)
-        cardName.text=view.cardNameView.text
-        cardDescription.text=view.cardDescription
+        cardName.text = view.cardNameView.text
+        cardDescription.text = view.cardDescription
     }
 
-    fun setBottomEngravingDialog(view:CharSearchEngravingBottomView, engravingLayout: LinearLayout){
+    fun setBottomEngravingDialog(
+        view: CharSearchEngravingBottomView,
+        engravingLayout: LinearLayout
+    ) {
         val engravingName =
             engravingLayout.findViewById<TextView>(R.id.char_search_detail_drawer_engraving_name)
         engravingName.text = view.engravingDrawerName
@@ -315,7 +336,7 @@ class SearchDetailActivity : AppCompatActivity() {
         Glide.with(this).load(view.imageUrl).into(engravingImage)
         val engravingPoint =
             engravingLayout.findViewById<TextView>(R.id.char_search_detail_drawer_engraving_point)
-        engravingPoint.visibility=View.GONE
+        engravingPoint.visibility = View.GONE
         val engravingDetailLayout =
             engravingLayout.findViewById<LinearLayout>(R.id.char_search_detail_engraving_detail_layout)
 
@@ -331,15 +352,23 @@ class SearchDetailActivity : AppCompatActivity() {
 
     }
 
-    fun setSkillDialog(view:CharSearchSkillLayoutView, skillLayout:LinearLayout){
-        val skillName = skillLayout.findViewById<TextView>(R.id.char_search_detail_drawer_skill_name)
-        val skillImage = skillLayout.findViewById<ImageView>(R.id.char_search_detail_drawer_skill_image)
-        val skillType = skillLayout.findViewById<TextView>(R.id.char_search_detail_drawer_skill_type)
-        val skillStance = skillLayout.findViewById<TextView>(R.id.char_search_detail_drawer_skill_stance)
-        val skillCool = skillLayout.findViewById<TextView>(R.id.char_search_detail_drawer_skill_cool)
-        val skillEffectLayout = skillLayout.findViewById<LinearLayout>(R.id.char_search_detail_drawer_skill_effect_layout)
-        val skillEffect = skillLayout.findViewById<TextView>(R.id.char_search_detail_drawer_skill_effect_text)
-        val skillDetail = skillLayout.findViewById<TextView>(R.id.char_search_detail_drawer_skill_detail)
+    fun setSkillDialog(view: CharSearchSkillLayoutView, skillLayout: LinearLayout) {
+        val skillName =
+            skillLayout.findViewById<TextView>(R.id.char_search_detail_drawer_skill_name)
+        val skillImage =
+            skillLayout.findViewById<ImageView>(R.id.char_search_detail_drawer_skill_image)
+        val skillType =
+            skillLayout.findViewById<TextView>(R.id.char_search_detail_drawer_skill_type)
+        val skillStance =
+            skillLayout.findViewById<TextView>(R.id.char_search_detail_drawer_skill_stance)
+        val skillCool =
+            skillLayout.findViewById<TextView>(R.id.char_search_detail_drawer_skill_cool)
+        val skillEffectLayout =
+            skillLayout.findViewById<LinearLayout>(R.id.char_search_detail_drawer_skill_effect_layout)
+        val skillEffect =
+            skillLayout.findViewById<TextView>(R.id.char_search_detail_drawer_skill_effect_text)
+        val skillDetail =
+            skillLayout.findViewById<TextView>(R.id.char_search_detail_drawer_skill_detail)
 
         skillName.text = view.skillName.text
         Glide.with(this).load(view.imageUrl).into(skillImage)
@@ -347,11 +376,11 @@ class SearchDetailActivity : AppCompatActivity() {
         skillType.text = view.skillType
         skillStance.text = view.skillStance
         skillCool.text = view.skillCool
-        if(view.skillEffect!=""){
-            skillEffect.text=view.skillEffect
-            skillEffectLayout.visibility=View.VISIBLE
+        if (view.skillEffect != "") {
+            skillEffect.text = view.skillEffect
+            skillEffectLayout.visibility = View.VISIBLE
         }
-        skillDetail.text=view.skillDescription
+        skillDetail.text = view.skillDescription
 
     }
 
@@ -416,13 +445,13 @@ class SearchDetailActivity : AppCompatActivity() {
                 gemGrade.setTextColor(Color.parseColor("#d9ae43"))
             }
 
-            view.gemGrade.contains("유물") ->{
+            view.gemGrade.contains("유물") -> {
                 gemImage.setBackgroundResource(R.drawable.relic_background)
                 gemGrade.setTextColor(Color.parseColor("#E45B0A"))
             }
 
 
-            view.gemGrade.contains("전설") ->{
+            view.gemGrade.contains("전설") -> {
                 gemImage.setBackgroundResource(R.drawable.legend_background)
                 gemGrade.setTextColor(Color.parseColor("#E08808"))
             }
@@ -449,6 +478,7 @@ class SearchDetailActivity : AppCompatActivity() {
         val gemDetail = gemLayout.findViewById<TextView>(R.id.char_search_detail_drawer_gem_detail)
         gemDetail.text = view.gemDetail
     }
+
     fun setRuneDialog(view: CharSearchRuneView, runeLayout: LinearLayout) {
         val runeName =
             runeLayout.findViewById<TextView>(R.id.char_search_detail_drawer_rune_name)
@@ -464,13 +494,13 @@ class SearchDetailActivity : AppCompatActivity() {
                 runeGrade.setTextColor(Color.parseColor("#d9ae43"))
             }
 
-            view.runeGrade.contains("유물") ->{
+            view.runeGrade.contains("유물") -> {
                 runeImage.setBackgroundResource(R.drawable.relic_background)
                 runeGrade.setTextColor(Color.parseColor("#E45B0A"))
             }
 
 
-            view.runeGrade.contains("전설") ->{
+            view.runeGrade.contains("전설") -> {
                 runeImage.setBackgroundResource(R.drawable.legend_background)
                 runeGrade.setTextColor(Color.parseColor("#E08808"))
             }
@@ -493,7 +523,8 @@ class SearchDetailActivity : AppCompatActivity() {
             }
         }
 
-        val runeDetail = runeLayout.findViewById<TextView>(R.id.char_search_detail_drawer_rune_detail)
+        val runeDetail =
+            runeLayout.findViewById<TextView>(R.id.char_search_detail_drawer_rune_detail)
         runeDetail.text = view.runeDescription
     }
 
@@ -504,10 +535,12 @@ class SearchDetailActivity : AppCompatActivity() {
         val tripodImage =
             tripodLayout.findViewById<ImageView>(R.id.char_search_detail_drawer_tripod_image)
         Glide.with(this).load(view.imageUrl).into(tripodImage)
-        val tripodLevel = tripodLayout.findViewById<TextView>(R.id.char_search_detail_drawer_tripod_level)
+        val tripodLevel =
+            tripodLayout.findViewById<TextView>(R.id.char_search_detail_drawer_tripod_level)
         tripodLevel.text = view.tripodDialogLevel
 
-        val tripodDetail = tripodLayout.findViewById<TextView>(R.id.char_search_detail_drawer_tripod_detail)
+        val tripodDetail =
+            tripodLayout.findViewById<TextView>(R.id.char_search_detail_drawer_tripod_detail)
         tripodDetail.text = view.tripodDescription
     }
 
@@ -583,7 +616,7 @@ class SearchDetailActivity : AppCompatActivity() {
                 accessoryLayout.findViewById<TextView>(R.id.char_search_detail_drawer_bracelet_stat)
             braceletStat.text = view.braceletAbilityString
             braceletStat.visibility = View.VISIBLE
-            nonBraceletLayout.visibility=View.GONE
+            nonBraceletLayout.visibility = View.GONE
 
             view.braceletAbilityList.forEach {
                 val abilityTextView = TextView(this)
@@ -667,30 +700,30 @@ class SearchDetailActivity : AppCompatActivity() {
                 gemLayout.visibility = View.VISIBLE
                 setGemDialog(view, gemLayout)
             }
-            is CharSearchEngravingBottomView->{
+            is CharSearchEngravingBottomView -> {
                 val engravingLayout = dialogView.findViewById<LinearLayout>(R.id.engraving_drawer)
-                engravingLayout.visibility=View.VISIBLE
-                setBottomEngravingDialog(view,engravingLayout)
+                engravingLayout.visibility = View.VISIBLE
+                setBottomEngravingDialog(view, engravingLayout)
             }
-            is CharSearchCardView->{
+            is CharSearchCardView -> {
                 val cardLayout = dialogView.findViewById<LinearLayout>(R.id.card_drawer)
-                cardLayout.visibility=View.VISIBLE
-                setCardDialog(view,cardLayout)
+                cardLayout.visibility = View.VISIBLE
+                setCardDialog(view, cardLayout)
             }
-            is CharSearchRuneView->{
+            is CharSearchRuneView -> {
                 val runeLayout = dialogView.findViewById<LinearLayout>(R.id.rune_drawer)
                 runeLayout.visibility = View.VISIBLE
-                setRuneDialog(view,runeLayout)
+                setRuneDialog(view, runeLayout)
             }
-            is CharSearchSkillLayoutView->{
+            is CharSearchSkillLayoutView -> {
                 val skillLayout = dialogView.findViewById<LinearLayout>(R.id.skill_drawer)
                 skillLayout.visibility = View.VISIBLE
-                setSkillDialog(view,skillLayout)
+                setSkillDialog(view, skillLayout)
             }
-            is CharSearchTripodView->{
+            is CharSearchTripodView -> {
                 val tripodLayout = dialogView.findViewById<LinearLayout>(R.id.tripod_drawer)
                 tripodLayout.visibility = View.VISIBLE
-                setTripodDialog(view,tripodLayout)
+                setTripodDialog(view, tripodLayout)
             }
         }
         dialogOkButton.setOnClickListener {

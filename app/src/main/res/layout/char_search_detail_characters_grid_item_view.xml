@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="85dp"
+    android:background="#ffffff"
+    android:orientation="vertical"
+    android:layout_margin="5dp">
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/characters_grid_item_card_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="15dp"
+        app:strokeColor="#C2C2C2"
+        app:strokeWidth="2dp"
+        app:cardElevation="0dp">
+        <LinearLayout
+            android:padding="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/characters_grid_item_char_level_class"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Lv60 건슬링어"
+                android:textSize="7pt"
+                android:textColor="#808080">
+            </TextView>
+            <TextView
+                android:id="@+id/characters_grid_item_char_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="란코"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:textSize="7pt">
+            </TextView>
+            <TextView
+                android:id="@+id/characters_grid_item_char_item_level"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="템렙 1621.67"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:textSize="7pt">
+            </TextView>
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+</LinearLayout>

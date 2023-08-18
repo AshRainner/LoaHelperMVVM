@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#ffffff"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp">
+
+        <TextView
+            android:id="@+id/characters_grid_layout_server_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="니나브"
+            android:textColor="@color/black"
+            android:textSize="8pt"
+            android:textStyle="bold"></TextView>
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@id/characters_grid_layout_have_char"
+                android:text="보유 캐릭터 "
+                android:textColor="#808080"
+                android:textSize="8pt"
+                android:textStyle="bold"></TextView>
+
+            <TextView
+                android:id="@+id/characters_grid_layout_have_char"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:text="10"
+                android:textColor="#000000"
+                android:textSize="8pt"
+                android:textStyle="bold"></TextView>
+        </RelativeLayout>
+    </LinearLayout>
+
+    <GridLayout
+        android:id="@+id/characters_grid_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:columnCount="2"
+        android:padding="5dp">
+    </GridLayout>
+</LinearLayout>
