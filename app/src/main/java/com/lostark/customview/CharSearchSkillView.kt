@@ -79,15 +79,12 @@ class CharSearchSkillView : LinearLayout {
 
     fun setGem(gemList: List<Gem>) {
         val useGemList =
-            gemList.filter { it.tooltip.contains(skillLayout.skillName.text) }.sortedBy { it.name }.sortedByDescending { it.level }
-
-        val gemImageList = listOf(gemImage1, gemImage2)
+            gemList.filter { it.tooltip.contains(skillLayout.skillName.text) }
         useGemList.forEachIndexed { index, gem ->
-            if (useGemList.size == 1 && gem.name.contains("홍염")) {
+            if (gem.name.contains("홍염")) {
                 gemImage2.setSkillGemImageText(gem, toolTipDeserialization(gem))
             } else {
-                gemImageList.getOrNull(index)
-                    ?.setSkillGemImageText(gem, toolTipDeserialization(gem))
+                gemImage1.setSkillGemImageText(gem, toolTipDeserialization(gem))
             }
         }
         gemImage1.gemDetail?.let { setDialog(gemImage1) }
