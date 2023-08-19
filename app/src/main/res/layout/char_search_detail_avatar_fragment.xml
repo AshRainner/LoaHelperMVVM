@@ -1,0 +1,313 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#f2f2f2"
+    android:orientation="vertical">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="#ffffff"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:bufferType="spannable"
+                    android:gravity="right"
+                    android:text="지성"
+                    android:textColor="#808080"
+                    android:textStyle="bold"></TextView>
+
+                <TextView
+                    android:id="@+id/char_search_detail_avatar_tendencies_intelli"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:bufferType="spannable"
+                    android:gravity="left"
+                    android:text=" 100"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"></TextView>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:bufferType="spannable"
+                    android:gravity="right"
+                    android:text="담력"
+                    android:textColor="#808080"
+                    android:textStyle="bold"></TextView>
+
+                <TextView
+                    android:id="@+id/char_search_detail_avatar_tendencies_courage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:bufferType="spannable"
+                    android:text=" 100"
+                    android:gravity="left"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"></TextView>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:bufferType="spannable"
+                    android:gravity="right"
+                    android:text="친절"
+                    android:textColor="#808080"
+                    android:textStyle="bold"></TextView>
+
+                <TextView
+                    android:id="@+id/char_search_detail_avatar_tendencies_kind"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:bufferType="spannable"
+                    android:text=" 100"
+                    android:gravity="left"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"></TextView>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:bufferType="spannable"
+                    android:gravity="right"
+                    android:text="매력"
+                    android:textColor="#808080"
+                    android:textStyle="bold"></TextView>
+
+                <TextView
+                    android:id="@+id/char_search_detail_avatar_tendencies_charming"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:bufferType="spannable"
+                    android:text=" 100"
+                    android:gravity="left"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"></TextView>
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:background="#15181d">
+        <ImageView
+            android:id="@+id/char_search_detail_avatar_char_image"
+            android:layout_width="175dp"
+            android:layout_height="200dp"
+            android:layout_centerInParent="true"
+            android:src="@drawable/test_charimage">
+        </ImageView>
+        <!--오른쪽 상하의 아바타 슬롯-->
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="200dp"
+            android:layout_marginLeft="10dp"
+            android:layout_centerVertical="true">
+            <com.lostark.customview.CharSearchAvatarView
+                android:layout_marginTop="5dp"
+                android:id="@+id/char_search_detail_avatar_weapon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:avatarLeftRight="right"
+                app:avatarTypeText = "무기 아바타">
+            </com.lostark.customview.CharSearchAvatarView>
+            <com.lostark.customview.CharSearchAvatarView
+                android:layout_marginTop="10dp"
+                android:layout_below="@+id/char_search_detail_avatar_weapon"
+                android:id="@+id/char_search_detail_avatar_weapon_inner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:avatarLeftRight="right"
+                app:avatarTypeText = "무기 덧입기">
+            </com.lostark.customview.CharSearchAvatarView>
+            <com.lostark.customview.CharSearchAvatarView
+                android:layout_marginTop="10dp"
+                android:layout_below="@+id/char_search_detail_avatar_weapon_inner"
+                android:id="@+id/char_search_detail_avatar_hat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:avatarLeftRight="right"
+                app:avatarTypeText = "머리 아바타">
+            </com.lostark.customview.CharSearchAvatarView>
+            <com.lostark.customview.CharSearchAvatarView
+                android:layout_marginTop="10dp"
+                android:layout_below="@+id/char_search_detail_avatar_hat"
+                android:id="@+id/char_search_detail_avatar_hat_inner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:avatarLeftRight="right"
+                app:avatarTypeText = "머리 덧입기">
+            </com.lostark.customview.CharSearchAvatarView>
+        </RelativeLayout>
+        <!--오른쪽 상하의 아바타 슬롯-->
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="200dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <com.lostark.customview.CharSearchAvatarView
+                    android:layout_marginTop="5dp"
+                    android:layout_gravity="right"
+                    android:id="@+id/char_search_detail_avatar_top"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:avatarLeftRight="left"
+                    app:avatarTypeText = "상의 아바타">
+                </com.lostark.customview.CharSearchAvatarView>
+                <com.lostark.customview.CharSearchAvatarView
+                    android:layout_marginTop="10dp"
+                    android:layout_gravity="right"
+                    android:layout_below="@+id/char_search_detail_avatar_top"
+                    android:id="@+id/char_search_detail_avatar_top_inner"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:avatarLeftRight="left"
+                    app:avatarTypeText = "상의 덧입기">
+                </com.lostark.customview.CharSearchAvatarView>
+                <com.lostark.customview.CharSearchAvatarView
+                    android:layout_marginTop="10dp"
+                    android:layout_gravity="right"
+                    android:layout_below="@+id/char_search_detail_avatar_top_inner"
+                    android:id="@+id/char_search_detail_avatar_bottom"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:avatarLeftRight="left"
+                    app:avatarTypeText = "하의 아바타">
+                </com.lostark.customview.CharSearchAvatarView>
+                <com.lostark.customview.CharSearchAvatarView
+                    android:layout_marginTop="10dp"
+                    android:layout_gravity="right"
+                    android:layout_below="@+id/char_search_detail_avatar_bottom"
+                    android:id="@+id/char_search_detail_avatar_bottom_inner"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:avatarLeftRight="left"
+                    app:avatarTypeText = "하의 덧입기">
+                </com.lostark.customview.CharSearchAvatarView>
+            </LinearLayout>
+        </RelativeLayout>
+        <LinearLayout
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true">
+            <LinearLayout
+                android:layout_marginRight="7.5dp"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <com.lostark.customview.CharSearchAvatarView
+                    android:id="@+id/char_search_detail_avatar_face1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    app:avatarLeftRight="left"
+                    app:avatarTypeText = "얼굴1 아바타">
+                </com.lostark.customview.CharSearchAvatarView>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_marginLeft="7.5dp"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <com.lostark.customview.CharSearchAvatarView
+                    android:layout_toRightOf="@id/char_search_detail_avatar_face1"
+                    android:id="@+id/char_search_detail_avatar_face2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:avatarLeftRight="right"
+                    app:avatarTypeText = "얼굴2 아바타">
+                </com.lostark.customview.CharSearchAvatarView>
+            </LinearLayout>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentBottom="true">
+            <LinearLayout
+                android:layout_marginRight="7.5dp"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <com.lostark.customview.CharSearchAvatarView
+                    android:id="@+id/char_search_detail_avatar_instrument"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    app:avatarLeftRight="left"
+                    app:avatarTypeText = "악기 아바타">
+                </com.lostark.customview.CharSearchAvatarView>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_marginLeft="7.5dp"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <com.lostark.customview.CharSearchAvatarView
+                    android:layout_toRightOf="@id/char_search_detail_avatar_instrument"
+                    android:id="@+id/char_search_detail_avatar_move"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:avatarLeftRight="right"
+                    app:avatarTypeText = "발자국 아바타">
+                </com.lostark.customview.CharSearchAvatarView>
+            </LinearLayout>
+        </LinearLayout>
+    </RelativeLayout>
+</LinearLayout>

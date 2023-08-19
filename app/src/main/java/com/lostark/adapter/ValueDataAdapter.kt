@@ -13,7 +13,7 @@ class ValueDataAdapter : JsonDeserializer<ValueData<*>> {
         context: JsonDeserializationContext?
     ): ValueData<*> {
         val jsonObject = json.asJsonObject
-        val type = jsonObject.get("type").asString
+        val type = jsonObject.get("type")?.asString?:""
         val value = when(type){
             "ItemTitle" ->{
                 val itemTitleData = context?.deserialize<ItemTitleData>(
@@ -61,16 +61,29 @@ class ValueDataAdapter : JsonDeserializer<ValueData<*>> {
                 commonSkillTitle
             }
             "TripodSkillCustom"->{
-                val TripodSkillCustom = context?.deserialize<TripodSkillCustomData>(
+                val tripodSkillCustom = context?.deserialize<TripodSkillCustomData>(
                     jsonObject.get("value"),
                     TripodSkillCustomData::class.java
                 )
-                TripodSkillCustom
+                tripodSkillCustom
+            }
+            "SymbolString"->{
+                val symbolString = context?.deserialize<SymbolStringData>(
+                    jsonObject.get("value"),
+                    SymbolStringData::class.java
+                )
+                symbolString
+            }
+            "AvatarAttribute"->{
+                "아바타"
             }
             else->{
-                jsonObject.get("value").asString
+                jsonObject.get("value")?.asString?:""
+                /*inner = jsonObject.get("IsInner")?.asBoolean?:false
+                isSet = jsonObject.get("IsSet")?.asBoolean?:false*/
             }
         }
+
         return ValueData(type,value)
     }
 }

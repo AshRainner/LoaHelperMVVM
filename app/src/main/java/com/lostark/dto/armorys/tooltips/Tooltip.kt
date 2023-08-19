@@ -5,5 +5,5 @@ import java.io.Serializable
 
 data class Tooltip(
     @SerializedName("Elements")
-    val elements: MutableMap<String,ValueData<*>>
+    val elements: MutableMap<String,ValueData<*>>,
 ): Serializable

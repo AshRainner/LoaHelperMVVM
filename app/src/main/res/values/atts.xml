@@ -23,4 +23,8 @@
         <attr name = "accessoryImageSrc" format="reference|integer" />
         <attr name = "imageBackground" format="reference|integer"/>
     </declare-styleable>
+    <declare-styleable name="AvatarViewAttr">
+        <attr name = "avatarTypeText" format="reference|string" />
+        <attr name = "avatarLeftRight" format="reference|string"/>
+    </declare-styleable>
 </resources>

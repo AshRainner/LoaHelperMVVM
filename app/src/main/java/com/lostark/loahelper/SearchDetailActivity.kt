@@ -161,6 +161,7 @@ class SearchDetailActivity : AppCompatActivity() {
         val abilityFragment = AbilityFragment(charInfo)
         val skillsFragment = SkillFragment(charInfo)
         val characterFragment = CharactersFragment(characters)
+        val avatarFragment = AvatarFragment(charInfo)
         val fragmentManager = supportFragmentManager
 
         fragmentManager.beginTransaction()
@@ -168,14 +169,17 @@ class SearchDetailActivity : AppCompatActivity() {
 
         tabLayout.addTab(tabLayout.newTab().setText("능력치"))
         tabLayout.addTab(tabLayout.newTab().setText("스킬"))
+        tabLayout.addTab(tabLayout.newTab().setText("아바타"))
         tabLayout.addTab(tabLayout.newTab().setText("보유 캐릭터"))
+
 
         tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 val selectedFragment = when (tab?.position) {
                     0 -> abilityFragment
                     1 -> skillsFragment
-                    2 -> characterFragment
+                    2 -> avatarFragment
+                    3 -> characterFragment
                     else -> null
                 }
 
