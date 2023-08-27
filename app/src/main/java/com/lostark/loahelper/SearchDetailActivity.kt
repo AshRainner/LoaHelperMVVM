@@ -532,6 +532,67 @@ class SearchDetailActivity : AppCompatActivity() {
         runeDetail.text = view.runeDescription
     }
 
+    fun setAvatarDialog(view:CharSearchAvatarView,avatarLayout:LinearLayout){
+        val avatarName = avatarLayout.findViewById<TextView>(R.id.char_search_detail_drawer_avatar_name)
+        val avatarImage = avatarLayout.findViewById<ImageView>(R.id.char_search_detail_drawer_avatar_image)
+        val avatarGradeType = avatarLayout.findViewById<TextView>(R.id.char_search_detail_drawer_avatar_grade_type)
+        val avatarLine = avatarLayout.findViewById<TextView>(R.id.char_search_detail_drawer_avatar_line)
+        val avatarEffect = avatarLayout.findViewById<TextView>(R.id.char_search_detail_drawer_avatar_default_effect)
+        val avatarTendencies = avatarLayout.findViewById<TextView>(R.id.char_search_detail_drawer_avatar_tendencies_effect)
+
+        avatarName.text = view.avatarNameString
+        Glide.with(this).load(view.imageUrl).into(avatarImage)
+        avatarGradeType.text = view.avatarGrade +" "+ view.avatarTypeString
+        avatarLine.text = " | "+view.avatarLine
+        avatarEffect.visibility=View.GONE
+        avatarTendencies.visibility=View.GONE
+
+        when {
+            view.avatarGrade.contains("고대") -> {
+                avatarImage.setBackgroundResource(R.drawable.ancient_background)
+                avatarGradeType.setTextColor(Color.parseColor("#d9ae43"))
+            }
+
+            view.avatarGrade.contains("유물") -> {
+                avatarImage.setBackgroundResource(R.drawable.relic_background)
+                avatarGradeType.setTextColor(Color.parseColor("#E45B0A"))
+            }
+
+
+            view.avatarGrade.contains("전설") -> {
+                avatarImage.setBackgroundResource(R.drawable.legend_background)
+                avatarGradeType.setTextColor(Color.parseColor("#E08808"))
+            }
+
+
+            view.avatarGrade.contains("영웅") -> {
+                avatarImage.setBackgroundResource(R.drawable.hero_background)
+                avatarGradeType.setTextColor(Color.parseColor("#A41ED4"))
+            }
+
+
+            view.avatarGrade.contains("희귀") -> {
+                avatarImage.setBackgroundResource(R.drawable.rare_background)
+                avatarGradeType.setTextColor(Color.parseColor("#268AD3"))
+            }
+
+            view.avatarGrade.contains("고급") -> {
+                avatarImage.setBackgroundResource(R.drawable.advanced_background)
+                avatarGradeType.setTextColor(Color.parseColor("#8FDB32"))
+            }
+        }
+
+        if(view.defaultEffect!=""){
+            avatarEffect.visibility=View.VISIBLE
+            avatarEffect.text=view.defaultEffect
+        }
+        if(view.tendenciesEffect!=""){
+            avatarTendencies.visibility=View.VISIBLE
+            avatarTendencies.text=view.tendenciesEffect
+        }
+    }
+
+
     fun setTripodDialog(view: CharSearchTripodView, tripodLayout: LinearLayout) {
         val tripodName =
             tripodLayout.findViewById<TextView>(R.id.char_search_detail_drawer_tripod_name)
@@ -728,6 +789,11 @@ class SearchDetailActivity : AppCompatActivity() {
                 val tripodLayout = dialogView.findViewById<LinearLayout>(R.id.tripod_drawer)
                 tripodLayout.visibility = View.VISIBLE
                 setTripodDialog(view, tripodLayout)
+            }
+            is CharSearchAvatarView->{
+                val avatarLayout = dialogView.findViewById<LinearLayout>(R.id.avatar_drawer)
+                avatarLayout.visibility = View.VISIBLE
+                setAvatarDialog(view,avatarLayout)
             }
         }
         dialogOkButton.setOnClickListener {

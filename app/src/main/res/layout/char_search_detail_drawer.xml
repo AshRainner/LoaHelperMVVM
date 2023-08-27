@@ -52,6 +52,11 @@
             android:id="@+id/tripod_drawer"
             layout="@layout/char_search_detail_tripod_dialog">
         </include>
+        <include
+            android:visibility="gone"
+            android:id="@+id/avatar_drawer"
+            layout="@layout/char_search_detail_avatar_dialog">
+        </include>
     </LinearLayout>
     <Button
         android:id="@+id/char_search_detail_drawer_button"

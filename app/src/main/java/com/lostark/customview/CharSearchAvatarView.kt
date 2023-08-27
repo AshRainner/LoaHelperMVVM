@@ -27,11 +27,13 @@ class CharSearchAvatarView : LinearLayout {
     lateinit var avatarNameLeft: TextView
     lateinit var avatarTypeLeft: TextView
 
-    lateinit var imageUrl: String
-    lateinit var itemDescription: String
-    lateinit var defaultEffect: String//기본효과
-    lateinit var additionalEffect: String//추가효과
-    lateinit var avatarTypeString:String
+    var imageUrl=""
+    var defaultEffect=""//기본효과
+    var tendenciesEffect=""//성향효과
+    lateinit var avatarNameString:String//아바타이름
+    lateinit var avatarTypeString:String//ex 무기 아바타
+    lateinit var avatarGrade:String//아바타 등급
+    lateinit var avatarLine:String//아바타 계열 ex 건슬링어 전용
 
     constructor(context: Context?) : super(context) {
         init(context)
@@ -72,6 +74,7 @@ class CharSearchAvatarView : LinearLayout {
     }
 
     fun setImageBackground(grade : String){
+        avatarGrade=grade
         when(grade) {//이미지 백그라운드
             "고대" -> {
                 avatarImage.setBackgroundResource(R.drawable.ancient_background)
@@ -108,7 +111,7 @@ class CharSearchAvatarView : LinearLayout {
         }
     }
 
-    fun setImageText(avatar: ArmoryAvatar,tooltip:Tooltip?) {
+    fun setImageText(avatar: ArmoryAvatar,tooltip:Tooltip) {
         imageUrl=avatar.icon
 
         Glide.with(this).load(avatar.icon).into(avatarImage)
@@ -128,5 +131,24 @@ class CharSearchAvatarView : LinearLayout {
             avatarName.text = avatar.name
         }
 
+        avatarNameString=avatar.name
+
+        avatarTypeString=avatar.type
+
+        avatarLine = tooltip.elements.get("Element_002")?.value.toString()
+
+        val itemPartKeyList = tooltip.elements.filter { it.value.type=="ItemPartBox"}.keys.toList()
+        if(itemPartKeyList.isNotEmpty()){
+            defaultEffect = (tooltip.elements.get(itemPartKeyList.get(0))?.value as ItemPartData).element1
+        }
+
+        val pattern = "지성 : \\d+|담력 : \\d+|매력 : \\d+|친절 : \\d+".toRegex()
+        val symbolString = (tooltip.elements.get(tooltip.elements.filter { it.value.type=="SymbolString"}.keys.toList()?.get(0))?.value as SymbolStringData)?.contentStr
+        val tendenciesList = symbolString?.let {
+            pattern.findAll(it).forEach {
+                tendenciesEffect += it.value.replace(": ","+")+"\n"
+            }
+        }
+        tendenciesEffect=tendenciesEffect.substring(0,tendenciesEffect.length-1)
     }
 }
