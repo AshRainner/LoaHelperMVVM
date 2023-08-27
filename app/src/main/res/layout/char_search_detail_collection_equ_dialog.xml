@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/draw_view_main"
+    style="@style/AppBottomSheetDialogTheme"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginRight="15dp"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center">
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="10dp"
+                android:layout_weight="0">
+
+                <ImageView
+                    android:id="@+id/char_search_detail_drawer_collection_equ_image"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:background="@drawable/legend_background"
+                    android:src="@drawable/test_charm"></ImageView>
+            </com.google.android.material.card.MaterialCardView>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:orientation="vertical"
+                android:gravity="left|center"
+                android:layout_weight="1">
+
+                <TextView
+                    android:id="@+id/char_search_detail_drawer_collection_equ_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="과감한 도약의 총"
+                    android:textColor="@color/black"
+                    android:textSize="10pt"
+                    android:textStyle="bold"></TextView>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/char_search_detail_drawer_collection_equ_description"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="별의 조각을 이어 만들었다는 부적\n별의 축복을 받아 강력한 힘을 얻게 된다."
+                        android:textColor="#828282"
+                        android:textSize="6pt"></TextView>
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+        <TextView
+            android:id="@+id/char_search_detail_drawer_collection_equ_default_effect"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom = "10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="모든 생활 활동 가능 레벨 +4\n모든 생활 스킬의 기본 보상 추가 획득률 +40.00%\n모든 생활 마스터리 스킬 레벨 +4"
+            android:textSize="7pt"
+            android:textStyle="bold"
+            android:textColor="@color/black">
+        </TextView>
+    </LinearLayout>
+</LinearLayout>

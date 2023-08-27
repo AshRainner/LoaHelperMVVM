@@ -27,4 +27,7 @@
         <attr name = "avatarTypeText" format="reference|string" />
         <attr name = "avatarLeftRight" format="reference|string"/>
     </declare-styleable>
+    <declare-styleable name="CollectionItemViewAttr">
+        <attr name = "collectionName" format="reference|string" />
+    </declare-styleable>
 </resources>

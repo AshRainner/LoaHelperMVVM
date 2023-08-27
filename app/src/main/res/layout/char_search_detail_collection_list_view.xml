@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#ffffff"
+    android:orientation="vertical">
+    <LinearLayout
+        android:padding="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/collection_list_name_percent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="섬의 마음 70/100"
+            android:textColor="@color/black"
+            android:textSize="10pt"
+            android:textStyle="bold">
+        </TextView>
+        <View
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp">
+        </View>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="미획득만 보기"
+            android:layout_gravity="center"
+            android:textColor="#808080"
+            android:textSize="8pt"
+            android:textStyle="bold">
+        </TextView>
+        <Switch
+            android:id="@+id/collection_list_switch"
+            android:layout_marginLeft="10dp"
+            android:thumb="@drawable/custom_switch_thumb"
+            android:track="@drawable/custom_switch_track"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center">
+        </Switch>
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/collection_list_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:orientation="vertical">
+    </LinearLayout>
+</LinearLayout>

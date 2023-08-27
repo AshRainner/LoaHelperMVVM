@@ -1,0 +1,370 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#f2f2f2"
+    android:orientation="vertical">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="#ffffff"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:orientation="horizontal">
+           <com.lostark.customview.CharSearchCollectionEquipmentView
+               android:id="@+id/char_search_detail_collection_compass_view"
+               android:layout_weight="1"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content">
+           </com.lostark.customview.CharSearchCollectionEquipmentView>
+            <com.lostark.customview.CharSearchCollectionEquipmentView
+                android:id="@+id/char_search_detail_collection_charm_view"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            </com.lostark.customview.CharSearchCollectionEquipmentView>
+            <com.lostark.customview.CharSearchCollectionEquipmentView
+                android:id="@+id/char_search_detail_collection_insignia_view"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            </com.lostark.customview.CharSearchCollectionEquipmentView>
+        </LinearLayout>
+    </LinearLayout>
+
+    <!--<LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#ffffff"
+        android:layout_marginTop="10dp">
+        <GridLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:rowCount="3"
+            android:columnCount="3"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_columnWeight="1"
+                android:layout_marginBottom="10dp">
+                <TextView
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="#808080"
+                    android:textSize="7pt"
+                    android:text="채집">
+                </TextView>
+                <TextView
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:textSize="7pt"
+                    android:text="Lv.46">
+                </TextView>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_columnWeight="1"
+                android:layout_marginBottom="10dp">
+                <TextView
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="#808080"
+                    android:textSize="7pt"
+                    android:text="벌목">
+                </TextView>
+                <TextView
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:textSize="7pt"
+                    android:text="Lv.30">
+                </TextView>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_columnWeight="1"
+                android:layout_marginBottom="10dp">
+                <TextView
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="#808080"
+                    android:textSize="7pt"
+                    android:text="채광">
+                </TextView>
+                <TextView
+
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:textSize="7pt"
+                    android:text="Lv.30">
+                </TextView>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_columnWeight="1">
+                <TextView
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="#808080"
+                    android:textSize="7pt"
+                    android:text="수렵    ">
+                </TextView>
+                <TextView
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:textSize="7pt"
+                    android:text="Lv.28">
+                </TextView>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_columnWeight="1">
+                <TextView
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="#808080"
+                    android:textSize="7pt"
+                    android:text="낚시  ">
+                </TextView>
+                <TextView
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:textSize="7pt"
+                    android:text="Lv.60">
+                </TextView>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_columnWeight="1">
+                <TextView
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="#808080"
+                    android:textSize="7pt"
+                    android:text="고고학">
+                </TextView>
+                <TextView
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:textSize="7pt"
+                    android:text="Lv.60">
+                </TextView>
+            </LinearLayout>
+        </GridLayout>
+    </LinearLayout>-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp">
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/test_collection">
+
+                <com.lostark.customview.CharSearchCollectionItemView
+                    android:id="@+id/char_search_detail_collection_item_island"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:collectionName="섬의 마음"></com.lostark.customview.CharSearchCollectionItemView>
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_weight="1">
+
+                <com.lostark.customview.CharSearchCollectionItemView
+                    android:id="@+id/char_search_detail_collection_item_giant"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:collectionName="거인의 심장"></com.lostark.customview.CharSearchCollectionItemView>
+            </com.google.android.material.card.MaterialCardView>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp">
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="5dp"
+                android:layout_weight="1">
+
+                <com.lostark.customview.CharSearchCollectionItemView
+                    android:id="@+id/char_search_detail_collection_item_star"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:collectionName="오르페우스의 별"></com.lostark.customview.CharSearchCollectionItemView>
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_weight="1">
+
+                <com.lostark.customview.CharSearchCollectionItemView
+                    android:id="@+id/char_search_detail_collection_item_picture"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:collectionName="위대한 미술품"></com.lostark.customview.CharSearchCollectionItemView>
+            </com.google.android.material.card.MaterialCardView>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp">
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="5dp"
+                android:layout_weight="1">
+
+                <com.lostark.customview.CharSearchCollectionItemView
+                    android:id="@+id/char_search_detail_collection_item_orgel"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:collectionName="기억의 오르골"></com.lostark.customview.CharSearchCollectionItemView>
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_weight="1">
+
+                <com.lostark.customview.CharSearchCollectionItemView
+                    android:id="@+id/char_search_detail_collection_item_mococo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:collectionName="모코코 씨앗"></com.lostark.customview.CharSearchCollectionItemView>
+            </com.google.android.material.card.MaterialCardView>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp">
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="5dp"
+                android:layout_weight="1">
+
+                <com.lostark.customview.CharSearchCollectionItemView
+                    android:id="@+id/char_search_detail_collection_item_medal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:collectionName="이그네아의 징표"></com.lostark.customview.CharSearchCollectionItemView>
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_weight="1">
+
+                <com.lostark.customview.CharSearchCollectionItemView
+                    android:id="@+id/char_search_detail_collection_item_tree"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:collectionName="세계수의 잎"></com.lostark.customview.CharSearchCollectionItemView>
+            </com.google.android.material.card.MaterialCardView>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp">
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="5dp"
+                android:layout_weight="1">
+
+                <com.lostark.customview.CharSearchCollectionItemView
+                    android:id="@+id/char_search_detail_collection_item_voyage"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:collectionName="항해 모험물"></com.lostark.customview.CharSearchCollectionItemView>
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="5dp"
+                android:layout_weight="1"
+                android:visibility="invisible">
+
+                <com.lostark.customview.CharSearchCollectionItemView
+                    android:layout_marginLeft="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:collectionName="항해 모험물"></com.lostark.customview.CharSearchCollectionItemView>
+            </com.google.android.material.card.MaterialCardView>
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/char_search_detail_collection_list_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"></FrameLayout>
+</LinearLayout>

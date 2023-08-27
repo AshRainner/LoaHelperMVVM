@@ -162,6 +162,7 @@ class SearchDetailActivity : AppCompatActivity() {
         val skillsFragment = SkillFragment(charInfo)
         val characterFragment = CharactersFragment(characters)
         val avatarFragment = AvatarFragment(charInfo)
+        val collectionFragment = CollectionFragment(charInfo)
         val fragmentManager = supportFragmentManager
 
         fragmentManager.beginTransaction()
@@ -170,6 +171,7 @@ class SearchDetailActivity : AppCompatActivity() {
         tabLayout.addTab(tabLayout.newTab().setText("능력치"))
         tabLayout.addTab(tabLayout.newTab().setText("스킬"))
         tabLayout.addTab(tabLayout.newTab().setText("아바타"))
+        tabLayout.addTab(tabLayout.newTab().setText("수집형 포인트"))
         tabLayout.addTab(tabLayout.newTab().setText("보유 캐릭터"))
 
 
@@ -179,7 +181,8 @@ class SearchDetailActivity : AppCompatActivity() {
                     0 -> abilityFragment
                     1 -> skillsFragment
                     2 -> avatarFragment
-                    3 -> characterFragment
+                    3 -> collectionFragment
+                    4 -> characterFragment
                     else -> null
                 }
 
@@ -795,12 +798,67 @@ class SearchDetailActivity : AppCompatActivity() {
                 avatarLayout.visibility = View.VISIBLE
                 setAvatarDialog(view,avatarLayout)
             }
+            is CharSearchCollectionEquipmentView->{
+                val collectionEquipmentLayout = dialogView.findViewById<LinearLayout>(R.id.collection_drawer)
+                collectionEquipmentLayout.visibility=View.VISIBLE
+                setCollectionDialog(view,collectionEquipmentLayout)
+            }
         }
         dialogOkButton.setOnClickListener {
             dialog.dismiss()
         }
         dialog.show()
 
+
+    }
+
+    fun setCollectionDialog(view: CharSearchCollectionEquipmentView, collectionEquipmentLayout: LinearLayout) {
+
+        val itemName=collectionEquipmentLayout.findViewById<TextView>(R.id.char_search_detail_drawer_collection_equ_name)
+        val itemDescription = collectionEquipmentLayout.findViewById<TextView>(R.id.char_search_detail_drawer_collection_equ_description)
+        val itemEffect = collectionEquipmentLayout.findViewById<TextView>(R.id.char_search_detail_drawer_collection_equ_default_effect)
+        val itemImageView = collectionEquipmentLayout.findViewById<ImageView>(R.id.char_search_detail_drawer_collection_equ_image)
+
+
+        itemName.text=view.itemName
+        Glide.with(this).load(view.imageUrl).into(itemImageView)
+        itemDescription.text = view.descriptionString
+        itemEffect.text = view.effectString
+
+        when(view.itemGrade) {
+            "고대"-> {
+                itemImageView.setBackgroundResource(R.drawable.ancient_background)
+                itemName.setTextColor(Color.parseColor("#d9ae43"))
+            }
+
+            "유물"-> {
+                itemImageView.setBackgroundResource(R.drawable.relic_background)
+                itemName.setTextColor(Color.parseColor("#E45B0A"))
+            }
+
+
+            "전설" -> {
+                itemImageView.setBackgroundResource(R.drawable.legend_background)
+                itemName.setTextColor(Color.parseColor("#E08808"))
+            }
+
+
+            "영웅"-> {
+                itemImageView.setBackgroundResource(R.drawable.hero_background)
+                itemName.setTextColor(Color.parseColor("#A41ED4"))
+            }
+
+
+            "희귀"-> {
+                itemImageView.setBackgroundResource(R.drawable.rare_background)
+                itemName.setTextColor(Color.parseColor("#268AD3"))
+            }
+
+            "고급" -> {
+                itemImageView.setBackgroundResource(R.drawable.advanced_background)
+                itemName.setTextColor(Color.parseColor("#8FDB32"))
+            }
+        }
 
     }
 

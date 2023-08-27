@@ -57,6 +57,11 @@
             android:id="@+id/avatar_drawer"
             layout="@layout/char_search_detail_avatar_dialog">
         </include>
+        <include
+            android:visibility="gone"
+            android:id="@+id/collection_drawer"
+            layout="@layout/char_search_detail_collection_equ_dialog">
+        </include>
     </LinearLayout>
     <Button
         android:id="@+id/char_search_detail_drawer_button"
