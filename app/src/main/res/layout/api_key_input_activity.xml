@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:src="@drawable/banner"></ImageView>
+    <LinearLayout
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/api_key_status_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="api키를 입력해주세요"
+            android:textAlignment="center"
+            android:textSize="10pt"
+            android:textColor="@color/black">
+        </TextView>
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:strokeColor="@color/black"
+            app:strokeWidth="1dp"
+            app:cardCornerRadius="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp">
+            <EditText
+                android:id="@+id/api_key_input_edit"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:singleLine="true"
+                android:background="@color/white"
+                android:padding="4dp"></EditText>
+        </com.google.android.material.card.MaterialCardView>
+
+        <Button
+            android:id="@+id/api_key_insert_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="입력"
+            android:textColor="@color/white"></Button>
+    </LinearLayout>
+
+</LinearLayout>

@@ -77,6 +77,9 @@ class ValueDataAdapter : JsonDeserializer<ValueData<*>> {
             "AvatarAttribute"->{
                 "아바타"
             }
+            "SetItemGroup"->{
+                "세트아이템"
+            }
             else->{
                 jsonObject.get("value")?.asString?:""
                 /*inner = jsonObject.get("IsInner")?.asBoolean?:false

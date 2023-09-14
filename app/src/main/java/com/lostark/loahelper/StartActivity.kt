@@ -11,6 +11,8 @@ import com.lostark.database.dao.ItemsDAO
 import com.lostark.database.dao.NoticeDAO
 import com.lostark.database.table.*
 import com.lostark.dto.markets.MarketsBody
+import com.lostark.dto.news.NoticeItem
+import retrofit2.Response
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
@@ -27,40 +29,56 @@ class StartActivity() : AppCompatActivity() {
 
         val intent = Intent(this@StartActivity, MainActivity::class.java)
         val db = AppDatabase.getInstance(applicationContext)!!
-
         if (db.keyDao().getKey() != null) {//키가 비어 있지 않다면
             val key = db.keyDao().getKey()
-
             val time = LoaTimeCheck()
-
             val recentTimeList = db.updateDAO().getRecentUpdate()!!
             if (recentTimeList.isNotEmpty()) {
-                val recentTime = recentTimeList.get(0).recentUpdate
-                if (compareToDate(time, recentTime)) {
-                    Log.d("time : ", time)
-                    Log.d("recentTime : ", recentTime)
-                    db.eventsDao().deleteAllEvents()
-                    Thread {
-                        insertCraftItem(db.itemsDAO(),key)
+            }
+            else{
+                db.updateDAO().insertUpdate(UpdateT(time.split('T')[0]))
+            }
+            val recentTime = recentTimeList.get(0).recentUpdate
+            if (compareToDate(time, recentTime)) {
+                Log.d("time : ", time)
+                Log.d("recentTime : ", recentTime)
+                db.eventsDao().deleteAllEvents()
+                Thread {
+                    val code = apiKeyCheck(key)
+                    if(code==200) {
+                        insertCraftItem(db.itemsDAO(), key)
                         intent.putExtra("EventList", insertEvents(db.eventsDao(), key))
                         intent.putExtra("StoneList", insertStoneItems(db.itemsDAO(), key))
-                        intent.putExtra("Destruction", insertDestructionStone(db.itemsDAO(),key))
-                        intent.putExtra("NoticeList", insertNotice(db.noticeDAO(),key))
-                        intent.putExtra("Key",key)
+                        intent.putExtra(
+                            "Destruction",
+                            insertDestructionStone(db.itemsDAO(), key)
+                        )
+                        intent.putExtra("NoticeList", insertNotice(db.noticeDAO(), key))
+                        intent.putExtra("Key", key)
                         db.updateDAO().deleteUpdateAll()
                         db.updateDAO().insertUpdate(UpdateT(time.split('T')[0]))
                         startActivity(intent)
                         finish()
-                    }.start()
-                }
-            } else {
-                //키가 입력되어 있고 첫 실행일 시 업데이트 시간을 넣어줘야함
-                db.updateDAO().insertUpdate(UpdateT(time.split('T')[0]))
+                    }
+                    else if(code==503){
+                        //서버점검
+                    }
+                }.start()
             }
         } else {
-            //처음에 key가 없을 시 사용자에게 입력 받아야함 나중에 구현
-            db.keyDao().insertKey(Key(KEY))
+            //처음에 key가 없을 시 사용자에게 입력 받아야함
+            val intent = Intent(this,ApiKeyInputActivity::class.java)
+            startActivity(intent)
+            finish()
         }
+    }
+
+    private fun apiKeyCheck(key:String):Int {
+        val accept = "application/json"
+        val call = LoaRetrofitObj.getRetrofitService().getNotice(accept, key)
+        val response: Response<MutableList<NoticeItem>> = call.execute()
+        val errorCode = response.code()
+        return errorCode
     }
 
     private fun insertCraftItem(itemsDao: ItemsDAO,key:String):ArrayList<CraftItems>{
