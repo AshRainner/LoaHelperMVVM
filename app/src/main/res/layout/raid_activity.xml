@@ -77,7 +77,7 @@
                     android:layout_gravity="center"
                     android:layout_margin="5dp"
                     app:raidButtonImageSrc="@drawable/illiakan"
-                    app:raidButtonText="쿠크세이튼"></com.lostark.customview.RaidButtonView>
+                    app:raidButtonText="일리아칸"></com.lostark.customview.RaidButtonView>
 
                 <com.lostark.customview.RaidButtonView
                     android:layout_height="wrap_content"

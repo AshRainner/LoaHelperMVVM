@@ -93,18 +93,26 @@ class MainActivity : AppCompatActivity() {
 
         noticeButton.ClickEvent(
             Intent(this, NoticeActivity::class.java)
-                .putExtra("NoticeList", noticeList)
+                .putExtra("NoticeList", noticeList).apply {
+                    flags = Intent.FLAG_ACTIVITY_NO_ANIMATION
+                }
         )
 
         dailyButton.ClickEvent(
             Intent(this, DailyActivity::class.java)
                 .putExtra("StoneList", stoneList)
-                .putExtra("Destruction", destructionList)
+                .putExtra("Destruction", destructionList).apply {
+                    flags = Intent.FLAG_ACTIVITY_NO_ANIMATION
+                }
         )
 
-        engravingButton.ClickEvent(Intent(this, EngravingActivity::class.java))
+        engravingButton.ClickEvent(Intent(this, EngravingActivity::class.java).apply {
+            flags = Intent.FLAG_ACTIVITY_NO_ANIMATION
+        })
 
-        searchButton.ClickEvent(Intent(this, SearchActivity::class.java))
+        searchButton.ClickEvent(Intent(this, SearchActivity::class.java).apply {
+            flags = Intent.FLAG_ACTIVITY_NO_ANIMATION
+        })
     }
 
     private fun eventSet() {

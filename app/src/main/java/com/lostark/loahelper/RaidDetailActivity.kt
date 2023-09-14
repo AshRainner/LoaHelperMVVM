@@ -33,6 +33,7 @@ class RaidDetailActivity : AppCompatActivity() {
         val tabLayout = findViewById<TabLayout>(R.id.raid_detail_tab)
         val scrollView = findViewById<ScrollView>(R.id.raid_detail_scroll_view)
         var raidDrawableList = mutableListOf<Int>()
+        var plus=1
 
         val raidImage = findViewById<ImageView>(R.id.raid_detail_image)
         when (raidName){
@@ -41,7 +42,6 @@ class RaidDetailActivity : AppCompatActivity() {
                 raidDrawableList.add(R.drawable.valtan_2)
             }
             "biackiss"->{
-                raidDrawableList.add(R.drawable.biackiss_1)
                 raidDrawableList.add(R.drawable.biackiss_2)
                 raidDrawableList.add(R.drawable.biackiss_3)
             }
@@ -50,11 +50,45 @@ class RaidDetailActivity : AppCompatActivity() {
                 raidDrawableList.add(R.drawable.koukusaton_2)
                 raidDrawableList.add(R.drawable.koukusaton_3)
             }
+            "abrelshudNormal"->{
+                raidDrawableList.add(R.drawable.abrelshud_n_1)
+                raidDrawableList.add(R.drawable.abrelshud_n_2)
+                raidDrawableList.add(R.drawable.abrelshud_n_3)
+                raidDrawableList.add(R.drawable.abrelshud_n_4)
+            }
+            "abrelshudHard"->{
+                raidDrawableList.add(R.drawable.abrelshud_h_1)
+                raidDrawableList.add(R.drawable.abrelshud_h_2)
+                raidDrawableList.add(R.drawable.abrelshud_h_3)
+                raidDrawableList.add(R.drawable.abrelshud_h_4)
+            }
+            "illiakanNormal"->{
+                raidDrawableList.add(R.drawable.illiakan_n_1)
+                raidDrawableList.add(R.drawable.illiakan_n_2)
+                raidDrawableList.add(R.drawable.illiakan_n_3)
+            }
+            "illiakanHard"->{
+                raidDrawableList.add(R.drawable.illiakan_h_1)
+                raidDrawableList.add(R.drawable.illiakan_h_2)
+                raidDrawableList.add(R.drawable.illiakan_h_3)
+                raidDrawableList.add(R.drawable.illiakan_h_4)
+            }
+            "kayangel"->{
+                raidDrawableList.add(R.drawable.kayangel_1)
+                raidDrawableList.add(R.drawable.kayangel_2)
+                plus=2
+            }
+            "ivorytower"->{
+                raidDrawableList.add(R.drawable.ivorytower_1)
+                raidDrawableList.add(R.drawable.ivorytower_2)
+                raidDrawableList.add(R.drawable.ivorytower_3)
+                raidDrawableList.add(R.drawable.ivorytower_4)
+            }
         }
         raidImage.setImageResource(raidDrawableList.get(0))
 
         raidDrawableList.forEachIndexed { index, i ->
-            tabLayout.addTab(tabLayout.newTab().setText((index+1).toString()+"관문"))
+            tabLayout.addTab(tabLayout.newTab().setText((index+plus).toString()+"관문"))
         }
 
         tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
