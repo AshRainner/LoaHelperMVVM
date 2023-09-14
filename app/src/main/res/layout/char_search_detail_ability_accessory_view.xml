@@ -62,7 +62,7 @@
                         android:layout_height="wrap_content"
                         android:background="#e2e2e2"
                         android:textSize="7pt"
-                        android:text="신치"
+                        android:text="    "
                         android:textAlignment="center"
                         android:textColor="#000000"
                         android:textStyle="bold">
