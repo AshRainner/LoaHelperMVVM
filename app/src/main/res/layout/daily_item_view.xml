@@ -23,7 +23,7 @@
                 android:layout_height="50dp"
                 android:layout_gravity="center"
                 android:scaleType="fitXY"
-                android:src="@drawable/valtan"></ImageView>
+                android:src="@drawable/reforge_1"></ImageView>
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
 

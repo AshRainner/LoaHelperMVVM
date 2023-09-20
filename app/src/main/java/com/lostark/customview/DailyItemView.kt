@@ -38,6 +38,7 @@ class DailyItemView : RelativeLayout {
         val typedArray = context.obtainStyledAttributes(attrs,R.styleable.DailyItemViewAttr)
         priceEditText.setText(typedArray.getText(R.styleable.DailyItemViewAttr_itemPriceText))
         imageView.setImageResource(typedArray.getResourceId(R.styleable.DailyItemViewAttr_itemImageSrc,R.drawable.raid_icon))
+        imageView.setBackgroundResource(typedArray.getResourceId(R.styleable.DailyItemViewAttr_itemImageBackground,0))
         typedArray.recycle()
     }
     public fun setPrice(price:Double){

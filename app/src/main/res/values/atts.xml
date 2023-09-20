@@ -10,7 +10,8 @@
     </declare-styleable>
     <declare-styleable name="DailyItemViewAttr">
         <attr name = "itemImageSrc" format="reference|integer"/>
-        <attr name = "itemPriceText" format="reference|integer"/>
+        <attr name = "itemPriceText" format="reference|integer" />
+        <attr name = "itemImageBackground" format="reference|integer"/>
     </declare-styleable>
     <declare-styleable name="DailyGuardianViewAttr">
         <attr name = "guardianImageSrc" format="reference|integer"/>

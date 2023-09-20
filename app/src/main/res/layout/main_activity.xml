@@ -80,7 +80,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:layout_margin="5dp"
-                    app:buttonImageSrc="@drawable/raid_icon"
+                    app:buttonImageSrc="@drawable/update_list_image"
                     app:buttonText="업데이트\n내역"></com.lostark.customview.HomeButtonView>
             </LinearLayout>
             <LinearLayout
@@ -97,13 +97,13 @@
                     app:buttonText="캐릭터 검색"></com.lostark.customview.HomeButtonView>
 
                 <com.lostark.customview.HomeButtonView
-                    android:id="@+id/home_mokoko_button"
+                    android:id="@+id/home_calculator_button"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_margin="5dp"
                     android:layout_weight="1"
-                    app:buttonImageSrc="@drawable/mokoko_icon"
-                    app:buttonText="모코코\n가이드"></com.lostark.customview.HomeButtonView>
+                    app:buttonImageSrc="@drawable/calculator"
+                    app:buttonText="경매&amp;지도\n계산기"></com.lostark.customview.HomeButtonView>
             </LinearLayout>
         </GridLayout>
 

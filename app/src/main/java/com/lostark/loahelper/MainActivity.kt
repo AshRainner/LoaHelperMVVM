@@ -85,7 +85,11 @@ class MainActivity : AppCompatActivity() {
         val dailyButton = findViewById<HomeButtonView>(R.id.home_daily_button)
         val engravingButton = findViewById<HomeButtonView>(R.id.home_engraving_button)
         val noticeButton = findViewById<HomeButtonView>(R.id.home_notice_button)
-        val mokokoButton = findViewById<HomeButtonView>(R.id.home_mokoko_button)
+        val calculatorButton = findViewById<HomeButtonView>(R.id.home_calculator_button)
+
+        calculatorButton.ClickEvent(Intent(this, CalculatorActivity::class.java).apply {
+            flags = Intent.FLAG_ACTIVITY_NO_ANIMATION
+        })
 
         raidButton.ClickEvent(Intent(this, RaidActivity::class.java).apply {
             flags = Intent.FLAG_ACTIVITY_NO_ANIMATION

@@ -41,6 +41,7 @@
         <activity android:name=".SearchDetailActivity"/>
         <activity android:name=".ApiKeyInputActivity"/>
         <activity android:name=".RaidDifficultyActivity"/>
+        <activity android:name=".CalculatorActivity"/>
 
     </application>
 

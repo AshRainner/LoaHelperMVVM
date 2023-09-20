@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    android:orientation="vertical">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="최저가"
+            android:textColor="@color/black"
+            android:padding="5dp"
+            android:textSize="10pt"></TextView>
+        <EditText
+            android:id="@+id/calculator_auction_low_price_edit"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="2dp"
+            android:layout_marginRight="2dp"
+            android:textColor="@color/black"
+            android:textSize="8pt"
+            android:textStyle="bold"
+            android:inputType="numberDecimal"
+            android:hint="최저가 입력"
+            android:textAlignment="center"
+            android:background="@drawable/stroke"></EditText>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="인원수"
+            android:textColor="@color/black"
+            android:padding="5dp"
+            android:textSize="10pt"></TextView>
+        <EditText
+            android:id="@+id/calculator_auction_person_edit"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="2dp"
+            android:layout_marginRight="2dp"
+            android:textColor="@color/black"
+            android:textSize="8pt"
+            android:textStyle="bold"
+            android:maxLength="2"
+            android:inputType="numberDecimal"
+            android:hint="인원수 입력"
+            android:textAlignment="center"
+            android:background="@drawable/stroke"></EditText>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="손익 분기점"
+                android:textColor="@color/black"
+                android:padding="5dp"
+                android:textSize="10pt"></TextView>
+            <TextView
+                android:id="@+id/calculator_auction_break_point"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textSize="8pt"
+                android:textAlignment="center"
+                android:gravity="center"
+                android:background="@drawable/stroke"
+                android:textColor="@color/black"
+                android:layout_marginRight="2dp">
+            </TextView>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="입찰 추천가"
+                android:textColor="@color/black"
+                android:padding="5dp"
+                android:textSize="10pt"></TextView>
+            <TextView
+                android:id="@+id/calculator_auction_recommend_price"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textSize="8pt"
+                android:background="@drawable/stroke"
+                android:textAlignment="center"
+                android:gravity="center"
+                android:textColor="@color/black"
+                android:layout_marginRight="2dp">
+            </TextView>
+        </LinearLayout>
+    </LinearLayout>
+
+
+
+
+</LinearLayout>
