@@ -2,6 +2,7 @@ package com.lostark.database.dao
 
 import androidx.room.*
 import com.lostark.database.table.CraftItems
+import com.lostark.database.table.GemItems
 import com.lostark.database.table.Items
 import com.lostark.database.table.LifeItems
 
@@ -12,6 +13,9 @@ interface ItemsDAO {
     @Query("SELECT * FROM Items")
     fun getItemList(): List<Items>
 
+    @Query("SELECT * FROM GemItems")
+    fun getGemItemList(): List<GemItems>
+
     @Query("SELECT * FROM CraftItems")
     fun getCraftItemList(): List<CraftItems>
 
@@ -21,11 +25,17 @@ interface ItemsDAO {
     @Query("SELECT * FROM Items WHERE Name like '%'||:itemName||'%'")
     fun getSelectItemList(itemName: String): List<Items>
 
+    @Query("SELECT * FROM Items WHERE Name like '%'||:itemName||'%'")
+    fun getSelectGemItemList(itemName: String): List<Items>
+
     @Query("DELETE FROM Items")
     fun deleteAllItems()
 
     @Query("DELETE FROM CraftItems")
     fun deleteAllCraftItems()
+
+    @Query("DELETE FROM GemItems")
+    fun deleteAllGemItems()
 
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

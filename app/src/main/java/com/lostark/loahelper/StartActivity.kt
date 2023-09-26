@@ -10,6 +10,7 @@ import com.lostark.database.dao.EventsDAO
 import com.lostark.database.dao.ItemsDAO
 import com.lostark.database.dao.NoticeDAO
 import com.lostark.database.table.*
+import com.lostark.dto.auctions.AuctionsBody
 import com.lostark.dto.markets.MarketsBody
 import com.lostark.dto.news.NoticeItem
 import retrofit2.Response
@@ -118,6 +119,14 @@ class StartActivity() : AppCompatActivity() {
             itemsDao.insertItems(item)
         }
         return ArrayList(itemsDao.getSelectItemList("태양의").sortedBy { it.id })
+    }
+
+    private fun insertMapGemItems(itemsDao: ItemsDAO, key: String): ArrayList<GemItems>{
+        val searchBody = AuctionsBody("BIDSTART_PRICE",210000,null,3,null,"1레벨",0,"ASC")
+        //stoneBody == 돌파석 검색용 바디
+        val call = LoaRetrofitObj.getRetrofitService().getAuctionItemsInfo(ACCEPT,key,CONTENTTYPE,searchBody)
+        val marketsList = call.execute().body()!!
+        return ArrayList()
     }
 
 

@@ -20,5 +20,9 @@ data class AuctionsItem(
     @SerializedName("RecentPrice")
     val recentPrice:Int,
     @SerializedName("CurrentMinPrice")
-    val currentMinPrice:Int
+    val currentMinPrice:Int,
+    @SerializedName("AuctionInfo")
+    val auctionInfo:AuctionInfo,
+    @SerializedName("Options")
+    val options:Options
 )

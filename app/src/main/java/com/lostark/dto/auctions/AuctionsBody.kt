@@ -18,9 +18,5 @@ data class AuctionsBody(
     @SerializedName("PageNo")
     val pageNo:Int,
     @SerializedName("SortCondition")
-    val sortCondition:String,
-    @SerializedName("AuctionInfo")
-    val auctionInfo:AuctionInfo,
-    @SerializedName("Options")
-    val options:Options
+    val sortCondition:String
 )

@@ -1,6 +1,8 @@
 package com.lostark.api
 
 import com.lostark.dto.armorys.*
+import com.lostark.dto.auctions.AuctionsBody
+import com.lostark.dto.auctions.AuctionsList
 import com.lostark.dto.characters.Characters
 import com.lostark.dto.news.*
 import com.lostark.dto.markets.*
@@ -39,6 +41,14 @@ interface LostArkAPI {
         @Header("Content-Type") contentType: String,
         @Body marketsBody: MarketsBody
     ):Call<MarketsList>
+
+    @POST("/auctions/items")
+    fun getAuctionItemsInfo(
+        @Header("accept") accept: String,
+        @Header("authorization") key: String,
+        @Header("Content-Type") contentType: String,
+        @Body marketsBody: AuctionsBody
+    ):Call<AuctionsList>
 
     @GET("/characters/{characterName}/siblings")
     fun getCharacters(
