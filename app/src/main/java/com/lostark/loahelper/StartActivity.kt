@@ -109,6 +109,18 @@ class StartActivity() : AppCompatActivity() {
         return ArrayList(noticeDao.getNoticeList())
     }
 
+    private fun insertMapItems(itemsDao: ItemsDAO,key: String):ArrayList<Items>{
+        val mapItemsBody = MarketsBody("GRADE",50000,null,3,null,"태양의",0,"ASC")
+        val call = LoaRetrofitObj.getRetrofitService().getItemsInfo(ACCEPT,key,CONTENTTYPE,mapItemsBody)
+        val marketsList = call.execute().body()!!
+        marketsList.items?.forEach(){
+            var item = Items(it.id,it.name,it.iconUrl,it.yDayAvgPrice)
+            itemsDao.insertItems(item)
+        }
+        return ArrayList(itemsDao.getSelectItemList("태양의").sortedBy { it.id })
+    }
+
+
     private fun insertStoneItems(itemsDao: ItemsDAO, key: String): ArrayList<Items>{
         val stoneBody = MarketsBody("GRADE",50000,null,3,"희귀"," 명예의 돌파석",0,"ASC")
         //stoneBody == 돌파석 검색용 바디
