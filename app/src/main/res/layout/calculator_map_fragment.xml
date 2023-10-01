@@ -6,6 +6,16 @@
     android:background="#ffffff"
     android:orientation="vertical">
 
+    <TextView
+        android:id="@+id/calculator_map_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="볼다이크 지도"
+        android:gravity="center"
+        android:textSize="15pt"
+        android:textColor="@color/black">
+    </TextView>
+
     <TableLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -30,6 +40,12 @@
             <TextView
                 android:layout_weight="1"
                 android:text="가격"
+                android:gravity="center"
+                android:textColor="@color/black">
+            </TextView>
+            <TextView
+                android:layout_weight="1"
+                android:text="합계"
                 android:gravity="center"
                 android:textColor="@color/black">
             </TextView>
@@ -68,6 +84,15 @@
                 android:gravity="center"
                 android:textColor="@color/black">
             </TextView>
+            <TextView
+                android:id="@+id/calculator_map_reforge_1_price_result"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:text="61"
+                android:textSize="8pt"
+                android:gravity="center"
+                android:textColor="@color/black">
+            </TextView>
         </TableRow>
         <TableRow>
             <ImageView
@@ -96,6 +121,15 @@
             </TextView>
             <TextView
                 android:id="@+id/calculator_map_reforge_2_price"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:text="61"
+                android:textSize="8pt"
+                android:gravity="center"
+                android:textColor="@color/black">
+            </TextView>
+            <TextView
+                android:id="@+id/calculator_map_reforge_2_price_result"
                 android:layout_weight="1"
                 android:layout_height="match_parent"
                 android:text="61"
@@ -139,6 +173,15 @@
                 android:gravity="center"
                 android:textColor="@color/black">
             </TextView>
+            <TextView
+                android:id="@+id/calculator_map_reforge_3_price_result"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:text="61"
+                android:textSize="8pt"
+                android:gravity="center"
+                android:textColor="@color/black">
+            </TextView>
         </TableRow>
         <TableRow>
             <ImageView
@@ -150,7 +193,7 @@
             <TextView
                 android:layout_weight="2"
                 android:layout_height="match_parent"
-                android:text="명예의 파편 주머니(대)"
+                android:text="명예의 파편"
                 android:textSize="8pt"
                 android:textColor="#872ed1"
                 android:gravity="center|left"
@@ -167,6 +210,15 @@
             </TextView>
             <TextView
                 android:id="@+id/calculator_map_reforge_4_price"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:text="61"
+                android:textSize="8pt"
+                android:gravity="center"
+                android:textColor="@color/black">
+            </TextView>
+            <TextView
+                android:id="@+id/calculator_map_reforge_4_price_result"
                 android:layout_weight="1"
                 android:layout_height="match_parent"
                 android:text="61"
@@ -209,8 +261,178 @@
                 android:gravity="center"
                 android:textColor="@color/black">
             </TextView>
+            <TextView
+                android:id="@+id/calculator_map_lv_1_gem_price_result"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:text="61"
+                android:textSize="8pt"
+                android:gravity="center"
+                android:textColor="@color/black">
+            </TextView>
         </TableRow>
-
     </TableLayout>
+    <LinearLayout
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="전설지도 가격"
+            android:gravity="center"
+            android:textColor="@color/black"
+            android:textSize="10pt">
+        </TextView>
+        <TextView
+            android:id="@+id/calculator_map_price_result"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="00"
+            android:gravity="center"
+            android:background="@drawable/stroke"
+            android:textColor="@color/black"
+            android:textSize="10pt">
+        </TextView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="판매 수수료"
+            android:gravity="center"
+            android:textColor="@color/black"
+            android:textSize="10pt">
+        </TextView>
+        <TextView
+            android:id="@+id/calculator_map_fee"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="00"
+            android:background="@drawable/stroke"
+            android:gravity="center"
+            android:textColor="@color/black"
+            android:textSize="10pt">
+        </TextView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="손익 분기점"
+            android:gravity="center"
+            android:textColor="@color/black"
+            android:textSize="10pt">
+        </TextView>
+        <TextView
+            android:id="@+id/calculator_map_break_point"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="00"
+            android:background="@drawable/stroke"
+            android:gravity="center"
+            android:textColor="@color/black"
+            android:textSize="10pt">
+        </TextView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="입찰 적정가"
+            android:gravity="center"
+            android:textColor="@color/black"
+            android:textSize="10pt">
+        </TextView>
+        <TextView
+            android:id="@+id/calculator_map_recommend_price"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="00"
+            android:background="@drawable/stroke"
+            android:gravity="center"
+            android:textColor="@color/black"
+            android:textSize="10pt">
+        </TextView>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="분배금"
+            android:gravity="center"
+            android:textColor="@color/black"
+            android:textSize="10pt">
+        </TextView>
+        <TextView
+            android:id="@+id/calculator_map_allotment"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="00"
+            android:background="@drawable/stroke"
+            android:gravity="center"
+            android:textColor="@color/black"
+            android:textSize="10pt">
+        </TextView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:id="@+id/calculator_map_boldaiku_button"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="볼다이크">
+        </Button>
+        <Button
+            android:id="@+id/calculator_map_berun_button"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="베른남부">
+        </Button>
+        <Button
+            android:id="@+id/calculator_map_papunika_button"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="파푸니카">
+        </Button>
+    </LinearLayout>
+
 
 </LinearLayout>

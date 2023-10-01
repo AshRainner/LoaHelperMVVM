@@ -33,13 +33,17 @@ class StartActivity() : AppCompatActivity() {
         if (db.keyDao().getKey() != null) {//키가 비어 있지 않다면
             val key = db.keyDao().getKey()
             val time = LoaTimeCheck()
+
             val recentTimeList = db.updateDAO().getRecentUpdate()!!
+            var recentTime:String?=null
             if (recentTimeList.isNotEmpty()) {
+                recentTime = db.updateDAO().getRecentUpdate()!!.get(0).recentUpdate
             }
             else{
                 db.updateDAO().insertUpdate(UpdateT(time.split('T')[0]))
+                recentTime = recentTimeList.get(0).recentUpdate
             }
-            val recentTime = recentTimeList.get(0).recentUpdate
+
             if (compareToDate(time, recentTime)) {
                 Log.d("time : ", time)
                 Log.d("recentTime : ", recentTime)
@@ -47,7 +51,10 @@ class StartActivity() : AppCompatActivity() {
                 Thread {
                     val code = apiKeyCheck(key)
                     if(code==200) {
-                        insertCraftItem(db.itemsDAO(), key)
+                        //insertCraftItem(db.itemsDAO(), key)
+                        Log.d("맵 아이템",insertMapItems(db.itemsDAO(),key).toString())
+                        intent.putExtra("MapItemList",insertMapItems(db.itemsDAO(),key))
+                        intent.putExtra("Lv1Gem", insertMapGemItems(db.itemsDAO(),key))
                         intent.putExtra("EventList", insertEvents(db.eventsDao(), key))
                         intent.putExtra("StoneList", insertStoneItems(db.itemsDAO(), key))
                         intent.putExtra(
@@ -118,15 +125,34 @@ class StartActivity() : AppCompatActivity() {
             var item = Items(it.id,it.name,it.iconUrl,it.yDayAvgPrice)
             itemsDao.insertItems(item)
         }
-        return ArrayList(itemsDao.getSelectItemList("태양의").sortedBy { it.id })
+        val returnList = ArrayList<Items>()
+        returnList.addAll(itemsDao.getSelectItemList("태양의").sortedBy { it.id })
+        returnList.add(insertMapFragmentsItems(itemsDao, key))
+        return returnList
+    }
+    private fun insertMapFragmentsItems(itemsDao: ItemsDAO,key:String):Items{
+        val mapItemsBody = MarketsBody("GRADE",50000,null,3,null,"명예의 파편 주머니(대)",0,"ASC")
+        val call = LoaRetrofitObj.getRetrofitService().getItemsInfo(ACCEPT,key,CONTENTTYPE,mapItemsBody)
+        val marketsList = call.execute().body()!!
+        marketsList.items?.forEach(){
+            var item = Items(it.id,it.name,it.iconUrl,it.yDayAvgPrice)
+            itemsDao.insertItems(item)
+        }
+        Log.d("명파 주머니", itemsDao.getSelectItem("명예의 파편 주머니(대)").toString())
+        return itemsDao.getSelectItem("명예의 파편 주머니(대)")
     }
 
-    private fun insertMapGemItems(itemsDao: ItemsDAO, key: String): ArrayList<GemItems>{
-        val searchBody = AuctionsBody("BIDSTART_PRICE",210000,null,3,null,"1레벨",0,"ASC")
+    private fun insertMapGemItems(itemsDao: ItemsDAO, key: String): GemItems{
+        val searchBody = AuctionsBody("BUY_PRICE",210000,null,3,null,"1레벨",0,"ASC")
         //stoneBody == 돌파석 검색용 바디
         val call = LoaRetrofitObj.getRetrofitService().getAuctionItemsInfo(ACCEPT,key,CONTENTTYPE,searchBody)
         val marketsList = call.execute().body()!!
-        return ArrayList()
+        Log.d("!@#!@#", marketsList.items.toString())
+        val gemData = marketsList.items.get(0)
+        val gem = GemItems(gemData.name,gemData.grade,gemData.auctionInfo.buyPrice!!,gemData.auctionInfo.tradeAllowCount)
+        itemsDao.deleteAllGemItems()
+        itemsDao.insertGemItems(gem)
+        return itemsDao.getSelectGemItemList("1레벨")
     }
 
 

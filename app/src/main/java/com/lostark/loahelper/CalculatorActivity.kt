@@ -24,8 +24,10 @@ import androidx.core.view.get
 import com.google.android.material.tabs.TabLayout
 import com.lostark.customview.DailyGuardianView
 import com.lostark.customview.DailyItemView
+import com.lostark.database.table.GemItems
 import com.lostark.database.table.Items
 import com.lostark.loahelper.databinding.CalculatorMapFragmentBinding
+import java.util.ArrayList
 import kotlin.math.round
 
 
@@ -40,12 +42,15 @@ class CalculatorActivity : AppCompatActivity() {
     }
 
     fun setTabLayout(){
+
+        val mapItemList = intent.parcelableArrayList<Items>("MapItemList")!!
+        val lv1Gem = intent.paracelableExtra<GemItems>("Lv1Gem")!!
         val tabLayout = findViewById<TabLayout>(R.id.calculator_tab)
         tabLayout.addTab(tabLayout.newTab().setText("경매"))
         tabLayout.addTab(tabLayout.newTab().setText("지도"))
 
         val auctionFragment = CalculatorAuctionFragment()
-        val mapFragment = CalculatorMapFragment()
+        val mapFragment = CalculatorMapFragment(mapItemList,lv1Gem)
         val fragmentManager = supportFragmentManager
 
         fragmentManager.beginTransaction()
@@ -70,9 +75,16 @@ class CalculatorActivity : AppCompatActivity() {
             override fun onTabReselected(tab: TabLayout.Tab?) {}
         })
     }
-    inline fun <reified T : Parcelable> Intent.parcelableArrayList(key: String): ArrayList<T>? = when {
-        Build.VERSION.SDK_INT >= 33 -> getParcelableArrayListExtra(key, T::class.java)
-        else -> @Suppress("DEPRECATION") getParcelableArrayListExtra(key)
-    }
+    inline fun <reified T : Parcelable> Intent.parcelableArrayList(key: String): ArrayList<T>? =
+        when {
+            Build.VERSION.SDK_INT >= 33 -> getParcelableArrayListExtra(key, T::class.java)
+            else -> @Suppress("DEPRECATION") getParcelableArrayListExtra(key)
+        }
+
+    inline fun <reified T : Parcelable> Intent.paracelableExtra(key: String): T? =
+        when {
+            Build.VERSION.SDK_INT >= 33 -> getParcelableExtra(key, T::class.java)
+            else -> @Suppress("DEPRECATION") getParcelableExtra(key)
+        }
 
 }

@@ -11,4 +11,6 @@ data class AuctionsList(
     val totalCount:Int,
     @SerializedName("Items")
     val items:MutableList<AuctionsItem>,
+    @SerializedName("Options")
+    val options:Options
 )

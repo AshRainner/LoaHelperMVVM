@@ -15,10 +15,7 @@ import androidx.viewpager2.widget.ViewPager2
 import com.lostark.adapter.EventViewPagerAdapter
 import com.lostark.customview.HomeButtonView
 import com.lostark.database.AppDatabase
-import com.lostark.database.table.Items
-import com.lostark.database.table.Key
-import com.lostark.database.table.LoaEvents
-import com.lostark.database.table.Notice
+import com.lostark.database.table.*
 
 class MainActivity : AppCompatActivity() {
     private val updateLink = "https://naver.com"
@@ -80,6 +77,9 @@ class MainActivity : AppCompatActivity() {
 
         val noticeList = intent.parcelableArrayList<Notice>("NoticeList")
 
+        val mapItemList = intent.parcelableArrayList<Items>("MapItemList")
+        val lv1Gem= intent.paracelableExtra<GemItems>("Lv1Gem")
+
         val raidButton = findViewById<HomeButtonView>(R.id.home_raid_button)
         val searchButton = findViewById<HomeButtonView>(R.id.char_search_button)
         val dailyButton = findViewById<HomeButtonView>(R.id.home_daily_button)
@@ -87,7 +87,11 @@ class MainActivity : AppCompatActivity() {
         val noticeButton = findViewById<HomeButtonView>(R.id.home_notice_button)
         val calculatorButton = findViewById<HomeButtonView>(R.id.home_calculator_button)
 
-        calculatorButton.ClickEvent(Intent(this, CalculatorActivity::class.java).apply {
+        calculatorButton.ClickEvent(
+            Intent(this, CalculatorActivity::class.java)
+                .putExtra("MapItemList",mapItemList)
+                .putExtra("Lv1Gem",lv1Gem)
+                .apply {
             flags = Intent.FLAG_ACTIVITY_NO_ANIMATION
         })
 
@@ -130,6 +134,11 @@ class MainActivity : AppCompatActivity() {
         when {
             SDK_INT >= 33 -> getParcelableArrayListExtra(key, T::class.java)
             else -> @Suppress("DEPRECATION") getParcelableArrayListExtra(key)
+        }
+    inline fun <reified T : Parcelable> Intent.paracelableExtra(key: String): T? =
+        when {
+            SDK_INT >= 33 -> getParcelableExtra(key, T::class.java)
+            else -> @Suppress("DEPRECATION") getParcelableExtra(key)
         }
 
     override fun onBackPressed() {

@@ -25,8 +25,11 @@ interface ItemsDAO {
     @Query("SELECT * FROM Items WHERE Name like '%'||:itemName||'%'")
     fun getSelectItemList(itemName: String): List<Items>
 
-    @Query("SELECT * FROM Items WHERE Name like '%'||:itemName||'%'")
-    fun getSelectGemItemList(itemName: String): List<Items>
+    @Query("SELECT * FROM Items WHERE Name like :itemName")
+    fun getSelectItem(itemName: String): Items
+
+    @Query("SELECT * FROM GemItems WHERE Name like '%'||:itemName||'%'")
+    fun getSelectGemItemList(itemName: String): GemItems
 
     @Query("DELETE FROM Items")
     fun deleteAllItems()
@@ -46,6 +49,9 @@ interface ItemsDAO {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertLifeItems(items: LifeItems)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertGemItems(items: GemItems)
 
     @Update
     fun updateItems(items: Items)

@@ -1,7 +1,10 @@
 package com.lostark.loahelper
 
+import android.content.Intent
 import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
+import android.os.Parcelable
 import android.text.Editable
 import android.text.Spannable
 import android.text.SpannableString
@@ -23,6 +26,8 @@ import androidx.navigation.fragment.findNavController
 import com.google.gson.GsonBuilder
 import com.lostark.adapter.ValueDataAdapter
 import com.lostark.customview.*
+import com.lostark.database.table.GemItems
+import com.lostark.database.table.Items
 import com.lostark.dto.armorys.*
 import com.lostark.dto.armorys.tooltips.Tooltip
 import com.lostark.dto.armorys.tooltips.ValueData
@@ -83,5 +88,7 @@ class CalculatorAuctionFragment() : Fragment() {
         lowPriceEdit.addTextChangedListener(textWatcher)
         personEdit.addTextChangedListener(textWatcher)
     }
+
+
 
 }
