@@ -19,14 +19,16 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center">
+            android:gravity="center"
+            android:background="@color/white">
 
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:cardCornerRadius="20dp"
                 app:cardElevation="0dp"
-                android:layout_weight="0">
+                android:layout_weight="0"
+                android:background="@color/white">
 
                 <ImageView
                     android:id="@+id/char_search_detail_drawer_tripod_image"

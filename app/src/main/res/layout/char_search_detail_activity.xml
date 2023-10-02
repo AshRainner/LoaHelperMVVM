@@ -125,7 +125,9 @@
                 android:id="@+id/search_detail_tab"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:tabMode="scrollable">
+                app:tabMode="scrollable"
+                android:background="@color/white"
+                app:tabTextColor="@color/black">
             </com.google.android.material.tabs.TabLayout>
             <FrameLayout
                 android:id="@+id/search_detail_fragment_container"

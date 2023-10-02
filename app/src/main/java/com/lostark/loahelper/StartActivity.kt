@@ -39,6 +39,7 @@ class StartActivity() : AppCompatActivity() {
             }
             else{
                 db.updateDAO().insertUpdate(UpdateT(time.split('T')[0]))
+                val recentTimeList = db.updateDAO().getRecentUpdate()!!
                 recentTime = recentTimeList.get(0).recentUpdate
             }
 

@@ -11,7 +11,8 @@
 
         <RelativeLayout
             android:layout_width="50dp"
-            android:layout_height="50dp">
+            android:layout_height="50dp"
+            android:background="@color/white">
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/char_search_detail_tripod_card_view"
@@ -19,7 +20,8 @@
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 app:cardCornerRadius="20dp"
-                app:cardElevation="0dp">
+                app:cardElevation="0dp"
+                android:background="@color/white">
 
                 <ImageView
                     android:id="@+id/char_search_detail_tripod_image"

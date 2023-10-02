@@ -15,12 +15,14 @@
         android:gravity="center"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:background="@color/white">
         <TextView
             android:id="@+id/api_key_status_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="api키를 입력해주세요(한글X)"
+            android:background="@color/white"
             android:textAlignment="center"
             android:textSize="10pt"
             android:textColor="@color/black">
@@ -34,6 +36,7 @@
             android:layout_marginRight="10dp"
             android:layout_marginLeft="10dp">
             <EditText
+                android:textColor="@color/black"
                 android:id="@+id/api_key_input_edit"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"

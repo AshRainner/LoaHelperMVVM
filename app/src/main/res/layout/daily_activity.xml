@@ -7,7 +7,8 @@
     android:orientation="vertical"
     tools:context=".MainActivity"
     android:focusableInTouchMode="true"
-    android:focusable="true">
+    android:focusable="true"
+    android:background="@color/white">
 
     <ImageView
         android:layout_width="wrap_content"
@@ -35,32 +36,38 @@
                 <com.lostark.customview.DailyItemView
                     android:layout_columnWeight="1"
                     android:layout_gravity="center"
-                    android:layout_margin="5dp"></com.lostark.customview.DailyItemView>
+                    android:layout_margin="5dp"
+                    android:background="@color/white"></com.lostark.customview.DailyItemView>
 
                 <com.lostark.customview.DailyItemView
                     android:layout_columnWeight="1"
                     android:layout_gravity="center"
-                    android:layout_margin="5dp"></com.lostark.customview.DailyItemView>
+                    android:layout_margin="5dp"
+                    android:background="@color/white"></com.lostark.customview.DailyItemView>
 
                 <com.lostark.customview.DailyItemView
                     android:layout_columnWeight="1"
                     android:layout_gravity="center"
-                    android:layout_margin="5dp"></com.lostark.customview.DailyItemView>
+                    android:layout_margin="5dp"
+                    android:background="@color/white"></com.lostark.customview.DailyItemView>
 
                 <com.lostark.customview.DailyItemView
                     android:layout_columnWeight="1"
                     android:layout_gravity="center"
-                    android:layout_margin="5dp"></com.lostark.customview.DailyItemView>
+                    android:layout_margin="5dp"
+                    android:background="@color/white"></com.lostark.customview.DailyItemView>
 
                 <com.lostark.customview.DailyItemView
                     android:layout_columnWeight="1"
                     android:layout_gravity="center"
-                    android:layout_margin="5dp"></com.lostark.customview.DailyItemView>
+                    android:layout_margin="5dp"
+                    android:background="@color/white"></com.lostark.customview.DailyItemView>
 
                 <com.lostark.customview.DailyItemView
                     android:layout_columnWeight="1"
                     android:layout_gravity="center"
-                    android:layout_margin="5dp"></com.lostark.customview.DailyItemView>
+                    android:layout_margin="5dp"
+                    android:background="@color/white"></com.lostark.customview.DailyItemView>
             </GridLayout>
 
             <CheckBox
@@ -69,7 +76,8 @@
                 android:layout_height="wrap_content"
                 android:text="휴식게이지"
                 android:textSize="10pt"
-                android:layout_gravity="center">
+                android:layout_gravity="center"
+                android:textColor="@color/black">
             </CheckBox>
 
             <GridLayout
@@ -83,42 +91,48 @@
                     android:layout_gravity="center"
                     app:guardianImageSrc="@drawable/deskaluda"
                     app:guardianPriceText="100"
-                    android:layout_marginBottom="10dp"></com.lostark.customview.DailyGuardianView>
+                    android:layout_marginBottom="10dp"
+                    android:background="@color/white"></com.lostark.customview.DailyGuardianView>
 
                 <com.lostark.customview.DailyGuardianView
                     android:layout_columnWeight="1"
                     android:layout_gravity="center"
                     app:guardianImageSrc="@drawable/kungelanium"
                     app:guardianPriceText="100"
-                    android:layout_marginBottom="10dp"></com.lostark.customview.DailyGuardianView>
+                    android:layout_marginBottom="10dp"
+                    android:background="@color/white"></com.lostark.customview.DailyGuardianView>
 
                 <com.lostark.customview.DailyGuardianView
                     android:layout_columnWeight="1"
                     android:layout_gravity="center"
                     app:guardianImageSrc="@drawable/kaleligos"
                     app:guardianPriceText="100"
-                    android:layout_marginBottom="10dp"></com.lostark.customview.DailyGuardianView>
+                    android:layout_marginBottom="10dp"
+                    android:background="@color/white"></com.lostark.customview.DailyGuardianView>
 
                 <com.lostark.customview.DailyGuardianView
                     android:layout_columnWeight="1"
                     android:layout_gravity="center"
                     app:guardianImageSrc="@drawable/hanumatan"
                     app:guardianPriceText="100"
-                    android:layout_marginBottom="10dp"></com.lostark.customview.DailyGuardianView>
+                    android:layout_marginBottom="10dp"
+                    android:background="@color/white"></com.lostark.customview.DailyGuardianView>
 
                 <com.lostark.customview.DailyGuardianView
                     android:layout_columnWeight="1"
                     android:layout_gravity="center"
                     app:guardianImageSrc="@drawable/sonavel"
                     app:guardianPriceText="100"
-                    android:layout_marginBottom="10dp"></com.lostark.customview.DailyGuardianView>
+                    android:layout_marginBottom="10dp"
+                    android:background="@color/white"></com.lostark.customview.DailyGuardianView>
 
                 <com.lostark.customview.DailyGuardianView
                     android:layout_columnWeight="1"
                     android:layout_gravity="center"
                     app:guardianImageSrc="@drawable/gargardis"
                     app:guardianPriceText="100"
-                    android:layout_marginBottom="10dp"></com.lostark.customview.DailyGuardianView>
+                    android:layout_marginBottom="10dp"
+                    android:background="@color/white"></com.lostark.customview.DailyGuardianView>
             </GridLayout>
 
         </LinearLayout>

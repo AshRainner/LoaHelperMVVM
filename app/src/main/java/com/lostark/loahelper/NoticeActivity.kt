@@ -2,6 +2,7 @@ package com.lostark.loahelper
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -10,11 +11,7 @@ import android.view.KeyEvent
 import android.view.KeyEvent.KEYCODE_ENTER
 import android.view.View
 import android.view.inputmethod.InputMethodManager
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import android.widget.EditText
-import android.widget.ListView
-import android.widget.Spinner
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import com.lostark.adapter.NoticeListAdapter
 import com.lostark.api.LoaRetrofitObj
@@ -53,6 +50,9 @@ class NoticeActivity : AppCompatActivity() {
 
         spinner.onItemSelectedListener = object: AdapterView.OnItemSelectedListener{
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+                if (p1 is TextView) {
+                    p1.setTextColor(Color.BLACK) // 텍스트 색상을 원하는 색으로 변경
+                }
                 search(noticeList,noticeListCopy,spinner,noticeSearch)
                 noticeListAdapter.notifyDataSetChanged()
             }

@@ -232,7 +232,8 @@
 
                     <TextView
                         android:text="공격력"
-                        android:textSize="8pt"></TextView>
+                        android:textSize="8pt"
+                        android:textColor="#828282"></TextView>
 
                     <TextView
                         android:id="@+id/char_search_detail_char_power"
@@ -245,7 +246,8 @@
                     <TextView
                         android:layout_marginLeft="5dp"
                         android:text="ㄴ기본"
-                        android:textSize="7pt"></TextView>
+                        android:textSize="7pt"
+                        android:textColor="#828282"></TextView>
 
                     <TextView
                         android:id="@+id/char_search_detail_char_default_power"
@@ -258,7 +260,8 @@
                     <TextView
                         android:layout_marginLeft="5dp"
                         android:text="ㄴ효과"
-                        android:textSize="7pt"></TextView>
+                        android:textSize="7pt"
+                        android:textColor="#828282"></TextView>
 
                     <TextView
                         android:id="@+id/char_search_detail_char_add_power"
@@ -271,7 +274,8 @@
                     <TextView
                         android:layout_marginTop="10dp"
                         android:text="최대 생명력"
-                        android:textSize="8pt"></TextView>
+                        android:textSize="8pt"
+                        android:textColor="#828282"></TextView>
 
                     <TextView
                         android:id="@+id/char_search_detail_char_life"
@@ -301,7 +305,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="치명"
-                            android:textSize="8pt"></TextView>
+                            android:textSize="8pt"
+                            android:textColor="#828282"></TextView>
 
                         <TextView
                             android:id="@+id/char_search_detail_critical_ability"
@@ -327,7 +332,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="특화"
-                            android:textSize="8pt"></TextView>
+                            android:textSize="8pt"
+                            android:textColor="#828282"></TextView>
 
                         <TextView
                             android:id="@+id/char_search_detail_specialty_ability"
@@ -348,7 +354,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="제압"
-                            android:textSize="8pt"></TextView>
+                            android:textSize="8pt"
+                            android:textColor="#828282"></TextView>
 
                         <TextView
                             android:id="@+id/char_search_detail_subdue_ability"
@@ -374,7 +381,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="신속"
-                            android:textSize="8pt"></TextView>
+                            android:textSize="8pt"
+                            android:textColor="#828282"></TextView>
 
                         <TextView
                             android:id="@+id/char_search_detail_fast_ability"
@@ -395,7 +403,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="인내"
-                            android:textSize="8pt"></TextView>
+                            android:textSize="8pt"
+                            android:textColor="#828282"></TextView>
 
                         <TextView
                             android:id="@+id/char_search_detail_patience_ability"
@@ -421,7 +430,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="숙련"
-                            android:textSize="8pt"></TextView>
+                            android:textSize="8pt"
+                            android:textColor="#828282"></TextView>
 
                         <TextView
                             android:id="@+id/char_search_detail_proficiency_ability"

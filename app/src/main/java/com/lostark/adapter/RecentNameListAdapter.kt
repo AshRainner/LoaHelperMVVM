@@ -1,5 +1,6 @@
 package com.lostark.adapter
 
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -26,8 +27,11 @@ class RecentNameListAdapter(var recentCharInfo: MutableList<RecentCharInfo>): Ba
         val levelClass = view.findViewById<TextView>(R.id.recent_char_level_class)
         val recentDeleteButton = view.findViewById<ImageView>(R.id.recent_delete_button)
         charName.text= recentCharInfo.get(position).charName
+        charName.setTextColor(Color.BLACK)
         serverName.text = recentCharInfo.get(position).serverName
+        serverName.setTextColor(Color.parseColor("#828282"))
         levelClass.text = "Lv. "+recentCharInfo.get(position).level+" "+recentCharInfo.get(position)._class
+        levelClass.setTextColor(Color.parseColor("#828282"))
         recentDeleteButton.setOnClickListener {
             recentDeleteButtonClickListener?.onDeleteClick(position)
         }

@@ -2,6 +2,7 @@ package com.lostark.customview
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.graphics.Color
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
@@ -66,6 +67,7 @@ class AccessoryView : LinearLayout, SpinnerChangedCallback {
 
         imageView = findViewById(R.id.accessory_image)
 
+
         engravingSpinner.forEach {
             it.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(
@@ -74,6 +76,9 @@ class AccessoryView : LinearLayout, SpinnerChangedCallback {
                     position: Int,
                     id: Long
                 ) {
+                    if (view is TextView) {
+                        view.setTextColor(Color.BLACK) // 텍스트 색상을 원하는 색으로 변경
+                    }
                     spinnerChangedCallback?.onEngravingSpinnerChanged()
                 }
 
@@ -90,9 +95,11 @@ class AccessoryView : LinearLayout, SpinnerChangedCallback {
                     position: Int,
                     id: Long
                 ) {
+                    if (view is TextView) {
+                        view.setTextColor(Color.BLACK) // 텍스트 색상을 원하는 색으로 변경
+                    }
                     spinnerChangedCallback?.onEngravingSpinnerChanged()
                 }
-
                 override fun onNothingSelected(parent: AdapterView<*>?) {
                     // 선택된 항목이 없을 경우 처리, 필요에 따라 구현합니다.
                 }

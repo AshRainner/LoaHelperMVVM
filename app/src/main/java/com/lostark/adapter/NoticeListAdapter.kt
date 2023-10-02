@@ -1,5 +1,6 @@
 package com.lostark.adapter
 
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,6 +21,7 @@ class NoticeListAdapter(val noticeList: ArrayList<Notice>): BaseAdapter() {
         val view = LayoutInflater.from(viewGroup?.context).inflate(R.layout.notices_item,null)
         val title = view.findViewById<TextView>(R.id.notices_title)
         title.text="["+noticeList.get(position)?.type+"]"+noticeList.get(position).title
+        title.setTextColor(Color.BLACK)
         return view
     }
 }

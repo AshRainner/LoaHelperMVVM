@@ -31,6 +31,7 @@
                 android:layout_height="50dp"
                 android:background="@color/white"
                 android:padding="4dp"
+                android:textColor="@color/black"
                 android:singleLine="true"></EditText>
         </com.google.android.material.card.MaterialCardView>
         <!--<com.google.android.material.card.MaterialCardView

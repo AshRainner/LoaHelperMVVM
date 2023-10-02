@@ -5,7 +5,8 @@
     style="@style/AppBottomSheetDialogTheme"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@color/white">
 
     <TextView
         android:id="@+id/char_search_detail_drawer_skill_name"

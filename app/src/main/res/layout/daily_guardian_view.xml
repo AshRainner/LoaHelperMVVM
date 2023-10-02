@@ -41,14 +41,13 @@
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:background="@android:color/transparent"
+            android:background="@color/white"
             android:text="50"
             android:textAlignment="center"
             android:textColor="@color/black"
             android:textSize="10pt"
             android:textStyle="bold"
             android:inputType="numberDecimal"
-            android:enabled="false"
-            ></EditText>
+            android:enabled="false"></EditText>
     </com.google.android.material.card.MaterialCardView>
 </RelativeLayout>

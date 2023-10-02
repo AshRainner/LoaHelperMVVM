@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    style="@style/AppBottomSheetDialogTheme">
+    style="@style/AppBottomSheetDialogTheme"
+    android:background="@color/white">
 
     <TextView
         android:id="@+id/char_search_detail_drawer_armor_name"

@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.content.res.TypedArray
+import android.graphics.Color
 import android.util.AttributeSet
 import android.util.Log
 import android.view.LayoutInflater
@@ -56,6 +57,9 @@ class BookView : LinearLayout, SpinnerChangedCallback{
                 position: Int,
                 id: Long
             ) {
+                if (view is TextView) {
+                    view.setTextColor(Color.BLACK) // 텍스트 색상을 원하는 색으로 변경
+                }
                 spinnerChangedCallback?.onEngravingSpinnerChanged()
             }
 
@@ -71,6 +75,9 @@ class BookView : LinearLayout, SpinnerChangedCallback{
                 position: Int,
                 id: Long
             ) {
+                if (view is TextView) {
+                    view.setTextColor(Color.BLACK) // 텍스트 색상을 원하는 색으로 변경
+                }
                 spinnerChangedCallback?.onEngravingSpinnerChanged()
             }
 
