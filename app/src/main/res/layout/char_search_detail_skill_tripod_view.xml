@@ -27,7 +27,8 @@
                     android:id="@+id/char_search_detail_tripod_image"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    android:src="@drawable/test_tripod"></ImageView>
+                    android:src="@drawable/test_tripod"
+                    android:background="@color/white"></ImageView>
 
             </com.google.android.material.card.MaterialCardView>
 

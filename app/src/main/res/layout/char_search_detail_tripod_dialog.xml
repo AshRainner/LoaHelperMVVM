@@ -34,7 +34,8 @@
                     android:id="@+id/char_search_detail_drawer_tripod_image"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
-                    android:src="@drawable/necklace"></ImageView>
+                    android:src="@drawable/necklace"
+                    android:background="@color/white"></ImageView>
             </com.google.android.material.card.MaterialCardView>
 
             <LinearLayout
