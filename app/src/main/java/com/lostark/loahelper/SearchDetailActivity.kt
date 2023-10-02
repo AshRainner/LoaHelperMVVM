@@ -36,7 +36,6 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 class SearchDetailActivity : AppCompatActivity() {
-    val ACCEPT = "application/json"
     lateinit var db: AppDatabase
     lateinit var charInfo: Armories
     lateinit var characters: ArrayList<CharactersInfo>

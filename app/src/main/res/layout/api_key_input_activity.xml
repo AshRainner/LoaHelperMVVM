@@ -20,7 +20,7 @@
             android:id="@+id/api_key_status_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="api키를 입력해주세요"
+            android:text="api키를 입력해주세요(한글X)"
             android:textAlignment="center"
             android:textSize="10pt"
             android:textColor="@color/black">
@@ -39,7 +39,8 @@
                 android:layout_height="50dp"
                 android:singleLine="true"
                 android:background="@color/white"
-                android:padding="4dp"></EditText>
+                android:padding="4dp"
+                android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890_-."></EditText>
         </com.google.android.material.card.MaterialCardView>
 
         <Button

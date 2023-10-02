@@ -60,9 +60,13 @@ class DailyActivity : AppCompatActivity() {
                 val gridItem = guardianGrid[index] as DailyGuardianView
                 val stone = itemGrid[item[0]] as DailyItemView
                 val destruction = itemGrid[item[0]+3] as DailyItemView
-                val price = (stone.getEditText().text.toString().toDouble() * (item[1]/restDivide))+((destruction.getEditText().text.toString().toDouble() * (item[2]/restDivide))/10)
-                //명돌 + 파괴석들 파괴석은 10개 단위임
-                gridItem.setPrice(round(price*10)/10)
+                if(destruction.getEditText().text.toString()!=""&&stone.getEditText().text.toString()!="") {
+                    val price = (stone.getEditText().text.toString()
+                        .toDouble() * (item[1] / restDivide)) + ((destruction.getEditText().text.toString()
+                        .toDouble() * (item[2] / restDivide)) / 10)
+                    //명돌 + 파괴석들 파괴석은 10개 단위임
+                    gridItem.setPrice(round(price * 10) / 10)
+                }
             }
         }
 
@@ -74,14 +78,18 @@ class DailyActivity : AppCompatActivity() {
             }
 
             override fun afterTextChanged(p0: Editable?) {
-                rewardList.forEachIndexed { index, item ->
-                    val gridItem = guardianGrid[index] as DailyGuardianView
-                    val stone = itemGrid[item[0]] as DailyItemView
-                    val destruction = itemGrid[item[0]+3] as DailyItemView
-                    val price = (stone.getEditText().text.toString().toDouble() * (item[1]/restDivide))+((destruction.getEditText().text.toString().toDouble() * (item[2]/restDivide))/10)
-                    //명돌 + 파괴석들 파괴석은 10개 단위임
-                    gridItem.setPrice(round(price*10)/10)
-                }
+                    rewardList.forEachIndexed { index, item ->
+                        val gridItem = guardianGrid[index] as DailyGuardianView
+                        val stone = itemGrid[item[0]] as DailyItemView
+                        val destruction = itemGrid[item[0] + 3] as DailyItemView
+                        if(destruction.getEditText().text.toString()!=""&&stone.getEditText().text.toString()!="") {
+                            val price = (stone.getEditText().text.toString()
+                                .toDouble() * (item[1] / restDivide)) + ((destruction.getEditText().text.toString()
+                                .toDouble() * (item[2] / restDivide)) / 10)
+                            //명돌 + 파괴석들 파괴석은 10개 단위임
+                            gridItem.setPrice(round(price * 10) / 10)
+                        }
+                    }
             }
         }
         stoneList.forEachIndexed(){index, item ->

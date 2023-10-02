@@ -69,6 +69,13 @@ class CalculatorMapFragment(private val mapItemList:ArrayList<Items>, private va
         val reforge4PriceView = view.findViewById<TextView>(R.id.calculator_map_reforge_4_price)
         val reforge5PriceView = view.findViewById<TextView>(R.id.calculator_map_lv_1_gem_price)
 
+        val reforge1CountView = view.findViewById<TextView>(R.id.calculator_map_reforge_1_count)
+        val reforge2CountView = view.findViewById<TextView>(R.id.calculator_map_reforge_2_count)
+        val reforge3CountView = view.findViewById<TextView>(R.id.calculator_map_reforge_3_count)
+        val reforge4CountView = view.findViewById<TextView>(R.id.calculator_map_reforge_4_count)
+        val reforge5CountView = view.findViewById<TextView>(R.id.calculator_map_lv_1_gem_count)
+
+
         val reforge1PriceResultView = view.findViewById<TextView>(R.id.calculator_map_reforge_1_price_result)
         val reforge2PriceResultView = view.findViewById<TextView>(R.id.calculator_map_reforge_2_price_result)
         val reforge3PriceResultView = view.findViewById<TextView>(R.id.calculator_map_reforge_3_price_result)
@@ -77,6 +84,7 @@ class CalculatorMapFragment(private val mapItemList:ArrayList<Items>, private va
 
         val priceList = listOf(reforge1PriceView,reforge2PriceView,reforge3PriceView,reforge4PriceView)
         val resultList = listOf(reforge1PriceResultView,reforge2PriceResultView,reforge3PriceResultView,reforge4PriceResultView)
+        val countViewList = listOf(reforge1CountView,reforge2CountView,reforge3CountView,reforge4CountView)
 
         var countList = mapItemsCountList.get("볼다이크")!!
         var resultPrice:Int=0
@@ -120,6 +128,7 @@ class CalculatorMapFragment(private val mapItemList:ArrayList<Items>, private va
             mapNameView.text="볼다이크 지도"
             mapItemList.forEachIndexed {index, items ->
                 resultList.get(index).text = (priceList.get(index).text.toString().toInt() * countList.get(index)).toString()
+                countViewList.get(index).text = countList.get(index).toString()
                 resultPrice+=resultList.get(index).text.toString().toInt()
                 fee+=ceil(priceList.get(index).text.toString().toInt()*0.05).toInt()*countList.get(index)
 
@@ -127,6 +136,7 @@ class CalculatorMapFragment(private val mapItemList:ArrayList<Items>, private va
             reforge5PriceResultView.text = (lv1Gem.buyPrcie.toString().toInt() * countList.get(4)).toString()
             resultPrice+=reforge5PriceResultView.text.toString().toInt()
             fee+=ceil(reforge5PriceView.text.toString().toInt()*0.05).toInt()*countList.get(4)
+            reforge5CountView.text=countList.get(4).toString()
             mapPriceView.text = dec.format(resultPrice)
             mapFeeView.text = dec.format(fee)
             val breakPoint = floor(resultPrice*0.95*((30.0-1)/30))
@@ -142,6 +152,7 @@ class CalculatorMapFragment(private val mapItemList:ArrayList<Items>, private va
             mapNameView.text="베른남부 지도"
             mapItemList.forEachIndexed {index, items ->
                 resultList.get(index).text = (priceList.get(index).text.toString().toInt() * countList.get(index)).toString()
+                countViewList.get(index).text = countList.get(index).toString()
                 resultPrice+=resultList.get(index).text.toString().toInt()
                 fee+=ceil(priceList.get(index).text.toString().toInt()*0.05).toInt()*countList.get(index)
 
@@ -149,6 +160,7 @@ class CalculatorMapFragment(private val mapItemList:ArrayList<Items>, private va
             reforge5PriceResultView.text = (lv1Gem.buyPrcie.toString().toInt() * countList.get(4)).toString()
             resultPrice+=reforge5PriceResultView.text.toString().toInt()
             fee+=ceil(reforge5PriceView.text.toString().toInt()*0.05).toInt()*countList.get(4)
+            reforge5CountView.text=countList.get(4).toString()
             mapPriceView.text = dec.format(resultPrice)
             mapFeeView.text = dec.format(fee)
             val breakPoint = floor(resultPrice*0.95*((30.0-1)/30))
@@ -164,6 +176,7 @@ class CalculatorMapFragment(private val mapItemList:ArrayList<Items>, private va
             mapNameView.text="파푸니카 지도"
             mapItemList.forEachIndexed {index, items ->
                 resultList.get(index).text = (priceList.get(index).text.toString().toInt() * countList.get(index)).toString()
+                countViewList.get(index).text = countList.get(index).toString()
                 resultPrice+=resultList.get(index).text.toString().toInt()
                 fee+=ceil(priceList.get(index).text.toString().toInt()*0.05).toInt()*countList.get(index)
 
@@ -171,6 +184,7 @@ class CalculatorMapFragment(private val mapItemList:ArrayList<Items>, private va
             reforge5PriceResultView.text = (lv1Gem.buyPrcie.toString().toInt() * countList.get(4)).toString()
             resultPrice+=reforge5PriceResultView.text.toString().toInt()
             fee+=ceil(reforge5PriceView.text.toString().toInt()*0.05).toInt()*countList.get(4)
+            reforge5CountView.text=countList.get(4).toString()
             mapPriceView.text = dec.format(resultPrice)
             mapFeeView.text = dec.format(fee)
             val breakPoint = floor(resultPrice*0.95*((30.0-1)/30))

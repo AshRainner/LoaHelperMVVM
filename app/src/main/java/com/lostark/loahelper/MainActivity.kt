@@ -1,27 +1,27 @@
 package com.lostark.loahelper
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Build.VERSION.SDK_INT
 import android.os.Bundle
 import android.os.Parcelable
+import android.util.Log
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ImageButton
-import android.widget.LinearLayout
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.viewpager2.widget.ViewPager2
 import com.lostark.adapter.EventViewPagerAdapter
+import com.lostark.api.LoaRetrofitObj
 import com.lostark.customview.HomeButtonView
 import com.lostark.database.AppDatabase
 import com.lostark.database.table.*
+import com.lostark.dto.news.NoticeItem
+import retrofit2.Response
+
 
 class MainActivity : AppCompatActivity() {
-    private val updateLink = "https://naver.com"
-    val ACCEPT = "application/json"
-    val KEY =
-        "bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsIng1dCI6IktYMk40TkRDSTJ5NTA5NWpjTWk5TllqY2lyZyIsImtpZCI6IktYMk40TkRDSTJ5NTA5NWpjTWk5TllqY2lyZyJ9.eyJpc3MiOiJodHRwczovL2x1ZHkuZ2FtZS5vbnN0b3ZlLmNvbSIsImF1ZCI6Imh0dHBzOi8vbHVkeS5nYW1lLm9uc3RvdmUuY29tL3Jlc291cmNlcyIsImNsaWVudF9pZCI6IjEwMDAwMDAwMDAyNDU2NzMifQ.qNrlF-N2QB6yKCpOmTnW_oD68xJX9wRw_kOtDQkifCYWam9rXq_-2BoCXqi6PFCd7gpqUo-q53e7N_xr7f7bsVDde7yfJJPH_l6gghWDckYyMZp9v7J4eSZvJ7gRkAgxpCpfst26MqDaoTIz1Ptkk76HSG-_sCZ4TaatnivprG4qbR5i57k11qX7lcnzZ1WEzvLyVn59V3BAc2mFAOMpl2xAByoihVZUH5beZRV8l8EULVPvIZqjtH9IToWtI7a4IdFZwIsPzGSFWRtxlz1MUn-JQHSXUN4yICeSTrVuGypiAHHNTSAXLMcYqJs7maPTWoZDmG4KQCEndMxJIqt6Yg"
+    private val updateLink = "https://github.com/AshRainner/LoaHelper"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,6 +51,40 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    private fun apiKeyCheck(key:String,db:AppDatabase) {
+        val accept = "application/json"
+        val call = LoaRetrofitObj.getRetrofitService().getNotice(accept,"bearer "+key)
+        val response: Response<MutableList<NoticeItem>> = call.execute()
+
+        val errorCode = response.code()
+        var text:String=""
+        when (errorCode) {
+            200 -> {
+                Log.d("올바른 키입니다.", "errorCode: ")
+                db.keyDao().deleteAllKey()
+                db.keyDao().insertKey(Key("bearer "+key))
+                text="올바른 코드입니다. 변경완료"
+
+            }
+            401 -> {
+                Log.d("올바르지 않은 키입니다.", "errorCode: ")
+                //db.keyDao().deleteAllKey()
+                text="올바르지 않은 키입니다."
+            }
+            503 -> {
+                Log.d("서버가 점검 중입니다.", "errorCode")
+                text="서버가 점검 중입니다."
+            }
+        }
+        runOnUiThread {
+            Toast.makeText(
+                this@MainActivity,
+                text,
+                Toast.LENGTH_SHORT
+            ).show()
+        }
+    }
+
     private fun drawerLayoutButtonSet() {
         val insertButton = findViewById<Button>(R.id.key_insert_button)
         val updateButton = findViewById<Button>(R.id.update_button)
@@ -61,12 +95,17 @@ class MainActivity : AppCompatActivity() {
 
         insertButton.setOnClickListener {
             val db = AppDatabase.getInstance(applicationContext)!!
-            db.keyDao().deleteAllKey()
-            db.keyDao().insertKey(Key("bearer " + keyEditText.text.toString()))
+            if (key != null) {
+                Thread {
+                    apiKeyCheck(keyEditText.text.toString(), db)
+                }.start()
+            }
+            /*db.keyDao().deleteAllKey()
+            db.keyDao().insertKey(Key("bearer " + keyEditText.text.toString()))*/
         }
 
         updateButton.setOnClickListener {
-            //startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(updateLink)))
+            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(updateLink)))
         }
     }
 
