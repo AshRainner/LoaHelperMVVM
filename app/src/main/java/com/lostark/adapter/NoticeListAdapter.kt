@@ -8,7 +8,6 @@ import android.widget.BaseAdapter
 import android.widget.TextView
 import com.lostark.database.table.Notice
 import com.lostark.loahelper.R
-import retrofit2.Callback
 
 class NoticeListAdapter(val noticeList: ArrayList<Notice>): BaseAdapter() {
     override fun getCount(): Int=noticeList.size

@@ -1,41 +1,16 @@
 package com.lostark.loahelper
 
-import android.content.Intent
-import android.graphics.Color
-import android.os.Build
 import android.os.Bundle
-import android.os.Parcelable
 import android.text.Editable
-import android.text.Spannable
-import android.text.SpannableString
 import android.text.TextWatcher
-import android.text.style.ForegroundColorSpan
-import android.util.Log
-import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
-import android.widget.LinearLayout
 import android.widget.TextView
-import androidx.core.content.ContextCompat
-import androidx.core.view.get
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.findFragment
-import androidx.navigation.fragment.findNavController
-import com.google.gson.GsonBuilder
-import com.lostark.adapter.ValueDataAdapter
-import com.lostark.customview.*
-import com.lostark.database.table.GemItems
-import com.lostark.database.table.Items
-import com.lostark.dto.armorys.*
-import com.lostark.dto.armorys.tooltips.Tooltip
-import com.lostark.dto.armorys.tooltips.ValueData
 import java.text.DecimalFormat
-import java.text.NumberFormat
-import java.util.*
 import kotlin.math.floor
-import kotlin.math.round
 
 
 class CalculatorAuctionFragment() : Fragment() {

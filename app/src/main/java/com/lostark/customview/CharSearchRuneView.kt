@@ -1,18 +1,13 @@
 package com.lostark.customview
 
 import android.content.Context
-import android.graphics.Color
 import android.util.AttributeSet
-import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import com.bumptech.glide.Glide
-import com.google.android.material.card.MaterialCardView
-import com.lostark.dto.armorys.ArmoryEquipment
-import com.lostark.dto.armorys.Gem
 import com.lostark.dto.armorys.Rune
 import com.lostark.dto.armorys.tooltips.*
 import com.lostark.loahelper.R

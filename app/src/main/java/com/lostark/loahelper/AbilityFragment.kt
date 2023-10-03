@@ -13,8 +13,6 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.findFragment
-import androidx.navigation.fragment.findNavController
 import com.google.gson.GsonBuilder
 import com.lostark.adapter.ValueDataAdapter
 import com.lostark.customview.*

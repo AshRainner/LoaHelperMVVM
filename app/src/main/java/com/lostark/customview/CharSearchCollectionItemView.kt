@@ -9,8 +9,6 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar
-import com.google.android.material.card.MaterialCardView
-import com.lostark.dto.characters.CharactersInfo
 import com.lostark.loahelper.R
 
 class CharSearchCollectionItemView : LinearLayout {

@@ -14,10 +14,7 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import com.lostark.adapter.NoticeListAdapter
-import com.lostark.api.LoaRetrofitObj
 import com.lostark.database.table.Notice
-import retrofit2.Call
-import retrofit2.Response
 
 class NoticeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

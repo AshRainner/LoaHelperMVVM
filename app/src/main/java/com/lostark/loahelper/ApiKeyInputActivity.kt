@@ -2,9 +2,6 @@ package com.lostark.loahelper
 
 import android.content.Intent
 import android.os.Bundle
-import android.text.Editable
-import android.text.InputFilter
-import android.text.TextWatcher
 import android.util.Log
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity

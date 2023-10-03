@@ -4,17 +4,13 @@ import android.content.Context
 import android.graphics.Color
 import android.util.AttributeSet
 import android.view.LayoutInflater
-import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
-import com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar
 import com.bumptech.glide.Glide
-import com.google.android.material.card.MaterialCardView
 import com.lostark.dto.armorys.ArmoryEquipment
 import com.lostark.dto.armorys.tooltips.ItemPartData
 import com.lostark.dto.armorys.tooltips.Tooltip
-import com.lostark.dto.characters.CharactersInfo
 import com.lostark.loahelper.R
 
 class CharSearchCollectionEquipmentView : LinearLayout {

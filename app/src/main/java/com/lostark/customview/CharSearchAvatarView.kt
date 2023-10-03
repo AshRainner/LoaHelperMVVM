@@ -9,12 +9,9 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import com.bumptech.glide.Glide
-import com.google.gson.GsonBuilder
-import com.lostark.adapter.ValueDataAdapter
 import com.lostark.dto.armorys.*
 import com.lostark.dto.armorys.tooltips.*
 import com.lostark.loahelper.R
-import com.lostark.loahelper.SearchDetailActivity
 
 class CharSearchAvatarView : LinearLayout {
 

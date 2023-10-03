@@ -22,15 +22,10 @@ import com.bumptech.glide.request.transition.Transition
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.tabs.TabLayout
-import com.lostark.api.LoaRetrofitObj
 import com.lostark.customview.*
 import com.lostark.database.AppDatabase
 import com.lostark.dto.armorys.Armories
-import com.lostark.dto.characters.Characters
 import com.lostark.dto.characters.CharactersInfo
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 import java.io.Serializable
 import java.util.*
 import kotlin.collections.ArrayList

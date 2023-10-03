@@ -5,25 +5,18 @@ import android.os.Bundle
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
-import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.findFragment
-import androidx.navigation.fragment.findNavController
 import com.google.gson.GsonBuilder
 import com.lostark.adapter.ValueDataAdapter
 import com.lostark.customview.*
 import com.lostark.dto.armorys.*
 import com.lostark.dto.armorys.tooltips.Tooltip
 import com.lostark.dto.armorys.tooltips.ValueData
-import org.w3c.dom.Text
-import java.text.NumberFormat
-import java.util.*
 
 
 class SkillFragment(private val charInfo: Armories) : Fragment() {

@@ -1,6 +1,5 @@
 package com.lostark.loahelper
 
-import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
@@ -8,16 +7,13 @@ import android.os.Parcelable
 import android.util.Log
 import android.view.KeyEvent
 import android.view.KeyEvent.KEYCODE_ENTER
-import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.ListView
-import android.widget.Spinner
 import androidx.appcompat.app.AppCompatActivity
 import com.lostark.adapter.RecentNameListAdapter
 import com.lostark.api.LoaRetrofitObj
 import com.lostark.callbackinterface.RecentDeleteButtonClick
 import com.lostark.database.AppDatabase
-import com.lostark.database.table.Notice
 import com.lostark.database.table.RecentCharInfo
 import com.lostark.dto.armorys.Armories
 import com.lostark.dto.characters.Characters

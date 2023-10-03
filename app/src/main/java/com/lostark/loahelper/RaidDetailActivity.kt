@@ -1,23 +1,10 @@
 package com.lostark.loahelper
 
-import android.content.Intent
 import android.os.Bundle
-import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.navigateUp
-import androidx.navigation.ui.setupActionBarWithNavController
-import android.view.Menu
-import android.view.MenuItem
 import android.widget.ImageView
 import android.widget.ScrollView
-import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout
-import com.lostark.adapter.EventViewPagerAdapter
-import com.lostark.adapter.RaidViewPagerAdapter
-import com.lostark.customview.HomeButtonView
-import com.lostark.customview.RaidButtonView
 
 class RaidDetailActivity : AppCompatActivity() {
 

@@ -1,17 +1,11 @@
 package com.lostark.adapter
 
-import android.content.Intent
-import android.net.Uri
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
-import com.bumptech.glide.Glide
-import com.lostark.database.table.LoaEvents
 import com.lostark.loahelper.R
 
 class RaidViewPagerAdapter(val raidDrawableList: MutableList<Int>, val viewPager2: ViewPager2) :

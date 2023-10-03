@@ -1,13 +1,11 @@
 package com.lostark.loahelper
 
 import android.os.Bundle
-import android.util.Log
 import android.view.KeyEvent
 import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.forEach
 import com.lostark.callbackinterface.SpinnerChangedCallback
 import com.lostark.customview.AccessoryView
 import com.lostark.customview.BookView

@@ -8,10 +8,6 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import com.bumptech.glide.Glide
-import com.lostark.dto.armorys.Engraving
-import com.lostark.dto.armorys.tooltips.EngraveSkillTitleData
-import com.lostark.dto.armorys.tooltips.ItemPartData
-import com.lostark.dto.armorys.tooltips.Tooltip
 import com.lostark.loahelper.R
 
 class CharSearchEngravingBottomView : LinearLayout {
