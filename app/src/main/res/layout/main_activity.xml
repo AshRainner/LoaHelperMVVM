@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_activity"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/main_activity"
-    tools:context=".MainActivity"
     android:background="@color/white">
 
     <LinearLayout
@@ -16,14 +14,17 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
+
             <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
+
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:adjustViewBounds="true"
                     android:src="@drawable/banner"></ImageView>
+
                 <ImageButton
                     android:id="@+id/drawer_button"
                     android:layout_width="50dp"
@@ -34,77 +35,84 @@
                     android:src="@drawable/catalog"></ImageButton>
             </RelativeLayout>
         </LinearLayout>
+
         <GridLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:columnCount="1"
-            android:layout_margin="10dp">
+            android:layout_margin="10dp"
+            android:columnCount="1">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
-                <com.lostark.customview.HomeButtonView
+
+                <com.lostark.loahelper.customview.HomeButtonView
                     android:id="@+id/home_raid_button"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
                     android:layout_margin="5dp"
+                    android:layout_weight="1"
                     app:buttonImageSrc="@drawable/raid_icon"
-                    app:buttonText="레이드\n컨닝페이퍼"></com.lostark.customview.HomeButtonView>
-                <com.lostark.customview.HomeButtonView
+                    app:buttonText="레이드\n컨닝페이퍼"></com.lostark.loahelper.customview.HomeButtonView>
+
+                <com.lostark.loahelper.customview.HomeButtonView
                     android:id="@+id/home_daily_button"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
                     android:layout_margin="5dp"
+                    android:layout_weight="1"
                     app:buttonImageSrc="@drawable/epona_icon"
-                    app:buttonText="가디언환산"></com.lostark.customview.HomeButtonView>
+                    app:buttonText="가디언환산"></com.lostark.loahelper.customview.HomeButtonView>
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
-                <com.lostark.customview.HomeButtonView
+
+                <com.lostark.loahelper.customview.HomeButtonView
                     android:id="@+id/home_engraving_button"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
                     android:layout_margin="5dp"
+                    android:layout_weight="1"
                     app:buttonImageSrc="@drawable/engraving_icon"
-                    app:buttonText="각인 헬퍼"></com.lostark.customview.HomeButtonView>
+                    app:buttonText="각인 헬퍼"></com.lostark.loahelper.customview.HomeButtonView>
 
-                <com.lostark.customview.HomeButtonView
+                <com.lostark.loahelper.customview.HomeButtonView
                     android:id="@+id/home_notice_button"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
                     android:layout_margin="5dp"
+                    android:layout_weight="1"
                     app:buttonImageSrc="@drawable/update_list_image"
-                    app:buttonText="업데이트\n내역"></com.lostark.customview.HomeButtonView>
+                    app:buttonText="업데이트\n내역"></com.lostark.loahelper.customview.HomeButtonView>
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
-                <com.lostark.customview.HomeButtonView
+
+                <com.lostark.loahelper.customview.HomeButtonView
                     android:id="@+id/char_search_button"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_margin="5dp"
                     android:layout_weight="1"
                     app:buttonImageSrc="@drawable/craft_icon"
-                    app:buttonText="캐릭터 검색"></com.lostark.customview.HomeButtonView>
+                    app:buttonText="캐릭터 검색"></com.lostark.loahelper.customview.HomeButtonView>
 
-                <com.lostark.customview.HomeButtonView
+                <com.lostark.loahelper.customview.HomeButtonView
                     android:id="@+id/home_calculator_button"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_margin="5dp"
                     android:layout_weight="1"
                     app:buttonImageSrc="@drawable/calculator"
-                    app:buttonText="경매&amp;지도\n계산기"></com.lostark.customview.HomeButtonView>
+                    app:buttonText="경매&amp;지도\n계산기"></com.lostark.loahelper.customview.HomeButtonView>
             </LinearLayout>
         </GridLayout>
 
@@ -113,6 +121,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"></androidx.viewpager2.widget.ViewPager2>
     </LinearLayout>
+
     <include
         android:id="@+id/drawer_view"
         layout="@layout/drawer"></include>

@@ -19,24 +19,24 @@
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:orientation="horizontal">
-           <com.lostark.customview.CharSearchCollectionEquipmentView
+           <com.lostark.loahelper.customview.CharSearchCollectionEquipmentView
                android:id="@+id/char_search_detail_collection_compass_view"
                android:layout_weight="1"
                android:layout_width="match_parent"
                android:layout_height="wrap_content">
-           </com.lostark.customview.CharSearchCollectionEquipmentView>
-            <com.lostark.customview.CharSearchCollectionEquipmentView
+           </com.lostark.loahelper.customview.CharSearchCollectionEquipmentView>
+            <com.lostark.loahelper.customview.CharSearchCollectionEquipmentView
                 android:id="@+id/char_search_detail_collection_charm_view"
                 android:layout_weight="1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
-            </com.lostark.customview.CharSearchCollectionEquipmentView>
-            <com.lostark.customview.CharSearchCollectionEquipmentView
+            </com.lostark.loahelper.customview.CharSearchCollectionEquipmentView>
+            <com.lostark.loahelper.customview.CharSearchCollectionEquipmentView
                 android:id="@+id/char_search_detail_collection_insignia_view"
                 android:layout_weight="1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
-            </com.lostark.customview.CharSearchCollectionEquipmentView>
+            </com.lostark.loahelper.customview.CharSearchCollectionEquipmentView>
         </LinearLayout>
     </LinearLayout>
 
@@ -210,11 +210,11 @@
                 android:layout_weight="1"
                 android:background="@drawable/test_collection">
 
-                <com.lostark.customview.CharSearchCollectionItemView
+                <com.lostark.loahelper.customview.CharSearchCollectionItemView
                     android:id="@+id/char_search_detail_collection_item_island"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:collectionName="섬의 마음"></com.lostark.customview.CharSearchCollectionItemView>
+                    app:collectionName="섬의 마음"></com.lostark.loahelper.customview.CharSearchCollectionItemView>
             </com.google.android.material.card.MaterialCardView>
 
             <com.google.android.material.card.MaterialCardView
@@ -223,11 +223,11 @@
                 android:layout_marginLeft="5dp"
                 android:layout_weight="1">
 
-                <com.lostark.customview.CharSearchCollectionItemView
+                <com.lostark.loahelper.customview.CharSearchCollectionItemView
                     android:id="@+id/char_search_detail_collection_item_giant"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:collectionName="거인의 심장"></com.lostark.customview.CharSearchCollectionItemView>
+                    app:collectionName="거인의 심장"></com.lostark.loahelper.customview.CharSearchCollectionItemView>
             </com.google.android.material.card.MaterialCardView>
         </LinearLayout>
 
@@ -242,11 +242,11 @@
                 android:layout_marginRight="5dp"
                 android:layout_weight="1">
 
-                <com.lostark.customview.CharSearchCollectionItemView
+                <com.lostark.loahelper.customview.CharSearchCollectionItemView
                     android:id="@+id/char_search_detail_collection_item_star"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:collectionName="오르페우스의 별"></com.lostark.customview.CharSearchCollectionItemView>
+                    app:collectionName="오르페우스의 별"></com.lostark.loahelper.customview.CharSearchCollectionItemView>
             </com.google.android.material.card.MaterialCardView>
 
             <com.google.android.material.card.MaterialCardView
@@ -255,11 +255,11 @@
                 android:layout_marginLeft="5dp"
                 android:layout_weight="1">
 
-                <com.lostark.customview.CharSearchCollectionItemView
+                <com.lostark.loahelper.customview.CharSearchCollectionItemView
                     android:id="@+id/char_search_detail_collection_item_picture"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:collectionName="위대한 미술품"></com.lostark.customview.CharSearchCollectionItemView>
+                    app:collectionName="위대한 미술품"></com.lostark.loahelper.customview.CharSearchCollectionItemView>
             </com.google.android.material.card.MaterialCardView>
         </LinearLayout>
 
@@ -274,11 +274,11 @@
                 android:layout_marginRight="5dp"
                 android:layout_weight="1">
 
-                <com.lostark.customview.CharSearchCollectionItemView
+                <com.lostark.loahelper.customview.CharSearchCollectionItemView
                     android:id="@+id/char_search_detail_collection_item_orgel"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:collectionName="기억의 오르골"></com.lostark.customview.CharSearchCollectionItemView>
+                    app:collectionName="기억의 오르골"></com.lostark.loahelper.customview.CharSearchCollectionItemView>
             </com.google.android.material.card.MaterialCardView>
 
             <com.google.android.material.card.MaterialCardView
@@ -287,11 +287,11 @@
                 android:layout_marginLeft="5dp"
                 android:layout_weight="1">
 
-                <com.lostark.customview.CharSearchCollectionItemView
+                <com.lostark.loahelper.customview.CharSearchCollectionItemView
                     android:id="@+id/char_search_detail_collection_item_mococo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:collectionName="모코코 씨앗"></com.lostark.customview.CharSearchCollectionItemView>
+                    app:collectionName="모코코 씨앗"></com.lostark.loahelper.customview.CharSearchCollectionItemView>
             </com.google.android.material.card.MaterialCardView>
         </LinearLayout>
 
@@ -306,11 +306,11 @@
                 android:layout_marginRight="5dp"
                 android:layout_weight="1">
 
-                <com.lostark.customview.CharSearchCollectionItemView
+                <com.lostark.loahelper.customview.CharSearchCollectionItemView
                     android:id="@+id/char_search_detail_collection_item_medal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:collectionName="이그네아의 징표"></com.lostark.customview.CharSearchCollectionItemView>
+                    app:collectionName="이그네아의 징표"></com.lostark.loahelper.customview.CharSearchCollectionItemView>
             </com.google.android.material.card.MaterialCardView>
 
             <com.google.android.material.card.MaterialCardView
@@ -319,11 +319,11 @@
                 android:layout_marginLeft="5dp"
                 android:layout_weight="1">
 
-                <com.lostark.customview.CharSearchCollectionItemView
+                <com.lostark.loahelper.customview.CharSearchCollectionItemView
                     android:id="@+id/char_search_detail_collection_item_tree"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:collectionName="세계수의 잎"></com.lostark.customview.CharSearchCollectionItemView>
+                    app:collectionName="세계수의 잎"></com.lostark.loahelper.customview.CharSearchCollectionItemView>
             </com.google.android.material.card.MaterialCardView>
         </LinearLayout>
 
@@ -338,11 +338,11 @@
                 android:layout_marginRight="5dp"
                 android:layout_weight="1">
 
-                <com.lostark.customview.CharSearchCollectionItemView
+                <com.lostark.loahelper.customview.CharSearchCollectionItemView
                     android:id="@+id/char_search_detail_collection_item_voyage"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:collectionName="항해 모험물"></com.lostark.customview.CharSearchCollectionItemView>
+                    app:collectionName="항해 모험물"></com.lostark.loahelper.customview.CharSearchCollectionItemView>
             </com.google.android.material.card.MaterialCardView>
 
             <com.google.android.material.card.MaterialCardView
@@ -352,11 +352,11 @@
                 android:layout_weight="1"
                 android:visibility="invisible">
 
-                <com.lostark.customview.CharSearchCollectionItemView
+                <com.lostark.loahelper.customview.CharSearchCollectionItemView
                     android:layout_marginLeft="5dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:collectionName="항해 모험물"></com.lostark.customview.CharSearchCollectionItemView>
+                    app:collectionName="항해 모험물"></com.lostark.loahelper.customview.CharSearchCollectionItemView>
             </com.google.android.material.card.MaterialCardView>
         </LinearLayout>
 

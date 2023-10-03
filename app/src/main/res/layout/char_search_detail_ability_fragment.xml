@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#f2f2f2f2"
@@ -20,51 +19,51 @@
             android:layout_weight="1"
             android:orientation="vertical">
 
-            <com.lostark.customview.CharSearchArmorView
+            <com.lostark.loahelper.customview.CharSearchArmorView
                 android:id="@+id/char_search_detail_ability_hat"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"></com.lostark.customview.CharSearchArmorView>
+                android:layout_height="wrap_content"></com.lostark.loahelper.customview.CharSearchArmorView>
 
-            <com.lostark.customview.CharSearchArmorView
+            <com.lostark.loahelper.customview.CharSearchArmorView
                 android:id="@+id/char_search_detail_ability_shoulder"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"></com.lostark.customview.CharSearchArmorView>
+                android:layout_height="wrap_content"></com.lostark.loahelper.customview.CharSearchArmorView>
 
-            <com.lostark.customview.CharSearchArmorView
+            <com.lostark.loahelper.customview.CharSearchArmorView
                 android:id="@+id/char_search_detail_ability_top"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"></com.lostark.customview.CharSearchArmorView>
+                android:layout_height="wrap_content"></com.lostark.loahelper.customview.CharSearchArmorView>
 
-            <com.lostark.customview.CharSearchArmorView
+            <com.lostark.loahelper.customview.CharSearchArmorView
                 android:id="@+id/char_search_detail_ability_bottom"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"></com.lostark.customview.CharSearchArmorView>
+                android:layout_height="wrap_content"></com.lostark.loahelper.customview.CharSearchArmorView>
 
-            <com.lostark.customview.CharSearchArmorView
+            <com.lostark.loahelper.customview.CharSearchArmorView
                 android:id="@+id/char_search_detail_ability_gloves"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"></com.lostark.customview.CharSearchArmorView>
+                android:layout_height="wrap_content"></com.lostark.loahelper.customview.CharSearchArmorView>
 
-            <com.lostark.customview.CharSearchArmorView
+            <com.lostark.loahelper.customview.CharSearchArmorView
                 android:id="@+id/char_search_detail_ability_weapon"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"></com.lostark.customview.CharSearchArmorView>
+                android:layout_height="wrap_content"></com.lostark.loahelper.customview.CharSearchArmorView>
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp">
 
-                <com.lostark.customview.CharSearchEngravingBookView
+                <com.lostark.loahelper.customview.CharSearchEngravingBookView
                     android:id="@+id/char_search_detail_ability_engraving1"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"></com.lostark.customview.CharSearchEngravingBookView>
+                    android:layout_height="wrap_content"></com.lostark.loahelper.customview.CharSearchEngravingBookView>
 
-                <com.lostark.customview.CharSearchEngravingBookView
+                <com.lostark.loahelper.customview.CharSearchEngravingBookView
                     android:id="@+id/char_search_detail_ability_engraving2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"></com.lostark.customview.CharSearchEngravingBookView>
+                    android:layout_marginLeft="10dp"></com.lostark.loahelper.customview.CharSearchEngravingBookView>
             </LinearLayout>
         </LinearLayout>
 
@@ -75,40 +74,40 @@
             android:layout_weight="1"
             android:orientation="vertical">
 
-            <com.lostark.customview.CharSearchAccessoryView
+            <com.lostark.loahelper.customview.CharSearchAccessoryView
                 android:id="@+id/char_search_detail_ability_necklace"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"></com.lostark.customview.CharSearchAccessoryView>
+                android:layout_height="wrap_content"></com.lostark.loahelper.customview.CharSearchAccessoryView>
 
-            <com.lostark.customview.CharSearchAccessoryView
+            <com.lostark.loahelper.customview.CharSearchAccessoryView
                 android:id="@+id/char_search_detail_ability_earring1"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"></com.lostark.customview.CharSearchAccessoryView>
+                android:layout_height="wrap_content"></com.lostark.loahelper.customview.CharSearchAccessoryView>
 
-            <com.lostark.customview.CharSearchAccessoryView
+            <com.lostark.loahelper.customview.CharSearchAccessoryView
                 android:id="@+id/char_search_detail_ability_earring2"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"></com.lostark.customview.CharSearchAccessoryView>
+                android:layout_height="wrap_content"></com.lostark.loahelper.customview.CharSearchAccessoryView>
 
-            <com.lostark.customview.CharSearchAccessoryView
+            <com.lostark.loahelper.customview.CharSearchAccessoryView
                 android:id="@+id/char_search_detail_ability_ring1"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"></com.lostark.customview.CharSearchAccessoryView>
+                android:layout_height="wrap_content"></com.lostark.loahelper.customview.CharSearchAccessoryView>
 
-            <com.lostark.customview.CharSearchAccessoryView
+            <com.lostark.loahelper.customview.CharSearchAccessoryView
                 android:id="@+id/char_search_detail_ability_ring2"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"></com.lostark.customview.CharSearchAccessoryView>
+                android:layout_height="wrap_content"></com.lostark.loahelper.customview.CharSearchAccessoryView>
 
-            <com.lostark.customview.CharSearchAccessoryView
+            <com.lostark.loahelper.customview.CharSearchAccessoryView
                 android:id="@+id/char_search_detail_ability_bracelet"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"></com.lostark.customview.CharSearchAccessoryView>
+                android:layout_height="wrap_content"></com.lostark.loahelper.customview.CharSearchAccessoryView>
 
-            <com.lostark.customview.CharSearchAccessoryView
+            <com.lostark.loahelper.customview.CharSearchAccessoryView
                 android:id="@+id/char_search_detail_ability_stone"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"></com.lostark.customview.CharSearchAccessoryView>
+                android:layout_height="wrap_content"></com.lostark.loahelper.customview.CharSearchAccessoryView>
         </LinearLayout>
     </LinearLayout>
 
@@ -124,82 +123,82 @@
             android:layout_margin="5dp"
             android:gravity="center">
 
-            <com.lostark.customview.CharSearchGemView
+            <com.lostark.loahelper.customview.CharSearchGemView
                 android:id="@+id/gem_1"
                 android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="5dp"
-                android:layout_gravity="center"></com.lostark.customview.CharSearchGemView>
+                android:layout_gravity="center"></com.lostark.loahelper.customview.CharSearchGemView>
 
-            <com.lostark.customview.CharSearchGemView
+            <com.lostark.loahelper.customview.CharSearchGemView
                 android:id="@+id/gem_2"
                 android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="5dp"></com.lostark.customview.CharSearchGemView>
+                android:layout_marginRight="5dp"></com.lostark.loahelper.customview.CharSearchGemView>
 
-            <com.lostark.customview.CharSearchGemView
+            <com.lostark.loahelper.customview.CharSearchGemView
                 android:id="@+id/gem_3"
                 android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="5dp"></com.lostark.customview.CharSearchGemView>
+                android:layout_marginRight="5dp"></com.lostark.loahelper.customview.CharSearchGemView>
 
-            <com.lostark.customview.CharSearchGemView
+            <com.lostark.loahelper.customview.CharSearchGemView
                 android:id="@+id/gem_4"
                 android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="5dp"></com.lostark.customview.CharSearchGemView>
+                android:layout_marginRight="5dp"></com.lostark.loahelper.customview.CharSearchGemView>
 
-            <com.lostark.customview.CharSearchGemView
+            <com.lostark.loahelper.customview.CharSearchGemView
                 android:id="@+id/gem_5"
                 android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="5dp"></com.lostark.customview.CharSearchGemView>
+                android:layout_marginRight="5dp"></com.lostark.loahelper.customview.CharSearchGemView>
 
-            <com.lostark.customview.CharSearchGemView
+            <com.lostark.loahelper.customview.CharSearchGemView
                 android:id="@+id/gem_6"
                 android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="5dp"></com.lostark.customview.CharSearchGemView>
+                android:layout_marginRight="5dp"></com.lostark.loahelper.customview.CharSearchGemView>
 
-            <com.lostark.customview.CharSearchGemView
+            <com.lostark.loahelper.customview.CharSearchGemView
                 android:id="@+id/gem_7"
                 android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="5dp"></com.lostark.customview.CharSearchGemView>
+                android:layout_marginRight="5dp"></com.lostark.loahelper.customview.CharSearchGemView>
 
-            <com.lostark.customview.CharSearchGemView
+            <com.lostark.loahelper.customview.CharSearchGemView
                 android:id="@+id/gem_8"
                 android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="5dp"></com.lostark.customview.CharSearchGemView>
+                android:layout_marginRight="5dp"></com.lostark.loahelper.customview.CharSearchGemView>
 
-            <com.lostark.customview.CharSearchGemView
+            <com.lostark.loahelper.customview.CharSearchGemView
                 android:id="@+id/gem_9"
                 android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="5dp"></com.lostark.customview.CharSearchGemView>
+                android:layout_marginRight="5dp"></com.lostark.loahelper.customview.CharSearchGemView>
 
-            <com.lostark.customview.CharSearchGemView
+            <com.lostark.loahelper.customview.CharSearchGemView
                 android:id="@+id/gem_10"
                 android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="5dp"></com.lostark.customview.CharSearchGemView>
+                android:layout_marginRight="5dp"></com.lostark.loahelper.customview.CharSearchGemView>
 
-            <com.lostark.customview.CharSearchGemView
+            <com.lostark.loahelper.customview.CharSearchGemView
                 android:id="@+id/gem_11"
                 android:layout_weight="1"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"></com.lostark.customview.CharSearchGemView>
+                android:layout_height="wrap_content"></com.lostark.loahelper.customview.CharSearchGemView>
         </LinearLayout>
     </LinearLayout>
 
@@ -485,42 +484,42 @@
             android:layout_marginBottom="10dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp">
-            <com.lostark.customview.CharSearchCardView
+            <com.lostark.loahelper.customview.CharSearchCardView
                 android:id="@+id/card_1"
                 android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="87dp">
-            </com.lostark.customview.CharSearchCardView>
-            <com.lostark.customview.CharSearchCardView
+            </com.lostark.loahelper.customview.CharSearchCardView>
+            <com.lostark.loahelper.customview.CharSearchCardView
                 android:id="@+id/card_2"
                 android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="87dp">
-            </com.lostark.customview.CharSearchCardView>
-            <com.lostark.customview.CharSearchCardView
+            </com.lostark.loahelper.customview.CharSearchCardView>
+            <com.lostark.loahelper.customview.CharSearchCardView
                 android:id="@+id/card_3"
                 android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="87dp">
-            </com.lostark.customview.CharSearchCardView>
-            <com.lostark.customview.CharSearchCardView
+            </com.lostark.loahelper.customview.CharSearchCardView>
+            <com.lostark.loahelper.customview.CharSearchCardView
                 android:id="@+id/card_4"
                 android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="87dp">
-            </com.lostark.customview.CharSearchCardView>
-            <com.lostark.customview.CharSearchCardView
+            </com.lostark.loahelper.customview.CharSearchCardView>
+            <com.lostark.loahelper.customview.CharSearchCardView
                 android:id="@+id/card_5"
                 android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="87dp">
-            </com.lostark.customview.CharSearchCardView>
-            <com.lostark.customview.CharSearchCardView
+            </com.lostark.loahelper.customview.CharSearchCardView>
+            <com.lostark.loahelper.customview.CharSearchCardView
                 android:id="@+id/card_6"
                 android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="87dp">
-            </com.lostark.customview.CharSearchCardView>
+            </com.lostark.loahelper.customview.CharSearchCardView>
         </LinearLayout>
     </LinearLayout>
 

@@ -7,7 +7,7 @@
     android:focusable="true"
     android:focusableInTouchMode="true"
     android:orientation="vertical"
-    tools:context=".MainActivity"
+    tools:context=".ui.MainActivity"
     android:background="@color/white">
 
     <ImageView
@@ -77,11 +77,11 @@
                     app:strokeColor="@color/black"
                     app:strokeWidth="1dp">
 
-                    <com.lostark.customview.AccessoryView
+                    <com.lostark.loahelper.customview.AccessoryView
                         android:id="@+id/neck_lace_view"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_margin="5dp"></com.lostark.customview.AccessoryView>
+                        android:layout_margin="5dp"></com.lostark.loahelper.customview.AccessoryView>
                 </com.google.android.material.card.MaterialCardView>
 
                 <com.google.android.material.card.MaterialCardView
@@ -93,12 +93,12 @@
                     app:strokeColor="@color/black"
                     app:strokeWidth="1dp">
 
-                    <com.lostark.customview.AccessoryView
+                    <com.lostark.loahelper.customview.AccessoryView
                         android:id="@+id/ear_ring_view_1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="5dp"
-                        app:accessoryImageSrc="@drawable/earring"></com.lostark.customview.AccessoryView>
+                        app:accessoryImageSrc="@drawable/earring"></com.lostark.loahelper.customview.AccessoryView>
                 </com.google.android.material.card.MaterialCardView>
             </LinearLayout>
 
@@ -117,12 +117,12 @@
                     app:strokeColor="@color/black"
                     app:strokeWidth="1dp">
 
-                    <com.lostark.customview.AccessoryView
+                    <com.lostark.loahelper.customview.AccessoryView
                         android:id="@+id/ear_ring_view_2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="5dp"
-                        app:accessoryImageSrc="@drawable/earring"></com.lostark.customview.AccessoryView>
+                        app:accessoryImageSrc="@drawable/earring"></com.lostark.loahelper.customview.AccessoryView>
                 </com.google.android.material.card.MaterialCardView>
 
                 <com.google.android.material.card.MaterialCardView
@@ -134,12 +134,12 @@
                     app:strokeColor="@color/black"
                     app:strokeWidth="1dp">
 
-                    <com.lostark.customview.AccessoryView
+                    <com.lostark.loahelper.customview.AccessoryView
                         android:id="@+id/ring_view_1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="5dp"
-                        app:accessoryImageSrc="@drawable/ring"></com.lostark.customview.AccessoryView>
+                        app:accessoryImageSrc="@drawable/ring"></com.lostark.loahelper.customview.AccessoryView>
                 </com.google.android.material.card.MaterialCardView>
             </LinearLayout>
 
@@ -158,12 +158,12 @@
                     app:strokeColor="@color/black"
                     app:strokeWidth="1dp">
 
-                    <com.lostark.customview.AccessoryView
+                    <com.lostark.loahelper.customview.AccessoryView
                         android:id="@+id/ring_view_2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="5dp"
-                        app:accessoryImageSrc="@drawable/ring"></com.lostark.customview.AccessoryView>
+                        app:accessoryImageSrc="@drawable/ring"></com.lostark.loahelper.customview.AccessoryView>
                 </com.google.android.material.card.MaterialCardView>
 
                 <com.google.android.material.card.MaterialCardView
@@ -175,12 +175,12 @@
                     app:strokeColor="@color/black"
                     app:strokeWidth="1dp">
 
-                    <com.lostark.customview.AccessoryView
+                    <com.lostark.loahelper.customview.AccessoryView
                         android:id="@+id/ability_view"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="5dp"
-                        app:accessoryImageSrc="@drawable/ablitystone"></com.lostark.customview.AccessoryView>
+                        app:accessoryImageSrc="@drawable/ablitystone"></com.lostark.loahelper.customview.AccessoryView>
                 </com.google.android.material.card.MaterialCardView>
             </LinearLayout>
 
@@ -199,11 +199,11 @@
                     app:strokeColor="@color/black"
                     app:strokeWidth="1dp">
 
-                    <com.lostark.customview.BookView
+                    <com.lostark.loahelper.customview.BookView
                         android:id="@+id/book_view_1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_margin="5dp"></com.lostark.customview.BookView>
+                        android:layout_margin="5dp"></com.lostark.loahelper.customview.BookView>
                 </com.google.android.material.card.MaterialCardView>
 
                 <com.google.android.material.card.MaterialCardView
@@ -215,12 +215,12 @@
                     app:strokeColor="@color/black"
                     app:strokeWidth="1dp">
 
-                    <com.lostark.customview.BookView
+                    <com.lostark.loahelper.customview.BookView
                         android:id="@+id/book_view_2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="5dp"
-                        app:accessoryImageSrc="@drawable/earring"></com.lostark.customview.BookView>
+                        app:accessoryImageSrc="@drawable/earring"></com.lostark.loahelper.customview.BookView>
                 </com.google.android.material.card.MaterialCardView>
             </LinearLayout>
         </LinearLayout>

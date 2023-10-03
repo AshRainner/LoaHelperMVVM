@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".MainActivity"
+    tools:context=".ui.MainActivity"
     android:focusableInTouchMode="true"
     android:focusable="true"
     android:background="@color/white">
@@ -33,41 +33,41 @@
                 android:columnCount="3"
                 android:layout_marginBottom="10dp">
 
-                <com.lostark.customview.DailyItemView
+                <com.lostark.loahelper.customview.DailyItemView
                     android:layout_columnWeight="1"
                     android:layout_gravity="center"
                     android:layout_margin="5dp"
-                    android:background="@color/white"></com.lostark.customview.DailyItemView>
+                    android:background="@color/white"></com.lostark.loahelper.customview.DailyItemView>
 
-                <com.lostark.customview.DailyItemView
+                <com.lostark.loahelper.customview.DailyItemView
                     android:layout_columnWeight="1"
                     android:layout_gravity="center"
                     android:layout_margin="5dp"
-                    android:background="@color/white"></com.lostark.customview.DailyItemView>
+                    android:background="@color/white"></com.lostark.loahelper.customview.DailyItemView>
 
-                <com.lostark.customview.DailyItemView
+                <com.lostark.loahelper.customview.DailyItemView
                     android:layout_columnWeight="1"
                     android:layout_gravity="center"
                     android:layout_margin="5dp"
-                    android:background="@color/white"></com.lostark.customview.DailyItemView>
+                    android:background="@color/white"></com.lostark.loahelper.customview.DailyItemView>
 
-                <com.lostark.customview.DailyItemView
+                <com.lostark.loahelper.customview.DailyItemView
                     android:layout_columnWeight="1"
                     android:layout_gravity="center"
                     android:layout_margin="5dp"
-                    android:background="@color/white"></com.lostark.customview.DailyItemView>
+                    android:background="@color/white"></com.lostark.loahelper.customview.DailyItemView>
 
-                <com.lostark.customview.DailyItemView
+                <com.lostark.loahelper.customview.DailyItemView
                     android:layout_columnWeight="1"
                     android:layout_gravity="center"
                     android:layout_margin="5dp"
-                    android:background="@color/white"></com.lostark.customview.DailyItemView>
+                    android:background="@color/white"></com.lostark.loahelper.customview.DailyItemView>
 
-                <com.lostark.customview.DailyItemView
+                <com.lostark.loahelper.customview.DailyItemView
                     android:layout_columnWeight="1"
                     android:layout_gravity="center"
                     android:layout_margin="5dp"
-                    android:background="@color/white"></com.lostark.customview.DailyItemView>
+                    android:background="@color/white"></com.lostark.loahelper.customview.DailyItemView>
             </GridLayout>
 
             <CheckBox
@@ -86,53 +86,53 @@
                 android:layout_height="wrap_content"
                 android:columnCount="2">
 
-                <com.lostark.customview.DailyGuardianView
+                <com.lostark.loahelper.customview.DailyGuardianView
                     android:layout_columnWeight="1"
                     android:layout_gravity="center"
                     app:guardianImageSrc="@drawable/deskaluda"
                     app:guardianPriceText="100"
                     android:layout_marginBottom="10dp"
-                    android:background="@color/white"></com.lostark.customview.DailyGuardianView>
+                    android:background="@color/white"></com.lostark.loahelper.customview.DailyGuardianView>
 
-                <com.lostark.customview.DailyGuardianView
+                <com.lostark.loahelper.customview.DailyGuardianView
                     android:layout_columnWeight="1"
                     android:layout_gravity="center"
                     app:guardianImageSrc="@drawable/kungelanium"
                     app:guardianPriceText="100"
                     android:layout_marginBottom="10dp"
-                    android:background="@color/white"></com.lostark.customview.DailyGuardianView>
+                    android:background="@color/white"></com.lostark.loahelper.customview.DailyGuardianView>
 
-                <com.lostark.customview.DailyGuardianView
+                <com.lostark.loahelper.customview.DailyGuardianView
                     android:layout_columnWeight="1"
                     android:layout_gravity="center"
                     app:guardianImageSrc="@drawable/kaleligos"
                     app:guardianPriceText="100"
                     android:layout_marginBottom="10dp"
-                    android:background="@color/white"></com.lostark.customview.DailyGuardianView>
+                    android:background="@color/white"></com.lostark.loahelper.customview.DailyGuardianView>
 
-                <com.lostark.customview.DailyGuardianView
+                <com.lostark.loahelper.customview.DailyGuardianView
                     android:layout_columnWeight="1"
                     android:layout_gravity="center"
                     app:guardianImageSrc="@drawable/hanumatan"
                     app:guardianPriceText="100"
                     android:layout_marginBottom="10dp"
-                    android:background="@color/white"></com.lostark.customview.DailyGuardianView>
+                    android:background="@color/white"></com.lostark.loahelper.customview.DailyGuardianView>
 
-                <com.lostark.customview.DailyGuardianView
+                <com.lostark.loahelper.customview.DailyGuardianView
                     android:layout_columnWeight="1"
                     android:layout_gravity="center"
                     app:guardianImageSrc="@drawable/sonavel"
                     app:guardianPriceText="100"
                     android:layout_marginBottom="10dp"
-                    android:background="@color/white"></com.lostark.customview.DailyGuardianView>
+                    android:background="@color/white"></com.lostark.loahelper.customview.DailyGuardianView>
 
-                <com.lostark.customview.DailyGuardianView
+                <com.lostark.loahelper.customview.DailyGuardianView
                     android:layout_columnWeight="1"
                     android:layout_gravity="center"
                     app:guardianImageSrc="@drawable/gargardis"
                     app:guardianPriceText="100"
                     android:layout_marginBottom="10dp"
-                    android:background="@color/white"></com.lostark.customview.DailyGuardianView>
+                    android:background="@color/white"></com.lostark.loahelper.customview.DailyGuardianView>
             </GridLayout>
 
         </LinearLayout>

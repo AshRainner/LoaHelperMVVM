@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="#ffffff"
@@ -16,10 +15,10 @@
             android:layout_height="wrap_content"
             android:layout_weight="1">
 
-            <com.lostark.customview.CharSearchSkillLayoutView
+            <com.lostark.loahelper.customview.CharSearchSkillLayoutView
                 android:id="@+id/char_search_detail_skill_layout"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"></com.lostark.customview.CharSearchSkillLayoutView>
+                android:layout_height="wrap_content"></com.lostark.loahelper.customview.CharSearchSkillLayoutView>
 
         </LinearLayout>
 
@@ -28,11 +27,11 @@
             android:layout_height="match_parent"
             android:layout_weight="1">
 
-            <com.lostark.customview.CharSearchRuneView
+            <com.lostark.loahelper.customview.CharSearchRuneView
                 android:id="@+id/char_search_detail_skill_rune_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"></com.lostark.customview.CharSearchRuneView>
+                android:layout_weight="1"></com.lostark.loahelper.customview.CharSearchRuneView>
 
             <FrameLayout
                 android:layout_width="wrap_content"
@@ -46,11 +45,11 @@
                     android:layout_marginBottom="10dp"
                     app:cardCornerRadius="20dp">
 
-                    <com.lostark.customview.CharSearchGemView
+                    <com.lostark.loahelper.customview.CharSearchGemView
                         android:id="@+id/char_search_detail_skill_gem_1"
                         android:layout_width="40dp"
                         android:layout_height="40dp"
-                        android:background="#dedfe0"></com.lostark.customview.CharSearchGemView>
+                        android:background="#dedfe0"></com.lostark.loahelper.customview.CharSearchGemView>
                 </com.google.android.material.card.MaterialCardView>
             </FrameLayout>
 
@@ -67,11 +66,11 @@
                     android:layout_marginBottom="10dp"
                     app:cardCornerRadius="20dp">
 
-                    <com.lostark.customview.CharSearchGemView
+                    <com.lostark.loahelper.customview.CharSearchGemView
                         android:id="@+id/char_search_detail_skill_gem_2"
                         android:layout_width="40dp"
                         android:layout_height="40dp"
-                        android:background="#dedfe0"></com.lostark.customview.CharSearchGemView>
+                        android:background="#dedfe0"></com.lostark.loahelper.customview.CharSearchGemView>
                 </com.google.android.material.card.MaterialCardView>
             </FrameLayout>
         </LinearLayout>
@@ -83,27 +82,27 @@
         android:layout_height="wrap_content"
         android:visibility="gone">
 
-        <com.lostark.customview.CharSearchTripodView
+        <com.lostark.loahelper.customview.CharSearchTripodView
             android:id="@+id/char_search_detail_skill_tripod_1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_weight="1"
-            android:visibility="invisible"></com.lostark.customview.CharSearchTripodView>
+            android:visibility="invisible"></com.lostark.loahelper.customview.CharSearchTripodView>
 
-        <com.lostark.customview.CharSearchTripodView
+        <com.lostark.loahelper.customview.CharSearchTripodView
             android:id="@+id/char_search_detail_skill_tripod_2"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:visibility="invisible"></com.lostark.customview.CharSearchTripodView>
+            android:visibility="invisible"></com.lostark.loahelper.customview.CharSearchTripodView>
 
-        <com.lostark.customview.CharSearchTripodView
+        <com.lostark.loahelper.customview.CharSearchTripodView
             android:id="@+id/char_search_detail_skill_tripod_3"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginRight="10dp"
             android:layout_weight="1"
-            android:visibility="invisible"></com.lostark.customview.CharSearchTripodView>
+            android:visibility="invisible"></com.lostark.loahelper.customview.CharSearchTripodView>
     </LinearLayout>
 </LinearLayout>

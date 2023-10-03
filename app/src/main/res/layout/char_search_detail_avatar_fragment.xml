@@ -147,15 +147,15 @@
             android:layout_height="200dp"
             android:layout_marginLeft="10dp"
             android:layout_centerVertical="true">
-            <com.lostark.customview.CharSearchAvatarView
+            <com.lostark.loahelper.customview.CharSearchAvatarView
                 android:layout_marginTop="5dp"
                 android:id="@+id/char_search_detail_avatar_weapon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:avatarLeftRight="right"
                 app:avatarTypeText = "무기 아바타">
-            </com.lostark.customview.CharSearchAvatarView>
-            <com.lostark.customview.CharSearchAvatarView
+            </com.lostark.loahelper.customview.CharSearchAvatarView>
+            <com.lostark.loahelper.customview.CharSearchAvatarView
                 android:layout_marginTop="10dp"
                 android:layout_below="@+id/char_search_detail_avatar_weapon"
                 android:id="@+id/char_search_detail_avatar_weapon_inner"
@@ -163,8 +163,8 @@
                 android:layout_height="wrap_content"
                 app:avatarLeftRight="right"
                 app:avatarTypeText = "무기 덧입기">
-            </com.lostark.customview.CharSearchAvatarView>
-            <com.lostark.customview.CharSearchAvatarView
+            </com.lostark.loahelper.customview.CharSearchAvatarView>
+            <com.lostark.loahelper.customview.CharSearchAvatarView
                 android:layout_marginTop="10dp"
                 android:layout_below="@+id/char_search_detail_avatar_weapon_inner"
                 android:id="@+id/char_search_detail_avatar_hat"
@@ -172,8 +172,8 @@
                 android:layout_height="wrap_content"
                 app:avatarLeftRight="right"
                 app:avatarTypeText = "머리 아바타">
-            </com.lostark.customview.CharSearchAvatarView>
-            <com.lostark.customview.CharSearchAvatarView
+            </com.lostark.loahelper.customview.CharSearchAvatarView>
+            <com.lostark.loahelper.customview.CharSearchAvatarView
                 android:layout_marginTop="10dp"
                 android:layout_below="@+id/char_search_detail_avatar_hat"
                 android:id="@+id/char_search_detail_avatar_hat_inner"
@@ -181,7 +181,7 @@
                 android:layout_height="wrap_content"
                 app:avatarLeftRight="right"
                 app:avatarTypeText = "머리 덧입기">
-            </com.lostark.customview.CharSearchAvatarView>
+            </com.lostark.loahelper.customview.CharSearchAvatarView>
         </RelativeLayout>
         <!--오른쪽 상하의 아바타 슬롯-->
         <RelativeLayout
@@ -194,7 +194,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
-                <com.lostark.customview.CharSearchAvatarView
+                <com.lostark.loahelper.customview.CharSearchAvatarView
                     android:layout_marginTop="5dp"
                     android:layout_gravity="right"
                     android:id="@+id/char_search_detail_avatar_top"
@@ -202,8 +202,8 @@
                     android:layout_height="wrap_content"
                     app:avatarLeftRight="left"
                     app:avatarTypeText = "상의 아바타">
-                </com.lostark.customview.CharSearchAvatarView>
-                <com.lostark.customview.CharSearchAvatarView
+                </com.lostark.loahelper.customview.CharSearchAvatarView>
+                <com.lostark.loahelper.customview.CharSearchAvatarView
                     android:layout_marginTop="10dp"
                     android:layout_gravity="right"
                     android:layout_below="@+id/char_search_detail_avatar_top"
@@ -212,8 +212,8 @@
                     android:layout_height="wrap_content"
                     app:avatarLeftRight="left"
                     app:avatarTypeText = "상의 덧입기">
-                </com.lostark.customview.CharSearchAvatarView>
-                <com.lostark.customview.CharSearchAvatarView
+                </com.lostark.loahelper.customview.CharSearchAvatarView>
+                <com.lostark.loahelper.customview.CharSearchAvatarView
                     android:layout_marginTop="10dp"
                     android:layout_gravity="right"
                     android:layout_below="@+id/char_search_detail_avatar_top_inner"
@@ -222,8 +222,8 @@
                     android:layout_height="wrap_content"
                     app:avatarLeftRight="left"
                     app:avatarTypeText = "하의 아바타">
-                </com.lostark.customview.CharSearchAvatarView>
-                <com.lostark.customview.CharSearchAvatarView
+                </com.lostark.loahelper.customview.CharSearchAvatarView>
+                <com.lostark.loahelper.customview.CharSearchAvatarView
                     android:layout_marginTop="10dp"
                     android:layout_gravity="right"
                     android:layout_below="@+id/char_search_detail_avatar_bottom"
@@ -232,7 +232,7 @@
                     android:layout_height="wrap_content"
                     app:avatarLeftRight="left"
                     app:avatarTypeText = "하의 덧입기">
-                </com.lostark.customview.CharSearchAvatarView>
+                </com.lostark.loahelper.customview.CharSearchAvatarView>
             </LinearLayout>
         </RelativeLayout>
         <LinearLayout
@@ -246,14 +246,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
-                <com.lostark.customview.CharSearchAvatarView
+                <com.lostark.loahelper.customview.CharSearchAvatarView
                     android:id="@+id/char_search_detail_avatar_face1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="right"
                     app:avatarLeftRight="left"
                     app:avatarTypeText = "얼굴1 아바타">
-                </com.lostark.customview.CharSearchAvatarView>
+                </com.lostark.loahelper.customview.CharSearchAvatarView>
             </LinearLayout>
             <LinearLayout
                 android:layout_marginLeft="7.5dp"
@@ -261,14 +261,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
-                <com.lostark.customview.CharSearchAvatarView
+                <com.lostark.loahelper.customview.CharSearchAvatarView
                     android:layout_toRightOf="@id/char_search_detail_avatar_face1"
                     android:id="@+id/char_search_detail_avatar_face2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:avatarLeftRight="right"
                     app:avatarTypeText = "얼굴2 아바타">
-                </com.lostark.customview.CharSearchAvatarView>
+                </com.lostark.loahelper.customview.CharSearchAvatarView>
             </LinearLayout>
         </LinearLayout>
         <LinearLayout
@@ -284,14 +284,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
-                <com.lostark.customview.CharSearchAvatarView
+                <com.lostark.loahelper.customview.CharSearchAvatarView
                     android:id="@+id/char_search_detail_avatar_instrument"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="right"
                     app:avatarLeftRight="left"
                     app:avatarTypeText = "악기 아바타">
-                </com.lostark.customview.CharSearchAvatarView>
+                </com.lostark.loahelper.customview.CharSearchAvatarView>
             </LinearLayout>
             <LinearLayout
                 android:layout_marginLeft="7.5dp"
@@ -299,14 +299,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
-                <com.lostark.customview.CharSearchAvatarView
+                <com.lostark.loahelper.customview.CharSearchAvatarView
                     android:layout_toRightOf="@id/char_search_detail_avatar_instrument"
                     android:id="@+id/char_search_detail_avatar_move"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:avatarLeftRight="right"
                     app:avatarTypeText = "발자국 아바타">
-                </com.lostark.customview.CharSearchAvatarView>
+                </com.lostark.loahelper.customview.CharSearchAvatarView>
             </LinearLayout>
         </LinearLayout>
     </RelativeLayout>

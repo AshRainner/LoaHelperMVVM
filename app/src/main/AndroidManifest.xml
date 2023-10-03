@@ -5,6 +5,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
+        android:name=".application.BaseApplication"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -17,7 +18,7 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".StartActivity"
+            android:name=".ui.StartActivity"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.LoaHelper.NoActionBar">
@@ -31,17 +32,17 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-        <activity android:name=".MainActivity"></activity>
-        <activity android:name=".RaidActivity"></activity>
-        <activity android:name=".RaidDetailActivity"></activity>
-        <activity android:name=".NoticeActivity"></activity>
-        <activity android:name=".DailyActivity"/>
-        <activity android:name=".EngravingActivity"/>
-        <activity android:name=".SearchActivity"/>
-        <activity android:name=".SearchDetailActivity"/>
-        <activity android:name=".ApiKeyInputActivity"/>
-        <activity android:name=".RaidDifficultyActivity"/>
-        <activity android:name=".CalculatorActivity"/>
+        <activity android:name=".ui.MainActivity"></activity>
+        <activity android:name=".ui.RaidActivity"></activity>
+        <activity android:name=".ui.RaidDetailActivity"></activity>
+        <activity android:name=".ui.NoticeActivity"></activity>
+        <activity android:name=".ui.DailyActivity"/>
+        <activity android:name=".ui.EngravingActivity"/>
+        <activity android:name=".ui.SearchActivity"/>
+        <activity android:name=".ui.SearchDetailActivity"/>
+        <activity android:name=".ui.ApiKeyInputActivity"/>
+        <activity android:name=".ui.RaidDifficultyActivity"/>
+        <activity android:name=".ui.CalculatorActivity"/>
 
     </application>
 
