@@ -26,21 +26,15 @@ import kotlinx.coroutines.launch
 import retrofit2.Response
 
 
-class MainActivity : BaseActivity() {
+class MainActivity : BaseActivity<MainActivityBinding>() {
     private val updateLink = "https://github.com/AshRainner/LoaHelper"
 
     private val dataViewModel: DataViewModel by provideViewModel()
-    private lateinit var binding: MainActivityBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_activity)
         overridePendingTransition(0, 0)
-        binding = MainActivityBinding.inflate(layoutInflater)
-        val view = binding.root
-
-        //바인딩 연결
-        setContentView(view)
 
         drawerSet()
         buttonSet()
@@ -55,7 +49,6 @@ class MainActivity : BaseActivity() {
                 mainActivity.openDrawer(GravityCompat.END)
             }
             drawerLayoutButtonSet()
-
 
             // include한거라 이렇게 접근해야함
             drawerView.drawerViewReal.setOnTouchListener { _, event -> //터치이벤트 가로채서 뒤에 있는 버튼들 안눌리게

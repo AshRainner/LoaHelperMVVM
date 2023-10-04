@@ -10,11 +10,14 @@ import com.lostark.loahelper.api.LoaRetrofitObj
 import com.lostark.loahelper.database.AppDatabase
 import com.lostark.loahelper.database.dao.*
 import com.lostark.loahelper.database.table.*
+import com.lostark.loahelper.dto.characters.Characters
 import com.lostark.loahelper.dto.news.NoticeItem
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
+import retrofit2.Call
+import retrofit2.Callback
 import retrofit2.Response
 
 class DataViewModel(private val db: AppDatabase) : ViewModel() {
@@ -26,14 +29,16 @@ class DataViewModel(private val db: AppDatabase) : ViewModel() {
     private lateinit var noticeDao: NoticeDAO
     private lateinit var updateDao: UpdateDAO
     private lateinit var keyDao: KeyDAO
+    private lateinit var recentCharInfoDAO: RecentCharInfoDAO
 
-    private val _noticeList = MutableLiveData<ArrayList<NoticeItem>>()
+    private val _recentNameList = MutableLiveData<ArrayList<RecentCharInfo>>()
 
-    val noticeList:LiveData<ArrayList<NoticeItem>> get() = _noticeList
+    val recentNameList:LiveData<ArrayList<RecentCharInfo>> get() = _recentNameList
 
     fun getKey(): String = keyDao.getKey()
     fun getNoticeList(): ArrayList<Notice> = ArrayList(noticeDao.getNoticeList())
     fun getEventList(): ArrayList<LoaEvents> = ArrayList(eventsDao.getEventList())
+    fun getRecentCharInfo(): ArrayList<RecentCharInfo> = ArrayList(recentCharInfoDAO.getRecentCharInfo())
     fun getStoneList(): ArrayList<Items> =
         ArrayList(itemsDao.getSelectItemList("돌파석").sortedBy { it.id })
 
@@ -55,7 +60,36 @@ class DataViewModel(private val db: AppDatabase) : ViewModel() {
             noticeDao = noticeDAO()
             updateDao = updateDAO()
             keyDao = keyDao()
+            recentCharInfoDAO = recentCharInfoDAO()
         }
+    }
+
+    fun insertRecentCharInfo(charInfo:RecentCharInfo){
+        recentCharInfoDAO.insertCharInfo(charInfo)
+    }
+
+    fun updateRecentCharInfoList(){
+        _recentNameList.postValue(recentCharInfoDAO.getRecentCharInfo())
+    }
+
+    fun exceptionSearch(
+        name: String,
+        callback: (com.lostark.loahelper.dto.characters.Characters?) -> Unit
+    ) {//서치 인포에서 서치를 했는데 유령 계정이라 서버이름이 ""인 경우 수행하는 서치
+        var result: com.lostark.loahelper.dto.characters.Characters? = null
+        val key = db.keyDao().getKey()
+        val call = LoaRetrofitObj.getRetrofitService().getCharacters(ACCEPT, key, name)
+        call.enqueue(object : Callback<Characters> {
+            override fun onResponse(call: Call<Characters>, response: Response<com.lostark.loahelper.dto.characters.Characters>) {
+                result = response.body()
+                callback(result)
+            }
+
+            override fun onFailure(call: Call<Characters>, t: Throwable) {
+                result = null
+                callback(null)
+            }
+        })
     }
 
     suspend fun setInit(context: Context): Int {

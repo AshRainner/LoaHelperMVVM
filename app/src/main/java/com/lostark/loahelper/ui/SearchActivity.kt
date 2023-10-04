@@ -16,26 +16,26 @@ import com.lostark.loahelper.api.LoaRetrofitObj
 import com.lostark.loahelper.callbackinterface.RecentDeleteButtonClick
 import com.lostark.loahelper.database.AppDatabase
 import com.lostark.loahelper.database.table.RecentCharInfo
+import com.lostark.loahelper.databinding.CharSearchActivityBinding
+import com.lostark.loahelper.viewmodel.DataViewModel
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
-class SearchActivity : AppCompatActivity(), RecentDeleteButtonClick {
+class SearchActivity : BaseActivity<CharSearchActivityBinding>(), RecentDeleteButtonClick {
     val ACCEPT = "application/json"
-    lateinit var db: AppDatabase
+    private val dataViewModel: DataViewModel by provideViewModel()
     var recentNameList = mutableListOf<RecentCharInfo>()
     lateinit var recentNameListAdapter: RecentNameListAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.char_search_activity)
-        db = AppDatabase.getInstance(applicationContext)!!
         getRecentInfo()
         recentCharListViewSet()
         setSerchEditText()
     }
-
 
     override fun onResume() {
         super.onResume()
@@ -45,7 +45,7 @@ class SearchActivity : AppCompatActivity(), RecentDeleteButtonClick {
 
     private fun getRecentInfo() {
         recentNameList.clear()
-        db.recentCharInfoDAO().getRecentUpdate().forEach {
+        db.recentCharInfoDAO().getRecentCharInfo().forEach {
             recentNameList.add(it)
         }
     }
@@ -153,7 +153,54 @@ class SearchActivity : AppCompatActivity(), RecentDeleteButtonClick {
     }
 
     private fun recentCharListViewSet() {
-        val recentCharNameListView = findViewById<ListView>(R.id.recent_char_name_list)
+
+        binding.run {
+            val recentNameListAdapter = RecentNameListAdapter(dataViewModel.getRecentCharInfo())
+            recentNameListAdapter.setRecentDeleteButtonClickListener(this@SearchActivity)
+            recentCharNameList.adapter = recentNameListAdapter
+            recentCharNameList.setOnItemClickListener { adapterView, view, position, id ->
+                //og.d("아이템 클릭됨 : ", "${adapterView.getItemAtPosition(position)} ")
+                var serverName = ""
+                exceptionSearch(recentNameList.get(position).charName) {
+                    serverName = it?.find {
+                        it.characterName.uppercase() == recentNameList.get(position).charName.uppercase()
+                    }?.serverName.toString()
+                }
+                searchInfo(recentNameList.get(position).charName) { armory ->
+                    if (armory != null) {
+                        val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH:mm:ss")
+                        val time = LocalDateTime.now().format(formatter)
+                        armory.armoryProfile.serverName = serverName
+                        val recentInfo = RecentCharInfo(
+                            armory.armoryProfile.characterName,
+                            armory.armoryProfile.serverName,
+                            armory.armoryProfile.itemMaxLevel,
+                            armory.armoryProfile.characterClassName,
+                            time
+                        )
+                        //recentNameListAdapter.updateList(recentNameList)
+                        searchCharacters(recentNameList.get(position).charName) {
+                            dataViewModel.insertRecentCharInfo(recentInfo)
+                            getRecentInfo()//이부분 바꿀거임 옵저버로
+                            if (it != null)
+                                startActivity(
+                                    Intent(
+                                        Intent(
+                                            this@SearchActivity,
+                                            SearchDetailActivity::class.java
+                                        )
+                                    ).putExtra("charInfo", armory).putExtra("characters", it)
+                                )
+                            else
+                                Log.d("없음", "널임2: ")
+                        }
+                    } else {
+                        Log.d("없음", "널임: ")
+                    }
+                }
+            }
+        }
+        /*val recentCharNameListView = findViewById<ListView>(R.id.recent_char_name_list)
         recentNameListAdapter = RecentNameListAdapter(recentNameList)
         recentNameListAdapter.setRecentDeleteButtonClickListener(this)
         recentCharNameListView.adapter = recentNameListAdapter
@@ -197,7 +244,7 @@ class SearchActivity : AppCompatActivity(), RecentDeleteButtonClick {
                     Log.d("없음", "널임: ")
                 }
             }
-        }
+        }*/
     }
 
     inline fun <reified T : Parcelable> Intent.parcelableArrayList(key: String): ArrayList<T>? =
