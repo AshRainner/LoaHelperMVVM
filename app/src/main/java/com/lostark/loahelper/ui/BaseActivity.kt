@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelStore
 import androidx.lifecycle.ViewModelStoreOwner
 import androidx.viewbinding.ViewBinding
+import com.lostark.loahelper.viewmodel.DataViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 abstract class BaseActivity<T:ViewBinding> : AppCompatActivity() {

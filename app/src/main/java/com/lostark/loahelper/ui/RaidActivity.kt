@@ -6,13 +6,14 @@ import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import com.lostark.loahelper.customview.RaidButtonView
 import com.lostark.loahelper.R
+import com.lostark.loahelper.databinding.RaidActivityBinding
+import com.lostark.loahelper.databinding.RaidDetailActivityBinding
 
-class RaidActivity : AppCompatActivity() {
+class RaidActivity : BaseActivity<RaidActivityBinding>() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.raid_activity)
-
+        initBinding(RaidActivityBinding::inflate)
         val callback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 finish()
@@ -21,20 +22,49 @@ class RaidActivity : AppCompatActivity() {
         }
 
         this.onBackPressedDispatcher.addCallback(this,callback)
-
-        val valtanButton = findViewById<RaidButtonView>(R.id.valtan_button)
-        val biackissButton = findViewById<RaidButtonView>(R.id.biackiss_button)
-        val koukusatonButton = findViewById<RaidButtonView>(R.id.koukusaton_button)
-        val abrelshudButton = findViewById<RaidButtonView>(R.id.abrelshud_button)
-        val illiakanButton = findViewById<RaidButtonView>(R.id.illiakan_button)
-        val kayangelButton = findViewById<RaidButtonView>(R.id.kayangel_button)
-        val ivorytowerButton = findViewById<RaidButtonView>(R.id.ivorytower_button)
-        valtanButton.ClickEvent(Intent(this, RaidDetailActivity::class.java).putExtra("RaidName","valtan"))
-        biackissButton.ClickEvent(Intent(this, RaidDetailActivity::class.java).putExtra("RaidName","biackiss"))
-        koukusatonButton.ClickEvent(Intent(this, RaidDetailActivity::class.java).putExtra("RaidName","koukusaton"))
-        abrelshudButton.ClickEvent(Intent(this, RaidDifficultyActivity::class.java).putExtra("RaidName","abrelshud"))
-        illiakanButton.ClickEvent(Intent(this, RaidDifficultyActivity::class.java).putExtra("RaidName","illiakan"))
-        kayangelButton.ClickEvent(Intent(this, RaidDetailActivity::class.java).putExtra("RaidName","kayangel"))
-        ivorytowerButton.ClickEvent(Intent(this, RaidDetailActivity::class.java).putExtra("RaidName","ivorytower"))
+        binding.run {
+            valtanButton.ClickEvent(
+                Intent(
+                    this@RaidActivity,
+                    RaidDetailActivity::class.java
+                ).putExtra("RaidName", "valtan")
+            )
+            biackissButton.ClickEvent(
+                Intent(
+                    this@RaidActivity,
+                    RaidDetailActivity::class.java
+                ).putExtra("RaidName", "biackiss")
+            )
+            koukusatonButton.ClickEvent(
+                Intent(
+                    this@RaidActivity,
+                    RaidDetailActivity::class.java
+                ).putExtra("RaidName", "koukusaton")
+            )
+            abrelshudButton.ClickEvent(
+                Intent(
+                    this@RaidActivity,
+                    RaidDifficultyActivity::class.java
+                ).putExtra("RaidName", "abrelshud")
+            )
+            illiakanButton.ClickEvent(
+                Intent(
+                    this@RaidActivity,
+                    RaidDifficultyActivity::class.java
+                ).putExtra("RaidName", "illiakan")
+            )
+            kayangelButton.ClickEvent(
+                Intent(
+                    this@RaidActivity,
+                    RaidDetailActivity::class.java
+                ).putExtra("RaidName", "kayangel")
+            )
+            ivorytowerButton.ClickEvent(
+                Intent(
+                    this@RaidActivity,
+                    RaidDetailActivity::class.java
+                ).putExtra("RaidName", "ivorytower")
+            )
+        }
     }
 }

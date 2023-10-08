@@ -26,12 +26,10 @@ import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
 class SearchActivity : BaseActivity<CharSearchActivityBinding>(), RecentDeleteButtonClick {
-    val ACCEPT = "application/json"
     private val dataViewModel: DataViewModel by provideViewModel()
     lateinit var recentNameListAdapter: RecentNameListAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.char_search_activity)
         initBinding(CharSearchActivityBinding::inflate)
         dataViewModel.recentNameList.observe(this, Observer {
             recentNameListAdapter.updateList(it)
@@ -45,7 +43,7 @@ class SearchActivity : BaseActivity<CharSearchActivityBinding>(), RecentDeleteBu
     override fun onResume() {
         super.onResume()
         dataViewModel.updateRecentCharInfoList()
-        recentNameListAdapter.updateList(dataViewModel.getRecentCharInfo())
+        //recentNameListAdapter.updateList(dataViewModel.getRecentCharInfo())
     }
 
     private fun setSerchEditText() {

@@ -6,12 +6,14 @@ import android.widget.Button
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import com.lostark.loahelper.R
+import com.lostark.loahelper.databinding.CharSearchActivityBinding
+import com.lostark.loahelper.databinding.RaidDifficultyActivityBinding
 
-class RaidDifficultyActivity : AppCompatActivity() {
+class RaidDifficultyActivity : BaseActivity<RaidDifficultyActivityBinding>() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.raid_difficulty_activity)
+        initBinding(RaidDifficultyActivityBinding::inflate)
 
         val callback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
@@ -22,17 +24,14 @@ class RaidDifficultyActivity : AppCompatActivity() {
 
         this.onBackPressedDispatcher.addCallback(this,callback)
         val raidName = intent.getStringExtra("RaidName")
-        val normalButton = findViewById<Button>(R.id.raid_difficult_button_normal)
-        val hardButton = findViewById<Button>(R.id.raid_difficult_button_hard)
 
-        normalButton.setOnClickListener {
+        binding.raidDifficultButtonNormal.setOnClickListener {
             startActivity(Intent(this, RaidDetailActivity::class.java).putExtra("RaidName",raidName+"Normal"))
         }
 
-        hardButton.setOnClickListener {
+        binding.raidDifficultButtonHard.setOnClickListener {
             startActivity(Intent(this, RaidDetailActivity::class.java).putExtra("RaidName",raidName+"Hard"))
         }
-
 
     }
 }

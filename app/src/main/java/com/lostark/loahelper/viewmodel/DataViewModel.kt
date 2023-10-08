@@ -53,7 +53,7 @@ class DataViewModel(private val db: AppDatabase) : ViewModel() {
     fun getMapItemList(): ArrayList<Items> {
         val returnList = ArrayList<Items>()
         returnList.addAll(itemsDao.getSelectItemList("태양의").sortedBy { it.id })
-        returnList.add(insertMapFragmentsItems(itemsDao, getKey()))
+        returnList.add(itemsDao.getSelectItem("명예의 파편 주머니(대)"))
         return returnList
     }
 

@@ -9,8 +9,10 @@ import androidx.appcompat.app.AppCompatActivity
 import com.lostark.loahelper.R
 import com.lostark.loahelper.callbackinterface.SpinnerChangedCallback
 import com.lostark.loahelper.customview.*
+import com.lostark.loahelper.databinding.EngravingActivityBinding
+import com.lostark.loahelper.databinding.RaidActivityBinding
 
-class EngravingActivity : AppCompatActivity(), SpinnerChangedCallback {
+class EngravingActivity : BaseActivity<EngravingActivityBinding>(), SpinnerChangedCallback {
     private val asDict = mutableMapOf(
         "각" to "각성",
         "결" to "결투의 대가",
@@ -72,21 +74,12 @@ class EngravingActivity : AppCompatActivity(), SpinnerChangedCallback {
         "황" to "황제의 칙령||황후의 은총",
         "회" to "회귀"
     )
-    private lateinit var necklaceView: AccessoryView
-    private lateinit var earringView1: AccessoryView
-    private lateinit var earringView2: AccessoryView
-    private lateinit var ringView1: AccessoryView
-    private lateinit var ringView2: AccessoryView
-    private lateinit var abilityStoneView: AccessoryView
-    private lateinit var engravingBookView1: BookView
-    private lateinit var engravingBookView2: BookView
     private lateinit var engravingEditText: EditText
     private lateinit var engravingNameList: MutableList<String>
-    private lateinit var selectedEngravingViewLayout: LinearLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.engraving_activity)
+        initBinding(EngravingActivityBinding::inflate)
         editTextSet()
         spinnerSet()
     }
@@ -107,75 +100,73 @@ class EngravingActivity : AppCompatActivity(), SpinnerChangedCallback {
     }
 
     fun spinnerSet() {
-        necklaceView = findViewById(R.id.neck_lace_view)
-        earringView1 = findViewById(R.id.ear_ring_view_1)
-        earringView2 = findViewById(R.id.ear_ring_view_2)
-        ringView1 = findViewById(R.id.ring_view_1)
-        ringView2 = findViewById(R.id.ring_view_2)
-        abilityStoneView = findViewById(R.id.ability_view)
-        engravingBookView1 = findViewById(R.id.book_view_1)
-        engravingBookView2 = findViewById(R.id.book_view_2)
-        necklaceView.setSpinnerChangedCallback(this)
-        earringView1.setSpinnerChangedCallback(this)
-        earringView2.setSpinnerChangedCallback(this)
-        ringView1.setSpinnerChangedCallback(this)
-        ringView2.setSpinnerChangedCallback(this)
-        abilityStoneView.setSpinnerChangedCallback(this)
-        engravingBookView1.setSpinnerChangedCallback(this)
-        engravingBookView2.setSpinnerChangedCallback(this)
+        binding.run {
+            neckLaceView.setSpinnerChangedCallback(this@EngravingActivity)
+            earRingView1.setSpinnerChangedCallback(this@EngravingActivity)
+            earRingView2.setSpinnerChangedCallback(this@EngravingActivity)
+            ringView1.setSpinnerChangedCallback(this@EngravingActivity)
+            ringView2.setSpinnerChangedCallback(this@EngravingActivity)
+            abilityView.setSpinnerChangedCallback(this@EngravingActivity)
+            bookView1.setSpinnerChangedCallback(this@EngravingActivity)
+            bookView2.setSpinnerChangedCallback(this@EngravingActivity)
+        }
     }
 
     override fun onEngravingSpinnerChanged() {
         val selectedEngravigMap = mutableMapOf<String, Int>()
-        necklaceView.getEngravingSpinner().forEachIndexed() { index, it ->
-            val key = it.selectedItem.toString()
-            val value =
-                necklaceView.getEngravingPlusMinusSpinner()[index].selectedItem.toString().toInt()
-            mapPutKeyValue(selectedEngravigMap, key, value)
+        binding.run {
+            neckLaceView.getEngravingSpinner().forEachIndexed() { index, it ->
+                val key = it.selectedItem.toString()
+                val value =
+                    neckLaceView.getEngravingPlusMinusSpinner()[index].selectedItem.toString()
+                        .toInt()
+                mapPutKeyValue(selectedEngravigMap, key, value)
+            }
+            earRingView1.getEngravingSpinner().forEachIndexed() { index, it ->
+                val key = it.selectedItem.toString()
+                val value =
+                    earRingView1.getEngravingPlusMinusSpinner()[index].selectedItem.toString()
+                        .toInt()
+                mapPutKeyValue(selectedEngravigMap, key, value)
+            }
+            earRingView2.getEngravingSpinner().forEachIndexed() { index, it ->
+                val key = it.selectedItem.toString()
+                val value =
+                    earRingView2.getEngravingPlusMinusSpinner()[index].selectedItem.toString()
+                        .toInt()
+                mapPutKeyValue(selectedEngravigMap, key, value)
+            }
+            ringView1.getEngravingSpinner().forEachIndexed() { index, it ->
+                val key = it.selectedItem.toString()
+                val value =
+                    ringView1.getEngravingPlusMinusSpinner()[index].selectedItem.toString().toInt()
+                mapPutKeyValue(selectedEngravigMap, key, value)
+            }
+            ringView2.getEngravingSpinner().forEachIndexed() { index, it ->
+                val key = it.selectedItem.toString()
+                val value =
+                    ringView2.getEngravingPlusMinusSpinner()[index].selectedItem.toString().toInt()
+                mapPutKeyValue(selectedEngravigMap, key, value)
+            }
+            abilityView.getEngravingSpinner().forEachIndexed() { index, it ->
+                val key = it.selectedItem.toString()
+                val value =
+                    abilityView.getEngravingPlusMinusSpinner()[index].selectedItem.toString()
+                        .toInt()
+                mapPutKeyValue(selectedEngravigMap, key, value)
+            }
+            mapPutKeyValue(
+                selectedEngravigMap,
+                bookView1.getEngavingSpinner().selectedItem.toString(),
+                bookView1.getEngravingPlusSpinner().selectedItem.toString().toInt()
+            )
+            mapPutKeyValue(
+                selectedEngravigMap,
+                bookView2.getEngavingSpinner().selectedItem.toString(),
+                bookView2.getEngravingPlusSpinner().selectedItem.toString().toInt()
+            )
+            changedSelectedEngravingView(selectedEngravigMap)
         }
-        earringView1.getEngravingSpinner().forEachIndexed() { index, it ->
-            val key = it.selectedItem.toString()
-            val value =
-                earringView1.getEngravingPlusMinusSpinner()[index].selectedItem.toString().toInt()
-            mapPutKeyValue(selectedEngravigMap, key, value)
-        }
-        earringView2.getEngravingSpinner().forEachIndexed() { index, it ->
-            val key = it.selectedItem.toString()
-            val value =
-                earringView2.getEngravingPlusMinusSpinner()[index].selectedItem.toString().toInt()
-            mapPutKeyValue(selectedEngravigMap, key, value)
-        }
-        ringView1.getEngravingSpinner().forEachIndexed() { index, it ->
-            val key = it.selectedItem.toString()
-            val value =
-                ringView1.getEngravingPlusMinusSpinner()[index].selectedItem.toString().toInt()
-            mapPutKeyValue(selectedEngravigMap, key, value)
-        }
-        ringView2.getEngravingSpinner().forEachIndexed() { index, it ->
-            val key = it.selectedItem.toString()
-            val value =
-                ringView2.getEngravingPlusMinusSpinner()[index].selectedItem.toString().toInt()
-            mapPutKeyValue(selectedEngravigMap, key, value)
-        }
-        abilityStoneView.getEngravingSpinner().forEachIndexed() { index, it ->
-            val key = it.selectedItem.toString()
-            val value =
-                abilityStoneView.getEngravingPlusMinusSpinner()[index].selectedItem.toString()
-                    .toInt()
-            mapPutKeyValue(selectedEngravigMap, key, value)
-        }
-        mapPutKeyValue(
-            selectedEngravigMap,
-            engravingBookView1.getEngavingSpinner().selectedItem.toString(),
-            engravingBookView1.getEngravingPlusSpinner().selectedItem.toString().toInt()
-        )
-        mapPutKeyValue(
-            selectedEngravigMap,
-            engravingBookView2.getEngavingSpinner().selectedItem.toString(),
-            engravingBookView2.getEngravingPlusSpinner().selectedItem.toString().toInt()
-        )
-        changedSelectedEngravingView(selectedEngravigMap)
-        println(selectedEngravigMap)
     }
 
     private fun mapPutKeyValue(map: MutableMap<String, Int>, key: String, value: Int) {
@@ -191,35 +182,33 @@ class EngravingActivity : AppCompatActivity(), SpinnerChangedCallback {
 
 
     fun addSelectedEngravingView() {
-        selectedEngravingViewLayout =
-            findViewById<LinearLayout>(R.id.selected_engraving_view_layout)
-        if(selectedEngravingViewLayout.childCount!=0)
-            selectedEngravingViewLayout.removeAllViews()
-        engravingNameList.forEach {
-            val selectedEngravingView = SeletedEngravingView(this)
-            selectedEngravingView.engravingText.text = it
-            selectedEngravingViewLayout.addView(selectedEngravingView)
+        binding.run {
+            if (selectedEngravingViewLayout.childCount != 0)
+                selectedEngravingViewLayout.removeAllViews()
+            engravingNameList.forEach {
+                val selectedEngravingView = SeletedEngravingView(this@EngravingActivity)
+                selectedEngravingView.engravingText.text = it
+                selectedEngravingViewLayout.addView(selectedEngravingView)
+            }
         }
     }
 
     fun changedSelectedEngravingView(map: MutableMap<String, Int>) {
-        if (::selectedEngravingViewLayout.isInitialized) {
-            val minusSelectedEngravingViewLayout =
-                findViewById<LinearLayout>(R.id.minus_selected_engraving_view_layout)
-            minusSelectedEngravingViewLayout.removeAllViews()
-            map.forEach {
-                if (it.key.contains("감소")) {
-                    val selectedEngravingView = SeletedEngravingView(this)
-                    selectedEngravingView.engravingText.text = it.key
-                    selectedEngravingView.setImage(it.value)
-                    minusSelectedEngravingViewLayout.addView(selectedEngravingView)
-                } else {
-                    for (i in 0 until selectedEngravingViewLayout.childCount) {
-                        val childView =
-                            selectedEngravingViewLayout.getChildAt(i) as SeletedEngravingView
-                        if (childView.engravingText.text.toString() == it.key) {
-                            childView.setImage(it.value)
-                        }
+        val minusSelectedEngravingViewLayout =
+            findViewById<LinearLayout>(R.id.minus_selected_engraving_view_layout)
+        minusSelectedEngravingViewLayout.removeAllViews()
+        map.forEach {
+            if (it.key.contains("감소")) {
+                val selectedEngravingView = SeletedEngravingView(this)
+                selectedEngravingView.engravingText.text = it.key
+                selectedEngravingView.setImage(it.value)
+                minusSelectedEngravingViewLayout.addView(selectedEngravingView)
+            } else {
+                for (i in 0 until binding.selectedEngravingViewLayout.childCount) {
+                    val childView =
+                        binding.selectedEngravingViewLayout.getChildAt(i) as SeletedEngravingView
+                    if (childView.engravingText.text.toString() == it.key) {
+                        childView.setImage(it.value)
                     }
                 }
             }

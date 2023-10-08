@@ -9,51 +9,52 @@ import com.google.android.material.tabs.TabLayout
 import com.lostark.loahelper.R
 import com.lostark.loahelper.database.table.GemItems
 import com.lostark.loahelper.database.table.Items
+import com.lostark.loahelper.databinding.CalculatorActivityBinding
+import com.lostark.loahelper.viewmodel.DataViewModel
 
 
-class CalculatorActivity : AppCompatActivity() {
-
+class CalculatorActivity : BaseActivity<CalculatorActivityBinding>() {
+    private val dataViewModel: DataViewModel by provideViewModel()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.calculator_activity)
-
+        initBinding(CalculatorActivityBinding::inflate)
         setTabLayout()
-
     }
 
     fun setTabLayout(){
 
-        val mapItemList = intent.parcelableArrayList<Items>("MapItemList")!!
-        val lv1Gem = intent.paracelableExtra<GemItems>("Lv1Gem")!!
-        val tabLayout = findViewById<TabLayout>(R.id.calculator_tab)
-        tabLayout.addTab(tabLayout.newTab().setText("경매"))
-        tabLayout.addTab(tabLayout.newTab().setText("지도"))
+        val mapItemList = dataViewModel.getMapItemList()
+        val lv1Gem = dataViewModel.getLv1GemData()
+        binding.run {
+            calculatorTab.addTab(calculatorTab.newTab().setText("경매"))
+            calculatorTab.addTab(calculatorTab.newTab().setText("지도"))
 
-        val auctionFragment = CalculatorAuctionFragment()
-        val mapFragment = CalculatorMapFragment(mapItemList,lv1Gem)
-        val fragmentManager = supportFragmentManager
+            val auctionFragment = CalculatorAuctionFragment()
+            val mapFragment = CalculatorMapFragment(mapItemList, lv1Gem)
+            val fragmentManager = supportFragmentManager
 
-        fragmentManager.beginTransaction()
-            .replace(R.id.calculator_fragment_container, auctionFragment).commit()
+            fragmentManager.beginTransaction()
+                .replace(R.id.calculator_fragment_container, auctionFragment).commit()
 
-        tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
-            override fun onTabSelected(tab: TabLayout.Tab?) {
-                val selectedFragment = when (tab?.position) {
-                    0 -> auctionFragment
-                    1 -> mapFragment
-                    else -> null
+            calculatorTab.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+                override fun onTabSelected(tab: TabLayout.Tab?) {
+                    val selectedFragment = when (tab?.position) {
+                        0 -> auctionFragment
+                        1 -> mapFragment
+                        else -> null
+                    }
+
+                    selectedFragment?.let {
+                        fragmentManager.beginTransaction()
+                            .replace(R.id.calculator_fragment_container, it)
+                            .commit()
+                    }
                 }
 
-                selectedFragment?.let {
-                    fragmentManager.beginTransaction()
-                        .replace(R.id.calculator_fragment_container, it)
-                        .commit()
-                }
-            }
-
-            override fun onTabUnselected(tab: TabLayout.Tab?) {}
-            override fun onTabReselected(tab: TabLayout.Tab?) {}
-        })
+                override fun onTabUnselected(tab: TabLayout.Tab?) {}
+                override fun onTabReselected(tab: TabLayout.Tab?) {}
+            })
+        }
     }
     inline fun <reified T : Parcelable> Intent.parcelableArrayList(key: String): ArrayList<T>? =
         when {
