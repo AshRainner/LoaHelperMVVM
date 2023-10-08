@@ -18,6 +18,7 @@ import com.lostark.loahelper.api.LoaRetrofitObj
 import com.lostark.loahelper.customview.HomeButtonView
 import com.lostark.loahelper.database.AppDatabase
 import com.lostark.loahelper.database.table.*
+import com.lostark.loahelper.databinding.ApiKeyInputActivityBinding
 import com.lostark.loahelper.databinding.MainActivityBinding
 import com.lostark.loahelper.viewmodel.DataViewModel
 import kotlinx.coroutines.CoroutineScope
@@ -33,9 +34,9 @@ class MainActivity : BaseActivity<MainActivityBinding>() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.main_activity)
+        //setContentView(R.layout.main_activity)
+        initBinding(MainActivityBinding::inflate)
         overridePendingTransition(0, 0)
-
         drawerSet()
         buttonSet()
         eventSet()

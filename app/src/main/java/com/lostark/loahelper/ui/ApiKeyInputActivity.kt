@@ -11,52 +11,50 @@ import com.lostark.loahelper.R
 import com.lostark.loahelper.api.LoaRetrofitObj
 import com.lostark.loahelper.database.AppDatabase
 import com.lostark.loahelper.database.table.Key
+import com.lostark.loahelper.databinding.ApiKeyInputActivityBinding
+import com.lostark.loahelper.viewmodel.DataViewModel
 import retrofit2.Response
 
 
-class ApiKeyInputActivity : AppCompatActivity() {
-
+class ApiKeyInputActivity : BaseActivity<ApiKeyInputActivityBinding>() {
+    private val dataViewModel: DataViewModel by provideViewModel()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.api_key_input_activity)
-
-        val apiEditText = findViewById<EditText>(R.id.api_key_input_edit)
-
-        val insertButton = findViewById<Button>(R.id.api_key_insert_button)
-        insertButton.setOnClickListener {
-            Thread{
-                apiKeyCheck(apiEditText.text.toString())
-            }.start()
+        //setContentView(R.layout.api_key_input_activity)
+        initBinding(ApiKeyInputActivityBinding::inflate)
+        binding.run {
+            apiKeyInsertButton.setOnClickListener {
+                Thread{
+                    apiKeyCheck(apiKeyInputEdit.text.toString())
+                }.start()
+            }
         }
-
 
     }
     private fun apiKeyCheck(key:String) {
-        val accept = "application/json"
-        val call = LoaRetrofitObj.getRetrofitService().getNotice(accept,"bearer "+key)
-        val response: Response<MutableList<com.lostark.loahelper.dto.news.NoticeItem>> = call.execute()
-
-        val errorCode = response.code()
-        val apiStatusText = findViewById<TextView>(R.id.api_key_status_text)
-        val db = AppDatabase.getInstance(applicationContext)!!
-        when (errorCode) {
-            200 -> {
-                Log.d("올바른 키입니다.", "errorCode: ")
-                db.keyDao().insertKey(Key("bearer "+key))
-                val intent = Intent(this, StartActivity::class.java)
-                startActivity(intent)
-                finish()
-            }
-            401 -> {
-                apiStatusText.text = "올바르지 않은 키 입니다. 다시 입력해주세요."
-                Log.d("올바르지 않은 키입니다.", "errorCode: ")
-                db.keyDao().deleteAllKey()
-            }
-            503 -> {
-                apiStatusText.text = "서버가 점검 중입니다. 나중에 다시 시도해주세요."
-                Log.d("서버가 점검 중입니다.", "errorCode")
+        val errorCode = dataViewModel.apiKeyCheck("bearer "+key)
+        binding.run {
+            when (errorCode) {
+                200 -> {
+                    Log.d("올바른 키입니다.", "errorCode: ")
+                    dataViewModel.insertKey("bearer "+key)
+                    val intent = Intent(this@ApiKeyInputActivity, StartActivity::class.java)
+                    startActivity(intent)
+                    finish()
+                }
+                401 -> {
+                    apiKeyStatusText.text = "올바르지 않은 키 입니다. 다시 입력해주세요."
+                    Log.d("올바르지 않은 키입니다.", "errorCode: ")
+                    dataViewModel.deleteKey()
+                }
+                503 -> {
+                    apiKeyStatusText.text = "서버가 점검 중입니다. 나중에 다시 시도해주세요."
+                    Log.d("서버가 점검 중입니다.", "errorCode")
+                }
+                else->{}
             }
         }
+
     }
 
 }

@@ -8,7 +8,7 @@ import com.lostark.loahelper.database.table.RecentCharInfo
 interface RecentCharInfoDAO {
 
     @Query("SELECT * FROM RecentCharInfo ORDER BY SearchTime DESC")
-    fun getRecentCharInfo(): ArrayList<RecentCharInfo>
+    fun getRecentCharInfo(): List<RecentCharInfo>
 
     @Query("DELETE FROM RecentCharInfo")
     fun deleteUpdateAll()
