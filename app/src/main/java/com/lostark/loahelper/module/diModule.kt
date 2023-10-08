@@ -5,6 +5,6 @@ import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 val diModule = module{
-    single{AppDatabase.getInstance(get())}
+    factory {AppDatabase.getInstance(get())}
     viewModel{DataViewModel(get())}
 }

@@ -33,12 +33,16 @@ class DataViewModel(private val db: AppDatabase) : ViewModel() {
 
     private val _recentNameList = MutableLiveData<ArrayList<RecentCharInfo>>()
 
-    val recentNameList:LiveData<ArrayList<RecentCharInfo>> get() = _recentNameList
+    val recentNameList: LiveData<ArrayList<RecentCharInfo>> get() = _recentNameList
 
+
+    fun getRecentCharInfoDao(): RecentCharInfoDAO = recentCharInfoDAO
     fun getKey(): String = keyDao.getKey()
     fun getNoticeList(): ArrayList<Notice> = ArrayList(noticeDao.getNoticeList())
     fun getEventList(): ArrayList<LoaEvents> = ArrayList(eventsDao.getEventList())
-    fun getRecentCharInfo(): ArrayList<RecentCharInfo> = ArrayList(recentCharInfoDAO.getRecentCharInfo())
+    fun getRecentCharInfo(): ArrayList<RecentCharInfo> =
+        ArrayList(recentCharInfoDAO.getRecentCharInfo())
+
     fun getStoneList(): ArrayList<Items> =
         ArrayList(itemsDao.getSelectItemList("돌파석").sortedBy { it.id })
 
@@ -64,15 +68,24 @@ class DataViewModel(private val db: AppDatabase) : ViewModel() {
         }
     }
 
-    fun insertRecentCharInfo(charInfo:RecentCharInfo){
+    fun insertKey(key: String) {
+        keyDao.deleteAllKey()
+        keyDao.insertKey(Key(key))
+    }
+
+    fun deleteKey() {
+        keyDao.deleteAllKey()
+    }
+
+    fun insertRecentCharInfo(charInfo: RecentCharInfo) {
         recentCharInfoDAO.insertCharInfo(charInfo)
     }
 
-    fun updateRecentCharInfoList(){
-        _recentNameList.postValue(recentCharInfoDAO.getRecentCharInfo())
+    fun updateRecentCharInfoList() {
+        _recentNameList.postValue(ArrayList(recentCharInfoDAO.getRecentCharInfo()))
     }
 
-    fun exceptionSearch(
+    fun serverNameSearch(
         name: String,
         callback: (com.lostark.loahelper.dto.characters.Characters?) -> Unit
     ) {//서치 인포에서 서치를 했는데 유령 계정이라 서버이름이 ""인 경우 수행하는 서치
@@ -80,7 +93,10 @@ class DataViewModel(private val db: AppDatabase) : ViewModel() {
         val key = db.keyDao().getKey()
         val call = LoaRetrofitObj.getRetrofitService().getCharacters(ACCEPT, key, name)
         call.enqueue(object : Callback<Characters> {
-            override fun onResponse(call: Call<Characters>, response: Response<com.lostark.loahelper.dto.characters.Characters>) {
+            override fun onResponse(
+                call: Call<Characters>,
+                response: Response<com.lostark.loahelper.dto.characters.Characters>
+            ) {
                 result = response.body()
                 callback(result)
             }
@@ -92,58 +108,116 @@ class DataViewModel(private val db: AppDatabase) : ViewModel() {
         })
     }
 
+    fun searchInfo(name: String, callback: (com.lostark.loahelper.dto.armorys.Armories?) -> Unit) {
+        var result: com.lostark.loahelper.dto.armorys.Armories? = null
+        val call = LoaRetrofitObj.getRetrofitService().getArmories(ACCEPT, getKey(), name)
+        call.enqueue(object : Callback<com.lostark.loahelper.dto.armorys.Armories> {
+            override fun onResponse(
+                call: Call<com.lostark.loahelper.dto.armorys.Armories>,
+                response: Response<com.lostark.loahelper.dto.armorys.Armories>
+            ) {
+                result = response.body()
+                callback(result)
+            }
+
+            override fun onFailure(
+                call: Call<com.lostark.loahelper.dto.armorys.Armories>,
+                t: Throwable
+            ) {
+                result = null
+                callback(null)
+            }
+        })
+    }
+
+    fun searchCharacters(
+        name: String,
+        callback: (ArrayList<com.lostark.loahelper.dto.characters.CharactersInfo>?) -> Unit
+    ) {
+        var result: com.lostark.loahelper.dto.characters.Characters? = null
+        val call = LoaRetrofitObj.getRetrofitService().getCharacters(ACCEPT, getKey(), name)
+        call.enqueue(object : Callback<com.lostark.loahelper.dto.characters.Characters> {
+            override fun onResponse(
+                call: Call<com.lostark.loahelper.dto.characters.Characters>,
+                response: Response<com.lostark.loahelper.dto.characters.Characters>
+            ) {
+                result = response.body()
+                callback(result)
+            }
+
+            override fun onFailure(
+                call: Call<com.lostark.loahelper.dto.characters.Characters>,
+                t: Throwable
+            ) {
+                result = null
+                callback(null)
+            }
+        })
+    }
+
     suspend fun setInit(context: Context): Int {
-        var code:Int? = 0
+        var code: Int? = 0
 
         val result = CoroutineScope(Dispatchers.IO).async {
             db?.run {
-                val apiKeyResult:Int = apiKeyCheck(getKey())
-                when (apiKeyResult) {
-                    200 -> {
-                        insertNotice()
-                        insertStoneItems()
-                        insertDestructionStone()
-                        insertEvents()
-                        insertMapItems()
-                        insertMapGemItems()
+                if (getKey() != null) {
+                    val apiKeyResult: Int = apiKeyCheck(getKey())
+                    when (apiKeyResult) {
+                        200 -> {
+                            insertNotice()
+                            insertStoneItems()
+                            insertDestructionStone()
+                            insertEvents()
+                            insertMapItems()
+                            insertMapGemItems()
+                        }
                     }
+                    apiKeyResult // apiKeyCheck 함수의 결과를 반환
                 }
-                apiKeyResult // apiKeyCheck 함수의 결과를 반환
+                else
+                    0
             }
         }
+        code = result.await()!!
 
-        code = result.await()!! // 비동기 작업이 완료되면 결과를 얻음
+
+        // 비동기 작업이 완료되면 결과를 얻음
         return code
     }
 
-    private fun apiKeyCheck(key: String): Int {
+    fun apiKeyCheck(key: String): Int {
         val accept = "application/json"
-        val call = LoaRetrofitObj.getRetrofitService().getNotice(accept, key)
-        val response: Response<MutableList<NoticeItem>> = call.execute()
-        val errorCode = response.code()
-        return errorCode
+        if (key == "") {
+            return 0
+        } else {
+            val call = LoaRetrofitObj.getRetrofitService().getNotice(accept, key)
+            val response: Response<MutableList<NoticeItem>> = call.execute()
+            val errorCode = response.code()
+            return errorCode
+        }
     }
-    fun apiKeyCheckMain(key:String):String{
+
+    fun apiKeyCheckMain(key: String): String {
         val accept = "application/json"
-        val call = LoaRetrofitObj.getRetrofitService().getNotice(accept, "bearer "+key)
+        val call = LoaRetrofitObj.getRetrofitService().getNotice(accept, "bearer " + key)
         val response: Response<MutableList<NoticeItem>> = call.execute()
         val errorCode = response.code()
-        var text:String=""
+        var text: String = ""
         when (errorCode) {
             200 -> {
                 Log.d("올바른 키입니다.", "errorCode: ")
                 keyDao.deleteAllKey()
-                keyDao.insertKey(Key("bearer "+key))
-                text="올바른 코드입니다. 변경완료"
+                keyDao.insertKey(Key("bearer " + key))
+                text = "올바른 코드입니다. 변경완료"
 
             }
             401 -> {
                 Log.d("올바르지 않은 키입니다.", "errorCode: ")
-                text="올바르지 않은 키입니다."
+                text = "올바르지 않은 키입니다."
             }
             503 -> {
                 Log.d("서버가 점검 중입니다.", "errorCode")
-                text="서버가 점검 중입니다."
+                text = "서버가 점검 중입니다."
             }
         }
         return text

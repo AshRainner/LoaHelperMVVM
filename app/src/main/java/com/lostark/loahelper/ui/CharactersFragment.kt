@@ -8,10 +8,12 @@ import android.widget.LinearLayout
 import androidx.fragment.app.Fragment
 import com.lostark.loahelper.customview.CharSearchCharactersGridLayoutView
 import com.lostark.loahelper.R
+import com.lostark.loahelper.databinding.CharSearchDetailCharactersFragmentBinding
+import com.lostark.loahelper.viewmodel.DataViewModel
 
 
-class CharactersFragment(private val characters: ArrayList<com.lostark.loahelper.dto.characters.CharactersInfo>) : Fragment() {
-
+class CharactersFragment(private val characters: ArrayList<com.lostark.loahelper.dto.characters.CharactersInfo>) : BaseFragment<CharSearchDetailCharactersFragmentBinding>(R.layout.char_search_detail_characters_fragment) {
+    private val dataViewModel: DataViewModel by provideViewModel()
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -34,7 +36,8 @@ class CharactersFragment(private val characters: ArrayList<com.lostark.loahelper
         }.filterNotNull().sortedByDescending { it.size }
 
         sortedCharacter.forEach {
-            val serverLayoutView = CharSearchCharactersGridLayoutView(context)
+            val serverLayoutView = CharSearchCharactersGridLayoutView(requireContext())
+            serverLayoutView.setViewModel(dataViewModel)
             serverLayoutView.setInfo(it.sortedByDescending { it.itemMaxLevel },(activity as SearchDetailActivity).charInfo.armoryProfile.characterName)
             val marginBottomDp = 10 // 변경하려는 marginBottom 값 (dp)
 
