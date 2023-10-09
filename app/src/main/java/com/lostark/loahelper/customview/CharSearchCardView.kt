@@ -10,93 +10,88 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.lostark.loahelper.R
+import com.lostark.loahelper.databinding.CharSearchDetailAbilityAccessoryViewBinding
+import com.lostark.loahelper.databinding.CharSearchDetailAbilityCardViewBinding
+import com.lostark.loahelper.dto.armorys.Card
 
-class CharSearchCardView : LinearLayout {
-
-    lateinit var cardGradeImage: ImageView
-    lateinit var cardImage: ImageView
-    lateinit var cardLevel: TextView
-    lateinit var cardNameGra: ImageView
-    lateinit var cardNameView: TextView
-
-    lateinit var card: com.lostark.loahelper.dto.armorys.Card
+class CharSearchCardView @JvmOverloads constructor(
+    context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
+) : BaseLinearLayoutView<CharSearchDetailAbilityCardViewBinding>(
+    context,
+    attrs,
+    defStyleAttr
+) {
+    lateinit var card: Card
     lateinit var cardDescription:String
     lateinit var imageUrl:String
 
-    constructor(context: Context?) : super(context) {
-        init(context)
-    }
 
-    constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs) {
-        init(context)
-    }
-
-    private fun init(context: Context?) {
-        val view =
-            LayoutInflater.from(context).inflate(R.layout.char_search_detail_ability_card_view, this, false)
-        addView(view)
-        cardGradeImage = findViewById(R.id.char_search_detail_card_grade_image)
-        cardImage = findViewById(R.id.char_search_detail_card_image)
-        cardLevel = findViewById(R.id.char_search_detail_card_awakening_level)
-        cardNameView = findViewById(R.id.char_search_detail_card_name)
-        cardNameGra = findViewById(R.id.char_search_detail_card_name_gra)
+    override fun init(context: Context?) {
 
     }
     fun setImageBackground(grade : String){
-        when(grade) {//이미지 백그라운드
-            "전설" -> {
-                cardGradeImage.setBackgroundResource(R.drawable.card_legend_background)
-            }
-            "영웅" -> {
-                cardGradeImage.setBackgroundResource(R.drawable.card_hero_background)
+        binding.run {
+            when (grade) {//이미지 백그라운드
+                "전설" -> {
+                    charSearchDetailCardGradeImage.setBackgroundResource(R.drawable.card_legend_background)
+                }
+                "영웅" -> {
+                    charSearchDetailCardGradeImage.setBackgroundResource(R.drawable.card_hero_background)
 
-            }
-            "희귀" -> {
-                cardGradeImage.setBackgroundResource(R.drawable.card_rare_background)
-            }
-            "고급" -> {
-                cardGradeImage.setBackgroundResource(R.drawable.card_advanced_background)
-            }
-            "일반" -> {
-                cardGradeImage.setBackgroundResource(R.drawable.card_common_background)
+                }
+                "희귀" -> {
+                    charSearchDetailCardGradeImage.setBackgroundResource(R.drawable.card_rare_background)
+                }
+                "고급" -> {
+                    charSearchDetailCardGradeImage.setBackgroundResource(R.drawable.card_advanced_background)
+                }
+                "일반" -> {
+                    charSearchDetailCardGradeImage.setBackgroundResource(R.drawable.card_common_background)
+                }
             }
         }
     }
-    fun setCardImageText(card: com.lostark.loahelper.dto.armorys.Card, tooltip: com.lostark.loahelper.dto.armorys.tooltips.Tooltip){
-        Glide.with(this)
-            .load(card.icon)
-            .into(cardImage)
-        println("카드 이미지 : "+card.icon)
-        cardNameGra.setBackgroundResource(R.drawable.card_name_gra)
-        imageUrl = card.icon
-        setImageBackground(card.grade)
-        cardNameView.text = card.name
-        if(card.awakeCount != 0)
-            cardLevel.text = card.awakeCount.toString()
-
-        this.card = card
-
-        cardDescription = tooltip.elements.get("Element_002")?.value as String
-
-    }
-    fun setCardImageText(card: com.lostark.loahelper.dto.armorys.Card){
-        Glide.with(this)
-            .load(card.icon)
-            .into(cardImage)
-        println("카드 이미지 : "+card.icon)
-        imageUrl = card.icon
-        setImageBackground(card.grade)
-        if(card.awakeCount != 0) {
-            cardLevel.text = card.awakeCount.toString()
-            cardLevel.setTextSize(TypedValue.COMPLEX_UNIT_PT,12f)
-            val params = cardLevel.layoutParams as ViewGroup.MarginLayoutParams
-            val leftMargin = TypedValue.applyDimension(
-                TypedValue.COMPLEX_UNIT_DIP, 68f, resources.displayMetrics
-            ).toInt()
-            params.leftMargin = leftMargin
-            cardLevel.layoutParams = params
+    fun setCardImageText(card:Card, tooltip: com.lostark.loahelper.dto.armorys.tooltips.Tooltip){
+        binding.run {
+            Glide.with(this@CharSearchCardView)
+                .load(card.icon)
+                .into(charSearchDetailCardImage)
+            println("카드 이미지 : " + card.icon)
+            charSearchDetailCardNameGra.setBackgroundResource(R.drawable.card_name_gra)
+            imageUrl = card.icon
+            setImageBackground(card.grade)
+            charSearchDetailCardName.text = card.name
+            if (card.awakeCount != 0)
+                charSearchDetailCardAwakeningLevel.text = card.awakeCount.toString()
+            cardDescription = tooltip.elements.get("Element_002")?.value as String
         }
+    }
+    fun setCardImageText(card:Card){
+        binding.run {
+            Glide.with(this@CharSearchCardView)
+                .load(card.icon)
+                .into(charSearchDetailCardImage)
+            imageUrl = card.icon
+            setImageBackground(card.grade)
+            if (card.awakeCount != 0) {
+                charSearchDetailCardAwakeningLevel.text = card.awakeCount.toString()
+                charSearchDetailCardAwakeningLevel.setTextSize(TypedValue.COMPLEX_UNIT_PT, 12f)
+                val params = charSearchDetailCardAwakeningLevel.layoutParams as ViewGroup.MarginLayoutParams
+                val leftMargin = TypedValue.applyDimension(
+                    TypedValue.COMPLEX_UNIT_DIP, 68f, resources.displayMetrics
+                ).toInt()
+                params.leftMargin = leftMargin
+                charSearchDetailCardAwakeningLevel.layoutParams = params
+            }
+        }
+    }
 
+    fun getCardName() = binding.charSearchDetailCardName
 
+    override fun getAttrs(attrs: AttributeSet?) {
+    }
+
+    override fun inflateBinding(inflater: LayoutInflater): CharSearchDetailAbilityCardViewBinding {
+        return CharSearchDetailAbilityCardViewBinding.inflate(inflater)
     }
 }

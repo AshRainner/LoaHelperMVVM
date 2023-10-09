@@ -21,6 +21,7 @@ import com.lostark.loahelper.customview.*
 import com.lostark.loahelper.databinding.CharSearchDetailAbilityFragmentBinding
 import com.lostark.loahelper.dto.armorys.Armories
 import java.util.*
+import com.lostark.loahelper.dto.armorys.*
 
 
 class AbilityFragment(private val charInfo: Armories) : BaseFragment<CharSearchDetailAbilityFragmentBinding>(CharSearchDetailAbilityFragmentBinding::inflate) {
@@ -218,6 +219,15 @@ class AbilityFragment(private val charInfo: Armories) : BaseFragment<CharSearchD
                     level!!,
                     imageUrl
                 )
+                bottomEngravingView.layoutParams=LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.MATCH_PARENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT
+                ).apply {
+                    val marginPx = TypedValue.applyDimension(
+                        TypedValue.COMPLEX_UNIT_DIP, 5f, resources.displayMetrics
+                    ).toInt()
+                    setMargins(marginPx, marginPx, marginPx, marginPx)
+                }
                 charSearchDetailAbilityBottomEngravingLayout.addView(bottomEngravingView)
                 bottomEngravingView.setOnClickListener {
                     (activity as SearchDetailActivity).openDialog(it, "")
@@ -341,12 +351,10 @@ class AbilityFragment(private val charInfo: Armories) : BaseFragment<CharSearchD
 
             earring1Tooltip?.let {
                 charSearchDetailAbilityEarring1.setAccessoryImageText(earringList!!.get(0), earring1Tooltip!!)
-                setBackGroudColor(charSearchDetailAbilityEarring1)
             }
 
             earring2Tooltip?.let {
                 charSearchDetailAbilityEarring2.setAccessoryImageText(earringList!!.get(1), earring2Tooltip!!)
-                setBackGroudColor(charSearchDetailAbilityEarring2)
             }
 
             val ringList = charInfo.armoryEquipment?.filter { it.type == "반지" }
@@ -361,12 +369,10 @@ class AbilityFragment(private val charInfo: Armories) : BaseFragment<CharSearchD
 
             ring1Tooltip?.let {
                 charSearchDetailAbilityRing1.setAccessoryImageText(ringList!!.get(0), ring1Tooltip!!)
-                setBackGroudColor(charSearchDetailAbilityRing1)
             }
 
             ring2Tooltip?.let {
                 charSearchDetailAbilityRing2.setAccessoryImageText(ringList!!.get(1), ring2Tooltip!!)
-                setBackGroudColor(charSearchDetailAbilityRing2)
             }
             setEquipmentImageText(charSearchDetailAbilityBracelet, "팔찌")
             setEquipmentImageText(charSearchDetailAbilityStone, "어빌리티 스톤")
@@ -399,7 +405,6 @@ class AbilityFragment(private val charInfo: Armories) : BaseFragment<CharSearchD
                             charInfo.armoryEquipment.find { it.type == type }!!,
                             tooltip
                         )
-                        setBackGroudColor(view)
                     }
                 }
             }
@@ -412,7 +417,6 @@ class AbilityFragment(private val charInfo: Armories) : BaseFragment<CharSearchD
                             charInfo.armoryEquipment.find { it.type == type }!!,
                             tooltip
                         )
-                        setBackGroudColor(view)
                     }
                 }
 
@@ -444,8 +448,8 @@ class AbilityFragment(private val charInfo: Armories) : BaseFragment<CharSearchD
 
             charSearchDetailAbilityHat?.let {
                 if (it.elixirSpecialString != null) {
-                    charSearchDetailAbilityWeapon.armorElixirSpecial.text = it.elixirSpecialString
-                    charSearchDetailAbilityWeapon.armorElixirSpecial.visibility = View.VISIBLE
+                    charSearchDetailAbilityWeapon.getArmorElixirSpecial().text = it.elixirSpecialString
+                    charSearchDetailAbilityWeapon.getArmorElixirSpecial().visibility = View.VISIBLE
                 }
             }
             val elixirSpecialDetailString: String? = charSearchDetailAbilityHat.elixirSpecialDetailString
@@ -465,78 +469,6 @@ class AbilityFragment(private val charInfo: Armories) : BaseFragment<CharSearchD
         }
     }
 
-    fun setBackGroudColor(view: Any) {
-        when (view) {
-            is CharSearchAccessoryView -> {
-                val quality = view.accessoryQuality.text.toString().toInt()
-                when {
-                    quality == 100 -> {
-                        view.accessoryCardView.setCardBackgroundColor(Color.parseColor("#F2BD2C"))
-                        view.accessoryQuality.setBackgroundColor(Color.parseColor("#F2BD2C"))
-                    }
-                    quality >= 90 -> {
-                        view.accessoryCardView.setCardBackgroundColor(Color.parseColor("#ff00dd"))
-                        view.accessoryQuality.setBackgroundColor(Color.parseColor("#ff00dd"))
-                    }
-                    quality >= 70 -> {
-                        view.accessoryCardView.setCardBackgroundColor(Color.parseColor("#1B89F4"))
-                        view.accessoryQuality.setBackgroundColor(Color.parseColor("#1B89F4"))
-                    }
-                    quality >= 30 -> {
-                        view.accessoryCardView.setCardBackgroundColor(Color.parseColor("#35E81C"))
-                        view.accessoryQuality.setBackgroundColor(Color.parseColor("#35E81C"))
-                    }
-                    quality >= 10 -> {
-                        view.accessoryCardView.setCardBackgroundColor(Color.parseColor("#D2D208"))
-                        view.accessoryQuality.setBackgroundColor(Color.parseColor("#D2D208"))
-                    }
-                    quality == 0 -> {
-                        view.accessoryCardView.setCardBackgroundColor(Color.parseColor("#dedfe0"))
-                        view.accessoryQuality.setBackgroundColor(Color.parseColor("#dedfe0"))
-                    }
-                    else -> {
-                        view.accessoryCardView.setCardBackgroundColor(Color.parseColor("#F5260E"))
-                        view.accessoryQuality.setBackgroundColor(Color.parseColor("#F5260E"))
-                    }
-                }
-            }
-            is CharSearchArmorView -> {
-                val quality = view.armorQuality.text.toString().toInt()
-                when {
-                    quality == 100 -> {
-                        view.armorCardView.setCardBackgroundColor(Color.parseColor("#F2BD2C"))
-                        view.armorQuality.setBackgroundColor(Color.parseColor("#F2BD2C"))
-                    }
-                    quality >= 90 -> {
-                        view.armorCardView.setCardBackgroundColor(Color.parseColor("#ff00dd"))
-                        view.armorQuality.setBackgroundColor(Color.parseColor("#ff00dd"))
-                    }
-                    quality >= 70 -> {
-                        view.armorCardView.setCardBackgroundColor(Color.parseColor("#1B89F4"))
-                        view.armorQuality.setBackgroundColor(Color.parseColor("#1B89F4"))
-                    }
-                    quality >= 30 -> {
-                        view.armorCardView.setCardBackgroundColor(Color.parseColor("#35E81C"))
-                        view.armorQuality.setBackgroundColor(Color.parseColor("#35E81C"))
-                    }
-                    quality >= 10 -> {
-                        view.armorCardView.setCardBackgroundColor(Color.parseColor("#D2D208"))
-                        view.armorQuality.setBackgroundColor(Color.parseColor("#D2D208"))
-                    }
-                    quality == 0 -> {
-                        view.armorCardView.setCardBackgroundColor(Color.parseColor("#dedfe0"))
-                        view.armorQuality.setBackgroundColor(Color.parseColor("#dedfe0"))
-                    }
-                    else -> {
-                        view.armorCardView.setCardBackgroundColor(Color.parseColor("#F5260E"))
-                        view.armorQuality.setBackgroundColor(Color.parseColor("#F5260E"))
-                    }
-                }
-            }
-        }
-
-    }
-
     fun toolTipDeserialization(vararg items: Any?): com.lostark.loahelper.dto.armorys.tooltips.Tooltip? {
         val gson = GsonBuilder()
             .registerTypeAdapter(com.lostark.loahelper.dto.armorys.tooltips.ValueData::class.java, ValueDataAdapter())
@@ -545,10 +477,10 @@ class AbilityFragment(private val charInfo: Armories) : BaseFragment<CharSearchD
         val pattern2 = "<BR>|<br>".toRegex()
         val tooltips = items.mapNotNull { item ->
             when (item) {
-                is com.lostark.loahelper.dto.armorys.ArmoryEquipment -> item.tooltip
-                is com.lostark.loahelper.dto.armorys.Engraving -> item.tooltip
-                is com.lostark.loahelper.dto.armorys.Gem -> item.tooltip
-                is com.lostark.loahelper.dto.armorys.Card -> item.tooltip
+                is ArmoryEquipment -> item.tooltip
+                is Engraving -> item.tooltip
+                is Gem -> item.tooltip
+                is Card -> item.tooltip
                 else -> return null
             }?.replace(pattern2, "\n")?.replace(pattern, "")
         }

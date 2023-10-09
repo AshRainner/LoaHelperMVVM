@@ -22,19 +22,19 @@
            <com.lostark.loahelper.customview.CharSearchCollectionEquipmentView
                android:id="@+id/char_search_detail_collection_compass_view"
                android:layout_weight="1"
-               android:layout_width="match_parent"
+               android:layout_width="0dp"
                android:layout_height="wrap_content">
            </com.lostark.loahelper.customview.CharSearchCollectionEquipmentView>
             <com.lostark.loahelper.customview.CharSearchCollectionEquipmentView
                 android:id="@+id/char_search_detail_collection_charm_view"
                 android:layout_weight="1"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content">
             </com.lostark.loahelper.customview.CharSearchCollectionEquipmentView>
             <com.lostark.loahelper.customview.CharSearchCollectionEquipmentView
                 android:id="@+id/char_search_detail_collection_insignia_view"
                 android:layout_weight="1"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content">
             </com.lostark.loahelper.customview.CharSearchCollectionEquipmentView>
         </LinearLayout>

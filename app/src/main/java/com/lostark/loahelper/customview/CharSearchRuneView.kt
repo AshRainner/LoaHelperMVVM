@@ -9,56 +9,52 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.lostark.loahelper.R
+import com.lostark.loahelper.databinding.CharSearchDetailAbilityGemViewBinding
+import com.lostark.loahelper.databinding.CharSearchDetailRuneViewBinding
 
-class CharSearchRuneView : LinearLayout {
-
-    lateinit var runeImageView: ImageView
-    lateinit var runeNameView: TextView
-
-
-    lateinit var runeName:String
+class CharSearchRuneView @JvmOverloads constructor(
+    context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
+) : BaseLinearLayoutView<CharSearchDetailRuneViewBinding>(
+    context,
+    attrs,
+    defStyleAttr
+) {
+        lateinit var runeName:String
     lateinit var imageUrl:String
     lateinit var runeGrade:String
     lateinit var runeDescription:String
 
-    constructor(context: Context?) : super(context) {
-        init(context)
-    }
-
-    constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs) {
-        init(context)
-    }
-
-    private fun init(context: Context?) {
-        val view =
-            LayoutInflater.from(context).inflate(R.layout.char_search_detail_rune_view, this, false)
-        runeImageView = view.findViewById(R.id.char_search_detail_skill_rune_image)
-        runeNameView = view.findViewById(R.id.char_search_detail_skill_rune_name)
-        addView(view)
-
+    override fun init(context: Context?) {
 
     }
     fun setRuneImageBackground(grade : String){//룬, 보석
         when(grade) {//이미지 백그라운드
-            "전설" -> runeImageView.setBackgroundResource(R.drawable.legend_background)
-            "영웅" -> runeImageView.setBackgroundResource(R.drawable.hero_background)
-            "희귀" -> runeImageView.setBackgroundResource(R.drawable.rare_background)
-            "고급" -> runeImageView.setBackgroundResource(R.drawable.advanced_background)
+            "전설" -> binding.charSearchDetailSkillRuneImage.setBackgroundResource(R.drawable.legend_background)
+            "영웅" -> binding.charSearchDetailSkillRuneImage.setBackgroundResource(R.drawable.hero_background)
+            "희귀" -> binding.charSearchDetailSkillRuneImage.setBackgroundResource(R.drawable.rare_background)
+            "고급" -> binding.charSearchDetailSkillRuneImage.setBackgroundResource(R.drawable.advanced_background)
         }
     }
 
     fun setRuneImageText(rune: com.lostark.loahelper.dto.armorys.Rune, tooltip: com.lostark.loahelper.dto.armorys.tooltips.Tooltip){
         Glide.with(this)
             .load(rune.icon)
-            .into(runeImageView)
+            .into(binding.charSearchDetailSkillRuneImage)
         imageUrl = rune.icon
         runeGrade = rune.grade+" 룬"
         setRuneImageBackground(rune.grade)
 
-        runeNameView.text = rune.name
-        runeNameView.visibility= View.VISIBLE
+        binding.charSearchDetailSkillRuneName.text = rune.name
+        binding.charSearchDetailSkillRuneName.visibility= View.VISIBLE
         runeName = rune.name
         runeDescription = (tooltip.elements.get("Element_002")?.value as com.lostark.loahelper.dto.armorys.tooltips.ItemPartData).element1 //스킬 룬 설명
 
+    }
+
+    override fun getAttrs(attrs: AttributeSet?) {
+    }
+
+    override fun inflateBinding(inflater: LayoutInflater): CharSearchDetailRuneViewBinding {
+        return CharSearchDetailRuneViewBinding.inflate(inflater)
     }
 }

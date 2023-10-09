@@ -229,9 +229,9 @@ class SearchDetailActivity : AppCompatActivity() {
             armorLayout.findViewById<TextView>(R.id.char_search_detail_drawer_armor_name)
         val armorImage =
             armorLayout.findViewById<ImageView>(R.id.char_search_detail_drawer_armor_image)
-        armorName.text = view.armorName.text
-        armorName.setTextColor(view.armorName.textColors)
-        armorImage.background = view.armorImage.background
+        armorName.text = view.getArmorName().text
+        armorName.setTextColor(view.getArmorName().textColors)
+        armorImage.background = view.getArmorImage().background
         Glide.with(this)
             .load(view.imageUrl)
             .into(armorImage)
@@ -241,7 +241,7 @@ class SearchDetailActivity : AppCompatActivity() {
         val armorDetail =
             armorLayout.findViewById<TextView>(R.id.char_search_detail_drawer_armor_detail)
         armorDetailType.text = view.itemDetailType
-        armorDetailType.setTextColor(view.armorName.currentTextColor)
+        armorDetailType.setTextColor(view.getArmorName().currentTextColor)
         armorDetail.text = view.itemDetail
 
         val armorQuality =
@@ -249,10 +249,10 @@ class SearchDetailActivity : AppCompatActivity() {
         val armorQualityProgressBar =
             armorLayout.findViewById<RoundCornerProgressBar>(R.id.char_search_detail_drawer_armor_quality_progress)
 
-        armorQuality.text = view.armorQuality.text
-        armorQuality.setTextColor((view.armorQuality.background as ColorDrawable).color)
-        armorQualityProgressBar.setProgress(view.armorQuality.text.toString().toInt())
-        armorQualityProgressBar.setProgressColor((view.armorQuality.background as ColorDrawable).color)
+        armorQuality.text = view.getArmorQuality().text
+        armorQuality.setTextColor((view.getArmorQuality().background as ColorDrawable).color)
+        armorQualityProgressBar.setProgress(view.getArmorQuality().text.toString().toInt())
+        armorQualityProgressBar.setProgressColor((view.getArmorQuality().background as ColorDrawable).color)
 
         val armorDefaultEffect =
             armorLayout.findViewById<TextView>(R.id.char_search_detail_drawer_armor_default_effect)
@@ -319,7 +319,7 @@ class SearchDetailActivity : AppCompatActivity() {
         val cardView =
             cardLayout.findViewById<CharSearchCardView>(R.id.char_search_detail_drawer_card_view)
         cardView.setCardImageText(view.card)
-        cardName.text = view.cardNameView.text
+        cardName.text = view.getCardName().text
         cardDescription.text = view.cardDescription
     }
 
@@ -369,7 +369,7 @@ class SearchDetailActivity : AppCompatActivity() {
         val skillDetail =
             skillLayout.findViewById<TextView>(R.id.char_search_detail_drawer_skill_detail)
 
-        skillName.text = view.skillName.text
+        skillName.text = view.getSkillName().text
         Glide.with(this).load(view.imageUrl).into(skillImage)
 
         skillType.text = view.skillType
@@ -386,13 +386,13 @@ class SearchDetailActivity : AppCompatActivity() {
     fun setEngrvingDialog(view: CharSearchEngravingBookView, engravingLayout: LinearLayout) {
         val engravingName =
             engravingLayout.findViewById<TextView>(R.id.char_search_detail_drawer_engraving_name)
-        engravingName.text = view.engravingName.text
+        engravingName.text = view.getEngravingName().text
         val engravingImage =
             engravingLayout.findViewById<ImageView>(R.id.char_search_detail_drawer_engraving_image)
         Glide.with(this).load(view.imageUrl).into(engravingImage)
         val engravingPoint =
             engravingLayout.findViewById<TextView>(R.id.char_search_detail_drawer_engraving_point)
-        engravingPoint.text = view.engravingPoint.text
+        engravingPoint.text = view.getEngravingPoint().text
         val engravingDetailLayout =
             engravingLayout.findViewById<LinearLayout>(R.id.char_search_detail_engraving_detail_layout)
         view.engravingStringList.forEach {
@@ -614,14 +614,13 @@ class SearchDetailActivity : AppCompatActivity() {
         else if (intChar.contains(charInfo.armoryProfile.characterClassName))
             primaryStats = "지능 "
 
-
         val accessoryName =
             accessoryLayout.findViewById<TextView>(R.id.char_search_detail_drawer_accessory_name)
         val accessoryImage =
             accessoryLayout.findViewById<ImageView>(R.id.char_search_detail_drawer_accessory_image)
         accessoryName.text = view.itemName
-        accessoryName.setTextColor(view.accessoryName.textColors)
-        accessoryImage.background = view.accessoryImage.background
+        accessoryName.setTextColor(view.getAccessoryName().textColors)
+        accessoryImage.background = view.getAccessoryImage().background
         Glide.with(this)
             .load(view.imageUrl)
             .into(accessoryImage)
@@ -631,7 +630,7 @@ class SearchDetailActivity : AppCompatActivity() {
         val accessoryTier =
             accessoryLayout.findViewById<TextView>(R.id.char_search_detail_drawer_accessory_tier)
         accessoryType.text = view.itemType
-        accessoryType.setTextColor(view.accessoryName.currentTextColor)
+        accessoryType.setTextColor(view.getAccessoryName().currentTextColor)
         accessoryTier.text = view.itemTier
         println(accessoryTier.text)
         val accessoryQuality =
@@ -652,14 +651,14 @@ class SearchDetailActivity : AppCompatActivity() {
             abilityStonePlus.visibility = View.VISIBLE
             abilityStoneMinus.visibility = View.VISIBLE
 
-            abilityStonePlus.text = view.stonePlusText.text
-            abilityStoneMinus.text = view.stoneMinusText.text
+            abilityStonePlus.text = view.getStonPlus().text
+            abilityStoneMinus.text = view.getStonMinus().text
             accessoryDefaultEffect.text = view.defaultEffect
         } else {
-            accessoryQuality.text = view.accessoryQuality.text
-            accessoryQuality.setTextColor((view.accessoryQuality.background as ColorDrawable).color)
-            accessoryQualityProgressBar.setProgress(view.accessoryQuality.text.toString().toInt())
-            accessoryQualityProgressBar.setProgressColor((view.accessoryQuality.background as ColorDrawable).color)
+            accessoryQuality.text = view.getAccessoryQuality().text
+            accessoryQuality.setTextColor((view.getAccessoryQuality().background as ColorDrawable).color)
+            accessoryQualityProgressBar.setProgress(view.getAccessoryQuality().text.toString().toInt())
+            accessoryQualityProgressBar.setProgressColor((view.getAccessoryQuality().background as ColorDrawable).color)
             accessoryDefaultEffect.text = primaryStats + view.defaultEffect
         }
 

@@ -8,54 +8,48 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.lostark.loahelper.R
+import com.lostark.loahelper.databinding.CharSearchDetailAbilityEngravingBookViewBinding
+import com.lostark.loahelper.databinding.CharSearchDetailCollectionListViewBinding
+import com.lostark.loahelper.dto.armorys.Engraving
+import com.lostark.loahelper.dto.armorys.tooltips.Tooltip
 
-class CharSearchEngravingBookView : LinearLayout {
+class CharSearchEngravingBookView @JvmOverloads constructor(
+    context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
+) : BaseLinearLayoutView<CharSearchDetailAbilityEngravingBookViewBinding>(
+    context,
+    attrs,
+    defStyleAttr
+) {
 
-
-    lateinit var engravingImage: ImageView
-    lateinit var engravingName: TextView
-    lateinit var engravingPoint: TextView
 
     lateinit var engravingStringList:List<String>
     lateinit var imageUrl:String
 
-    constructor(context: Context?) : super(context) {
-        init(context)
-    }
-
-    constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs) {
-        init(context)
-        getAttrs(attrs)
-    }
-
-    private fun init(context: Context?) {
-        val view =
-            LayoutInflater.from(context).inflate(R.layout.char_search_detail_ability_engraving_book_view, this, false)
-        engravingImage = view.findViewById(R.id.char_search_detail_engraving_image)
-        engravingName = view.findViewById(R.id.char_search_detail_engraving_name)
-        engravingPoint = view.findViewById(R.id.char_search_detail_engraving_point)
-        addView(view)
+    override fun init(context: Context?) {
 
     }
-    private fun getAttrs(attrs: AttributeSet?) {
+    override fun getAttrs(attrs: AttributeSet?) {
 
     }
-    fun setEngravingImageText(engraving: com.lostark.loahelper.dto.armorys.Engraving, tooltip: com.lostark.loahelper.dto.armorys.tooltips.Tooltip){
+    fun setEngravingImageText(engraving: Engraving, tooltip: Tooltip){
         Glide.with(this)
             .load(engraving.icon)
             .circleCrop()
-            .into(engravingImage)
+            .into(binding.charSearchDetailEngravingImage)
         imageUrl = engraving.icon
 
-        engravingName.text = tooltip.elements.get("Element_000")?.value.toString()
+        binding.charSearchDetailEngravingName.text = tooltip.elements.get("Element_000")?.value.toString()
         val data = tooltip.elements.get("Element_001")?.value as com.lostark.loahelper.dto.armorys.tooltips.EngraveSkillTitleData
-        engravingPoint.text = data.leftText.replace("각인 ","")
+        binding.charSearchDetailEngravingPoint.text = data.leftText.replace("각인 ","")
 
         var pattern = "레벨 \\d+[^레벨].*".toRegex(RegexOption.MULTILINE)
         engravingStringList =  pattern.findAll((tooltip.elements.get("Element_003")?.value as com.lostark.loahelper.dto.armorys.tooltips.ItemPartData).element1).map { it.value }.toList()
-        /*println(engravingStringList)
-        pattern.findAll((tooltip.elements.get("Element_003")?.value as ItemPartData).element1).forEach {
-            println(it.value)
-        }*/
+    }
+
+    fun getEngravingName()=binding.charSearchDetailEngravingName
+    fun getEngravingPoint()=binding.charSearchDetailEngravingPoint
+
+    override fun inflateBinding(inflater: LayoutInflater): CharSearchDetailAbilityEngravingBookViewBinding {
+        return CharSearchDetailAbilityEngravingBookViewBinding.inflate(inflater)
     }
 }

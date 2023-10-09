@@ -17,4 +17,5 @@ abstract class BaseActivity<T:ViewBinding> : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
     }
+
 }

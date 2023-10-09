@@ -71,7 +71,7 @@ class SkillFragment(private val charInfo:Armories) : Fragment() {
         )
         layoutParams.setMargins(0, 0, 0, marginBottomPx)
         useSkillList?.forEach{
-            val skillView = CharSearchSkillView(context)
+            val skillView = CharSearchSkillView(requireContext())
             skillView.setImageText(it)
             skillView.layoutParams = layoutParams
             charInfo.armoryGem?.gems?.let {
@@ -92,25 +92,6 @@ class SkillFragment(private val charInfo:Armories) : Fragment() {
         val destroyText = view.findViewById<TextView>(R.id.char_search_detail_skill_destroy)
         findSkillAbility("부위 파괴",useSkillList,destroyText)
 
-    }
-
-    fun toolTipDeserialization(vararg items: Any?): com.lostark.loahelper.dto.armorys.tooltips.Tooltip? {
-        val gson = GsonBuilder()
-            .registerTypeAdapter(com.lostark.loahelper.dto.armorys.tooltips.ValueData::class.java, ValueDataAdapter())
-            .create()
-        val pattern = "<.*?>".toRegex()
-        val pattern2 = "<BR>|<br>".toRegex()
-        val tooltips = items.mapNotNull { item ->
-            when (item) {
-                is com.lostark.loahelper.dto.armorys.ArmoryEquipment -> item.tooltip
-                is com.lostark.loahelper.dto.armorys.Engraving -> item.tooltip
-                is com.lostark.loahelper.dto.armorys.Gem -> item.tooltip
-                is com.lostark.loahelper.dto.armorys.Card -> item.tooltip
-                else -> return null
-            }?.replace(pattern2, "\n")?.replace(pattern, "")
-        }
-        val jsonString = "{\n\"Elements\":\n${tooltips.joinToString(separator = ",\n")}\n}"
-        return gson.fromJson(jsonString, com.lostark.loahelper.dto.armorys.tooltips.Tooltip::class.java)
     }
 
 }

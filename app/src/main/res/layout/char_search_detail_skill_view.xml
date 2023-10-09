@@ -12,14 +12,19 @@
 
         <LinearLayout
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1">
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+            <View
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="1dp"></View>
 
             <com.lostark.loahelper.customview.CharSearchSkillLayoutView
+                android:layout_weight="1"
                 android:id="@+id/char_search_detail_skill_layout"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"></com.lostark.loahelper.customview.CharSearchSkillLayoutView>
-
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"></com.lostark.loahelper.customview.CharSearchSkillLayoutView>
         </LinearLayout>
 
         <LinearLayout
@@ -41,15 +46,17 @@
                 <com.google.android.material.card.MaterialCardView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="10dp"
+                    android:background="@color/black"
                     app:cardCornerRadius="20dp">
 
                     <com.lostark.loahelper.customview.CharSearchGemView
                         android:id="@+id/char_search_detail_skill_gem_1"
                         android:layout_width="40dp"
                         android:layout_height="40dp"
-                        android:background="#dedfe0"></com.lostark.loahelper.customview.CharSearchGemView>
+                        android:background="#000000"></com.lostark.loahelper.customview.CharSearchGemView>
                 </com.google.android.material.card.MaterialCardView>
             </FrameLayout>
 
@@ -62,15 +69,21 @@
                 <com.google.android.material.card.MaterialCardView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="10dp"
                     app:cardCornerRadius="20dp">
 
-                    <com.lostark.loahelper.customview.CharSearchGemView
-                        android:id="@+id/char_search_detail_skill_gem_2"
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:background="#dedfe0"></com.lostark.loahelper.customview.CharSearchGemView>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <com.lostark.loahelper.customview.CharSearchGemView
+                            android:id="@+id/char_search_detail_skill_gem_2"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:background="#dedfe0"></com.lostark.loahelper.customview.CharSearchGemView>
+                    </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
             </FrameLayout>
         </LinearLayout>

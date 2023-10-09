@@ -24,8 +24,7 @@ class CharSearchCharactersGridLayoutView @JvmOverloads constructor(
 ) {
     private lateinit var viewModel: DataViewModel
 
-    private fun init(context: Context?) {
-        addView(binding.root)
+    override fun init(context: Context?) {
     }
 
     fun setViewModel(viewModel: DataViewModel) {
@@ -85,6 +84,10 @@ class CharSearchCharactersGridLayoutView @JvmOverloads constructor(
                 charactersGridLayout.addView(view)
             }
         }
+    }
+
+    override fun getAttrs(attrs: AttributeSet?) {
+
     }
 
     override fun inflateBinding(inflater: LayoutInflater): CharSearchDetailCharactersGridLayoutViewBinding {

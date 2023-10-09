@@ -9,11 +9,16 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.lostark.loahelper.R
+import com.lostark.loahelper.databinding.CharSearchDetailCharactersGridItemViewBinding
+import com.lostark.loahelper.databinding.CharSearchDetailCollectionEquItemBinding
 
-class CharSearchCollectionEquipmentView : LinearLayout {
-
-    lateinit var collectionEquipmentImageView: ImageView
-    lateinit var collectionEquipmentTextView:TextView
+class CharSearchCollectionEquipmentView @JvmOverloads constructor(
+    context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
+) : BaseLinearLayoutView<CharSearchDetailCollectionEquItemBinding>(
+    context,
+    attrs,
+    defStyleAttr
+) {
 
 
     lateinit var itemName:String
@@ -22,61 +27,54 @@ class CharSearchCollectionEquipmentView : LinearLayout {
     lateinit var effectString:String
     lateinit var descriptionString:String
 
-    constructor(context: Context?) : super(context) {
-        init(context)
-    }
 
-    constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs) {
-        init(context)
-    }
-
-
-    private fun init(context: Context?) {
-        val view =
-            LayoutInflater.from(context)
-                .inflate(R.layout.char_search_detail_collection_equ_item, this, false)
-        addView(view)
-        collectionEquipmentImageView = view.findViewById(R.id.char_search_detail_collection_equ_image)
-        collectionEquipmentTextView = view.findViewById(R.id.char_search_detail_collection_equ_text)
+    override fun init(context: Context?) {
 
     }
 
     fun setBackground(grade:String){
         when(grade) {//이미지 백그라운드
             "고대" -> {
-                collectionEquipmentImageView.setBackgroundResource(R.drawable.ancient_background)
-                collectionEquipmentTextView.setTextColor(Color.parseColor("#d9ae43"))
+                binding.charSearchDetailCollectionEquImage.setBackgroundResource(R.drawable.ancient_background)
+                binding.charSearchDetailCollectionEquText.setTextColor(Color.parseColor("#d9ae43"))
             }
             "유물" -> {
-                collectionEquipmentImageView.setBackgroundResource(R.drawable.relic_background)
-                collectionEquipmentTextView.setTextColor(Color.parseColor("#E45B0A"))
+                binding.charSearchDetailCollectionEquImage.setBackgroundResource(R.drawable.relic_background)
+                binding.charSearchDetailCollectionEquText.setTextColor(Color.parseColor("#E45B0A"))
 
             }
             "전설" -> {
-                collectionEquipmentImageView.setBackgroundResource(R.drawable.legend_background)
-                collectionEquipmentTextView.setTextColor(Color.parseColor("#E08808"))
+                binding.charSearchDetailCollectionEquImage.setBackgroundResource(R.drawable.legend_background)
+                binding.charSearchDetailCollectionEquText.setTextColor(Color.parseColor("#E08808"))
             }
             "영웅" -> {
-                collectionEquipmentImageView.setBackgroundResource(R.drawable.hero_background)
-                collectionEquipmentTextView.setTextColor(Color.parseColor("#A41ED4"))
+                binding.charSearchDetailCollectionEquImage.setBackgroundResource(R.drawable.hero_background)
+                binding.charSearchDetailCollectionEquText.setTextColor(Color.parseColor("#A41ED4"))
 
             }
             "희귀" -> {
-                collectionEquipmentImageView.setBackgroundResource(R.drawable.rare_background)
-                collectionEquipmentTextView.setTextColor(Color.parseColor("#268AD3"))
+                binding.charSearchDetailCollectionEquImage.setBackgroundResource(R.drawable.rare_background)
+                binding.charSearchDetailCollectionEquText.setTextColor(Color.parseColor("#268AD3"))
             }
         }
     }
 
     fun setTextImage(armory: com.lostark.loahelper.dto.armorys.ArmoryEquipment, toolTip: com.lostark.loahelper.dto.armorys.tooltips.Tooltip){
-        Glide.with(this).load(armory.icon).into(collectionEquipmentImageView)
+        Glide.with(this).load(armory.icon).into(binding.charSearchDetailCollectionEquImage)
         setBackground(armory.grade)
-        collectionEquipmentTextView.text=armory.grade+" "+armory.type
+        binding.charSearchDetailCollectionEquText.text=armory.grade+" "+armory.type
 
         itemName=armory.name
         itemGrade = armory.grade
         imageUrl=armory.icon
         effectString=(toolTip.elements.get("Element_004")?.value as com.lostark.loahelper.dto.armorys.tooltips.ItemPartData).element1
         descriptionString=toolTip.elements.get("Element_005")?.value.toString()
+    }
+
+    override fun getAttrs(attrs: AttributeSet?) {
+    }
+
+    override fun inflateBinding(inflater: LayoutInflater): CharSearchDetailCollectionEquItemBinding {
+        return CharSearchDetailCollectionEquItemBinding.inflate(inflater)
     }
 }

@@ -11,42 +11,16 @@ import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.google.android.material.card.MaterialCardView
 import com.lostark.loahelper.R
+import com.lostark.loahelper.databinding.CharSearchDetailAbilityAccessoryViewBinding
+import com.lostark.loahelper.databinding.CharSearchDetailCharactersGridLayoutViewBinding
 
-class CharSearchAccessoryView : LinearLayout {
-
-
-    private val asDict = mutableMapOf(
-        "무기 공격력" to "무공",
-        "무력화" to "무력화",
-        "물약 중독" to "물중",
-        "포" to "포격 강화||포식자",
-        "생명의 축복" to "생축",
-        "자원의 축복" to "자축",
-        "탈출의 달인" to "탈달",
-        "폭발물 달인" to "폭달",
-        "회피의 달인" to "회달",
-        "칼날 방패" to "칼방",
-        "각성기 피해" to "각피",
-        "보스 피해" to "보피",
-        "보호막 강화" to "보막강",
-        "회복 강화" to "회복강",
-        "마법 방어력" to "마방",
-        "물리 방어력" to "물방",
-        "받는 피해 감소" to "받피감",
-        "최대 생명력" to "최생",
-        "아군 강화" to "아강",
-        "아이덴티티 획득" to "아덴",
-        "추가 피해" to "추피",
-        "치명타 피해" to "치피"
-    )
-
-    lateinit var accessoryCardView: MaterialCardView
-    lateinit var accessoryImage: ImageView
-    lateinit var accessoryName: TextView
-    lateinit var accessoryQuality: TextView
-    lateinit var accessoryAbility: TextView
-    lateinit var stonePlusText: TextView
-    lateinit var stoneMinusText: TextView
+class CharSearchAccessoryView @JvmOverloads constructor(
+    context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
+) : BaseLinearLayoutView<CharSearchDetailAbilityAccessoryViewBinding>(
+    context,
+    attrs,
+    defStyleAttr
+) {
 
     var itemName: String = ""
     var itemType: String = ""
@@ -64,66 +38,83 @@ class CharSearchAccessoryView : LinearLayout {
 
     var type = "악세"
 
-    constructor(context: Context?) : super(context) {
-        init(context)
-    }
-
-    constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs) {
-        init(context)
-    }
-
-    private fun init(context: Context?) {
-        val view =
-            LayoutInflater.from(context)
-                .inflate(R.layout.char_search_detail_ability_accessory_view, this, false)
-        addView(view)
-
-
-        accessoryCardView = findViewById(R.id.accessory_card_view)
-        accessoryImage = findViewById(R.id.char_search_detail_accessory_image)
-        accessoryName = findViewById(R.id.char_search_detail_accessory_name)
-        accessoryQuality = findViewById(R.id.char_search_detail_accessory_quality)
-        accessoryAbility = findViewById(R.id.char_search_detail_accessory_ability)
-        stonePlusText = findViewById(R.id.char_search_detail_ability_stone_plus_text)
-        stoneMinusText = findViewById(R.id.char_search_detail_ability_stone_minus_text)
+    override fun init(context: Context?) {
 
     }
 
     fun setImageBackground(grade: String) {
-        when (grade) {//이미지 백그라운드
-            "고대" -> {
-                accessoryImage.setBackgroundResource(R.drawable.ancient_background)
-                accessoryName.setTextColor(Color.parseColor("#d9ae43"))
-            }
-            "유물" -> {
-                accessoryImage.setBackgroundResource(R.drawable.relic_background)
-                accessoryName.setTextColor(Color.parseColor("#E45B0A"))
+        binding.run {
+            when (grade) {//이미지 백그라운드
+                "고대" -> {
+                    charSearchDetailAccessoryImage.setBackgroundResource(R.drawable.ancient_background)
+                    charSearchDetailAccessoryName.setTextColor(Color.parseColor("#d9ae43"))
+                }
+                "유물" -> {
+                    charSearchDetailAccessoryImage.setBackgroundResource(R.drawable.relic_background)
+                    charSearchDetailAccessoryName.setTextColor(Color.parseColor("#E45B0A"))
 
-            }
-            "전설" -> {
-                accessoryImage.setBackgroundResource(R.drawable.legend_background)
-                accessoryName.setTextColor(Color.parseColor("#E08808"))
-            }
-            "영웅" -> {
-                accessoryImage.setBackgroundResource(R.drawable.hero_background)
-                accessoryName.setTextColor(Color.parseColor("#A41ED4"))
+                }
+                "전설" -> {
+                    charSearchDetailAccessoryImage.setBackgroundResource(R.drawable.legend_background)
+                    charSearchDetailAccessoryName.setTextColor(Color.parseColor("#E08808"))
+                }
+                "영웅" -> {
+                    charSearchDetailAccessoryImage.setBackgroundResource(R.drawable.hero_background)
+                    charSearchDetailAccessoryName.setTextColor(Color.parseColor("#A41ED4"))
 
+                }
+                "희귀" -> {
+                    charSearchDetailAccessoryImage.setBackgroundResource(R.drawable.rare_background)
+                    charSearchDetailAccessoryName.setTextColor(Color.parseColor("#268AD3"))
+                }
+                "고급" -> {
+                    charSearchDetailAccessoryImage.setBackgroundResource(R.drawable.advanced_background)
+                    charSearchDetailAccessoryName.setTextColor(Color.parseColor("#8FDB32"))
+                }
+                else->""
             }
-            "희귀" -> {
-                accessoryImage.setBackgroundResource(R.drawable.rare_background)
-                accessoryName.setTextColor(Color.parseColor("#268AD3"))
-            }
-            "고급" -> {
-                accessoryImage.setBackgroundResource(R.drawable.advanced_background)
-                accessoryName.setTextColor(Color.parseColor("#8FDB32"))
+        }
+    }
+    fun setBackGroundColor(quality:Int){
+        binding.run {
+            when {
+                quality == 100 -> {
+                    accessoryCardView.setCardBackgroundColor(Color.parseColor("#F2BD2C"))
+                    charSearchDetailAccessoryQuality.setBackgroundColor(Color.parseColor("#F2BD2C"))
+                }
+                quality >= 90 -> {
+                    accessoryCardView.setCardBackgroundColor(Color.parseColor("#ff00dd"))
+                    charSearchDetailAccessoryQuality.setBackgroundColor(Color.parseColor("#ff00dd"))
+                }
+                quality >= 70 -> {
+                    accessoryCardView.setCardBackgroundColor(Color.parseColor("#1B89F4"))
+                    charSearchDetailAccessoryQuality.setBackgroundColor(Color.parseColor("#1B89F4"))
+                }
+                quality >= 30 -> {
+                    accessoryCardView.setCardBackgroundColor(Color.parseColor("#35E81C"))
+                    charSearchDetailAccessoryQuality.setBackgroundColor(Color.parseColor("#35E81C"))
+                }
+                quality >= 10 -> {
+                    accessoryCardView.setCardBackgroundColor(Color.parseColor("#D2D208"))
+                    charSearchDetailAccessoryQuality.setBackgroundColor(Color.parseColor("#D2D208"))
+                }
+                quality == 0 -> {
+                    accessoryCardView.setCardBackgroundColor(Color.parseColor("#dedfe0"))
+                    charSearchDetailAccessoryQuality.setBackgroundColor(Color.parseColor("#dedfe0"))
+                }
+                else -> {
+                    accessoryCardView.setCardBackgroundColor(Color.parseColor("#F5260E"))
+                    charSearchDetailAccessoryQuality.setBackgroundColor(Color.parseColor("#F5260E"))
+                }
             }
         }
     }
 
     fun setAccessoryImageText(armory: com.lostark.loahelper.dto.armorys.ArmoryEquipment, tooltip: com.lostark.loahelper.dto.armorys.tooltips.Tooltip) {
-        Glide.with(this)
+        binding.run {
+        Glide.with(this@CharSearchAccessoryView)
             .load(armory.icon)
-            .into(accessoryImage)
+            .into(charSearchDetailAccessoryImage)
         imageUrl = armory.icon
         setImageBackground(armory.grade)
         itemName = armory.name
@@ -140,9 +131,9 @@ class CharSearchAccessoryView : LinearLayout {
         if (check) {
             var pattern = "[A-Z]+".toRegex()
             val stoneLevle = pattern.find(armory.name)
-            accessoryName.text = "스톤"
+            charSearchDetailAccessoryName.text = "스톤"
             stoneLevle?.let {
-                accessoryName.text = "스톤 " + stoneLevle.value
+                charSearchDetailAccessoryName.text = "스톤 " + stoneLevle.value
             }
 
             val indentStringGroup =
@@ -177,21 +168,21 @@ class CharSearchAccessoryView : LinearLayout {
                     ).replace("]", "").replace("활성도", "")
                 val minusOne =
                     pattern.find(indentStringGroupData.element0.contentStrData.element2.contentStr)?.value
-                stonePlusText.text = plusOne + " · " + plusTwo + " · "
-                stoneMinusText.text = minusOne
+                charSearchDetailAbilityStonePlusText.text = plusOne + " · " + plusTwo + " · "
+                charSearchDetailAbilityStoneMinusText.text = minusOne
 
-                stonePlusText.visibility = View.VISIBLE
-                stoneMinusText.visibility = View.VISIBLE
+                charSearchDetailAbilityStonePlusText.visibility = View.VISIBLE
+                charSearchDetailAbilityStoneMinusText.visibility = View.VISIBLE
                 type = "스톤"
             }
 
 
         } else {
-            accessoryName.text = armory.type
-            accessoryQuality.text = itemTitleData.qualityValue.toString()
+            charSearchDetailAccessoryName.text = armory.type
+            charSearchDetailAccessoryQuality.text = itemTitleData.qualityValue.toString()
             qualityValue = itemTitleData.qualityValue
-            accessoryAbility.visibility = View.VISIBLE
-            accessoryQuality.visibility = View.VISIBLE
+            charSearchDetailAccessoryAbility.visibility = View.VISIBLE
+            charSearchDetailAccessoryQuality.visibility = View.VISIBLE
 
             val indentStringGroupKeys =
                 tooltip.elements.filter { it.value.type == "IndentStringGroup" }.keys.toList()
@@ -267,17 +258,17 @@ class CharSearchAccessoryView : LinearLayout {
                         }
                     }
                     if (seq)
-                        accessoryAbility.text =
+                        charSearchDetailAccessoryAbility.text =
                             ability1.substring(0, 1) + ability2.substring(0, 1)
                     else
-                        accessoryAbility.text =
+                        charSearchDetailAccessoryAbility.text =
                             ability2.substring(0, 1) + ability1.substring(0, 1)
                     if (armory.type == "팔찌") {
-                        accessoryQuality.visibility = View.GONE
+                        charSearchDetailAccessoryQuality.visibility = View.GONE
                         type = "팔찌"
                     }
                 } else {
-                    accessoryAbility.text = pattern.find(itemPartBoxData.element1)?.value
+                    charSearchDetailAccessoryAbility.text = pattern.find(itemPartBoxData.element1)?.value
                 }
             if (itemPartBoxData.element0.contains("기본 효과")) {
                 var pattern = "힘 \\+\\d+|체력 \\+\\d+".toRegex()
@@ -290,6 +281,19 @@ class CharSearchAccessoryView : LinearLayout {
                 additionalEffect = itemPartBoxData.element1
             }
         }
+            setBackGroundColor(qualityValue)
+        }
+    }
 
+    fun getAccessoryName()=binding.charSearchDetailAccessoryName
+    fun getAccessoryImage()=binding.charSearchDetailAccessoryImage
+    fun getAccessoryQuality()=binding.charSearchDetailAccessoryQuality
+    fun getStonPlus()=binding.charSearchDetailAbilityStonePlusText
+    fun getStonMinus()=binding.charSearchDetailAbilityStoneMinusText
+    override fun getAttrs(attrs: AttributeSet?) {
+    }
+
+    override fun inflateBinding(inflater: LayoutInflater): CharSearchDetailAbilityAccessoryViewBinding {
+        return CharSearchDetailAbilityAccessoryViewBinding.inflate(inflater)
     }
 }

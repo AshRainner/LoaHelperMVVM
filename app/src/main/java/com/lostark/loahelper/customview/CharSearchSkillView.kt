@@ -8,45 +8,23 @@ import android.widget.LinearLayout
 import com.google.gson.GsonBuilder
 import com.lostark.loahelper.R
 import com.lostark.loahelper.adapter.ValueDataAdapter
+import com.lostark.loahelper.databinding.CharSearchDetailSkillLayoutViewBinding
+import com.lostark.loahelper.databinding.CharSearchDetailSkillViewBinding
 import com.lostark.loahelper.ui.SearchDetailActivity
+import com.lostark.loahelper.dto.armorys.*
+import com.lostark.loahelper.dto.armorys.tooltips.Tooltip
 
-class CharSearchSkillView : LinearLayout {
-
-    lateinit var skillLayout: CharSearchSkillLayoutView
-    lateinit var runeView: CharSearchRuneView
-    lateinit var gemImage1: CharSearchGemView
-    lateinit var gemImage2: CharSearchGemView
-    lateinit var tripodLayout: LinearLayout
-    lateinit var tripodView1: CharSearchTripodView
-    lateinit var tripodView2: CharSearchTripodView
-    lateinit var tripodView3: CharSearchTripodView
+class CharSearchSkillView @JvmOverloads constructor(
+    context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
+) : BaseLinearLayoutView<CharSearchDetailSkillViewBinding>(
+    context,
+    attrs,
+    defStyleAttr
+) {
 
     lateinit var imageUrl: String
 
-    constructor(context: Context?) : super(context) {
-        init(context)
-    }
-
-    constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs) {
-        init(context)
-    }
-
-    private fun init(context: Context?) {
-        val view =
-            LayoutInflater.from(context)
-                .inflate(R.layout.char_search_detail_skill_view, this, false)
-        addView(view)
-        skillLayout = view.findViewById(R.id.char_search_detail_skill_layout)
-        runeView = view.findViewById(R.id.char_search_detail_skill_rune_view)
-        gemImage1 = view.findViewById(R.id.char_search_detail_skill_gem_1)
-        gemImage2 = view.findViewById(R.id.char_search_detail_skill_gem_2)
-        tripodLayout = view.findViewById(R.id.char_search_detail_skill_tripod_layout)
-        tripodView1 = view.findViewById(R.id.char_search_detail_skill_tripod_1)
-        tripodView2 = view.findViewById(R.id.char_search_detail_skill_tripod_2)
-        tripodView3 = view.findViewById(R.id.char_search_detail_skill_tripod_3)
-        gemImage1.goneDefaultGem()
-        gemImage2.goneDefaultGem()
-
+    override fun init(context: Context?) {
 
     }
 
@@ -75,22 +53,22 @@ class CharSearchSkillView : LinearLayout {
         }
     }
 
-    fun setGem(gemList: List<com.lostark.loahelper.dto.armorys.Gem>) {
+    fun setGem(gemList: List<Gem>) {
         val useGemList =
-            gemList.filter { it.tooltip.contains(skillLayout.skillName.text) }
+            gemList.filter { it.tooltip.contains(binding.charSearchDetailSkillLayout.getSkillName().text) }
         useGemList.forEachIndexed { index, gem ->
             if (gem.name.contains("홍염")) {
-                gemImage2.setSkillGemImageText(gem, toolTipDeserialization(gem))
+                binding.charSearchDetailSkillGem2.setSkillGemImageText(gem, toolTipDeserialization(gem))
             } else {
-                gemImage1.setSkillGemImageText(gem, toolTipDeserialization(gem))
+                binding.charSearchDetailSkillGem1.setSkillGemImageText(gem, toolTipDeserialization(gem))
             }
         }
-        gemImage1.gemDetail?.let { setDialog(gemImage1) }
-        gemImage2.gemDetail?.let { setDialog(gemImage2) }
+        binding.charSearchDetailSkillGem1.gemDetail?.let { setDialog(binding.charSearchDetailSkillGem1) }
+        binding.charSearchDetailSkillGem2.gemDetail?.let { setDialog(binding.charSearchDetailSkillGem2) }
 
     }
 
-    fun toolTipDeserialization(vararg items: Any?): com.lostark.loahelper.dto.armorys.tooltips.Tooltip {
+    fun toolTipDeserialization(vararg items: Any?): Tooltip {
 
         val gson = GsonBuilder()
             .registerTypeAdapter(com.lostark.loahelper.dto.armorys.tooltips.ValueData::class.java, ValueDataAdapter())
@@ -99,12 +77,12 @@ class CharSearchSkillView : LinearLayout {
         val pattern2 = "<BR>|<br>".toRegex()
         val tooltips = items.mapNotNull { item ->
             when (item) {
-                is com.lostark.loahelper.dto.armorys.ArmoryEquipment -> item.tooltip
-                is com.lostark.loahelper.dto.armorys.Engraving -> item.tooltip
-                is com.lostark.loahelper.dto.armorys.Gem -> item.tooltip
-                is com.lostark.loahelper.dto.armorys.Card -> item.tooltip
-                is com.lostark.loahelper.dto.armorys.Rune -> item.tooltip
-                is com.lostark.loahelper.dto.armorys.ArmorySkill -> item.tooltip
+                is ArmoryEquipment -> item.tooltip
+                is Engraving -> item.tooltip
+                is Gem -> item.tooltip
+                is Card -> item.tooltip
+                is Rune -> item.tooltip
+                is ArmorySkill -> item.tooltip
                 else -> ""
             }?.replace(pattern2, "\n")?.replace(pattern, "")
         }
@@ -112,27 +90,36 @@ class CharSearchSkillView : LinearLayout {
         return gson.fromJson(jsonString, com.lostark.loahelper.dto.armorys.tooltips.Tooltip::class.java)
     }
 
-    fun setImageText(skill: com.lostark.loahelper.dto.armorys.ArmorySkill) {
-        skillLayout.setImageText(skill, toolTipDeserialization(skill))
-        setDialog(skillLayout)
+    fun setImageText(skill: ArmorySkill) {
+        binding.run {
+            charSearchDetailSkillLayout.setImageText(skill, toolTipDeserialization(skill))
+            setDialog(charSearchDetailSkillLayout)
 
-        skill.rune?.let {
-            runeView.setRuneImageText(it, toolTipDeserialization(it))
-            setDialog(runeView)
-        }
-        val useTripod = skill.tripods.filter { it.isSelected }
+            skill.rune?.let {
+                charSearchDetailSkillRuneView.setRuneImageText(it, toolTipDeserialization(it))
+                setDialog(charSearchDetailSkillRuneView)
+            }
+            val useTripod = skill.tripods.filter { it.isSelected }
 
-        if (useTripod != null) {
-            if (useTripod.size != 0)
-                tripodLayout.visibility = View.VISIBLE
-            val tripodList = listOf(tripodView1, tripodView2, tripodView3)
-            useTripod.sortedBy { it.tier }.forEachIndexed { index, tripod ->
-                val tripodView = tripodList.get(index)
-                tripodView.setDiamondBackground(tripod.tier, tripod.slot)
-                tripodView.setTripodImageText(tripod, index, toolTipDeserialization(skill))
-                tripodView.visibility = View.VISIBLE
-                setDialog(tripodView)
+            if (useTripod != null) {
+                if (useTripod.size != 0)
+                    charSearchDetailSkillTripodLayout.visibility = View.VISIBLE
+                val tripodList = listOf(charSearchDetailSkillTripod1, charSearchDetailSkillTripod2, charSearchDetailSkillTripod3)
+                useTripod.sortedBy { it.tier }.forEachIndexed { index, tripod ->
+                    val tripodView = tripodList.get(index)
+                    tripodView.setDiamondBackground(tripod.tier, tripod.slot)
+                    tripodView.setTripodImageText(tripod, index, toolTipDeserialization(skill))
+                    tripodView.visibility = View.VISIBLE
+                    setDialog(tripodView)
+                }
             }
         }
+    }
+
+    override fun getAttrs(attrs: AttributeSet?) {
+    }
+
+    override fun inflateBinding(inflater: LayoutInflater): CharSearchDetailSkillViewBinding {
+        return CharSearchDetailSkillViewBinding.inflate(inflater)
     }
 }

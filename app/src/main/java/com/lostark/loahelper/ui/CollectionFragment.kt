@@ -74,35 +74,35 @@ class CollectionFragment(private val charInfo: Armories) : BaseFragment<CharSear
 
     fun setCollectionList() {
         binding.run {
-            val islandListView = CharSearchCollectionListView(context)
+            val islandListView = CharSearchCollectionListView(requireContext())
             val island = charInfo.collectibles.firstOrNull { it.type == "섬의 마음" }
 
 
-            val mococoListView = CharSearchCollectionListView(context)
+            val mococoListView = CharSearchCollectionListView(requireContext())
             val mococo = charInfo.collectibles.firstOrNull { it.type == "모코코 씨앗" }
 
 
-            val greatPicturesListView = CharSearchCollectionListView(context)
+            val greatPicturesListView = CharSearchCollectionListView(requireContext())
             val greatPictures = charInfo.collectibles.firstOrNull { it.type == "위대한 미술품" }
 
 
-            val giantHeartsListView = CharSearchCollectionListView(context)
+            val giantHeartsListView = CharSearchCollectionListView(requireContext())
             val giantHearts = charInfo.collectibles.firstOrNull { it.type == "거인의 심장" }
 
-            val adventureMedalListView = CharSearchCollectionListView(context)
+            val adventureMedalListView = CharSearchCollectionListView(requireContext())
             val adventureMedal = charInfo.collectibles.firstOrNull { it.type == "이그네아의 징표" }
 
-            val voyageListView = CharSearchCollectionListView(context)
+            val voyageListView = CharSearchCollectionListView(requireContext())
             val voyage = charInfo.collectibles.firstOrNull { it.type == "항해 모험물" }
 
-            val worldTreeListView = CharSearchCollectionListView(context)
+            val worldTreeListView = CharSearchCollectionListView(requireContext())
             val worldTree = charInfo.collectibles.firstOrNull { it.type == "세계수의 잎" }
 
 
-            val orpeusStarListView = CharSearchCollectionListView(context)
+            val orpeusStarListView = CharSearchCollectionListView(requireContext())
             val orpeusStar = charInfo.collectibles.firstOrNull { it.type == "오르페우스의 별" }
 
-            val orgelListView = CharSearchCollectionListView(context)
+            val orgelListView = CharSearchCollectionListView(requireContext())
             val orgel = charInfo.collectibles.firstOrNull { it.type == "기억의 오르골" }
 
             val viewList = listOf(
@@ -146,12 +146,12 @@ class CollectionFragment(private val charInfo: Armories) : BaseFragment<CharSear
 
             itemViewList.forEachIndexed { index, view ->
                 dataList.get(index)?.let {
-                    Glide.with(this@CollectionFragment).load(it.icon).centerCrop().into(view.backgroundImageView)
-                    view.progressBar.setMax(it.maxPoint)
-                    view.progressBar.setProgress(it.point)
-                    view.collectionHaveText.text = it.point.toString()
+                    Glide.with(this@CollectionFragment).load(it.icon).centerCrop().into(view.getBackgroundImage())
+                    view.getProgressBar().setMax(it.maxPoint)
+                    view.getProgressBar().setProgress(it.point)
+                    view.getHave().text = it.point.toString()
                     val result = (it.point.toDouble() / it.maxPoint) * 100
-                    view.percentText.text = (round(result * 10) / 10).toString() + "%"
+                    view.getPercent().text = (round(result * 10) / 10).toString() + "%"
                 }
                 view.setOnClickListener {
                     charSearchDetailCollectionListLayout.removeAllViews()
@@ -171,10 +171,9 @@ class CollectionFragment(private val charInfo: Armories) : BaseFragment<CharSear
     }
 
     fun bindingViewList(view: CharSearchCollectionListView, data:Collectible) {
-        view.collectionListNamePercent.text = data.type + " " + data.point + "/" + data.maxPoint
+        view.getPercent().text = data.type + " " + data.point + "/" + data.maxPoint
         view.setListView(data.collectiblePoints)
     }
-
 
     fun toolTipDeserialization(vararg items: Any?): com.lostark.loahelper.dto.armorys.tooltips.Tooltip? {
         val gson = GsonBuilder()

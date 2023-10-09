@@ -3,7 +3,8 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_marginTop="10dp"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    android:layout_gravity="center">
     <ImageView
         android:id="@+id/char_search_detail_bottom_engraving_image"
         android:layout_width="30dp"

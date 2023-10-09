@@ -9,13 +9,13 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="80dp"
         android:background="@color/white">
         <ImageView
             android:visibility="invisible"
             android:id="@+id/collection_background_image"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="80dp"
             android:src="@drawable/test_collection"
             android:scaleType="centerCrop"
             android:alpha="0.3">

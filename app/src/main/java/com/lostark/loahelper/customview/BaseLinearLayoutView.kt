@@ -15,6 +15,8 @@ abstract class BaseLinearLayoutView<T : ViewBinding> @JvmOverloads constructor(
     protected lateinit var binding: T
     init {
         initBinding()
+        init(context)
+        getAttrs(attrs)
     }
 
     private fun initBinding() {
@@ -24,5 +26,7 @@ abstract class BaseLinearLayoutView<T : ViewBinding> @JvmOverloads constructor(
         addView(rootView)
     }
 
+    abstract fun init(context: Context?)
+    abstract fun getAttrs(attrs: AttributeSet?)
     abstract fun inflateBinding(inflater: LayoutInflater): T
 }
