@@ -23,43 +23,43 @@ class RaidActivity : BaseActivity<RaidActivityBinding>() {
 
         this.onBackPressedDispatcher.addCallback(this,callback)
         binding.run {
-            valtanButton.ClickEvent(
+            valtanButton.clickEvent(
                 Intent(
                     this@RaidActivity,
                     RaidDetailActivity::class.java
                 ).putExtra("RaidName", "valtan")
             )
-            biackissButton.ClickEvent(
+            biackissButton.clickEvent(
                 Intent(
                     this@RaidActivity,
                     RaidDetailActivity::class.java
                 ).putExtra("RaidName", "biackiss")
             )
-            koukusatonButton.ClickEvent(
+            koukusatonButton.clickEvent(
                 Intent(
                     this@RaidActivity,
                     RaidDetailActivity::class.java
                 ).putExtra("RaidName", "koukusaton")
             )
-            abrelshudButton.ClickEvent(
+            abrelshudButton.clickEvent(
                 Intent(
                     this@RaidActivity,
                     RaidDifficultyActivity::class.java
                 ).putExtra("RaidName", "abrelshud")
             )
-            illiakanButton.ClickEvent(
+            illiakanButton.clickEvent(
                 Intent(
                     this@RaidActivity,
                     RaidDifficultyActivity::class.java
                 ).putExtra("RaidName", "illiakan")
             )
-            kayangelButton.ClickEvent(
+            kayangelButton.clickEvent(
                 Intent(
                     this@RaidActivity,
                     RaidDetailActivity::class.java
                 ).putExtra("RaidName", "kayangel")
             )
-            ivorytowerButton.ClickEvent(
+            ivorytowerButton.clickEvent(
                 Intent(
                     this@RaidActivity,
                     RaidDetailActivity::class.java

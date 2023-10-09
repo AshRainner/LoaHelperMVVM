@@ -5,47 +5,40 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.EditText
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import com.bumptech.glide.Glide
 import com.lostark.loahelper.R
+import com.lostark.loahelper.databinding.DailyItemViewBinding
 
-class DailyItemView : RelativeLayout {
-    private lateinit var layout : RelativeLayout
-    private lateinit var priceEditText : EditText
-    private lateinit var imageView : ImageView
-    private lateinit var meterialCard : com.google.android.material.card.MaterialCardView
+class DailyItemView @JvmOverloads constructor(
+    context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
+) : BaseLinearLayoutView<DailyItemViewBinding>(
+    context,
+    attrs,
+    defStyleAttr
+) {
 
-    constructor(context: Context?) : super(context){
-        init(context)
-    }
-    constructor(context: Context?, attrs: AttributeSet?) : super(context,attrs){
-        init(context)
-        getAttrs(attrs)
+    override fun init(context: Context?){
     }
 
-    private fun init(context: Context?){
-        val view = LayoutInflater.from(context).inflate(R.layout.daily_item_view,this,false)
-        addView(view)
-        layout = findViewById(R.id.daily_item_layout)
-        priceEditText = findViewById(R.id.daily_item_price_edit)
-        imageView = findViewById(R.id.daily_item_image)
-        meterialCard = findViewById(R.id.daily_item_card)
-    }
-
-    private fun getAttrs(attrs: AttributeSet?){
+    override fun getAttrs(attrs: AttributeSet?){
         val typedArray = context.obtainStyledAttributes(attrs,R.styleable.DailyItemViewAttr)
-        priceEditText.setText(typedArray.getText(R.styleable.DailyItemViewAttr_itemPriceText))
-        imageView.setImageResource(typedArray.getResourceId(R.styleable.DailyItemViewAttr_itemImageSrc,R.drawable.raid_icon))
-        imageView.setBackgroundResource(typedArray.getResourceId(R.styleable.DailyItemViewAttr_itemImageBackground,0))
+        binding.dailyItemPriceEdit.setText(typedArray.getText(R.styleable.DailyItemViewAttr_itemPriceText))
+        binding.dailyItemImage.setImageResource(typedArray.getResourceId(R.styleable.DailyItemViewAttr_itemImageSrc,R.drawable.raid_icon))
+        binding.dailyItemImage.setBackgroundResource(typedArray.getResourceId(R.styleable.DailyItemViewAttr_itemImageBackground,0))
         typedArray.recycle()
     }
     public fun setPrice(price:Double){
-        priceEditText.setText(price.toString())
+        binding.dailyItemPriceEdit.setText(price.toString())
     }
     public fun setImage(imageUrl:String){
-        Glide.with(this).load(imageUrl).into(imageView)
+        Glide.with(this).load(imageUrl).into( binding.dailyItemImage)
     }
     public fun getEditText():EditText{
-        return priceEditText
+        return binding.dailyItemPriceEdit
+    }
+    override fun inflateBinding(inflater: LayoutInflater): DailyItemViewBinding {
+        return DailyItemViewBinding.inflate(inflater)
     }
 }

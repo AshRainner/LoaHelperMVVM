@@ -3,6 +3,8 @@ package com.lostark.loahelper.customview
 import android.content.Context
 import android.content.Intent
 import android.util.AttributeSet
+import android.util.Log
+import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.GridLayout
@@ -14,6 +16,7 @@ import com.lostark.loahelper.databinding.CharSearchDetailCharactersGridLayoutVie
 import com.lostark.loahelper.ui.SearchActivity
 import com.lostark.loahelper.ui.SearchDetailActivity
 import com.lostark.loahelper.viewmodel.DataViewModel
+import kotlin.math.ceil
 
 class CharSearchCharactersGridLayoutView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
@@ -48,6 +51,7 @@ class CharSearchCharactersGridLayoutView @JvmOverloads constructor(
                 val layoutParams = GridLayout.LayoutParams().apply {
                     width = 0
                     columnSpec = GridLayout.spec(GridLayout.UNDEFINED, 1f)
+                    setMargins(10,10,10,10)
                 }
                 gridItem.layoutParams = layoutParams
                 val name = it.characterName
@@ -83,6 +87,9 @@ class CharSearchCharactersGridLayoutView @JvmOverloads constructor(
                 view.layoutParams = layoutParams
                 charactersGridLayout.addView(view)
             }
+            val layoutParams = charactersGridLayout.layoutParams
+            val dp = 10+(95*ceil(characters.size/2.0).toInt())
+            layoutParams.height = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp.toFloat(), resources.displayMetrics).toInt()
         }
     }
 

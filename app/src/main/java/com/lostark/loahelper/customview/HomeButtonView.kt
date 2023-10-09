@@ -9,42 +9,33 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.LinearLayout
 import com.lostark.loahelper.R
+import com.lostark.loahelper.databinding.DailyItemViewBinding
+import com.lostark.loahelper.databinding.MainButtonViewBinding
+import com.lostark.loahelper.databinding.RaidButtonViewBinding
 
-class HomeButtonView : LinearLayout {
-    private lateinit var layout : LinearLayout
-    private lateinit var textButton : Button
-    private lateinit var imageView : ImageView
-    private lateinit var meterialCard : com.google.android.material.card.MaterialCardView
+class HomeButtonView @JvmOverloads constructor(
+    context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
+) : BaseLinearLayoutView<MainButtonViewBinding>(
+    context,
+    attrs,
+    defStyleAttr
+) {
 
-    constructor(context: Context?) : super(context){
-        init(context)
-    }
-    constructor(context: Context?, attrs: AttributeSet?) : super(context,attrs){
-        init(context)
-        getAttrs(attrs)
-    }
-
-    private fun init(context: Context?){
-        val view = LayoutInflater.from(context).inflate(R.layout.main_button_view,this,false)
-        addView(view)
-        layout = findViewById(R.id.home_button_layout)
-        textButton = findViewById(R.id.home_button)
-        imageView = findViewById(R.id.home_button_image)
-        meterialCard = findViewById(R.id.home_meterial_card)
+    override fun init(context: Context?){
     }
 
-    private fun getAttrs(attrs: AttributeSet?){
+    override fun getAttrs(attrs: AttributeSet?){
         val typedArray = context.obtainStyledAttributes(attrs,R.styleable.HomeButtonViewAttr)
-        textButton.setText(typedArray.getText(R.styleable.HomeButtonViewAttr_buttonText))
-        textButton.setOnClickListener{
-            Log.d("!@#","!@#")
-        }
-        imageView.setImageResource(typedArray.getResourceId(R.styleable.HomeButtonViewAttr_buttonImageSrc,R.drawable.raid_icon))
+        binding.homeButton.setText(typedArray.getText(R.styleable.HomeButtonViewAttr_buttonText))
+        binding.homeButtonImage.setImageResource(typedArray.getResourceId(R.styleable.HomeButtonViewAttr_buttonImageSrc,R.drawable.raid_icon))
         typedArray.recycle()
     }
-    public fun ClickEvent(intent: Intent){
-        textButton.setOnClickListener() {
+    public fun clickEvent(intent: Intent){
+        binding.homeButton.setOnClickListener() {
             context.startActivity(intent)
         }
+    }
+    override fun inflateBinding(inflater: LayoutInflater): MainButtonViewBinding {
+        return MainButtonViewBinding.inflate(inflater)
     }
 }

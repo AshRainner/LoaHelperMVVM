@@ -591,7 +591,7 @@ class SearchDetailActivity : AppCompatActivity() {
     fun setTripodDialog(view: CharSearchTripodView, tripodLayout: LinearLayout) {
         val tripodName =
             tripodLayout.findViewById<TextView>(R.id.char_search_detail_drawer_tripod_name)
-        tripodName.text = view.tripodName.text
+        tripodName.text = view.getTripodName().text
         val tripodImage =
             tripodLayout.findViewById<ImageView>(R.id.char_search_detail_drawer_tripod_image)
         Glide.with(this).load(view.imageUrl).into(tripodImage)

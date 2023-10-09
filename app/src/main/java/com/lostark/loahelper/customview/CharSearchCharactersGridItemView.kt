@@ -8,41 +8,38 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import com.google.android.material.card.MaterialCardView
 import com.lostark.loahelper.R
+import com.lostark.loahelper.databinding.CharSearchDetailCharactersGridItemViewBinding
+import com.lostark.loahelper.databinding.CharSearchDetailCharactersGridLayoutViewBinding
 
-class CharSearchCharactersGridItemView : LinearLayout {
+class CharSearchCharactersGridItemView @JvmOverloads constructor(
+    context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
+) : BaseLinearLayoutView<CharSearchDetailCharactersGridItemViewBinding>(
+    context,
+    attrs,
+    defStyleAttr
+) {
 
-    lateinit var charLevelClass:TextView
-    lateinit var charName:TextView
-    lateinit var charItemLevel:TextView
-    lateinit var gridItemCardView:MaterialCardView
 
-    constructor(context: Context?) : super(context) {
-        init(context)
-    }
 
-    constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs) {
-        init(context)
-    }
-
-    private fun init(context: Context?) {
-        val view =
-            LayoutInflater.from(context)
-                .inflate(R.layout.char_search_detail_characters_grid_item_view, this, false)
-        addView(view)
-        charLevelClass = view.findViewById(R.id.characters_grid_item_char_level_class)
-        charName = view.findViewById(R.id.characters_grid_item_char_name)
-        charItemLevel = view.findViewById(R.id.characters_grid_item_char_item_level)
-        gridItemCardView = view.findViewById(R.id.characters_grid_item_card_view)
+    override fun init(context: Context?) {
 
     }
 
     fun selectedChar(){
-        gridItemCardView.setStrokeColor(Color.parseColor("#000000"))
+        binding.charactersGridItemCardView.setStrokeColor(Color.parseColor("#000000"))
     }
 
     fun setCharInfo(character : com.lostark.loahelper.dto.characters.CharactersInfo) {
-        charLevelClass.text = "Lv."+character.characterLevel+" "+character.characterClassName
-        charName.text = character.characterName
-        charItemLevel.text = character.itemMaxLevel
+        binding.charactersGridItemCharLevelClass.text = "Lv."+character.characterLevel+" "+character.characterClassName
+        binding.charactersGridItemCharName.text = character.characterName
+        binding.charactersGridItemCharItemLevel.text = character.itemMaxLevel
+    }
+
+    override fun getAttrs(attrs: AttributeSet?) {
+
+    }
+
+    override fun inflateBinding(inflater: LayoutInflater): CharSearchDetailCharactersGridItemViewBinding {
+        return CharSearchDetailCharactersGridItemViewBinding.inflate(inflater)
     }
 }

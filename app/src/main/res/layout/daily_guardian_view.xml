@@ -1,53 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/daily_guardian_layout"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+    android:layout_height="match_parent"
+    android:layout_width="match_parent">
 
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/daily_guardian_card"
+    <RelativeLayout
+        android:id="@+id/daily_guardian_layout"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        app:cardCornerRadius="15dp">
+        android:layout_height="wrap_content">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <ImageView
-                android:id="@+id/daily_guardian_image"
-                android:layout_width="150dp"
-                android:layout_height="150dp"
-                android:layout_gravity="center"
-                android:scaleType="centerCrop"
-                android:src="@drawable/gargardis"></ImageView>
-        </LinearLayout>
-    </com.google.android.material.card.MaterialCardView>
-
-    <com.google.android.material.card.MaterialCardView
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        android:layout_below="@id/daily_guardian_card"
-        android:layout_centerHorizontal="true"
-        app:strokeWidth="1dp"
-        app:strokeColor="@color/black"
-        android:layout_marginTop="5dp">
-
-        <EditText
-            android:id="@+id/daily_guardian_price_edit"
-            android:layout_width="100dp"
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/daily_guardian_card"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:background="@color/white"
-            android:text="50"
-            android:textAlignment="center"
-            android:textColor="@color/black"
-            android:textSize="10pt"
-            android:textStyle="bold"
-            android:inputType="numberDecimal"
-            android:enabled="false"></EditText>
-    </com.google.android.material.card.MaterialCardView>
-</RelativeLayout>
+            app:cardCornerRadius="15dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/daily_guardian_image"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:layout_gravity="center"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/gargardis"></ImageView>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/daily_guardian_card"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="5dp"
+            app:strokeColor="@color/black"
+            app:strokeWidth="1dp">
+
+            <EditText
+                android:id="@+id/daily_guardian_price_edit"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:background="@color/white"
+                android:enabled="false"
+                android:inputType="numberDecimal"
+                android:text="50"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="10pt"
+                android:textStyle="bold"></EditText>
+        </com.google.android.material.card.MaterialCardView>
+    </RelativeLayout>
+
+</LinearLayout>

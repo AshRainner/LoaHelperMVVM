@@ -5,43 +5,37 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.EditText
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import com.bumptech.glide.Glide
 import com.lostark.loahelper.R
+import com.lostark.loahelper.databinding.DailyGuardianViewBinding
 
-class DailyGuardianView : RelativeLayout {
-    private lateinit var layout : RelativeLayout
-    private lateinit var priceEditText : EditText
-    private lateinit var imageView : ImageView
-    private lateinit var meterialCard : com.google.android.material.card.MaterialCardView
+class DailyGuardianView @JvmOverloads constructor(
+    context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
+) : BaseLinearLayoutView<DailyGuardianViewBinding>(
+    context,
+    attrs,
+    defStyleAttr
+) {
 
-    constructor(context: Context?) : super(context){
-        init(context)
-    }
-    constructor(context: Context?, attrs: AttributeSet?) : super(context,attrs){
-        init(context)
-        getAttrs(attrs)
-    }
+    override fun init(context: Context?){
 
-    private fun init(context: Context?){
-        val view = LayoutInflater.from(context).inflate(R.layout.daily_guardian_view,this,false)
-        addView(view)
-        layout = findViewById(R.id.daily_guardian_layout)
-        priceEditText = findViewById(R.id.daily_guardian_price_edit)
-        imageView = findViewById(R.id.daily_guardian_image)
-        meterialCard = findViewById(R.id.daily_guardian_card)
     }
 
-    private fun getAttrs(attrs: AttributeSet?){
+    override fun getAttrs(attrs: AttributeSet?){
         val typedArray = context.obtainStyledAttributes(attrs,R.styleable.DailyGuardianViewAttr)
-        priceEditText.setText(typedArray.getText(R.styleable.DailyGuardianViewAttr_guardianPriceText))
-        imageView.setImageResource(typedArray.getResourceId(R.styleable.DailyGuardianViewAttr_guardianImageSrc,R.drawable.raid_icon))
+        binding.dailyGuardianPriceEdit.setText(typedArray.getText(R.styleable.DailyGuardianViewAttr_guardianPriceText))
+        binding.dailyGuardianImage.setImageResource(typedArray.getResourceId(R.styleable.DailyGuardianViewAttr_guardianImageSrc,R.drawable.raid_icon))
         typedArray.recycle()
     }
     public fun setPrice(price:Double){
-        priceEditText.setText(price.toString())
+        binding.dailyGuardianPriceEdit.setText(price.toString())
     }
     public fun setImage(imageUrl:String){
-        Glide.with(this).load(imageUrl).into(imageView)
+        Glide.with(this).load(imageUrl).into(binding.dailyGuardianImage)
+    }
+    override fun inflateBinding(inflater: LayoutInflater): DailyGuardianViewBinding {
+        return DailyGuardianViewBinding.inflate(inflater)
     }
 }

@@ -86,31 +86,31 @@ class MainActivity : BaseActivity<MainActivityBinding>() {
 
     private fun buttonSet() {
         binding.run {
-            homeCalculatorButton.ClickEvent(
+            homeCalculatorButton.clickEvent(
                 Intent(this@MainActivity, CalculatorActivity::class.java)
                     .apply {
                         flags = Intent.FLAG_ACTIVITY_NO_ANIMATION
                     })
 
-            homeRaidButton.ClickEvent(Intent(this@MainActivity, RaidActivity::class.java).apply {
+            homeRaidButton.clickEvent(Intent(this@MainActivity, RaidActivity::class.java).apply {
                 flags = Intent.FLAG_ACTIVITY_NO_ANIMATION
             })
 
-            homeNoticeButton.ClickEvent(
+            homeNoticeButton.clickEvent(
                 Intent(this@MainActivity, NoticeActivity::class.java)
                     .apply {
                         flags = Intent.FLAG_ACTIVITY_NO_ANIMATION
                     }
             )
 
-            homeDailyButton.ClickEvent(
+            homeDailyButton.clickEvent(
                 Intent(this@MainActivity, DailyActivity::class.java)
                     .apply {
                         flags = Intent.FLAG_ACTIVITY_NO_ANIMATION
                     }
             )
 
-            homeEngravingButton.ClickEvent(
+            homeEngravingButton.clickEvent(
                 Intent(
                     this@MainActivity,
                     EngravingActivity::class.java
@@ -118,7 +118,7 @@ class MainActivity : BaseActivity<MainActivityBinding>() {
                     flags = Intent.FLAG_ACTIVITY_NO_ANIMATION
                 })
 
-            charSearchButton.ClickEvent(
+            charSearchButton.clickEvent(
                 Intent(
                     this@MainActivity,
                     SearchActivity::class.java
