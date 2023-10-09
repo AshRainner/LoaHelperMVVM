@@ -28,13 +28,12 @@ import retrofit2.Response
 
 
 class MainActivity : BaseActivity<MainActivityBinding>() {
-    private val updateLink = "https://github.com/AshRainner/LoaHelper"
+    private val updateLink = "https://github.com/AshRainner/LoaHelperMVVM/releases"
 
     private val dataViewModel: DataViewModel by provideViewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        //setContentView(R.layout.main_activity)
         initBinding(MainActivityBinding::inflate)
         overridePendingTransition(0, 0)
         drawerSet()
