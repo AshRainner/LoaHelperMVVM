@@ -12,10 +12,13 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.lostark.loahelper.R
+import com.lostark.loahelper.database.table.RecentCharInfo
 import com.lostark.loahelper.databinding.CharSearchDetailCharactersGridLayoutViewBinding
 import com.lostark.loahelper.ui.SearchActivity
 import com.lostark.loahelper.ui.SearchDetailActivity
 import com.lostark.loahelper.viewmodel.DataViewModel
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 import kotlin.math.ceil
 
 class CharSearchCharactersGridLayoutView @JvmOverloads constructor(
@@ -60,7 +63,19 @@ class CharSearchCharactersGridLayoutView @JvmOverloads constructor(
                         name,
                     ) { callbackCharacter ->
                         if (callbackCharacter != null) {
+
                             viewModel.searchInfo(name) { armory ->
+                                val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH:mm:ss")
+                                val time = LocalDateTime.now().format(formatter)
+                                armory?.armoryProfile?.serverName = characters.get(0).serverName
+                                val recentInfo = RecentCharInfo(
+                                    armory!!.armoryProfile.characterName,
+                                    armory!!.armoryProfile.serverName,
+                                    armory!!.armoryProfile.itemMaxLevel,
+                                    armory!!.armoryProfile.characterClassName,
+                                    time
+                                )
+                                viewModel.insertRecentCharInfo(recentInfo)
                                 context.startActivity(
                                     Intent(
                                         Intent(

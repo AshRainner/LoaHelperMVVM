@@ -37,15 +37,16 @@ class CharSearchCollectionItemView @JvmOverloads constructor(
                 collectionName.setTextColor(Color.parseColor("#ffffff"))
                 collectionPercent.setTextColor(Color.parseColor("#ffffff"))
                 collectionHaveItem.setTextColor(Color.parseColor("#ffffff"))
-                collectionBackgroundImage.visibility = View.VISIBLE
                 collectionItemLayout.setBackgroundColor(Color.parseColor("#808b00ff"))
+                collectionBackgroundImage.visibility = View.VISIBLE
+
             } else {
                 collectionAchievementProgress.setProgressColor(Color.parseColor("#8b00ff"))
                 collectionName.setTextColor(Color.parseColor("#000000"))
                 collectionPercent.setTextColor(Color.parseColor("#000000"))
                 collectionHaveItem.setTextColor(Color.parseColor("#000000"))
-                collectionBackgroundImage.visibility = View.INVISIBLE
                 collectionItemLayout.setBackgroundColor(Color.parseColor("#008b00ff"))
+                collectionBackgroundImage.visibility = View.INVISIBLE
             }
         }
     }
