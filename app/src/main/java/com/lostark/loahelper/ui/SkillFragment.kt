@@ -18,7 +18,7 @@ import com.lostark.loahelper.R
 import com.lostark.loahelper.adapter.ValueDataAdapter
 
 
-class SkillFragment(private val charInfo: com.lostark.loahelper.dto.armorys.Armories) : Fragment() {
+class SkillFragment(private val charInfo:Armories) : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater,

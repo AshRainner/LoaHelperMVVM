@@ -53,7 +53,6 @@ class CharSearchCharactersGridLayoutView @JvmOverloads constructor(
                 gridItem.layoutParams = layoutParams
                 val name = it.characterName
                 gridItem.setOnClickListener {
-                    val searchActivity = SearchActivity()
                     viewModel.serverNameSearch(
                         name,
                     ) { callbackCharacter ->

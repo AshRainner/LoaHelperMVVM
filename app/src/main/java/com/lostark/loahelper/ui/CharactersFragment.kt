@@ -9,23 +9,18 @@ import androidx.fragment.app.Fragment
 import com.lostark.loahelper.customview.CharSearchCharactersGridLayoutView
 import com.lostark.loahelper.R
 import com.lostark.loahelper.databinding.CharSearchDetailCharactersFragmentBinding
+import com.lostark.loahelper.dto.armorys.Armories
+import com.lostark.loahelper.dto.characters.CharactersInfo
 import com.lostark.loahelper.viewmodel.DataViewModel
 
 
-class CharactersFragment(private val characters: ArrayList<com.lostark.loahelper.dto.characters.CharactersInfo>) : BaseFragment<CharSearchDetailCharactersFragmentBinding>(R.layout.char_search_detail_characters_fragment) {
+class CharactersFragment(private val characters: ArrayList<CharactersInfo>,private val charInfo: Armories) : BaseFragment<CharSearchDetailCharactersFragmentBinding>(CharSearchDetailCharactersFragmentBinding::inflate) {
     private val dataViewModel: DataViewModel by provideViewModel()
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        val view = inflater.inflate(R.layout.char_search_detail_characters_fragment, container, false)
-        setServerInfo(view)
-        return view
+    override fun initView() {
+        setServerInfo()
     }
 
-    fun setServerInfo(view:View){
-        val fragmentMainLayout = view.findViewById<LinearLayout>(R.id.char_search_detail_characters_main_layout)
+    fun setServerInfo(){
 
         val groupedCharacterInfo = characters.groupBy { it.serverName }
 
@@ -33,12 +28,12 @@ class CharactersFragment(private val characters: ArrayList<com.lostark.loahelper
 
         val sortedCharacter = serverNameList.mapNotNull { serverName ->
             groupedCharacterInfo[serverName]
-        }.filterNotNull().sortedByDescending { it.size }
+        }.sortedByDescending { it.size }
 
         sortedCharacter.forEach {
             val serverLayoutView = CharSearchCharactersGridLayoutView(requireContext())
             serverLayoutView.setViewModel(dataViewModel)
-            serverLayoutView.setInfo(it.sortedByDescending { it.itemMaxLevel },(activity as SearchDetailActivity).charInfo.armoryProfile.characterName)
+            serverLayoutView.setInfo(it.sortedByDescending { it.itemMaxLevel },charInfo.armoryProfile.characterName)
             val marginBottomDp = 10 // 변경하려는 marginBottom 값 (dp)
 
             val marginBottomPx = (marginBottomDp * resources.displayMetrics.density).toInt()
@@ -51,10 +46,11 @@ class CharactersFragment(private val characters: ArrayList<com.lostark.loahelper
             layoutParams.setMargins(0, 0, 0, marginBottomPx)
             serverLayoutView.layoutParams=layoutParams
 
-            fragmentMainLayout.addView(serverLayoutView)
+            binding.charSearchDetailCharactersMainLayout.addView(serverLayoutView)
         }
 
 
     }
+
 
 }

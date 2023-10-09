@@ -18,10 +18,12 @@ import com.lostark.loahelper.R
 import com.lostark.loahelper.adapter.ValueDataAdapter
 import java.text.NumberFormat
 import com.lostark.loahelper.customview.*
+import com.lostark.loahelper.databinding.CharSearchDetailAbilityFragmentBinding
+import com.lostark.loahelper.dto.armorys.Armories
 import java.util.*
 
 
-class AbilityFragment(private val charInfo: com.lostark.loahelper.dto.armorys.Armories) : Fragment() {
+class AbilityFragment(private val charInfo: Armories) : BaseFragment<CharSearchDetailAbilityFragmentBinding>(CharSearchDetailAbilityFragmentBinding::inflate) {
     val engravingImageDict = mutableMapOf(
         "황후의은총" to "https://cdn-lostark.game.onstove.com/efui_iconatlas/buff/buff_1.png",
         "탈출의명수" to "https://cdn-lostark.game.onstove.com/efui_iconatlas/buff/buff_10.png",
@@ -120,317 +122,268 @@ class AbilityFragment(private val charInfo: com.lostark.loahelper.dto.armorys.Ar
         "포격강화" to "https://cdn-lostark.game.onstove.com/efui_iconatlas/gl_skill/gl_skill_01_26.png",
         "극의:체술" to "https://cdn-lostark.game.onstove.com/efui_iconatlas/achieve/achieve_07_22.png")
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        val view = inflater.inflate(R.layout.char_search_detail_ability_fragment, container, false)
-
-        setArmors(view)
-        setAccessory(view)
-        setEngraving(view)
-        setGem(view)
-        setBottomStatus(view)
-        setBottomEngraving(view)
-        setCard(view)
-        return view
+    override fun initView() {
+        setArmors()
+        setAccessory()
+        setEngraving()
+        setGem()
+        setBottomStatus()
+        setBottomEngraving()
+        setCard()
     }
 
-    fun getDesiredHeight(): Int {
-        val layoutParams = view?.layoutParams
-        layoutParams?.let {
-            return it.height
+    fun setCard(){
+        binding.run {
+            val cardViewList = listOf(
+                card1,
+                card2,
+                card3,
+                card4,
+                card5,
+                card6
+            )
+            charInfo.armoryCard?.cards?.forEachIndexed { index, card ->
+                toolTipDeserialization(card)?.let {
+                    cardViewList.get(index).setCardImageText(card, it)
+                    cardViewList.get(index).setOnClickListener {
+                        (activity as SearchDetailActivity).openDialog(it, "")
+                    }
+                }
+            }
+            charInfo.armoryCard?.effects?.forEach {
+                if (it.items.size != 0) {
+                    val cardSetTextView = TextView(requireContext())
+                    cardSetTextView.layoutParams = LinearLayout.LayoutParams(
+                        LinearLayout.LayoutParams.MATCH_PARENT,
+                        LinearLayout.LayoutParams.WRAP_CONTENT
+                    ).apply {
+                        val marginPx = TypedValue.applyDimension(
+                            TypedValue.COMPLEX_UNIT_DIP, 10f, resources.displayMetrics
+                        ).toInt()
+                        setMargins(marginPx, marginPx, marginPx, marginPx)
+                    }
+                    val cardSetNameAwake = it.items.get(it.items.size - 1).name//카드 셋네임하고 각성 다 있는거
+                    var pattern = "\\d+.*".toRegex()
+                    val cardSetName = cardSetNameAwake.replace(pattern, "").trim()
+
+                    pattern = "\\d+각".toRegex()
+                    val cardAwake = pattern.find(cardSetNameAwake)?.value
+
+
+                    cardSetTextView.textAlignment = TextView.TEXT_ALIGNMENT_CENTER
+                    cardSetTextView.text = cardSetName
+                    cardSetTextView.setTextColor(
+                        ContextCompat.getColor(
+                            requireContext(),
+                            R.color.black
+                        )
+                    )
+                    cardAwake?.let {
+                        cardSetTextView.text = cardSetTextView.text.toString() + " " + it
+
+                        val spannableString = SpannableString(cardSetTextView.text.toString())
+                        val start = cardSetTextView.text.toString().indexOf(it)
+                        val end = start + cardAwake.length
+                        spannableString.setSpan(
+                            ForegroundColorSpan(Color.parseColor("#FF6702")), start, end,
+                            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+                        )
+                        cardSetTextView.text = spannableString
+
+                    }
+
+                    cardSetTextView.setTextSize(TypedValue.COMPLEX_UNIT_PT, 7f)
+
+                    charSearchDetailAbilityCardLayout.addView(cardSetTextView)
+
+                    println(it.items.get(it.items.size - 1).name)
+                }
+            }
         }
-        return ViewGroup.LayoutParams.WRAP_CONTENT
     }
 
-    fun setCard(view:View){
-        val card1View = view.findViewById<CharSearchCardView>(R.id.card_1)
-        val card2View = view.findViewById<CharSearchCardView>(R.id.card_2)
-        val card3View = view.findViewById<CharSearchCardView>(R.id.card_3)
-        val card4View = view.findViewById<CharSearchCardView>(R.id.card_4)
-        val card5View = view.findViewById<CharSearchCardView>(R.id.card_5)
-        val card6View = view.findViewById<CharSearchCardView>(R.id.card_6)
-
-        val cardViewList = listOf(
-            card1View,
-            card2View,
-            card3View,
-            card4View,
-            card5View,
-            card6View
-        )
-        charInfo.armoryCard?.cards?.forEachIndexed{index,card->
-            toolTipDeserialization(card)?.let {
-                cardViewList.get(index).setCardImageText(card,it)
-                cardViewList.get(index).setOnClickListener {
+    fun setBottomEngraving(){
+        val engravingList=charInfo.armoryEngraving?.effects
+        binding.run {
+            engravingList?.forEach {
+                val bottomEngravingView = CharSearchEngravingBottomView(requireContext())
+                var pattern = "\\d+".toRegex()
+                val level = pattern.find(it.name)?.value
+                pattern = "Lv.\\s\\d+".toRegex()
+                val imageUrl = engravingImageDict[it.name.replace(pattern, "").replace(" ", "")]
+                    ?: "https://cdn-lostark.game.onstove.com/efui_iconatlas/achieve/achieve_07_22.png"
+                bottomEngravingView.setEngravingImageText(
+                    it.name.replace(pattern, ""),
+                    it.description,
+                    level!!,
+                    imageUrl
+                )
+                charSearchDetailAbilityBottomEngravingLayout.addView(bottomEngravingView)
+                bottomEngravingView.setOnClickListener {
                     (activity as SearchDetailActivity).openDialog(it, "")
                 }
             }
         }
-        val cardLayout = view.findViewById<LinearLayout>(R.id.char_search_detail_ability_card_layout)
-        charInfo.armoryCard?.effects?.forEach {
-            if(it.items.size!=0) {
-                val cardSetTextView = TextView(view.context)
-                cardSetTextView.layoutParams = LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.MATCH_PARENT,
-                    LinearLayout.LayoutParams.WRAP_CONTENT
-                ).apply {
-                    val marginPx = TypedValue.applyDimension(
-                        TypedValue.COMPLEX_UNIT_DIP, 10f, resources.displayMetrics
-                    ).toInt()
-                    setMargins(marginPx,marginPx,marginPx,marginPx) }
-                val cardSetNameAwake = it.items.get(it.items.size-1).name//카드 셋네임하고 각성 다 있는거
-                var pattern = "\\d+.*".toRegex()
-                val cardSetName = cardSetNameAwake.replace(pattern,"").trim()
+    }
 
-                pattern = "\\d+각".toRegex()
-                val cardAwake = pattern.find(cardSetNameAwake)?.value
+    fun setBottomStatus(){
 
-
-                cardSetTextView.textAlignment = TextView.TEXT_ALIGNMENT_CENTER
-                cardSetTextView.text = cardSetName
-                cardSetTextView.setTextColor(ContextCompat.getColor(view.context, R.color.black))
-                cardAwake?.let {
-                    cardSetTextView.text=cardSetTextView.text.toString()+" "+it
-
-                    val spannableString = SpannableString(cardSetTextView.text.toString())
-                    val start = cardSetTextView.text.toString().indexOf(it)
-                    val end = start+cardAwake.length
-                    spannableString.setSpan(ForegroundColorSpan(Color.parseColor("#FF6702")),start,end,
-                        Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-                    cardSetTextView.text = spannableString
-
+        binding.run {
+            var pattern = "<.*?>".toRegex()
+            val powerTooltip = mutableListOf<String>()
+            if (charInfo.armoryProfile.stats != null) {
+                charInfo.armoryProfile.stats.find { it.type == "공격력" }?.tooltip?.forEach {
+                    powerTooltip.add(it.replace(pattern, ""))
                 }
 
-                cardSetTextView.setTextSize(TypedValue.COMPLEX_UNIT_PT, 7f)
+                pattern = "\\d+".toRegex()
+                charSearchDetailCharLife.text = charInfo.armoryProfile.stats.find { it.type == "최대 생명력" }?.value
+                charSearchDetailCharPower.text = NumberFormat.getNumberInstance(Locale.US)
+                    .format(charInfo.armoryProfile.stats.find { it.type == "공격력" }?.value?.toInt())
+                    ?: "error"
+                charSearchDetailCharDefaultPower.text = NumberFormat.getNumberInstance(Locale.US)
+                    .format(pattern.find(powerTooltip.get(1))?.value?.toInt()) ?: "error"
+                charSearchDetailCharAddPower.text = NumberFormat.getNumberInstance(Locale.US)
+                    .format(pattern.find(powerTooltip.get(2))?.value?.toInt()) ?: "error"
 
-                cardLayout.addView(cardSetTextView)
 
-                println(it.items.get(it.items.size - 1).name)
+
+                val statViewList = listOf<TextView>(
+                    charSearchDetailCriticalAbility,
+                    charSearchDetailSpecialtyAbility,
+                    charSearchDetailProficiencyAbility,
+                    charSearchDetailFastAbility,
+                    charSearchDetailPatienceAbility,
+                    charSearchDetailSubdueAbility
+                )
+                val statList = mutableListOf<Int>()
+                statViewList.forEachIndexed { index, textView ->
+                    statList.add(charInfo.armoryProfile.stats.get(index).value.toInt())
+                    textView.text = statList[index].toString()
+                }
+                statViewList.find { it.text.toString() == statList.max().toString() }?.setTextColor(
+                    Color.parseColor("#8a2be2")
+                )
+                statList.remove(statList.max())
+                statViewList.find { it.text.toString() == statList.max().toString() }?.setTextColor(
+                    Color.parseColor("#00aaff")
+                )
             }
         }
 
     }
 
-    fun setBottomEngraving(view:View){
-        val bottomEngravingLayout = view.findViewById<LinearLayout>(R.id.char_search_detail_ability_bottom_engraving_layout)
-        val engravingList=(activity as SearchDetailActivity).charInfo.armoryEngraving?.effects
-        engravingList?.forEach {
-            val bottomEngravingView = CharSearchEngravingBottomView(view.context)
-            var pattern = "\\d+".toRegex()
-            val level = pattern.find(it.name)?.value
-            pattern = "Lv.\\s\\d+".toRegex()
-            val imageUrl = engravingImageDict[it.name.replace(pattern,"").replace(" ","")]?:"https://cdn-lostark.game.onstove.com/efui_iconatlas/achieve/achieve_07_22.png"
-            bottomEngravingView.setEngravingImageText(it.name.replace(pattern,""),it.description,level!!,imageUrl)
-            bottomEngravingLayout.addView(bottomEngravingView)
-            bottomEngravingView.setOnClickListener {
-                (activity as SearchDetailActivity).openDialog(it, "")
-            }
-        }
-    }
+    fun setGem() {
 
-    fun setBottomStatus(view: View){
-        val charPowerView = view.findViewById<TextView>(R.id.char_search_detail_char_power)
-        val charDefaultPowerView = view.findViewById<TextView>(R.id.char_search_detail_char_default_power)
-        val charAddPowerView = view.findViewById<TextView>(R.id.char_search_detail_char_add_power)
-        val charLifeView = view.findViewById<TextView>(R.id.char_search_detail_char_life)
-
-        var pattern = "<.*?>".toRegex()
-        val powerTooltip = mutableListOf<String>()
-        if(charInfo.armoryProfile.stats!=null) {
-            charInfo.armoryProfile.stats.find { it.type == "공격력" }?.tooltip?.forEach {
-                powerTooltip.add(it.replace(pattern, ""))
-            }
-
-            pattern = "\\d+".toRegex()
-            charLifeView.text = charInfo.armoryProfile.stats.find { it.type == "최대 생명력" }?.value
-            charPowerView.text = NumberFormat.getNumberInstance(Locale.US)
-                .format(charInfo.armoryProfile.stats.find { it.type == "공격력" }?.value?.toInt())
-                ?: "error"
-            charDefaultPowerView.text = NumberFormat.getNumberInstance(Locale.US)
-                .format(pattern.find(powerTooltip.get(1))?.value?.toInt()) ?: "error"
-            charAddPowerView.text = NumberFormat.getNumberInstance(Locale.US)
-                .format(pattern.find(powerTooltip.get(2))?.value?.toInt()) ?: "error"
-
-
-            val criticalText =
-                view.findViewById<TextView>(R.id.char_search_detail_critical_ability)//치명
-            val specialtyText =
-                view.findViewById<TextView>(R.id.char_search_detail_specialty_ability)//특화
-            val fastText = view.findViewById<TextView>(R.id.char_search_detail_fast_ability)//신속
-            val subdueText = view.findViewById<TextView>(R.id.char_search_detail_subdue_ability)//제압
-            val patienceText =
-                view.findViewById<TextView>(R.id.char_search_detail_patience_ability)//인내
-            val proficiencyText =
-                view.findViewById<TextView>(R.id.char_search_detail_proficiency_ability)//숙련
-
-            val statViewList = listOf<TextView>(
-                criticalText,
-                specialtyText,
-                proficiencyText,
-                fastText,
-                patienceText,
-                subdueText
+        binding.run {
+            val gemViewList = listOf(
+                gem1,
+                gem2,
+                gem3,
+                gem4,
+                gem5,
+                gem6,
+                gem7,
+                gem8,
+                gem9,
+                gem10,
+                gem11
             )
-            val statList = mutableListOf<Int>()
-            statViewList.forEachIndexed { index, textView ->
-                statList.add(charInfo.armoryProfile.stats.get(index).value.toInt())
-                textView.text = statList[index].toString()
-            }
-            statViewList.find { it.text.toString() == statList.max().toString() }?.setTextColor(
-                Color.parseColor("#8a2be2")
-            )
-            statList.remove(statList.max())
-            statViewList.find { it.text.toString() == statList.max().toString() }?.setTextColor(
-                Color.parseColor("#00aaff")
-            )
-        }
 
-
-    }
-
-    fun setGem(view: View) {
-        val gem1View = view.findViewById<CharSearchGemView>(R.id.gem_1)
-        val gem2View = view.findViewById<CharSearchGemView>(R.id.gem_2)
-        val gem3View = view.findViewById<CharSearchGemView>(R.id.gem_3)
-        val gem4View = view.findViewById<CharSearchGemView>(R.id.gem_4)
-        val gem5View = view.findViewById<CharSearchGemView>(R.id.gem_5)
-        val gem6View = view.findViewById<CharSearchGemView>(R.id.gem_6)
-        val gem7View = view.findViewById<CharSearchGemView>(R.id.gem_7)
-        val gem8View = view.findViewById<CharSearchGemView>(R.id.gem_8)
-        val gem9View = view.findViewById<CharSearchGemView>(R.id.gem_9)
-        val gem10View = view.findViewById<CharSearchGemView>(R.id.gem_10)
-        val gem11View = view.findViewById<CharSearchGemView>(R.id.gem_11)
-
-        val gemViewList = listOf(
-            gem1View,
-            gem2View,
-            gem3View,
-            gem4View,
-            gem5View,
-            gem6View,
-            gem7View,
-            gem8View,
-            gem9View,
-            gem10View,
-            gem11View
-        )
-
-        val sortedGemList = charInfo.armoryGem?.gems?.sortedWith(compareByDescending<com.lostark.loahelper.dto.armorys.Gem> { it.level }.thenBy { it.name })
-
-        sortedGemList?.forEachIndexed { index, gem ->
-            toolTipDeserialization(gem)?.let {
-                gemViewList.get(index).setGemImageText(gem, it)
-                gemViewList.get(index).setOnClickListener {
-                    (activity as SearchDetailActivity).openDialog(it, "")
+            val sortedGemList =
+                charInfo.armoryGem?.gems?.sortedWith(compareByDescending<com.lostark.loahelper.dto.armorys.Gem> { it.level }.thenBy { it.name })
+            sortedGemList?.forEachIndexed { index, gem ->
+                toolTipDeserialization(gem)?.let {
+                    gemViewList.get(index).setGemImageText(gem, it)
+                    gemViewList.get(index).setOnClickListener {
+                        (activity as SearchDetailActivity).openDialog(it, "")
+                    }
                 }
             }
         }
-
     }
 
-    fun setEngraving(view: View) {
-        val engraving1View =
-            view.findViewById<CharSearchEngravingBookView>(R.id.char_search_detail_ability_engraving1)
-        val engraving2View =
-            view.findViewById<CharSearchEngravingBookView>(R.id.char_search_detail_ability_engraving2)
+    fun setEngraving() {
 
         var check = true
 
-        charInfo.armoryEngraving?.engravings?.forEach {
-            if (check) {
-                setEquipmentImageText(engraving1View, "0")
-                check = false
-            } else setEquipmentImageText(engraving2View, "1")
-        }
-        engraving1View.setOnClickListener {
-            (activity as SearchDetailActivity).openDialog(it, "")
-        }
-        engraving2View.setOnClickListener {
-            (activity as SearchDetailActivity).openDialog(it, "")
+        binding.run {
+            charInfo.armoryEngraving?.engravings?.forEach {
+                if (check) {
+                    setEquipmentImageText(charSearchDetailAbilityEngraving1, "0")
+                    check = false
+                } else setEquipmentImageText(charSearchDetailAbilityEngraving2, "1")
+            }
+            charSearchDetailAbilityEngraving1.setOnClickListener {
+                (activity as SearchDetailActivity).openDialog(it, "")
+            }
+            charSearchDetailAbilityEngraving2.setOnClickListener {
+                (activity as SearchDetailActivity).openDialog(it, "")
+            }
         }
 
     }
 
-    fun setAccessory(view: View) {
-        val necklaceView =
-            view.findViewById<CharSearchAccessoryView>(R.id.char_search_detail_ability_necklace)
+    fun setAccessory() {
+        binding.run {
+            setEquipmentImageText(charSearchDetailAbilityNecklace, "목걸이")
 
-        setEquipmentImageText(necklaceView, "목걸이")
+            val earringList = charInfo.armoryEquipment?.filter { it.type == "귀걸이" }
 
-        val earring1View =
-            view.findViewById<CharSearchAccessoryView>(R.id.char_search_detail_ability_earring1)
-        val earring2View =
-            view.findViewById<CharSearchAccessoryView>(R.id.char_search_detail_ability_earring2)
+            var earring1Tooltip: com.lostark.loahelper.dto.armorys.tooltips.Tooltip? = null
+            var earring2Tooltip: com.lostark.loahelper.dto.armorys.tooltips.Tooltip? = null
 
-        val earringList = charInfo.armoryEquipment?.filter { it.type == "귀걸이" }
+            earringList?.forEach {
+                if (earring1Tooltip == null) earring1Tooltip = toolTipDeserialization(it)
+                else earring2Tooltip = toolTipDeserialization(it)
 
-        var earring1Tooltip: com.lostark.loahelper.dto.armorys.tooltips.Tooltip? = null
-        var earring2Tooltip: com.lostark.loahelper.dto.armorys.tooltips.Tooltip? = null
+            }
 
-        earringList?.forEach {
-            if (earring1Tooltip == null) earring1Tooltip = toolTipDeserialization(it)
-            else earring2Tooltip = toolTipDeserialization(it)
+            earring1Tooltip?.let {
+                charSearchDetailAbilityEarring1.setAccessoryImageText(earringList!!.get(0), earring1Tooltip!!)
+                setBackGroudColor(charSearchDetailAbilityEarring1)
+            }
 
-        }
+            earring2Tooltip?.let {
+                charSearchDetailAbilityEarring2.setAccessoryImageText(earringList!!.get(1), earring2Tooltip!!)
+                setBackGroudColor(charSearchDetailAbilityEarring2)
+            }
 
-        earring1Tooltip?.let {
-            earring1View.setAccessoryImageText(earringList!!.get(0), earring1Tooltip!!)
-            setBackGroudColor(earring1View)
-        }
+            val ringList = charInfo.armoryEquipment?.filter { it.type == "반지" }
 
-        earring2Tooltip?.let {
-            earring2View.setAccessoryImageText(earringList!!.get(1), earring2Tooltip!!)
-            setBackGroudColor(earring2View)
-        }
+            var ring1Tooltip: com.lostark.loahelper.dto.armorys.tooltips.Tooltip? = null
+            var ring2Tooltip: com.lostark.loahelper.dto.armorys.tooltips.Tooltip? = null
 
-        val ring1View =
-            view.findViewById<CharSearchAccessoryView>(R.id.char_search_detail_ability_ring1)
-        val ring2View =
-            view.findViewById<CharSearchAccessoryView>(R.id.char_search_detail_ability_ring2)
+            ringList?.forEach {
+                if (ring1Tooltip == null) ring1Tooltip = toolTipDeserialization(it)
+                else ring2Tooltip = toolTipDeserialization(it)
+            }
 
-        val ringList = charInfo.armoryEquipment?.filter { it.type == "반지" }
+            ring1Tooltip?.let {
+                charSearchDetailAbilityRing1.setAccessoryImageText(ringList!!.get(0), ring1Tooltip!!)
+                setBackGroudColor(charSearchDetailAbilityRing1)
+            }
 
-        var ring1Tooltip: com.lostark.loahelper.dto.armorys.tooltips.Tooltip? = null
-        var ring2Tooltip: com.lostark.loahelper.dto.armorys.tooltips.Tooltip? = null
+            ring2Tooltip?.let {
+                charSearchDetailAbilityRing2.setAccessoryImageText(ringList!!.get(1), ring2Tooltip!!)
+                setBackGroudColor(charSearchDetailAbilityRing2)
+            }
+            setEquipmentImageText(charSearchDetailAbilityBracelet, "팔찌")
+            setEquipmentImageText(charSearchDetailAbilityStone, "어빌리티 스톤")
 
-        ringList?.forEach {
-            if (ring1Tooltip == null) ring1Tooltip = toolTipDeserialization(it)
-            else ring2Tooltip = toolTipDeserialization(it)
-        }
-
-        ring1Tooltip?.let {
-            ring1View.setAccessoryImageText(ringList!!.get(0), ring1Tooltip!!)
-            setBackGroudColor(ring1View)
-        }
-
-        ring2Tooltip?.let {
-            ring2View.setAccessoryImageText(ringList!!.get(1), ring2Tooltip!!)
-            setBackGroudColor(ring2View)
-        }
-
-        val braceletView =
-            view.findViewById<CharSearchAccessoryView>(R.id.char_search_detail_ability_bracelet)
-        setEquipmentImageText(braceletView, "팔찌")
-
-        val stoneView =
-            view.findViewById<CharSearchAccessoryView>(R.id.char_search_detail_ability_stone)
-        setEquipmentImageText(stoneView, "어빌리티 스톤")
-
-        val accessoryViewList = listOf(
-            necklaceView,
-            earring1View,
-            earring2View,
-            ring1View,
-            ring2View,
-            stoneView,
-            braceletView
-        )
-        accessoryViewList.forEach {
-            if (it.imageUrl != null)
-                it.setOnClickListener { (activity as SearchDetailActivity).openDialog(it, "") }
+            val accessoryViewList = listOf(
+                charSearchDetailAbilityNecklace,
+                charSearchDetailAbilityEarring1,
+                charSearchDetailAbilityEarring2,
+                charSearchDetailAbilityRing1,
+                charSearchDetailAbilityRing2,
+                charSearchDetailAbilityStone,
+                charSearchDetailAbilityBracelet
+            )
+            accessoryViewList.forEach {
+                if (it.imageUrl != null)
+                    it.setOnClickListener { (activity as SearchDetailActivity).openDialog(it, "") }
+            }
         }
 
     }
@@ -479,48 +432,36 @@ class AbilityFragment(private val charInfo: com.lostark.loahelper.dto.armorys.Ar
         }
     }
 
-    fun setArmors(view: View) {
+    fun setArmors() {
 
-        val hatView = view.findViewById<CharSearchArmorView>(R.id.char_search_detail_ability_hat)
-        setEquipmentImageText(hatView, "투구")
+        binding.run {
+            setEquipmentImageText(charSearchDetailAbilityHat, "투구")
+            setEquipmentImageText(charSearchDetailAbilityShoulder, "어깨")
+            setEquipmentImageText(charSearchDetailAbilityTop, "상의")
+            setEquipmentImageText(charSearchDetailAbilityBottom, "하의")
+            setEquipmentImageText(charSearchDetailAbilityGloves, "장갑")
+            setEquipmentImageText(charSearchDetailAbilityWeapon, "무기")
 
-        val shoulderView =
-            view.findViewById<CharSearchArmorView>(R.id.char_search_detail_ability_shoulder)
-        setEquipmentImageText(shoulderView, "어깨")
-
-        val topView = view.findViewById<CharSearchArmorView>(R.id.char_search_detail_ability_top)
-        setEquipmentImageText(topView, "상의")
-
-        val bottomView =
-            view.findViewById<CharSearchArmorView>(R.id.char_search_detail_ability_bottom)
-        setEquipmentImageText(bottomView, "하의")
-
-        val glovesView =
-            view.findViewById<CharSearchArmorView>(R.id.char_search_detail_ability_gloves)
-        setEquipmentImageText(glovesView, "장갑")
-
-        val weaponView =
-            view.findViewById<CharSearchArmorView>(R.id.char_search_detail_ability_weapon)
-        setEquipmentImageText(weaponView, "무기")
-
-        hatView?.let {
-            if (hatView.elixirSpecialString != null) {
-                weaponView.armorElixirSpecial.text = hatView.elixirSpecialString
-                weaponView.armorElixirSpecial.visibility = View.VISIBLE
-            }
-        }
-        val elixirSpecialDetailString: String? = hatView.elixirSpecialDetailString
-
-        val armoryViewList =
-            listOf(hatView, shoulderView, topView, bottomView, glovesView, weaponView)
-        armoryViewList.forEach {
-            if (it.imageUrl != null)
-                it.setOnClickListener {
-                    (activity as SearchDetailActivity).openDialog(
-                        it,
-                        elixirSpecialDetailString
-                    )
+            charSearchDetailAbilityHat?.let {
+                if (it.elixirSpecialString != null) {
+                    charSearchDetailAbilityWeapon.armorElixirSpecial.text = it.elixirSpecialString
+                    charSearchDetailAbilityWeapon.armorElixirSpecial.visibility = View.VISIBLE
                 }
+            }
+            val elixirSpecialDetailString: String? = charSearchDetailAbilityHat.elixirSpecialDetailString
+
+            val armoryViewList =
+                listOf(charSearchDetailAbilityHat, charSearchDetailAbilityShoulder, charSearchDetailAbilityTop,
+                    charSearchDetailAbilityBottom, charSearchDetailAbilityGloves, charSearchDetailAbilityWeapon)
+            armoryViewList.forEach {
+                if (it.imageUrl != null)
+                    it.setOnClickListener {
+                        (activity as SearchDetailActivity).openDialog(
+                            it,
+                            elixirSpecialDetailString
+                        )
+                    }
+            }
         }
     }
 

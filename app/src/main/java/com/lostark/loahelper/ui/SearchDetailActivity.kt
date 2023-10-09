@@ -152,7 +152,7 @@ class SearchDetailActivity : AppCompatActivity() {
 
         val abilityFragment = AbilityFragment(charInfo)
         val skillsFragment = SkillFragment(charInfo)
-        val characterFragment = CharactersFragment(characters)
+        val characterFragment = CharactersFragment(characters,charInfo)
         val avatarFragment = AvatarFragment(charInfo)
         val collectionFragment = CollectionFragment(charInfo)
         val fragmentManager = supportFragmentManager
