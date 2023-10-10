@@ -15,8 +15,6 @@ class StartActivity() : BaseActivity<StartActivityBinding>() {
     private val dataViewModel: DataViewModel by provideViewModel()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.start_activity)
-
         CoroutineScope(Dispatchers.IO).launch {
             val code = dataViewModel.setInit(this@StartActivity)
             when (code) {

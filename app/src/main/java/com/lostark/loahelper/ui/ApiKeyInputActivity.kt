@@ -20,7 +20,6 @@ class ApiKeyInputActivity : BaseActivity<ApiKeyInputActivityBinding>() {
     private val dataViewModel: DataViewModel by provideViewModel()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        //setContentView(R.layout.api_key_input_activity)
         initBinding(ApiKeyInputActivityBinding::inflate)
         binding.run {
             apiKeyInsertButton.setOnClickListener {

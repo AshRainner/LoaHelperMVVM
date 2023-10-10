@@ -24,7 +24,6 @@ class NoticeActivity : BaseActivity<NoticesActivityBinding>() {
     private val dataViewModel: DataViewModel by provideViewModel()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.notices_activity)
         initBinding(NoticesActivityBinding::inflate)
         noticeListViewSet()
     }

@@ -169,6 +169,7 @@ class DataViewModel(private val db: AppDatabase) : ViewModel() {
                             insertDestructionStone()
                             insertEvents()
                             insertMapItems()
+                            insertMapFragmentsItems()
                             insertMapGemItems()
                         }
                     }
@@ -259,7 +260,7 @@ class DataViewModel(private val db: AppDatabase) : ViewModel() {
     }
 
     //명파 주머니는 따로
-    private fun insertMapFragmentsItems(itemsDao: ItemsDAO, key: String?): Items {
+    private fun insertMapFragmentsItems() {
         val mapItemsBody = com.lostark.loahelper.dto.markets.MarketsBody(
             "GRADE",
             50000,
@@ -271,14 +272,13 @@ class DataViewModel(private val db: AppDatabase) : ViewModel() {
             "ASC"
         )
         val call =
-            LoaRetrofitObj.getRetrofitService().getItemsInfo(ACCEPT, key, CONTENTTYPE, mapItemsBody)
+            LoaRetrofitObj.getRetrofitService().getItemsInfo(ACCEPT, getKey(), CONTENTTYPE, mapItemsBody)
         val marketsList = call.execute().body()!!
         marketsList.items?.forEach() {
             var item = Items(it.id, it.name, it.iconUrl, it.yDayAvgPrice)
             itemsDao.insertItems(item)
         }
         //Log.d("명파 주머니", itemsDao.getSelectItem("명예의 파편 주머니(대)").toString())
-        return itemsDao.getSelectItem("명예의 파편 주머니(대)")
     }
 
     //1레벨 보석은 auction이라 따로 해줘야함
