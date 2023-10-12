@@ -26,7 +26,18 @@ import com.lostark.loahelper.customview.*
 import com.lostark.loahelper.R
 import com.lostark.loahelper.database.AppDatabase
 import com.lostark.loahelper.databinding.CharSearchActivityBinding
+import com.lostark.loahelper.databinding.CharSearchDetailAccessoryDialogBinding
 import com.lostark.loahelper.databinding.CharSearchDetailActivityBinding
+import com.lostark.loahelper.databinding.CharSearchDetailArmorDialogBinding
+import com.lostark.loahelper.databinding.CharSearchDetailAvatarDialogBinding
+import com.lostark.loahelper.databinding.CharSearchDetailCardDialogBinding
+import com.lostark.loahelper.databinding.CharSearchDetailCollectionEquDialogBinding
+import com.lostark.loahelper.databinding.CharSearchDetailDrawerBinding
+import com.lostark.loahelper.databinding.CharSearchDetailEngravingDialogBinding
+import com.lostark.loahelper.databinding.CharSearchDetailGemDialogBinding
+import com.lostark.loahelper.databinding.CharSearchDetailRuneDialogBinding
+import com.lostark.loahelper.databinding.CharSearchDetailSkillDialogBinding
+import com.lostark.loahelper.databinding.CharSearchDetailTripodDialogBinding
 import com.lostark.loahelper.databinding.RaidActivityBinding
 import com.lostark.loahelper.dto.armorys.Armories
 import com.lostark.loahelper.dto.characters.CharactersInfo
@@ -61,7 +72,8 @@ class SearchDetailActivity : BaseActivity<CharSearchDetailActivityBinding>() {
             searchDetailServerName.text = charInfo.armoryProfile.serverName
             searchDetailCharName.text = charInfo.armoryProfile.characterName
             searchDetailCharItemLevel.text = "아이템 : " + charInfo.armoryProfile.itemMaxLevel
-            searchDetailCharLevel.text = "전투 : Lv." + charInfo.armoryProfile.characterLevel.toString()
+            searchDetailCharLevel.text =
+                "전투 : Lv." + charInfo.armoryProfile.characterLevel.toString()
             searchDetailExpeditionLevel.text = "원정대 : Lv." + charInfo.armoryProfile.expeditionLevel
             searchDetailCharTitle.text = "칭호 : " + charInfo.armoryProfile.title
             searchDetailCharGuild.text = "길드 : " + charInfo.armoryProfile.guildName
@@ -97,8 +109,6 @@ class SearchDetailActivity : BaseActivity<CharSearchDetailActivityBinding>() {
             }
 
         }
-
-
 
 
     }
@@ -149,7 +159,7 @@ class SearchDetailActivity : BaseActivity<CharSearchDetailActivityBinding>() {
     fun setFragment() {
         val abilityFragment = AbilityFragment(charInfo)
         val skillsFragment = SkillFragment(charInfo)
-        val characterFragment = CharactersFragment(characters,charInfo)
+        val characterFragment = CharactersFragment(characters, charInfo)
         val avatarFragment = AvatarFragment(charInfo)
         val collectionFragment = CollectionFragment(charInfo)
         val fragmentManager = supportFragmentManager
@@ -218,9 +228,10 @@ class SearchDetailActivity : BaseActivity<CharSearchDetailActivityBinding>() {
 
     fun setArmorDialog(
         view: CharSearchArmorView,
+        binding: CharSearchDetailArmorDialogBinding,
         elixirSpecialDetailString: String?
     ) {
-        binding.charSearchDetailDrawer.armorDrawer.run {
+        binding.run {
             charSearchDetailDrawerArmorName.text = view.getArmorName().text
             charSearchDetailDrawerArmorName.setTextColor(view.getArmorName().textColors)
             charSearchDetailDrawerArmorImage.background = view.getArmorImage().background
@@ -233,7 +244,9 @@ class SearchDetailActivity : BaseActivity<CharSearchDetailActivityBinding>() {
             charSearchDetailDrawerArmorDetail.text = view.itemDetail
             charSearchDetailDrawerArmorQuality.text = view.getArmorQuality().text
             charSearchDetailDrawerArmorQuality.setTextColor((view.getArmorQuality().background as ColorDrawable).color)
-            charSearchDetailDrawerArmorQualityProgress.setProgress(view.getArmorQuality().text.toString().toInt())
+            charSearchDetailDrawerArmorQualityProgress.setProgress(
+                view.getArmorQuality().text.toString().toInt()
+            )
             charSearchDetailDrawerArmorQualityProgress.setProgressColor((view.getArmorQuality().background as ColorDrawable).color)
 
             view.defaultEffect?.let {
@@ -255,7 +268,8 @@ class SearchDetailActivity : BaseActivity<CharSearchDetailActivityBinding>() {
                 if (it.element1 == null) {
                     charSearchDetailDrawerElixir2.visibility = View.GONE
                 } else {
-                    charSearchDetailDrawerElixir2.text = pattern.replace(it.element1?.contentStr!!, "")
+                    charSearchDetailDrawerElixir2.text =
+                        pattern.replace(it.element1?.contentStr!!, "")
                 }
             } ?: run {
                 charSearchDetailDrawerArmorElixirLayout.visibility = View.GONE
@@ -275,299 +289,268 @@ class SearchDetailActivity : BaseActivity<CharSearchDetailActivityBinding>() {
         }
     }
 
-    fun setCardDialog(view: CharSearchCardView, cardLayout: LinearLayout) {
-        val cardName = cardLayout.findViewById<TextView>(R.id.char_search_detail_drawer_card_name)
-        val cardDescription =
-            cardLayout.findViewById<TextView>(R.id.char_search_detail_drawer_card_description)
-        val cardView =
-            cardLayout.findViewById<CharSearchCardView>(R.id.char_search_detail_drawer_card_view)
-        cardView.setCardImageText(view.card)
-        cardName.text = view.getCardName().text
-        cardDescription.text = view.cardDescription
+    fun setCardDialog(view: CharSearchCardView, binding: CharSearchDetailCardDialogBinding) {
+        binding.charSearchDetailDrawerCardView.setCardImageText(view.card)
+        binding.charSearchDetailDrawerCardName.text = view.getCardName().text
+        binding.charSearchDetailDrawerCardDescription.text = view.cardDescription
     }
 
     fun setBottomEngravingDialog(
         view: CharSearchEngravingBottomView,
-        engravingLayout: LinearLayout
+        binding: CharSearchDetailEngravingDialogBinding
     ) {
-        val engravingName =
-            engravingLayout.findViewById<TextView>(R.id.char_search_detail_drawer_engraving_name)
-        engravingName.text = view.engravingDrawerName
-        val engravingImage =
-            engravingLayout.findViewById<ImageView>(R.id.char_search_detail_drawer_engraving_image)
-        Glide.with(this).load(view.imageUrl).into(engravingImage)
-        val engravingPoint =
-            engravingLayout.findViewById<TextView>(R.id.char_search_detail_drawer_engraving_point)
-        engravingPoint.visibility = View.GONE
-        val engravingDetailLayout =
-            engravingLayout.findViewById<LinearLayout>(R.id.char_search_detail_engraving_detail_layout)
+        binding.run {
 
-        val engravingDetailTextView = TextView(this)
-        engravingDetailTextView.layoutParams = LinearLayout.LayoutParams(
-            LinearLayout.LayoutParams.WRAP_CONTENT,
-            LinearLayout.LayoutParams.WRAP_CONTENT
-        )
-        engravingDetailTextView.text = view.engravingString
-        engravingDetailTextView.setTextSize(TypedValue.COMPLEX_UNIT_PT, 6f)
-        engravingDetailTextView.setTextColor(Color.parseColor("#808080"))
-        engravingDetailLayout.addView(engravingDetailTextView)
+            charSearchDetailDrawerEngravingName.text = view.engravingDrawerName
+            Glide.with(this@SearchDetailActivity).load(view.imageUrl)
+                .into(charSearchDetailDrawerEngravingImage)
+            charSearchDetailDrawerEngravingPoint.visibility = View.GONE
 
-    }
-
-    fun setSkillDialog(view: CharSearchSkillLayoutView, skillLayout: LinearLayout) {
-        val skillName =
-            skillLayout.findViewById<TextView>(R.id.char_search_detail_drawer_skill_name)
-        val skillImage =
-            skillLayout.findViewById<ImageView>(R.id.char_search_detail_drawer_skill_image)
-        val skillType =
-            skillLayout.findViewById<TextView>(R.id.char_search_detail_drawer_skill_type)
-        val skillStance =
-            skillLayout.findViewById<TextView>(R.id.char_search_detail_drawer_skill_stance)
-        val skillCool =
-            skillLayout.findViewById<TextView>(R.id.char_search_detail_drawer_skill_cool)
-        val skillEffectLayout =
-            skillLayout.findViewById<LinearLayout>(R.id.char_search_detail_drawer_skill_effect_layout)
-        val skillEffect =
-            skillLayout.findViewById<TextView>(R.id.char_search_detail_drawer_skill_effect_text)
-        val skillDetail =
-            skillLayout.findViewById<TextView>(R.id.char_search_detail_drawer_skill_detail)
-
-        skillName.text = view.getSkillName().text
-        Glide.with(this).load(view.imageUrl).into(skillImage)
-
-        skillType.text = view.skillType
-        skillStance.text = view.skillStance
-        skillCool.text = view.skillCool
-        if (view.skillEffect != "") {
-            skillEffect.text = view.skillEffect
-            skillEffectLayout.visibility = View.VISIBLE
-        }
-        skillDetail.text = view.skillDescription
-
-    }
-
-    fun setEngrvingDialog(view: CharSearchEngravingBookView, engravingLayout: LinearLayout) {
-        val engravingName =
-            engravingLayout.findViewById<TextView>(R.id.char_search_detail_drawer_engraving_name)
-        engravingName.text = view.getEngravingName().text
-        val engravingImage =
-            engravingLayout.findViewById<ImageView>(R.id.char_search_detail_drawer_engraving_image)
-        Glide.with(this).load(view.imageUrl).into(engravingImage)
-        val engravingPoint =
-            engravingLayout.findViewById<TextView>(R.id.char_search_detail_drawer_engraving_point)
-        engravingPoint.text = view.getEngravingPoint().text
-        val engravingDetailLayout =
-            engravingLayout.findViewById<LinearLayout>(R.id.char_search_detail_engraving_detail_layout)
-        view.engravingStringList.forEach {
-            val engravingLevelView = TextView(this)
-            engravingLevelView.layoutParams = LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.WRAP_CONTENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT
-            )
-            engravingLevelView.setPadding(0, 2, 0, 0)
-            engravingLevelView.setTextColor(ContextCompat.getColor(this, R.color.black))
-            engravingLevelView.setLineSpacing(0f, 5f)
-            engravingLevelView.setTextSize(TypedValue.COMPLEX_UNIT_PT, 6f)
-            engravingLevelView.setTypeface(null, Typeface.BOLD)
-            engravingLevelView.setLineSpacing(
-                0f,
-                TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 5f, resources.displayMetrics)
-            )//5dp로 설정
-            engravingDetailLayout.addView(engravingLevelView)
-            val splitString = it.split(" - ")
-            engravingLevelView.text = splitString.get(0)
-            val engravingDetailTextView = TextView(this)
+            val engravingDetailTextView = TextView(this@SearchDetailActivity)
             engravingDetailTextView.layoutParams = LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.WRAP_CONTENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT
             )
-            engravingDetailTextView.text = splitString.get(1)
+            engravingDetailTextView.text = view.engravingString
             engravingDetailTextView.setTextSize(TypedValue.COMPLEX_UNIT_PT, 6f)
             engravingDetailTextView.setTextColor(Color.parseColor("#808080"))
-            engravingDetailLayout.addView(engravingDetailTextView)
+            charSearchDetailEngravingDetailLayout.addView(engravingDetailTextView)
+        }
+
+    }
+
+    fun setSkillDialog(
+        view: CharSearchSkillLayoutView,
+        binding: CharSearchDetailSkillDialogBinding
+    ) {
+
+        binding.run {
+
+
+            charSearchDetailDrawerSkillName.text = view.getSkillName().text
+            Glide.with(this@SearchDetailActivity).load(view.imageUrl)
+                .into(charSearchDetailDrawerSkillImage)
+
+            charSearchDetailDrawerSkillType.text = view.skillType
+            charSearchDetailDrawerSkillStance.text = view.skillStance
+            charSearchDetailDrawerSkillCool.text = view.skillCool
+            if (view.skillEffect != "") {
+                charSearchDetailDrawerSkillEffectText.text = view.skillEffect
+                charSearchDetailDrawerSkillEffectLayout.visibility = View.VISIBLE
+            }
+            charSearchDetailDrawerSkillDetail.text = view.skillDescription
         }
     }
 
-    fun setGemDialog(view: CharSearchGemView, gemLayout: LinearLayout) {
-        val gemName =
-            gemLayout.findViewById<TextView>(R.id.char_search_detail_drawer_gem_name)
-        gemName.text = view.gemName
-        val gemImage =
-            gemLayout.findViewById<ImageView>(R.id.char_search_detail_drawer_gem_image)
-        Glide.with(this).load(view.imageUrl).into(gemImage)
-        val gemTier =
-            gemLayout.findViewById<TextView>(R.id.char_search_detail_drawer_gem_tier)
-        gemTier.text = view.gemTier
+    fun setEngrvingDialog(
+        view: CharSearchEngravingBookView,
+        binding: CharSearchDetailEngravingDialogBinding
+    ) {
 
-        val gemGrade = gemLayout.findViewById<TextView>(R.id.char_search_detail_drawer_gem_grade)
-        gemGrade.text = view.gemGrade
-        when {
-            view.gemGrade.contains("고대") -> {
-                gemImage.setBackgroundResource(R.drawable.ancient_background)
-                gemGrade.setTextColor(Color.parseColor("#d9ae43"))
+        binding.run {
+            charSearchDetailDrawerEngravingName.text = view.getEngravingName().text
+            Glide.with(this@SearchDetailActivity).load(view.imageUrl)
+                .into(charSearchDetailDrawerEngravingImage)
+            charSearchDetailDrawerEngravingPoint.text = view.getEngravingPoint().text
+            view.engravingStringList.forEach {
+                val engravingLevelView = TextView(this@SearchDetailActivity)
+                engravingLevelView.layoutParams = LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.WRAP_CONTENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT
+                )
+                engravingLevelView.setPadding(0, 2, 0, 0)
+                engravingLevelView.setTextColor(
+                    ContextCompat.getColor(
+                        this@SearchDetailActivity,
+                        R.color.black
+                    )
+                )
+                engravingLevelView.setLineSpacing(0f, 5f)
+                engravingLevelView.setTextSize(TypedValue.COMPLEX_UNIT_PT, 6f)
+                engravingLevelView.setTypeface(null, Typeface.BOLD)
+                engravingLevelView.setLineSpacing(
+                    0f,
+                    TypedValue.applyDimension(
+                        TypedValue.COMPLEX_UNIT_DIP,
+                        5f,
+                        resources.displayMetrics
+                    )
+                )//5dp로 설정
+                charSearchDetailEngravingDetailLayout.addView(engravingLevelView)
+                val splitString = it.split(" - ")
+                engravingLevelView.text = splitString.get(0)
+                val engravingDetailTextView = TextView(this@SearchDetailActivity)
+                engravingDetailTextView.layoutParams = LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.WRAP_CONTENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT
+                )
+                engravingDetailTextView.text = splitString.get(1)
+                engravingDetailTextView.setTextSize(TypedValue.COMPLEX_UNIT_PT, 6f)
+                engravingDetailTextView.setTextColor(Color.parseColor("#808080"))
+                charSearchDetailEngravingDetailLayout.addView(engravingDetailTextView)
             }
-
-            view.gemGrade.contains("유물") -> {
-                gemImage.setBackgroundResource(R.drawable.relic_background)
-                gemGrade.setTextColor(Color.parseColor("#E45B0A"))
-            }
-
-
-            view.gemGrade.contains("전설") -> {
-                gemImage.setBackgroundResource(R.drawable.legend_background)
-                gemGrade.setTextColor(Color.parseColor("#E08808"))
-            }
-
-
-            view.gemGrade.contains("영웅") -> {
-                gemImage.setBackgroundResource(R.drawable.hero_background)
-                gemGrade.setTextColor(Color.parseColor("#A41ED4"))
-            }
-
-
-            view.gemGrade.contains("희귀") -> {
-                gemImage.setBackgroundResource(R.drawable.rare_background)
-                gemGrade.setTextColor(Color.parseColor("#268AD3"))
-            }
-
-            view.gemGrade.contains("고급") -> {
-                gemImage.setBackgroundResource(R.drawable.advanced_background)
-                gemGrade.setTextColor(Color.parseColor("#8FDB32"))
-            }
-        }
-
-
-        val gemDetail = gemLayout.findViewById<TextView>(R.id.char_search_detail_drawer_gem_detail)
-        gemDetail.text = view.gemDetail
-    }
-
-    fun setRuneDialog(view: CharSearchRuneView, runeLayout: LinearLayout) {
-        val runeName =
-            runeLayout.findViewById<TextView>(R.id.char_search_detail_drawer_rune_name)
-        runeName.text = view.runeName
-        val runeImage =
-            runeLayout.findViewById<ImageView>(R.id.char_search_detail_drawer_rune_image)
-        Glide.with(this).load(view.imageUrl).into(runeImage)
-        val runeGrade = runeLayout.findViewById<TextView>(R.id.char_search_detail_drawer_rune_grade)
-        runeGrade.text = view.runeGrade
-        when {
-            view.runeGrade.contains("고대") -> {
-                runeImage.setBackgroundResource(R.drawable.ancient_background)
-                runeGrade.setTextColor(Color.parseColor("#d9ae43"))
-            }
-
-            view.runeGrade.contains("유물") -> {
-                runeImage.setBackgroundResource(R.drawable.relic_background)
-                runeGrade.setTextColor(Color.parseColor("#E45B0A"))
-            }
-
-
-            view.runeGrade.contains("전설") -> {
-                runeImage.setBackgroundResource(R.drawable.legend_background)
-                runeGrade.setTextColor(Color.parseColor("#E08808"))
-            }
-
-
-            view.runeGrade.contains("영웅") -> {
-                runeImage.setBackgroundResource(R.drawable.hero_background)
-                runeGrade.setTextColor(Color.parseColor("#A41ED4"))
-            }
-
-
-            view.runeGrade.contains("희귀") -> {
-                runeImage.setBackgroundResource(R.drawable.rare_background)
-                runeGrade.setTextColor(Color.parseColor("#268AD3"))
-            }
-
-            view.runeGrade.contains("고급") -> {
-                runeImage.setBackgroundResource(R.drawable.advanced_background)
-                runeGrade.setTextColor(Color.parseColor("#8FDB32"))
-            }
-        }
-
-        val runeDetail =
-            runeLayout.findViewById<TextView>(R.id.char_search_detail_drawer_rune_detail)
-        runeDetail.text = view.runeDescription
-    }
-
-    fun setAvatarDialog(view:CharSearchAvatarView,avatarLayout:LinearLayout){
-        val avatarName = avatarLayout.findViewById<TextView>(R.id.char_search_detail_drawer_avatar_name)
-        val avatarImage = avatarLayout.findViewById<ImageView>(R.id.char_search_detail_drawer_avatar_image)
-        val avatarGradeType = avatarLayout.findViewById<TextView>(R.id.char_search_detail_drawer_avatar_grade_type)
-        val avatarLine = avatarLayout.findViewById<TextView>(R.id.char_search_detail_drawer_avatar_line)
-        val avatarEffect = avatarLayout.findViewById<TextView>(R.id.char_search_detail_drawer_avatar_default_effect)
-        val avatarTendencies = avatarLayout.findViewById<TextView>(R.id.char_search_detail_drawer_avatar_tendencies_effect)
-
-        avatarName.text = view.avatarNameString
-        Glide.with(this).load(view.imageUrl).into(avatarImage)
-        avatarGradeType.text = view.avatarGrade +" "+ view.avatarTypeString
-        avatarLine.text = " | "+view.avatarLine
-        avatarEffect.visibility=View.GONE
-        avatarTendencies.visibility=View.GONE
-
-        when {
-            view.avatarGrade.contains("고대") -> {
-                avatarImage.setBackgroundResource(R.drawable.ancient_background)
-                avatarGradeType.setTextColor(Color.parseColor("#d9ae43"))
-            }
-
-            view.avatarGrade.contains("유물") -> {
-                avatarImage.setBackgroundResource(R.drawable.relic_background)
-                avatarGradeType.setTextColor(Color.parseColor("#E45B0A"))
-            }
-
-
-            view.avatarGrade.contains("전설") -> {
-                avatarImage.setBackgroundResource(R.drawable.legend_background)
-                avatarGradeType.setTextColor(Color.parseColor("#E08808"))
-            }
-
-
-            view.avatarGrade.contains("영웅") -> {
-                avatarImage.setBackgroundResource(R.drawable.hero_background)
-                avatarGradeType.setTextColor(Color.parseColor("#A41ED4"))
-            }
-
-
-            view.avatarGrade.contains("희귀") -> {
-                avatarImage.setBackgroundResource(R.drawable.rare_background)
-                avatarGradeType.setTextColor(Color.parseColor("#268AD3"))
-            }
-
-            view.avatarGrade.contains("고급") -> {
-                avatarImage.setBackgroundResource(R.drawable.advanced_background)
-                avatarGradeType.setTextColor(Color.parseColor("#8FDB32"))
-            }
-        }
-
-        if(view.defaultEffect!=""){
-            avatarEffect.visibility=View.VISIBLE
-            avatarEffect.text=view.defaultEffect
-        }
-        if(view.tendenciesEffect!=""){
-            avatarTendencies.visibility=View.VISIBLE
-            avatarTendencies.text=view.tendenciesEffect
         }
     }
 
+    fun setGemDialog(view: CharSearchGemView, binding: CharSearchDetailGemDialogBinding) {
+        binding.run {
+            charSearchDetailDrawerGemName.text = view.gemName
+            Glide.with(this@SearchDetailActivity).load(view.imageUrl)
+                .into(charSearchDetailDrawerGemImage)
+            charSearchDetailDrawerGemTier.text = view.gemTier
+            charSearchDetailDrawerGemGrade.text = view.gemGrade
+            when {
+                view.gemGrade.contains("고대") -> {
+                    charSearchDetailDrawerGemImage.setBackgroundResource(R.drawable.ancient_background)
+                    charSearchDetailDrawerGemGrade.setTextColor(Color.parseColor("#d9ae43"))
+                }
 
-    fun setTripodDialog(view: CharSearchTripodView, tripodLayout: LinearLayout) {
-        val tripodName =
-            tripodLayout.findViewById<TextView>(R.id.char_search_detail_drawer_tripod_name)
-        tripodName.text = view.getTripodName().text
-        val tripodImage =
-            tripodLayout.findViewById<ImageView>(R.id.char_search_detail_drawer_tripod_image)
-        Glide.with(this).load(view.imageUrl).into(tripodImage)
-        val tripodLevel =
-            tripodLayout.findViewById<TextView>(R.id.char_search_detail_drawer_tripod_level)
-        tripodLevel.text = view.tripodDialogLevel
+                view.gemGrade.contains("유물") -> {
+                    charSearchDetailDrawerGemImage.setBackgroundResource(R.drawable.relic_background)
+                    charSearchDetailDrawerGemGrade.setTextColor(Color.parseColor("#E45B0A"))
+                }
 
-        val tripodDetail =
-            tripodLayout.findViewById<TextView>(R.id.char_search_detail_drawer_tripod_detail)
-        tripodDetail.text = view.tripodDescription
+
+                view.gemGrade.contains("전설") -> {
+                    charSearchDetailDrawerGemImage.setBackgroundResource(R.drawable.legend_background)
+                    charSearchDetailDrawerGemGrade.setTextColor(Color.parseColor("#E08808"))
+                }
+
+
+                view.gemGrade.contains("영웅") -> {
+                    charSearchDetailDrawerGemImage.setBackgroundResource(R.drawable.hero_background)
+                    charSearchDetailDrawerGemGrade.setTextColor(Color.parseColor("#A41ED4"))
+                }
+
+
+                view.gemGrade.contains("희귀") -> {
+                    charSearchDetailDrawerGemImage.setBackgroundResource(R.drawable.rare_background)
+                    charSearchDetailDrawerGemGrade.setTextColor(Color.parseColor("#268AD3"))
+                }
+
+                view.gemGrade.contains("고급") -> {
+                    charSearchDetailDrawerGemImage.setBackgroundResource(R.drawable.advanced_background)
+                    charSearchDetailDrawerGemGrade.setTextColor(Color.parseColor("#8FDB32"))
+                }
+            }
+
+            charSearchDetailDrawerGemDetail.text = view.gemDetail
+        }
     }
 
-    fun setAccessoryDialog(view: CharSearchAccessoryView, accessoryLayout: LinearLayout) {
+    fun setRuneDialog(view: CharSearchRuneView, binding: CharSearchDetailRuneDialogBinding) {
+        binding.run {
+            charSearchDetailDrawerRuneName.text = view.runeName
+            Glide.with(this@SearchDetailActivity).load(view.imageUrl)
+                .into(charSearchDetailDrawerRuneImage)
+            charSearchDetailDrawerRuneGrade.text = view.runeGrade
+            when {
+                view.runeGrade.contains("고대") -> {
+                    charSearchDetailDrawerRuneImage.setBackgroundResource(R.drawable.ancient_background)
+                    charSearchDetailDrawerRuneGrade.setTextColor(Color.parseColor("#d9ae43"))
+                }
+
+                view.runeGrade.contains("유물") -> {
+                    charSearchDetailDrawerRuneImage.setBackgroundResource(R.drawable.relic_background)
+                    charSearchDetailDrawerRuneGrade.setTextColor(Color.parseColor("#E45B0A"))
+                }
+
+
+                view.runeGrade.contains("전설") -> {
+                    charSearchDetailDrawerRuneImage.setBackgroundResource(R.drawable.legend_background)
+                    charSearchDetailDrawerRuneGrade.setTextColor(Color.parseColor("#E08808"))
+                }
+
+
+                view.runeGrade.contains("영웅") -> {
+                    charSearchDetailDrawerRuneImage.setBackgroundResource(R.drawable.hero_background)
+                    charSearchDetailDrawerRuneGrade.setTextColor(Color.parseColor("#A41ED4"))
+                }
+
+
+                view.runeGrade.contains("희귀") -> {
+                    charSearchDetailDrawerRuneImage.setBackgroundResource(R.drawable.rare_background)
+                    charSearchDetailDrawerRuneGrade.setTextColor(Color.parseColor("#268AD3"))
+                }
+
+                view.runeGrade.contains("고급") -> {
+                    charSearchDetailDrawerRuneImage.setBackgroundResource(R.drawable.advanced_background)
+                    charSearchDetailDrawerRuneGrade.setTextColor(Color.parseColor("#8FDB32"))
+                }
+            }
+            charSearchDetailDrawerRuneDetail.text = view.runeDescription
+        }
+    }
+
+    fun setAvatarDialog(view: CharSearchAvatarView, binding: CharSearchDetailAvatarDialogBinding) {
+        binding.run {
+            charSearchDetailDrawerAvatarName.text = view.avatarNameString
+            Glide.with(this@SearchDetailActivity).load(view.imageUrl)
+                .into(charSearchDetailDrawerAvatarImage)
+            charSearchDetailDrawerAvatarGradeType.text =
+                view.avatarGrade + " " + view.avatarTypeString
+            charSearchDetailDrawerAvatarLine.text = " | " + view.avatarLine
+            charSearchDetailDrawerAvatarDefaultEffect.visibility = View.GONE
+            charSearchDetailDrawerAvatarTendenciesEffect.visibility = View.GONE
+
+            when {
+                view.avatarGrade.contains("고대") -> {
+                    charSearchDetailDrawerAvatarImage.setBackgroundResource(R.drawable.ancient_background)
+                    charSearchDetailDrawerAvatarGradeType.setTextColor(Color.parseColor("#d9ae43"))
+                }
+
+                view.avatarGrade.contains("유물") -> {
+                    charSearchDetailDrawerAvatarImage.setBackgroundResource(R.drawable.relic_background)
+                    charSearchDetailDrawerAvatarGradeType.setTextColor(Color.parseColor("#E45B0A"))
+                }
+
+
+                view.avatarGrade.contains("전설") -> {
+                    charSearchDetailDrawerAvatarImage.setBackgroundResource(R.drawable.legend_background)
+                    charSearchDetailDrawerAvatarGradeType.setTextColor(Color.parseColor("#E08808"))
+                }
+
+
+                view.avatarGrade.contains("영웅") -> {
+                    charSearchDetailDrawerAvatarImage.setBackgroundResource(R.drawable.hero_background)
+                    charSearchDetailDrawerAvatarGradeType.setTextColor(Color.parseColor("#A41ED4"))
+                }
+
+
+                view.avatarGrade.contains("희귀") -> {
+                    charSearchDetailDrawerAvatarImage.setBackgroundResource(R.drawable.rare_background)
+                    charSearchDetailDrawerAvatarGradeType.setTextColor(Color.parseColor("#268AD3"))
+                }
+
+                view.avatarGrade.contains("고급") -> {
+                    charSearchDetailDrawerAvatarImage.setBackgroundResource(R.drawable.advanced_background)
+                    charSearchDetailDrawerAvatarGradeType.setTextColor(Color.parseColor("#8FDB32"))
+                }
+            }
+
+            if (view.defaultEffect != "") {
+                charSearchDetailDrawerAvatarDefaultEffect.visibility = View.VISIBLE
+                charSearchDetailDrawerAvatarDefaultEffect.text = view.defaultEffect
+            }
+            if (view.tendenciesEffect != "") {
+                charSearchDetailDrawerAvatarTendenciesEffect.visibility = View.VISIBLE
+                charSearchDetailDrawerAvatarTendenciesEffect.text = view.tendenciesEffect
+            }
+        }
+    }
+
+
+    fun setTripodDialog(view: CharSearchTripodView, binding: CharSearchDetailTripodDialogBinding) {
+        binding.charSearchDetailDrawerTripodName.text = view.getTripodName().text
+        Glide.with(this).load(view.imageUrl).into(binding.charSearchDetailDrawerTripodImage)
+        binding.charSearchDetailDrawerTripodLevel.text = view.tripodDialogLevel
+        binding.charSearchDetailDrawerTripodDetail.text = view.tripodDescription
+    }
+
+    fun setAccessoryDialog(
+        view: CharSearchAccessoryView,
+        binding: CharSearchDetailAccessoryDialogBinding
+    ) {
         val powerChar = listOf("버서커", "디스트로이어", "워로드", "홀리나이트", "슬레이어")
         val intChar = listOf("아르카나", "서머너", "바드", "소서리스", "도화가", "기상술사")
 
@@ -577,242 +560,219 @@ class SearchDetailActivity : BaseActivity<CharSearchDetailActivityBinding>() {
         else if (intChar.contains(charInfo.armoryProfile.characterClassName))
             primaryStats = "지능 "
 
-        val accessoryName =
-            accessoryLayout.findViewById<TextView>(R.id.char_search_detail_drawer_accessory_name)
-        val accessoryImage =
-            accessoryLayout.findViewById<ImageView>(R.id.char_search_detail_drawer_accessory_image)
-        accessoryName.text = view.itemName
-        accessoryName.setTextColor(view.getAccessoryName().textColors)
-        accessoryImage.background = view.getAccessoryImage().background
-        Glide.with(this)
-            .load(view.imageUrl)
-            .into(accessoryImage)
-
-        val accessoryType =
-            accessoryLayout.findViewById<TextView>(R.id.char_search_detail_drawer_accessory_detail_type)
-        val accessoryTier =
-            accessoryLayout.findViewById<TextView>(R.id.char_search_detail_drawer_accessory_tier)
-        accessoryType.text = view.itemType
-        accessoryType.setTextColor(view.getAccessoryName().currentTextColor)
-        accessoryTier.text = view.itemTier
-        println(accessoryTier.text)
-        val accessoryQuality =
-            accessoryLayout.findViewById<TextView>(R.id.char_search_detail_drawer_accessory_quality)
-        val accessoryQualityProgressBar =
-            accessoryLayout.findViewById<RoundCornerProgressBar>(R.id.char_search_detail_drawer_accessory_quality_progress)
-        val accessoryDefaultEffect =
-            accessoryLayout.findViewById<TextView>(R.id.char_search_detail_drawer_accessory_default_effect)
-
-        if (view.type == "스톤") {
-            accessoryQuality.visibility = View.GONE
-            accessoryQualityProgressBar.visibility = View.GONE
-            val abilityStonePlus =
-                accessoryLayout.findViewById<TextView>(R.id.char_search_detail_drawer_ability_stone_plus_text)
-            val abilityStoneMinus =
-                accessoryLayout.findViewById<TextView>(R.id.char_search_detail_drawer_ability_stone_minus_text)
-
-            abilityStonePlus.visibility = View.VISIBLE
-            abilityStoneMinus.visibility = View.VISIBLE
-
-            abilityStonePlus.text = view.getStonPlus().text
-            abilityStoneMinus.text = view.getStonMinus().text
-            accessoryDefaultEffect.text = view.defaultEffect
-        } else {
-            accessoryQuality.text = view.getAccessoryQuality().text
-            accessoryQuality.setTextColor((view.getAccessoryQuality().background as ColorDrawable).color)
-            accessoryQualityProgressBar.setProgress(view.getAccessoryQuality().text.toString().toInt())
-            accessoryQualityProgressBar.setProgressColor((view.getAccessoryQuality().background as ColorDrawable).color)
-            accessoryDefaultEffect.text = primaryStats + view.defaultEffect
-        }
+        binding.run {
+            charSearchDetailDrawerAccessoryName.text = view.itemName
+            charSearchDetailDrawerAccessoryName.setTextColor(view.getAccessoryName().textColors)
+            charSearchDetailDrawerAccessoryImage.background = view.getAccessoryImage().background
+            Glide.with(this@SearchDetailActivity)
+                .load(view.imageUrl)
+                .into(charSearchDetailDrawerAccessoryImage)
+            charSearchDetailDrawerAccessoryDetailType.text = view.itemType
+            charSearchDetailDrawerAccessoryDetailType.setTextColor(view.getAccessoryName().currentTextColor)
+            charSearchDetailDrawerAccessoryTier.text = view.itemTier
 
 
-        if (view.type == "팔찌") {
-            accessoryQuality.visibility = View.GONE
-            accessoryQualityProgressBar.visibility = View.GONE
+            if (view.type == "스톤") {
+                charSearchDetailDrawerAccessoryQuality.visibility = View.GONE
+                charSearchDetailDrawerAccessoryQualityProgress.visibility = View.GONE
 
-            val nonBraceletLayout =
-                accessoryLayout.findViewById<LinearLayout>(R.id.char_search_detail_non_bracelet_layout)
-            val braceletLayout =
-                accessoryLayout.findViewById<LinearLayout>(R.id.char_search_detail_bracelet_layout)
-            val braceletStat =
-                accessoryLayout.findViewById<TextView>(R.id.char_search_detail_drawer_bracelet_stat)
-            braceletStat.text = view.braceletAbilityString
-            braceletStat.visibility = View.VISIBLE
-            nonBraceletLayout.visibility = View.GONE
+                charSearchDetailDrawerAbilityStonePlusText.visibility = View.VISIBLE
+                charSearchDetailDrawerAbilityStoneMinusText.visibility = View.VISIBLE
 
-            view.braceletAbilityList.forEach {
-                val abilityTextView = TextView(this)
-                abilityTextView.layoutParams = LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.MATCH_PARENT,
-                    LinearLayout.LayoutParams.WRAP_CONTENT
+                charSearchDetailDrawerAbilityStonePlusText.text = view.getStonPlus().text
+                charSearchDetailDrawerAbilityStoneMinusText.text = view.getStonMinus().text
+                charSearchDetailDrawerAccessoryDefaultEffect.text = view.defaultEffect
+            } else {
+                charSearchDetailDrawerAccessoryQuality.text = view.getAccessoryQuality().text
+                charSearchDetailDrawerAccessoryQuality.setTextColor((view.getAccessoryQuality().background as ColorDrawable).color)
+                charSearchDetailDrawerAccessoryQualityProgress.setProgress(
+                    view.getAccessoryQuality().text.toString().toInt()
                 )
-                abilityTextView.setPadding(0, 5, 0, 0)
-                abilityTextView.setTextColor(ContextCompat.getColor(this, R.color.black))
-                abilityTextView.setLineSpacing(0f, 5f)
-                abilityTextView.setTextSize(TypedValue.COMPLEX_UNIT_PT, 8f)
-                abilityTextView.setTypeface(null, Typeface.BOLD)
-                abilityTextView.setLineSpacing(
-                    0f,
-                    TypedValue.applyDimension(
-                        TypedValue.COMPLEX_UNIT_DIP,
-                        5f,
-                        resources.displayMetrics
-                    )
-                )//5dp로 설정
-                braceletLayout.addView(abilityTextView)
-                if (it.contains("] ")) {
-                    val splitString = it.split("] ")
-                    abilityTextView.text = splitString.get(0).replace("[", "").replace("] ", "")
-                    val abilityDetailTextView = TextView(this)
-                    abilityDetailTextView.layoutParams = LinearLayout.LayoutParams(
+                charSearchDetailDrawerAccessoryQualityProgress.setProgressColor((view.getAccessoryQuality().background as ColorDrawable).color)
+                charSearchDetailDrawerAccessoryDefaultEffect.text =
+                    primaryStats + view.defaultEffect
+            }
+
+
+            if (view.type == "팔찌") {
+                charSearchDetailDrawerAccessoryQuality.visibility = View.GONE
+                charSearchDetailDrawerAccessoryQualityProgress.visibility = View.GONE
+
+                charSearchDetailDrawerBraceletStat.text = view.braceletAbilityString
+                charSearchDetailDrawerBraceletStat.visibility = View.VISIBLE
+                charSearchDetailNonBraceletLayout.visibility = View.GONE
+
+                view.braceletAbilityList.forEach {
+                    val abilityTextView = TextView(this@SearchDetailActivity)
+                    abilityTextView.layoutParams = LinearLayout.LayoutParams(
                         LinearLayout.LayoutParams.MATCH_PARENT,
                         LinearLayout.LayoutParams.WRAP_CONTENT
                     )
-                    abilityDetailTextView.text = splitString.get(1)
-                    abilityDetailTextView.setTextSize(TypedValue.COMPLEX_UNIT_PT, 6f)
-                    abilityDetailTextView.setTextColor(ContextCompat.getColor(this, R.color.black))
-                    braceletLayout.addView(abilityDetailTextView)
-                } else {
-                    abilityTextView.text = it
+                    abilityTextView.setPadding(0, 5, 0, 0)
+                    abilityTextView.setTextColor(
+                        ContextCompat.getColor(
+                            this@SearchDetailActivity,
+                            R.color.black
+                        )
+                    )
+                    abilityTextView.setLineSpacing(0f, 5f)
+                    abilityTextView.setTextSize(TypedValue.COMPLEX_UNIT_PT, 8f)
+                    abilityTextView.setTypeface(null, Typeface.BOLD)
+                    abilityTextView.setLineSpacing(
+                        0f,
+                        TypedValue.applyDimension(
+                            TypedValue.COMPLEX_UNIT_DIP,
+                            5f,
+                            resources.displayMetrics
+                        )
+                    )//5dp로 설정
+                    charSearchDetailBraceletLayout.addView(abilityTextView)
+                    if (it.contains("] ")) {
+                        val splitString = it.split("] ")
+                        abilityTextView.text = splitString.get(0).replace("[", "").replace("] ", "")
+                        val abilityDetailTextView = TextView(this@SearchDetailActivity)
+                        abilityDetailTextView.layoutParams = LinearLayout.LayoutParams(
+                            LinearLayout.LayoutParams.MATCH_PARENT,
+                            LinearLayout.LayoutParams.WRAP_CONTENT
+                        )
+                        abilityDetailTextView.text = splitString.get(1)
+                        abilityDetailTextView.setTextSize(TypedValue.COMPLEX_UNIT_PT, 6f)
+                        abilityDetailTextView.setTextColor(
+                            ContextCompat.getColor(
+                                this@SearchDetailActivity,
+                                R.color.black
+                            )
+                        )
+                        charSearchDetailBraceletLayout.addView(abilityDetailTextView)
+                    } else {
+                        abilityTextView.text = it
+                    }
                 }
+            } else {
+                view.additionalEffect?.let {
+                    charSearchDetailDrawerAccessoryAdditionalEffect.text = it
+                }
+                    ?: run {
+                        charSearchDetailDrawerAccessoryAdditionalEffect.visibility = View.GONE
+                    }
+
+                charSearchDetailDrawerAccessoryPlusEngraving.text = view.plusEngravingString
+                charSearchDetailDrawerAccessoryMinusEngraving.text = view.minusEngravingString
             }
-        } else {
-            val accessoryAdditionalEffect =
-                accessoryLayout.findViewById<TextView>(R.id.char_search_detail_drawer_accessory_additional_effect)
-            view.additionalEffect?.let { accessoryAdditionalEffect.text = it }
-                ?: run { accessoryAdditionalEffect.visibility = View.GONE }
 
-            val accessoryPlusEngraving =
-                accessoryLayout.findViewById<TextView>(R.id.char_search_detail_drawer_accessory_plus_engraving)
-            val accessoryMinusEngraving =
-                accessoryLayout.findViewById<TextView>(R.id.char_search_detail_drawer_accessory_minus_engraving)
-
-            accessoryPlusEngraving.text = view.plusEngravingString
-            accessoryMinusEngraving.text = view.minusEngravingString
         }
+
 
     }
 
     fun openDialog(view: Any, additionString: String?) {
         val dialog = BottomSheetDialog(this)
-        val dialogView = layoutInflater.inflate(R.layout.char_search_detail_drawer, null)
-        val dialogOkButton = dialogView.findViewById<Button>(R.id.char_search_detail_drawer_button)
-        dialog.setContentView(dialogView)
+        val dialogViewBinding = CharSearchDetailDrawerBinding.inflate(layoutInflater)
+        dialog.setContentView(dialogViewBinding.root)
         dialog.behavior.state = BottomSheetBehavior.STATE_EXPANDED // 나올 때 전체 크기많큼 다 나오기
         dialog.behavior.isHideable = false //밑으로 드래그해서 끄는거 막기
         dialog.behavior.isDraggable = false //드래그 막기
         when (view) {
             is CharSearchArmorView -> {
-                val armorLayout = dialogView.findViewById<LinearLayout>(R.id.armor_drawer)
-                armorLayout.visibility = View.VISIBLE
-                //binding.charSearchDetailDrawer.armorDrawer.drawViewMain.visibility=View.VISIBLE
-                setArmorDialog(view, additionString)//여기서는 엘릭서 35각 40각 효과 이름
+                dialogViewBinding.armorDrawer.drawerViewMain.visibility = View.VISIBLE
+                setArmorDialog(
+                    view,
+                    dialogViewBinding.armorDrawer,
+                    additionString
+                )//여기서는 엘릭서 35각 40각 효과 이름
             }
             is CharSearchAccessoryView -> {
-                val accessoryLayout = dialogView.findViewById<LinearLayout>(R.id.accessory_drawer)
-                accessoryLayout.visibility = View.VISIBLE
-                //binding.charSearchDetailDrawer.accessoryDrawer.drawerView.visibility=View.VISIBLE
-                setAccessoryDialog(view, accessoryLayout)
+                dialogViewBinding.accessoryDrawer.drawerViewMain.visibility = View.VISIBLE
+                setAccessoryDialog(view, dialogViewBinding.accessoryDrawer)
             }
             is CharSearchEngravingBookView -> {
-                val engravingLayout = dialogView.findViewById<LinearLayout>(R.id.engraving_drawer)
-                engravingLayout.visibility = View.VISIBLE
-                setEngrvingDialog(view, engravingLayout)
+                dialogViewBinding.engravingDrawer.drawerViewMain.visibility = View.VISIBLE
+                setEngrvingDialog(view, dialogViewBinding.engravingDrawer)
             }
             is CharSearchGemView -> {
-                val gemLayout = dialogView.findViewById<LinearLayout>(R.id.gem_drawer)
-                gemLayout.visibility = View.VISIBLE
-                setGemDialog(view, gemLayout)
+                dialogViewBinding.gemDrawer.drawerViewMain.visibility = View.VISIBLE
+                setGemDialog(view, dialogViewBinding.gemDrawer)
             }
             is CharSearchEngravingBottomView -> {
-                val engravingLayout = dialogView.findViewById<LinearLayout>(R.id.engraving_drawer)
-                engravingLayout.visibility = View.VISIBLE
-                setBottomEngravingDialog(view, engravingLayout)
+                dialogViewBinding.engravingDrawer.drawerViewMain.visibility = View.VISIBLE
+                setBottomEngravingDialog(view, dialogViewBinding.engravingDrawer)
             }
             is CharSearchCardView -> {
-                val cardLayout = dialogView.findViewById<LinearLayout>(R.id.card_drawer)
-                cardLayout.visibility = View.VISIBLE
-                setCardDialog(view, cardLayout)
+                dialogViewBinding.cardDrawer.drawerViewMain.visibility = View.VISIBLE
+                setCardDialog(view, dialogViewBinding.cardDrawer)
             }
             is CharSearchRuneView -> {
-                val runeLayout = dialogView.findViewById<LinearLayout>(R.id.rune_drawer)
-                runeLayout.visibility = View.VISIBLE
-                setRuneDialog(view, runeLayout)
+                dialogViewBinding.runeDrawer.drawerViewMain.visibility = View.VISIBLE
+                setRuneDialog(view, dialogViewBinding.runeDrawer)
             }
             is CharSearchSkillLayoutView -> {
-                val skillLayout = dialogView.findViewById<LinearLayout>(R.id.skill_drawer)
-                skillLayout.visibility = View.VISIBLE
-                setSkillDialog(view, skillLayout)
+                dialogViewBinding.skillDrawer.drawerViewMain.visibility = View.VISIBLE
+                setSkillDialog(view, dialogViewBinding.skillDrawer)
             }
             is CharSearchTripodView -> {
-                val tripodLayout = dialogView.findViewById<LinearLayout>(R.id.tripod_drawer)
-                tripodLayout.visibility = View.VISIBLE
-                setTripodDialog(view, tripodLayout)
+                dialogViewBinding.tripodDrawer.drawerViewMain.visibility = View.VISIBLE
+                setTripodDialog(view, dialogViewBinding.tripodDrawer)
             }
-            is CharSearchAvatarView->{
-                val avatarLayout = dialogView.findViewById<LinearLayout>(R.id.avatar_drawer)
-                avatarLayout.visibility = View.VISIBLE
-                setAvatarDialog(view,avatarLayout)
+            is CharSearchAvatarView -> {
+                dialogViewBinding.avatarDrawer.drawerViewMain.visibility = View.VISIBLE
+                setAvatarDialog(view, dialogViewBinding.avatarDrawer)
             }
-            is CharSearchCollectionEquipmentView->{
-                val collectionEquipmentLayout = dialogView.findViewById<LinearLayout>(R.id.collection_drawer)
-                collectionEquipmentLayout.visibility=View.VISIBLE
-                setCollectionDialog(view,collectionEquipmentLayout)
+            is CharSearchCollectionEquipmentView -> {
+                dialogViewBinding.collectionDrawer.drawerViewMain.visibility = View.VISIBLE
+                setCollectionDialog(view, dialogViewBinding.collectionDrawer)
             }
         }
-        dialogOkButton.setOnClickListener {
+        dialogViewBinding.charSearchDetailDrawerButton.setOnClickListener {
             dialog.dismiss()
         }
         dialog.show()
 
-
     }
 
-    fun setCollectionDialog(view: CharSearchCollectionEquipmentView, collectionEquipmentLayout: LinearLayout) {
+    fun setCollectionDialog(
+        view: CharSearchCollectionEquipmentView,
+        binding: CharSearchDetailCollectionEquDialogBinding
+    ) {
 
-        val itemName=collectionEquipmentLayout.findViewById<TextView>(R.id.char_search_detail_drawer_collection_equ_name)
-        val itemDescription = collectionEquipmentLayout.findViewById<TextView>(R.id.char_search_detail_drawer_collection_equ_description)
-        val itemEffect = collectionEquipmentLayout.findViewById<TextView>(R.id.char_search_detail_drawer_collection_equ_default_effect)
-        val itemImageView = collectionEquipmentLayout.findViewById<ImageView>(R.id.char_search_detail_drawer_collection_equ_image)
+        binding.run {
+            charSearchDetailDrawerCollectionEquName.text = view.itemName
+            Glide.with(this@SearchDetailActivity).load(view.imageUrl).into(charSearchDetailDrawerCollectionEquImage)
+            charSearchDetailDrawerCollectionEquDescription.text = view.descriptionString
+            charSearchDetailDrawerCollectionEquDefaultEffect.text = view.effectString
 
+            when (view.itemGrade) {
+                "고대" -> {
+                    charSearchDetailDrawerCollectionEquImage.setBackgroundResource(R.drawable.ancient_background)
+                    charSearchDetailDrawerCollectionEquName.setTextColor(Color.parseColor("#d9ae43"))
+                }
 
-        itemName.text=view.itemName
-        Glide.with(this).load(view.imageUrl).into(itemImageView)
-        itemDescription.text = view.descriptionString
-        itemEffect.text = view.effectString
-
-        when(view.itemGrade) {
-            "고대"-> {
-                itemImageView.setBackgroundResource(R.drawable.ancient_background)
-                itemName.setTextColor(Color.parseColor("#d9ae43"))
-            }
-
-            "유물"-> {
-                itemImageView.setBackgroundResource(R.drawable.relic_background)
-                itemName.setTextColor(Color.parseColor("#E45B0A"))
-            }
+                "유물" -> {
+                    charSearchDetailDrawerCollectionEquImage.setBackgroundResource(R.drawable.relic_background)
+                    charSearchDetailDrawerCollectionEquName.setTextColor(Color.parseColor("#E45B0A"))
+                }
 
 
-            "전설" -> {
-                itemImageView.setBackgroundResource(R.drawable.legend_background)
-                itemName.setTextColor(Color.parseColor("#E08808"))
-            }
+                "전설" -> {
+                    charSearchDetailDrawerCollectionEquImage.setBackgroundResource(R.drawable.legend_background)
+                    charSearchDetailDrawerCollectionEquName.setTextColor(Color.parseColor("#E08808"))
+                }
 
 
-            "영웅"-> {
-                itemImageView.setBackgroundResource(R.drawable.hero_background)
-                itemName.setTextColor(Color.parseColor("#A41ED4"))
-            }
+                "영웅" -> {
+                    charSearchDetailDrawerCollectionEquImage.setBackgroundResource(R.drawable.hero_background)
+                    charSearchDetailDrawerCollectionEquName.setTextColor(Color.parseColor("#A41ED4"))
+                }
 
 
-            "희귀"-> {
-                itemImageView.setBackgroundResource(R.drawable.rare_background)
-                itemName.setTextColor(Color.parseColor("#268AD3"))
-            }
+                "희귀" -> {
+                    charSearchDetailDrawerCollectionEquImage.setBackgroundResource(R.drawable.rare_background)
+                    charSearchDetailDrawerCollectionEquName.setTextColor(Color.parseColor("#268AD3"))
+                }
 
-            "고급" -> {
-                itemImageView.setBackgroundResource(R.drawable.advanced_background)
-                itemName.setTextColor(Color.parseColor("#8FDB32"))
+                "고급" -> {
+                    charSearchDetailDrawerCollectionEquImage.setBackgroundResource(R.drawable.advanced_background)
+                    charSearchDetailDrawerCollectionEquName.setTextColor(Color.parseColor("#8FDB32"))
+                }
             }
         }
 
