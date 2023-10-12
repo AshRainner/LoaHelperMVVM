@@ -25,90 +25,117 @@ import com.google.android.material.tabs.TabLayout
 import com.lostark.loahelper.customview.*
 import com.lostark.loahelper.R
 import com.lostark.loahelper.database.AppDatabase
+import com.lostark.loahelper.databinding.CharSearchActivityBinding
+import com.lostark.loahelper.databinding.CharSearchDetailActivityBinding
+import com.lostark.loahelper.databinding.RaidActivityBinding
+import com.lostark.loahelper.dto.armorys.Armories
+import com.lostark.loahelper.dto.characters.CharactersInfo
+import com.lostark.loahelper.viewmodel.DataViewModel
 import java.io.Serializable
 import java.util.*
 
-class SearchDetailActivity : AppCompatActivity() {
-    lateinit var db: AppDatabase
-    lateinit var charInfo: com.lostark.loahelper.dto.armorys.Armories
-    lateinit var characters: ArrayList<com.lostark.loahelper.dto.characters.CharactersInfo>
-    lateinit var mainScrollView: StickyScrollView
-
+class SearchDetailActivity : BaseActivity<CharSearchDetailActivityBinding>() {
+    lateinit var charInfo: Armories
+    lateinit var characters: ArrayList<CharactersInfo>
+    private val dataViewModel: DataViewModel by provideViewModel()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.char_search_detail_activity)
-        db = AppDatabase.getInstance(applicationContext)!!
-        charInfo = (intent.getSerializable("charInfo") as com.lostark.loahelper.dto.armorys.Armories?)!!
-        characters = (intent.getSerializable("characters") as? ArrayList<com.lostark.loahelper.dto.characters.CharactersInfo>?)!!
+        initBinding(CharSearchDetailActivityBinding::inflate)
+        charInfo = (intent.getSerializable("charInfo") as Armories?)!!
+        characters = (intent.getSerializable("characters") as? ArrayList<CharactersInfo>?)!!
         val itemLevel = charInfo.armoryProfile.itemMaxLevel.replace(",", "").toFloat().toInt()
         val charImgUrl = charInfo.armoryProfile.characterImage
-        mainScrollView = findViewById(R.id.search_detail_scroll_view)
         charGradationSet(itemLevel)
         charImageSet(charImgUrl)
         charInfoSet()
         setFragment()
-        mainScrollView.post {
-            mainScrollView.scrollTo(0, 0)
+        binding.searchDetailScrollView.post {
+            binding.searchDetailScrollView.scrollTo(0, 0)
         }
     }
 
 
     fun charInfoSet() {
-        val serverName = findViewById<TextView>(R.id.search_detail_server_name)
-        val charName = findViewById<TextView>(R.id.search_detail_char_name)
-        val itemLevel = findViewById<TextView>(R.id.search_detail_char_item_level)
-        val level = findViewById<TextView>(R.id.search_detail_char_level)
-        val expedition = findViewById<TextView>(R.id.search_detail_expedition_level)
-        val title = findViewById<TextView>(R.id.search_detail_char_title)
-        val guild = findViewById<TextView>(R.id.search_detail_char_guild)
-        val pvp = findViewById<TextView>(R.id.search_detail_char_pvp)
-        val territory = findViewById<TextView>(R.id.search_detail_territory)
-        val _class = findViewById<ImageView>(R.id.search_detail_char_class)
+        binding.run {
+            searchDetailServerName.text = charInfo.armoryProfile.serverName
+            searchDetailCharName.text = charInfo.armoryProfile.characterName
+            searchDetailCharItemLevel.text = "아이템 : " + charInfo.armoryProfile.itemMaxLevel
+            searchDetailCharLevel.text = "전투 : Lv." + charInfo.armoryProfile.characterLevel.toString()
+            searchDetailExpeditionLevel.text = "원정대 : Lv." + charInfo.armoryProfile.expeditionLevel
+            searchDetailCharTitle.text = "칭호 : " + charInfo.armoryProfile.title
+            searchDetailCharGuild.text = "길드 : " + charInfo.armoryProfile.guildName
+            searchDetailCharPvp.text = "PVP : " + charInfo.armoryProfile.pvpGradeName
+            searchDetailTerritory.text =
+                "영지 : Lv." + charInfo.armoryProfile.townLevel + " " + charInfo.armoryProfile.townName
+            when (charInfo.armoryProfile.characterClassName) {
+                "버서커" -> searchDetailCharClass.setImageResource(R.drawable.class_berserker)
+                "디스트로이어" -> searchDetailCharClass.setImageResource(R.drawable.class_destroyer)
+                "워로드" -> searchDetailCharClass.setImageResource(R.drawable.class_warload)
+                "홀리나이트" -> searchDetailCharClass.setImageResource(R.drawable.class_holyknight)
+                "슬레이어" -> searchDetailCharClass.setImageResource(R.drawable.class_slayer)
+                "아르카나" -> searchDetailCharClass.setImageResource(R.drawable.class_arcana)
+                "서머너" -> searchDetailCharClass.setImageResource(R.drawable.class_summoner)
+                "바드" -> searchDetailCharClass.setImageResource(R.drawable.class_bard)
+                "소서리스" -> searchDetailCharClass.setImageResource(R.drawable.class_sorceress)
+                "배틀마스터" -> searchDetailCharClass.setImageResource(R.drawable.class_battlemaster)
+                "인파이터" -> searchDetailCharClass.setImageResource(R.drawable.class_infighter)
+                "기공사" -> searchDetailCharClass.setImageResource(R.drawable.class_soulfist)
+                "창술사" -> searchDetailCharClass.setImageResource(R.drawable.class_glaivier)
+                "스트라이커" -> searchDetailCharClass.setImageResource(R.drawable.class_striker)
+                "블레이드" -> searchDetailCharClass.setImageResource(R.drawable.class_blade)
+                "데모닉" -> searchDetailCharClass.setImageResource(R.drawable.class_shadowhunter)
+                "리퍼" -> searchDetailCharClass.setImageResource(R.drawable.class_reaper)
+                "호크아이" -> searchDetailCharClass.setImageResource(R.drawable.class_horkeye)
+                "데빌헌터" -> searchDetailCharClass.setImageResource(R.drawable.class_devilhunter)
+                "블래스터" -> searchDetailCharClass.setImageResource(R.drawable.class_blaster)
+                "스카우터" -> searchDetailCharClass.setImageResource(R.drawable.class_scouter)
+                "건슬링어" -> searchDetailCharClass.setImageResource(R.drawable.class_gunslinger)
+                "도화가" -> searchDetailCharClass.setImageResource(R.drawable.class_artist)
+                "기상술사" -> searchDetailCharClass.setImageResource(R.drawable.class_aeromancer)
+                else -> searchDetailCharClass.setImageResource(R.drawable.class_gunslinger)
+            }
 
-        serverName.text = charInfo.armoryProfile.serverName
-        charName.text = charInfo.armoryProfile.characterName
-        itemLevel.text = "아이템 : " + charInfo.armoryProfile.itemMaxLevel
-        level.text = "전투 : Lv." + charInfo.armoryProfile.characterLevel.toString()
-        expedition.text = "원정대 : Lv." + charInfo.armoryProfile.expeditionLevel
-        title.text = "칭호 : " + charInfo.armoryProfile.title
-        guild.text = "길드 : " + charInfo.armoryProfile.guildName
-        pvp.text = "PVP : " + charInfo.armoryProfile.pvpGradeName
-        territory.text =
-            "영지 : Lv." + charInfo.armoryProfile.townLevel + " " + charInfo.armoryProfile.townName
-
-        when (charInfo.armoryProfile.characterClassName) {
-            "버서커" -> _class.setImageResource(R.drawable.class_berserker)
-            "디스트로이어" -> _class.setImageResource(R.drawable.class_destroyer)
-            "워로드" -> _class.setImageResource(R.drawable.class_warload)
-            "홀리나이트" -> _class.setImageResource(R.drawable.class_holyknight)
-            "슬레이어" -> _class.setImageResource(R.drawable.class_slayer)
-            "아르카나" -> _class.setImageResource(R.drawable.class_arcana)
-            "서머너" -> _class.setImageResource(R.drawable.class_summoner)
-            "바드" -> _class.setImageResource(R.drawable.class_bard)
-            "소서리스" -> _class.setImageResource(R.drawable.class_sorceress)
-            "배틀마스터" -> _class.setImageResource(R.drawable.class_battlemaster)
-            "인파이터" -> _class.setImageResource(R.drawable.class_infighter)
-            "기공사" -> _class.setImageResource(R.drawable.class_soulfist)
-            "창술사" -> _class.setImageResource(R.drawable.class_glaivier)
-            "스트라이커" -> _class.setImageResource(R.drawable.class_striker)
-            "블레이드" -> _class.setImageResource(R.drawable.class_blade)
-            "데모닉" -> _class.setImageResource(R.drawable.class_shadowhunter)
-            "리퍼" -> _class.setImageResource(R.drawable.class_reaper)
-            "호크아이" -> _class.setImageResource(R.drawable.class_horkeye)
-            "데빌헌터" -> _class.setImageResource(R.drawable.class_devilhunter)
-            "블래스터" -> _class.setImageResource(R.drawable.class_blaster)
-            "스카우터" -> _class.setImageResource(R.drawable.class_scouter)
-            "건슬링어" -> _class.setImageResource(R.drawable.class_gunslinger)
-            "도화가" -> _class.setImageResource(R.drawable.class_artist)
-            "기상술사" -> _class.setImageResource(R.drawable.class_aeromancer)
-            else -> _class.setImageResource(R.drawable.class_gunslinger)
         }
+
+
+
 
     }
 
 
     fun charImageSet(charImgUrl: String?) {
-        val charImage = findViewById<ImageView>(R.id.search_detail_char_img)
+        binding.run {
+            searchDetailCharImg?.let {
+                Glide.with(this@SearchDetailActivity)
+                    .asBitmap()
+                    .load(charImgUrl)
+                    .into(object : CustomTarget<Bitmap>() {
+                        override fun onResourceReady(
+                            resource: Bitmap,
+                            transition: Transition<in Bitmap>?
+                        ) {
+                            // 이미지를 설정
+                            val x = 25
+                            val y = 50 // 원하는 부분의 y 좌표
+                            val croppedBitmap = Bitmap.createBitmap(
+                                resource,
+                                x,
+                                y,
+                                resource.width - 200,
+                                resource.height - 350
+                            )
+                            searchDetailCharImg.setImageBitmap(croppedBitmap)
+                        }
+
+                        override fun onLoadCleared(placeholder: Drawable?) {
+                            // Do nothing
+                        }
+                    })
+            } ?: {
+
+            }
+        }
         /*Glide.with(this)
             .load(charImgUrl)
             .into(charImage)*/
@@ -116,40 +143,10 @@ class SearchDetailActivity : AppCompatActivity() {
             "charImage.layoutParams : ",
             "width : {${charImage.layoutParams.width}} height : {${charImage.layoutParams.height}}"
         )*/
-        charImgUrl?.let {
-            Glide.with(this)
-                .asBitmap()
-                .load(charImgUrl)
-                .into(object : CustomTarget<Bitmap>() {
-                    override fun onResourceReady(
-                        resource: Bitmap,
-                        transition: Transition<in Bitmap>?
-                    ) {
-                        // 이미지를 설정
-                        val x = 25
-                        val y = 50 // 원하는 부분의 y 좌표
-                        val croppedBitmap = Bitmap.createBitmap(
-                            resource,
-                            x,
-                            y,
-                            resource.width - 200,
-                            resource.height - 350
-                        )
-                        charImage.setImageBitmap(croppedBitmap)
-                    }
 
-                    override fun onLoadCleared(placeholder: Drawable?) {
-                        // Do nothing
-                    }
-                })
-        } ?: {
-
-        }
     }
 
     fun setFragment() {
-        val tabLayout = findViewById<TabLayout>(R.id.search_detail_tab)
-
         val abilityFragment = AbilityFragment(charInfo)
         val skillsFragment = SkillFragment(charInfo)
         val characterFragment = CharactersFragment(characters,charInfo)
@@ -160,14 +157,14 @@ class SearchDetailActivity : AppCompatActivity() {
         fragmentManager.beginTransaction()
             .replace(R.id.search_detail_fragment_container, abilityFragment).commit()
 
-        tabLayout.addTab(tabLayout.newTab().setText("능력치"))
-        tabLayout.addTab(tabLayout.newTab().setText("스킬"))
-        tabLayout.addTab(tabLayout.newTab().setText("아바타"))
-        tabLayout.addTab(tabLayout.newTab().setText("수집형 포인트"))
-        tabLayout.addTab(tabLayout.newTab().setText("보유 캐릭터"))
+        binding.searchDetailTab.addTab(binding.searchDetailTab.newTab().setText("능력치"))
+        binding.searchDetailTab.addTab(binding.searchDetailTab.newTab().setText("스킬"))
+        binding.searchDetailTab.addTab(binding.searchDetailTab.newTab().setText("아바타"))
+        binding.searchDetailTab.addTab(binding.searchDetailTab.newTab().setText("수집형 포인트"))
+        binding.searchDetailTab.addTab(binding.searchDetailTab.newTab().setText("보유 캐릭터"))
 
 
-        tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+        binding.searchDetailTab.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 val selectedFragment = when (tab?.position) {
                     0 -> abilityFragment
@@ -193,7 +190,6 @@ class SearchDetailActivity : AppCompatActivity() {
     }
 
     fun charGradationSet(level: Int) {
-        val gradationImageView = findViewById<ImageView>(R.id.search_detail_char_gra)
 
         val random = Random(level.toLong())
 
@@ -209,7 +205,7 @@ class SearchDetailActivity : AppCompatActivity() {
                 }"
             )
         )
-        gradationImageView.background = drawable
+        binding.searchDetailCharGra.background = drawable
     }
 
     fun createGradientDrawable(startColor: Int): GradientDrawable {
@@ -222,93 +218,60 @@ class SearchDetailActivity : AppCompatActivity() {
 
     fun setArmorDialog(
         view: CharSearchArmorView,
-        armorLayout: LinearLayout,
         elixirSpecialDetailString: String?
     ) {
-        val armorName =
-            armorLayout.findViewById<TextView>(R.id.char_search_detail_drawer_armor_name)
-        val armorImage =
-            armorLayout.findViewById<ImageView>(R.id.char_search_detail_drawer_armor_image)
-        armorName.text = view.getArmorName().text
-        armorName.setTextColor(view.getArmorName().textColors)
-        armorImage.background = view.getArmorImage().background
-        Glide.with(this)
-            .load(view.imageUrl)
-            .into(armorImage)
+        binding.charSearchDetailDrawer.armorDrawer.run {
+            charSearchDetailDrawerArmorName.text = view.getArmorName().text
+            charSearchDetailDrawerArmorName.setTextColor(view.getArmorName().textColors)
+            charSearchDetailDrawerArmorImage.background = view.getArmorImage().background
+            Glide.with(this@SearchDetailActivity)
+                .load(view.imageUrl)
+                .into(charSearchDetailDrawerArmorImage)
 
-        val armorDetailType =
-            armorLayout.findViewById<TextView>(R.id.char_search_detail_drawer_armor_detail_type)
-        val armorDetail =
-            armorLayout.findViewById<TextView>(R.id.char_search_detail_drawer_armor_detail)
-        armorDetailType.text = view.itemDetailType
-        armorDetailType.setTextColor(view.getArmorName().currentTextColor)
-        armorDetail.text = view.itemDetail
+            charSearchDetailDrawerArmorDetailType.text = view.itemDetailType
+            charSearchDetailDrawerArmorDetailType.setTextColor(view.getArmorName().currentTextColor)
+            charSearchDetailDrawerArmorDetail.text = view.itemDetail
+            charSearchDetailDrawerArmorQuality.text = view.getArmorQuality().text
+            charSearchDetailDrawerArmorQuality.setTextColor((view.getArmorQuality().background as ColorDrawable).color)
+            charSearchDetailDrawerArmorQualityProgress.setProgress(view.getArmorQuality().text.toString().toInt())
+            charSearchDetailDrawerArmorQualityProgress.setProgressColor((view.getArmorQuality().background as ColorDrawable).color)
 
-        val armorQuality =
-            armorLayout.findViewById<TextView>(R.id.char_search_detail_drawer_armor_quality)
-        val armorQualityProgressBar =
-            armorLayout.findViewById<RoundCornerProgressBar>(R.id.char_search_detail_drawer_armor_quality_progress)
-
-        armorQuality.text = view.getArmorQuality().text
-        armorQuality.setTextColor((view.getArmorQuality().background as ColorDrawable).color)
-        armorQualityProgressBar.setProgress(view.getArmorQuality().text.toString().toInt())
-        armorQualityProgressBar.setProgressColor((view.getArmorQuality().background as ColorDrawable).color)
-
-        val armorDefaultEffect =
-            armorLayout.findViewById<TextView>(R.id.char_search_detail_drawer_armor_default_effect)
-        view.defaultEffect?.let {
-            armorDefaultEffect.text = view.defaultEffect
-        } ?: run {
-            armorDefaultEffect.visibility = View.GONE
-        }
-        val additionalEffectLayout =
-            armorLayout.findViewById<LinearLayout>(R.id.char_search_detail_drawer_armor_additional_effect_layout)
-
-        val armorAdditionalEffect =
-            armorLayout.findViewById<TextView>(R.id.char_search_detail_drawer_armor_additional_effect)
-
-        view.additionalEffect?.let {
-            armorAdditionalEffect.text = view.additionalEffect
-        } ?: run {
-            additionalEffectLayout.visibility = View.GONE
-        }
-
-        val elixirLayout =
-            armorLayout.findViewById<LinearLayout>(R.id.char_search_detail_drawer_armor_elixir_layout)
-
-        val armorElixir1 =
-            armorLayout.findViewById<TextView>(R.id.char_search_detail_drawer_elixir_1)
-        val armorElixir2 =
-            armorLayout.findViewById<TextView>(R.id.char_search_detail_drawer_elixir_2)
-        val armorElixir3 =
-            armorLayout.findViewById<TextView>(R.id.char_search_detail_drawer_elixir_3)
-
-        view.elixirData?.let {
-            val pattern = "\\[(.*)\\]\\s".toRegex()
-            armorElixir1.text = pattern.replace(it.element0?.contentStr!!, "")
-
-            if (it.element1 == null) {
-                armorElixir2.visibility = View.GONE
-            } else {
-                armorElixir2.text = pattern.replace(it.element1?.contentStr!!, "")
+            view.defaultEffect?.let {
+                charSearchDetailDrawerArmorDefaultEffect.text = view.defaultEffect
+            } ?: run {
+                charSearchDetailDrawerArmorDefaultEffect.visibility = View.GONE
             }
-        } ?: run {
-            elixirLayout.visibility = View.GONE
-        }
 
-        elixirSpecialDetailString?.let {
-            armorElixir3.text = it
-        } ?: run {
-            armorElixir3.visibility = View.GONE
-        }
+            view.additionalEffect?.let {
+                charSearchDetailDrawerArmorAdditionalEffect.text = view.additionalEffect
+            } ?: run {
+                charSearchDetailDrawerArmorAdditionalEffectLayout.visibility = View.GONE
+            }
 
-        val armorSetLevel =
-            armorLayout.findViewById<TextView>(R.id.char_search_detail_drawer_set_level)
+            view.elixirData?.let {
+                val pattern = "\\[(.*)\\]\\s".toRegex()
+                charSearchDetailDrawerElixir1.text = pattern.replace(it.element0?.contentStr!!, "")
 
-        view.setLevel?.let {
-            armorSetLevel.text = it
-        } ?: run {
-            armorSetLevel.visibility = View.GONE
+                if (it.element1 == null) {
+                    charSearchDetailDrawerElixir2.visibility = View.GONE
+                } else {
+                    charSearchDetailDrawerElixir2.text = pattern.replace(it.element1?.contentStr!!, "")
+                }
+            } ?: run {
+                charSearchDetailDrawerArmorElixirLayout.visibility = View.GONE
+            }
+
+            elixirSpecialDetailString?.let {
+                charSearchDetailDrawerElixir3.text = it
+            } ?: run {
+                charSearchDetailDrawerElixir3.visibility = View.GONE
+            }
+
+            view.setLevel?.let {
+                charSearchDetailDrawerSetLevel.text = it
+            } ?: run {
+                charSearchDetailDrawerSetLevel.visibility = View.GONE
+            }
         }
     }
 
@@ -742,11 +705,13 @@ class SearchDetailActivity : AppCompatActivity() {
             is CharSearchArmorView -> {
                 val armorLayout = dialogView.findViewById<LinearLayout>(R.id.armor_drawer)
                 armorLayout.visibility = View.VISIBLE
-                setArmorDialog(view, armorLayout, additionString)//여기서는 엘릭서 35각 40각 효과 이름
+                //binding.charSearchDetailDrawer.armorDrawer.drawViewMain.visibility=View.VISIBLE
+                setArmorDialog(view, additionString)//여기서는 엘릭서 35각 40각 효과 이름
             }
             is CharSearchAccessoryView -> {
                 val accessoryLayout = dialogView.findViewById<LinearLayout>(R.id.accessory_drawer)
                 accessoryLayout.visibility = View.VISIBLE
+                //binding.charSearchDetailDrawer.accessoryDrawer.drawerView.visibility=View.VISIBLE
                 setAccessoryDialog(view, accessoryLayout)
             }
             is CharSearchEngravingBookView -> {
