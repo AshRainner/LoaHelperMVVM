@@ -56,13 +56,14 @@ class CharSearchCardView @JvmOverloads constructor(
             Glide.with(this@CharSearchCardView)
                 .load(card.icon)
                 .into(charSearchDetailCardImage)
-            println("카드 이미지 : " + card.icon)
             charSearchDetailCardNameGra.setBackgroundResource(R.drawable.card_name_gra)
             imageUrl = card.icon
             setImageBackground(card.grade)
             charSearchDetailCardName.text = card.name
             if (card.awakeCount != 0)
                 charSearchDetailCardAwakeningLevel.text = card.awakeCount.toString()
+
+            this@CharSearchCardView.card=card
             cardDescription = tooltip.elements.get("Element_002")?.value as String
         }
     }
